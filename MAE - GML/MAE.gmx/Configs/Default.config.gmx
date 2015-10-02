@@ -428,5 +428,13 @@
     <option_xbone_texture_page>1024</option_xbone_texture_page>
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
-  <ConfigConstants/>
+  <ConfigConstants>
+    <constants number="5">
+      <constant name="mat_view">0</constant>
+      <constant name="mat_projection">1</constant>
+      <constant name="mat_world">2</constant>
+      <constant name="mat_world_view">3</constant>
+      <constant name="mat_world_view_projection">4</constant>
+    </constants>
+  </ConfigConstants>
 </Config>

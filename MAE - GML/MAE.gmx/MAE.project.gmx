@@ -8,6 +8,108 @@
   <sprites name="sprites"/>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <scripts name="MAE">
+      <scripts name="Math">
+        <scripts name="Utilities">
+          <script>scripts\MAE_ViewportCreate.gml</script>
+        </scripts>
+        <scripts name="Vector">
+          <script>scripts\MAE_ToVec2.gml</script>
+          <script>scripts\MAE_ToVec3.gml</script>
+          <script>scripts\MAE_ToVec4.gml</script>
+          <script>scripts\MAE_VectorIsVec2.gml</script>
+          <script>scripts\MAE_VectorIsVec3.gml</script>
+          <script>scripts\MAE_VectorIsVec4.gml</script>
+          <script>scripts\MAE_VectorAdd.gml</script>
+          <script>scripts\MAE_VectorCreate.gml</script>
+          <script>scripts\MAE_VectorCreateAngle2D.gml</script>
+          <script>scripts\MAE_VectorCreateAngle3D.gml</script>
+          <script>scripts\MAE_VectorCross.gml</script>
+          <script>scripts\MAE_VectorDistance.gml</script>
+          <script>scripts\MAE_VectorDivide.gml</script>
+          <script>scripts\MAE_VectorDot.gml</script>
+          <script>scripts\MAE_VectorDup.gml</script>
+          <script>scripts\MAE_VectorGet.gml</script>
+          <script>scripts\MAE_VectorMagnitude.gml</script>
+          <script>scripts\MAE_VectorMagnitudeSquared.gml</script>
+          <script>scripts\MAE_VectorMultiply.gml</script>
+          <script>scripts\MAE_VectorMultiplyMatrix.gml</script>
+          <script>scripts\MAE_VectorNorm.gml</script>
+          <script>scripts\MAE_VectorProject.gml</script>
+          <script>scripts\MAE_VectorReflect.gml</script>
+          <script>scripts\MAE_VectorSet.gml</script>
+          <script>scripts\MAE_VectorSubtract.gml</script>
+          <script>scripts\MAE_VectorUnproject.gml</script>
+          <script>scripts\MAE_VectorUnprojectInverse.gml</script>
+        </scripts>
+        <scripts name="Matrix">
+          <script>scripts\MAE_MatrixCreate.gml</script>
+          <script>scripts\MAE_MatrixCreateIdentity.gml</script>
+          <script>scripts\MAE_MatrixCreateLookAt.gml</script>
+          <script>scripts\MAE_MatrixCreateNormalMatrix.gml</script>
+          <script>scripts\MAE_MatrixCreateOrtho.gml</script>
+          <script>scripts\MAE_MatrixCreatePerspective.gml</script>
+          <script>scripts\MAE_MatrixCreateRotation.gml</script>
+          <script>scripts\MAE_MatrixCreateRotationQuaternion.gml</script>
+          <script>scripts\MAE_MatrixCreateRotationVector.gml</script>
+          <script>scripts\MAE_MatrixCreateRotationX.gml</script>
+          <script>scripts\MAE_MatrixCreateRotationY.gml</script>
+          <script>scripts\MAE_MatrixCreateRotationZ.gml</script>
+          <script>scripts\MAE_MatrixCreateScaling.gml</script>
+          <script>scripts\MAE_MatrixCreateTranslation.gml</script>
+          <script>scripts\MAE_MatrixDet.gml</script>
+          <script>scripts\MAE_MatrixDivide.gml</script>
+          <script>scripts\MAE_MatrixDup.gml</script>
+          <script>scripts\MAE_MatrixGet.gml</script>
+          <script>scripts\MAE_MatrixGetDimension.gml</script>
+          <script>scripts\MAE_MatrixGetMatrix.gml</script>
+          <script>scripts\MAE_MatrixInverse.gml</script>
+          <script>scripts\MAE_MatrixMultiply.gml</script>
+          <script>scripts\MAE_MatrixMultiplyMatrix.gml</script>
+          <script>scripts\MAE_MatrixRotate.gml</script>
+          <script>scripts\MAE_MatrixRotateQuaternion.gml</script>
+          <script>scripts\MAE_MatrixRotateVector.gml</script>
+          <script>scripts\MAE_MatrixRotateX.gml</script>
+          <script>scripts\MAE_MatrixRotateY.gml</script>
+          <script>scripts\MAE_MatrixRotateZ.gml</script>
+          <script>scripts\MAE_MatrixScale.gml</script>
+          <script>scripts\MAE_MatrixSet.gml</script>
+          <script>scripts\MAE_MatrixTranslate.gml</script>
+          <script>scripts\MAE_MatrixTranspose.gml</script>
+          <script>scripts\MAE_MatrixToMat2.gml</script>
+          <script>scripts\MAE_MatrixToMat3.gml</script>
+          <script>scripts\MAE_MatrixToMat4.gml</script>
+          <script>scripts\MAE_MatrixIsMat2.gml</script>
+          <script>scripts\MAE_MatrixIsMat3.gml</script>
+          <script>scripts\MAE_MatrixIsMat4.gml</script>
+        </scripts>
+        <scripts name="Quaternion">
+          <script>scripts\MAE_QuaternionCreate.gml</script>
+          <script>scripts\MAE_QuaternionCreateIdentity.gml</script>
+          <script>scripts\MAE_QuaternionCreateRotation.gml</script>
+          <script>scripts\MAE_QuaternionCreateRotationMatrix.gml</script>
+          <script>scripts\MAE_QuaternionCreateRotationVector.gml</script>
+          <script>scripts\MAE_QuaternionDup.gml</script>
+          <script>scripts\MAE_QuaternionGet.gml</script>
+          <script>scripts\MAE_QuaternionGetRotationX.gml</script>
+          <script>scripts\MAE_QuaternionGetRotationY.gml</script>
+          <script>scripts\MAE_QuaternionGetRotationZ.gml</script>
+          <script>scripts\MAE_QuaternionInvert.gml</script>
+          <script>scripts\MAE_QuaternionMagnitude.gml</script>
+          <script>scripts\MAE_QuaternionMagnitudeSquared.gml</script>
+          <script>scripts\MAE_QuaternionMultiply.gml</script>
+          <script>scripts\MAE_QuaternionNorm.gml</script>
+          <script>scripts\MAE_QuaternionRotate.gml</script>
+          <script>scripts\MAE_QuaternionRotateMatrix.gml</script>
+          <script>scripts\MAE_QuaternionRotateVector.gml</script>
+          <script>scripts\MAE_QuaternionSet.gml</script>
+          <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
+        </scripts>
+      </scripts>
+    </scripts>
+  </scripts>
+  <rooms name="rooms"/>
   <help>
     <rtf>help.rtf</rtf>
   </help>
