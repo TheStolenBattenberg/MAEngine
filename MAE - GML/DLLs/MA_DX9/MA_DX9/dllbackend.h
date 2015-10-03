@@ -14,6 +14,8 @@ class MADLLBackend
 		std::vector<IDirect3DVertexShader9*> VShader;
 		std::vector<IDirect3DPixelShader9*> PShader;
 
+		DWORD stFVF;
+
 		//Functions
 		int HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, IDirect3DVertexShader9 ** VSOut, IDirect3DPixelShader9 ** PSOut);
 };
