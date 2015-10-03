@@ -3,10 +3,13 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
+  <datafiles number="1" name="datafiles"/>
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites"/>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\tex_particle</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="MAE">
@@ -107,6 +110,24 @@
           <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
         </scripts>
       </scripts>
+      <scripts name="Particles">
+        <scripts name="Particle">
+          <script>scripts\MAE_ParticleCreate.gml</script>
+          <script>scripts\MAE_ParticleDestroy.gml</script>
+          <script>scripts\MAE_ParticleSetTexture.gml</script>
+          <script>scripts\MAE_ParticleSetSize.gml</script>
+          <script>scripts\MAE_ParticleSetColour.gml</script>
+          <script>scripts\MAE_ParticleSetAlpha.gml</script>
+          <script>scripts\MAE_ParticleSetBlendmode.gml</script>
+        </scripts>
+        <scripts name="System">
+          <script>scripts\MAE_ParticleSystemCreate.gml</script>
+          <script>scripts\MAE_ParticleSystemDestroy.gml</script>
+          <script>scripts\MAE_ParticleSystemDraw.gml</script>
+          <script>scripts\MAE_ParticleSystemArea.gml</script>
+          <script>scripts\MAE_ParticleSystemUpdate.gml</script>
+        </scripts>
+      </scripts>
     </scripts>
   </scripts>
   <shaders name="shaders">
@@ -115,10 +136,12 @@
   <objects name="objects">
     <object>objects\obj_debug</object>
     <object>objects\obj_VecMatQuat</object>
+    <object>objects\obj_Particle</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_debug</room>
     <room>rooms\rm_VecMatQuat</room>
+    <room>rooms\rm_Particle</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

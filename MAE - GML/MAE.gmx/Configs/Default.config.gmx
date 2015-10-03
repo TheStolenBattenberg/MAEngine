@@ -429,12 +429,16 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="5">
+    <constants number="9">
       <constant name="mat_view">0</constant>
       <constant name="mat_projection">1</constant>
       <constant name="mat_world">2</constant>
       <constant name="mat_world_view">3</constant>
       <constant name="mat_world_view_projection">4</constant>
+      <constant name="PARTICLE_BILLBOARD">0</constant>
+      <constant name="PARTICLE_STANDARD">1</constant>
+      <constant name="PARTICLE_DISTRIBUTION_RANDOM">0</constant>
+      <constant name="PARTICLE_DISTRIBUTION_SPHERE">1</constant>
     </constants>
   </ConfigConstants>
 </Config>

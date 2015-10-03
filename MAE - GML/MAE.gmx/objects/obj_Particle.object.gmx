@@ -25,36 +25,28 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_start();
-
-screenWidth  = 1024;
-screenHeight = 768;
-
-/*
- * Create all matrices, quaternions and vectors
+            <string>/**
+ * D3D
  */
+d3d_start();
 
-matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 5);
-matView = MAE_MatrixCreateIdentity(4);
-matNorm = MAE_MatrixCreateIdentity(3);
 
-vecPoint = MAE_VectorCreate(0, 0, 0);
+/**
+ * Particles
+ */ 
+part_texture = background_get_texture(tex_particle); //We must make a texture for the particle.
+part = MAE_ParticleCreate(PARTICLE_STANDARD); //Create the Particle.
+MAE_ParticleSetTexture(part, part_texture); //
+MAE_ParticleSetSize(part, 0.3, 0.7);
+MAE_ParticleSetColour(part, 127, 127, 127, 255, 255, 255);
+MAE_ParticleSetAlpha(part, 0.5, 1);
+MAE_ParticleSetBlendmode(part, bm_add);
 
-quatView = MAE_QuaternionNorm(MAE_QuaternionRotate(MAE_QuaternionCreateRotation(-90, 45, 0), -45, 0, 0));
-
-uniNormalMat     = shader_get_uniform(shdLight, "u_NormalMat");
-uniAmbientColour = shader_get_uniform(shdLight, "u_AmbientColour");
-uniLightPos      = shader_get_uniform(shdLight, "u_LightPos");
-uniSpecColour    = shader_get_uniform(shdLight, "u_SpecColour");
-
-/*
- * Those variables are used for the smooth rotation
- */
-
-curX = 0;
-curY = 0;
-desX = 0;
-desY = 0;
+part_area = MAE_ParticleSystemArea(8, 8, 8);
+part_test = MAE_ParticleSystemCreate(part, part_area, 100, PARTICLE_DISTRIBUTION_RANDOM);
+MAE_ParticleSystemUpdate(part_test, part, 4, 0, 0, 0);
+update = 0;
+steps = 0;
 </string>
           </argument>
         </arguments>
@@ -77,53 +69,17 @@ desY = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*
- * Rotation of the cube
- * curX/Y contains the point where the program thinks the mouse is
- * desX/Y contains the point of the actual position
- */
+            <string>update++
+if(update &gt;= 4)
+{ MAE_ParticleSystemUpdate(part_test, part,  4, 0, 0, 0); update = 0; }
 
-if (mouse_check_button_pressed(mb_left)) {
-    curX = mouse_x;
-    curY = mouse_y;
-}
 
-if (mouse_check_button(mb_left)) {
-    desX = mouse_x;
-    desY = mouse_y;
-}
-
-/*
- * Rotate the quaternion and normalize it
- */
-
-quatView = MAE_QuaternionNorm(MAE_QuaternionRotate(quatView, -(desY - curY) * 0.2, -(desX - curX) * 0.2, 0));
-
-/*
- * Make the difference smaller each step by 20%
- */
-
-curX += (desX - curX) * 0.2;
-curY += (desY - curY) * 0.2;
-
-/*
- * Calculate view and normal matrix
- */
-
-matView = MAE_MatrixTranslate(MAE_MatrixCreateRotationQuaternion(4, quatView), MAE_VectorCreate(0, 0, 3));
-matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
-
-/*
- * 3D to 2D conversion
- * mvp is the same as gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION]
- */
-
-var mvp = MAE_MatrixMultiplyMatrix(matView, matProj);
-
-vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(0, 0, screenWidth, screenHeight));
-
-if (keyboard_check(vk_escape))
+if(keyboard_check_pressed(vk_escape))
+{
+    MAE_ParticleSystemDestroy(part_test);
+    MAE_ParticleDestroy(part);
     game_end();
+}
 </string>
           </argument>
         </arguments>
@@ -146,16 +102,7 @@ if (keyboard_check(vk_escape))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*
- * It's important to check if the Z value contains a valid number (between 0 and 1)
- */
-
-if (vecPoint[2] &gt;= 0 &amp;&amp; vecPoint[2] &lt;= 1) {
-    draw_set_colour(c_blue);
-    draw_rectangle(vecPoint[0] - 16, vecPoint[1] - 16, vecPoint[0] + 16, vecPoint[1] + 16, 1);
-}
-
-draw_set_colour(c_black);
+            <string>draw_set_colour(c_black);
 draw_text(2, 2, "FPS: "+string(fps_real));
 </string>
           </argument>
@@ -179,33 +126,9 @@ draw_text(2, 2, "FPS: "+string(fps_real));
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>matrix_set(matrix_projection, matProj);
-matrix_set(matrix_view, matView);
+            <string>d3d_set_projection(32, 0, 32, 0, 0, 0, 0, 0, 1);
 
-shader_set(shdLight);
-
-shader_set_uniform_f_array(uniNormalMat, matNorm);
-shader_set_uniform_f(uniLightPos, 0, 0, -1);
-shader_set_uniform_f(uniAmbientColour, 0, 0, 0);
-shader_set_uniform_f(uniSpecColour, 1, 1, 1);
-
-draw_set_colour(c_red);
-d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
-
-shader_reset();
-
-/*
- * Draw X, Y and Z Axis
- */
-
-d3d_primitive_begin(pr_linelist);
-d3d_vertex_colour(0, 0, 0, c_red, 1);
-d3d_vertex_colour(2, 0, 0, c_red, 1);
-d3d_vertex_colour(0, 0, 0, c_green, 1);
-d3d_vertex_colour(0, 2, 0, c_green, 1);
-d3d_vertex_colour(0, 0, 0, c_blue, 1);
-d3d_vertex_colour(0, 0, 2, c_blue, 1);
-d3d_primitive_end();
+MAE_ParticleSystemDraw(part_test, part);
 </string>
           </argument>
         </arguments>
