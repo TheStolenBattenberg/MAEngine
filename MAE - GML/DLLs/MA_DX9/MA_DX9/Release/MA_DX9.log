@@ -1,0 +1,25 @@
+﻿Build started 03/10/2015 01:43:35.
+     1>Project "D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\MA_DX9\MA_DX9.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\MA_DX9.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         e:\Programs (32-Bit)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D MA_DX9_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt dllbackend.cpp dllmain.cpp
+         dllbackend.cpp
+         dllmain.cpp
+       Link:
+         e:\Programs (32-Bit)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.dll" /INCREMENTAL:NO /NOLOGO d3dcompiler.lib d3dx9.lib d3d9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\MA_DX9.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.lib" /MACHINE:X86 /DLL Release\dllbackend.obj
+         Release\dllmain.obj
+            Creating library D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.lib and object D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.exp
+         Generating code
+         Finished generating code
+         MA_DX9.vcxproj -> D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\Release\MA_DX9.dll;#2" /manifest Release\MA_DX9.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\MA_DX9.unsuccessfulbuild".
+         Touching "Release\MA_DX9.lastbuildstate".
+     1>Done Building Project "D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\MA_DX9\MA_DX9.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.32
