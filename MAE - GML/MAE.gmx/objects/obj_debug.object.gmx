@@ -27,13 +27,13 @@
             <kind>1</kind>
             <string>draw_text(0, 0, "Press key to go to testing room.
     1 - Maxtix, Quaternion, Vector
+    2 - Particles
 ");
 
 switch(keyboard_key)
 {
-    case ord("1"):
-        room_goto(rm_VecMatQuat);
-    break;
+    case ord("1"): { room_goto(rm_VecMatQuat); } break;
+    case ord("2"): { room_goto(rm_Particle); } break;
 }
 </string>
           </argument>
