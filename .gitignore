@@ -43,7 +43,11 @@ Temporary Items
 .apdisk
 
 # =============================
-# Ignore DLL Files in datafiles
+# Ignore DLL Related Files
 # =============================
 
-MAE - GML/MAE.gmx/datafiles/*.dll
+*.dll
+*.exp
+*.ilk
+*.lib
+*.pdb
