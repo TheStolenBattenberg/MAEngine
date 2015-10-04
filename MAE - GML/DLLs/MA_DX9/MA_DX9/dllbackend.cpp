@@ -5,7 +5,7 @@ int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderStri
 	LPD3DXBUFFER VSCode, PSCode;
 	LPD3DXCONSTANTTABLE ConstantTable;
 	HRESULT result;
-	__asm {int 03h}
+	
 	//Attempt to compile Vertex shader
 	result = D3DXCompileShader(VertexShaderString, strlen(VertexShaderString), NULL, NULL, "main", "vs_3_0", D3DXSHADER_ENABLE_BACKWARDS_COMPATIBILITY, &VSCode, NULL, &ConstantTable);
 	if(FAILED(result))
