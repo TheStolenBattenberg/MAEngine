@@ -1,0 +1,14 @@
+# =============================
+# Ignore Visual Stuidio folders
+# =============================
+
+ipch/
+Release/
+Debug/
+
+# =============================
+# Ignore Visual Stuidio files
+# =============================
+
+*.sdf
+*.suo
