@@ -148,6 +148,9 @@
       </scripts>
       <scripts name="Shader">
         <script>scripts\MAE_ShaderCreate.gml</script>
+        <script>scripts\MAE_ShaderSet.gml</script>
+        <script>scripts\MAE_ShaderReset.gml</script>
+        <script>scripts\MAE_ShaderDestroy.gml</script>
       </scripts>
       <scripts name="Private">
         <script>scripts\MAE_Init.gml</script>

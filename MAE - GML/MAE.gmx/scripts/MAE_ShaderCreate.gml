@@ -1,5 +1,10 @@
 ///MAE_ShaderCreate(vertex_shader_code, pixel_shader_code, type);
 
+/**
+ * To-do:
+ *      Add Description.
+ *
+ */
 switch(argument2)
 {
     case SHADER_HLSL9:
