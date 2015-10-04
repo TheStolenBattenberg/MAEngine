@@ -20,7 +20,7 @@ int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderStri
 		VSCode->Release();
 		return 0;
 	}
-	
+
 	//Atempt to compile Pixel Shader
 	result = D3DXCompileShader(PixelShaderString, strlen(PixelShaderString), NULL, NULL, "main", "vs_3_0", D3DXSHADER_ENABLE_BACKWARDS_COMPATIBILITY, &PSCode, NULL, &ConstantTable);
 	if(FAILED(result))

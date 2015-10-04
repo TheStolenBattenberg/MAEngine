@@ -27,7 +27,35 @@
             <kind>1</kind>
             <string>MAE_Init();
 
-MAE_ShaderCreate("", "", SHADER_HLSL9);
+MAE_ShaderCreate(
+"struct VS_INPUT {
+    float4 Position : POSITION;
+};
+
+struct VS_OUTPUT {
+    float4 Position : POSITION;
+};
+
+VS_OUTPUT main(VS_INPUT IN) {
+    VS_OUTPUT OUT;       
+    return OUT;
+}"
+
+, 
+"struct PS_INPUT {
+    float4 Position : POSITION;
+};
+
+struct PS_OUTPUT {
+    float4 Position : POSITION;
+};
+
+PS_OUTPUT main(PS_INPUT IN) {
+    PS_OUTPUT OUT;
+    return OUT;
+}"
+, 
+SHADER_HLSL9);
 </string>
           </argument>
         </arguments>
