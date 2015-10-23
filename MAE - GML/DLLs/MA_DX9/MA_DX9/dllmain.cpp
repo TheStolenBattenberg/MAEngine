@@ -10,6 +10,20 @@ DLLEXPORT double MADX9_Init(long pointer)
 	return 1;
 }
 
+DLLEXPORT double MADX9_Free()
+{
+	int i = MARenderBackend.PShader.size();
+
+	while (i > 0)
+	{
+		MARenderBackend.PShader[i]->Release();
+		MARenderBackend.VShader[i]->Release();
+		i--;
+	}
+
+	return 1;
+}
+
 DLLEXPORT double MADX9_ShaderCreateHLSL9(char* VSCode, char* PSCode)
 {
 	IDirect3DVertexShader9 *VShd;
@@ -73,5 +87,65 @@ DLLEXPORT double MADX9_ShaderDestroyHLSL9(double index)
 	MARenderBackend.PShader[ShaderIndex]->Release();
 	MARenderBackend.PShader.erase(MARenderBackend.PShader.begin() + ShaderIndex);
 
+	return 1;
+}
+
+DLLEXPORT  double MADX9_LightCreate(double LightType)
+{
+	D3DLIGHT9 Light;
+	ZeroMemory(&Light, sizeof(Light));
+
+	switch ((int) LightType)
+	{
+		case 0: Light.Type = D3DLIGHT_POINT; break;
+		case 1: Light.Type = D3DLIGHT_SPOT; break;
+		case 2: Light.Type = D3DLIGHT_DIRECTIONAL; break;
+		default: return 0;
+	}
+
+	MARenderBackend.Light.push_back(Light);
+	return MARenderBackend.Light.size() - 1;
+}
+
+DLLEXPORT double MADX9_LightSetDiffuse(double index, double r, double g, double b, double a)
+{
+	MARenderBackend.Light[(int)index].Diffuse = D3DXCOLOR((float)r, (float)g, (float)b, (float)a);
+	return 1;
+}
+
+DLLEXPORT double MADX9_LightSetPosition(double index, double x, double y, double z)
+{
+	MARenderBackend.Light[(int)index].Position = D3DXVECTOR3((float)x, (float)y, (float)z);
+	return 1;
+}
+
+DLLEXPORT double MADX9_LightSetRange(double index, double range)
+{
+	MARenderBackend.Light[(int)index].Range = (float)range;
+	return 1;
+}
+
+DLLEXPORT double MADX9_LightSetAttenuation0(double index, double att)
+{
+	MARenderBackend.Light[(int)index].Attenuation0 = (float)att;
+	return 1;
+}
+
+DLLEXPORT double MADX9_LightSetAttenuation1(double index, double att)
+{
+	MARenderBackend.Light[(int)index].Attenuation1 = (float)att;
+	return 1;
+}
+
+DLLEXPORT double MADX9_LightSetAttenuation2(double index, double att)
+{
+	MARenderBackend.Light[(int)index].Attenuation2 = (float)att;
+	return 1;
+}
+
+DLLEXPORT double MADX9_LightEnable(double LightIndex, double Index, double enable)
+{
+	MARenderBackend.d3ddev->SetLight((DWORD)Index, &MARenderBackend.Light[(int) LightIndex]);
+	MARenderBackend.d3ddev->LightEnable((DWORD)LightIndex, TRUE);
 	return 1;
 }

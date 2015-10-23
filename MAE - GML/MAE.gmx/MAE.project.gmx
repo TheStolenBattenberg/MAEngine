@@ -128,29 +128,36 @@
           <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
         </scripts>
       </scripts>
-      <scripts name="Particles">
-        <scripts name="Particle">
-          <script>scripts\MAE_ParticleCreate.gml</script>
-          <script>scripts\MAE_ParticleDestroy.gml</script>
-          <script>scripts\MAE_ParticleSetTexture.gml</script>
-          <script>scripts\MAE_ParticleSetSize.gml</script>
-          <script>scripts\MAE_ParticleSetColour.gml</script>
-          <script>scripts\MAE_ParticleSetAlpha.gml</script>
-          <script>scripts\MAE_ParticleSetBlendmode.gml</script>
+      <scripts name="Render">
+        <scripts name="Particles">
+          <scripts name="Particle">
+            <script>scripts\MAE_ParticleCreate.gml</script>
+            <script>scripts\MAE_ParticleDestroy.gml</script>
+            <script>scripts\MAE_ParticleSetTexture.gml</script>
+            <script>scripts\MAE_ParticleSetSize.gml</script>
+            <script>scripts\MAE_ParticleSetColour.gml</script>
+            <script>scripts\MAE_ParticleSetAlpha.gml</script>
+            <script>scripts\MAE_ParticleSetBlendmode.gml</script>
+          </scripts>
+          <scripts name="System">
+            <script>scripts\MAE_ParticleSystemCreate.gml</script>
+            <script>scripts\MAE_ParticleSystemDestroy.gml</script>
+            <script>scripts\MAE_ParticleSystemDraw.gml</script>
+            <script>scripts\MAE_ParticleSystemArea.gml</script>
+            <script>scripts\MAE_ParticleSystemUpdate.gml</script>
+          </scripts>
         </scripts>
-        <scripts name="System">
-          <script>scripts\MAE_ParticleSystemCreate.gml</script>
-          <script>scripts\MAE_ParticleSystemDestroy.gml</script>
-          <script>scripts\MAE_ParticleSystemDraw.gml</script>
-          <script>scripts\MAE_ParticleSystemArea.gml</script>
-          <script>scripts\MAE_ParticleSystemUpdate.gml</script>
+        <scripts name="Shader">
+          <script>scripts\MAE_ShaderCreate.gml</script>
+          <script>scripts\MAE_ShaderSet.gml</script>
+          <script>scripts\MAE_ShaderReset.gml</script>
+          <script>scripts\MAE_ShaderDestroy.gml</script>
         </scripts>
-      </scripts>
-      <scripts name="Shader">
-        <script>scripts\MAE_ShaderCreate.gml</script>
-        <script>scripts\MAE_ShaderSet.gml</script>
-        <script>scripts\MAE_ShaderReset.gml</script>
-        <script>scripts\MAE_ShaderDestroy.gml</script>
+        <scripts name="Light">
+          <script>scripts\MAE_LightCreate.gml</script>
+          <script>scripts\MAE_LightSetDiffuse.gml</script>
+          <script>scripts\MAE_LightSetPosition.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Private">
         <script>scripts\MAE_Init.gml</script>
@@ -165,6 +172,7 @@
     <object>objects\obj_VecMatQuat</object>
     <object>objects\obj_Particle</object>
     <object>objects\obj_Shader</object>
+    <object>objects\obj_Light</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_debug</room>

@@ -8,11 +8,11 @@
 class MADLLBackend
 {
 	public:
-		//Variables
 		LPDIRECT3D9 d3d;
 		LPDIRECT3DDEVICE9 d3ddev;
 		std::vector<IDirect3DVertexShader9*> VShader;
 		std::vector<IDirect3DPixelShader9*> PShader;
+		std::vector<D3DLIGHT9> Light;
 
 		DWORD stFVF;
 

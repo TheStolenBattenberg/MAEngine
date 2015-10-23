@@ -429,7 +429,7 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="10">
+    <constants number="16">
       <constant name="mat_view">0</constant>
       <constant name="mat_projection">1</constant>
       <constant name="mat_world">2</constant>
@@ -440,6 +440,12 @@
       <constant name="PARTICLE_DISTRIBUTION_RANDOM">0</constant>
       <constant name="PARTICLE_DISTRIBUTION_SPHERE">1</constant>
       <constant name="SHADER_HLSL9">9</constant>
+      <constant name="INIT_RENDER">1</constant>
+      <constant name="INIT_AUDIO">2</constant>
+      <constant name="INIT_COLLISION">4</constant>
+      <constant name="LIGHT_POINT">0</constant>
+      <constant name="LIGHT_SPOT">1</constant>
+      <constant name="LIGHT_DIRECTIONAL">2</constant>
     </constants>
   </ConfigConstants>
 </Config>

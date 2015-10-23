@@ -25,61 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Init(INIT_RENDER | INIT_AUDIO | INIT_COLLISION);
+            <string>d3d_start();
 
-MAE_ShaderCreate(
-"struct VS_INPUT {
-    float4 Position : POSITION;
-};
+MAE_Init(INIT_RENDER | INIT_AUDIO | INIT_COLLISION);
 
-struct VS_OUTPUT {
-    float4 Position : POSITION;
-};
-
-VS_OUTPUT main(VS_INPUT IN) {
-    VS_OUTPUT OUT;       
-    return OUT;
-}"
-
-, 
-"struct PS_INPUT {
-    float4 Position : POSITION;
-};
-
-struct PS_OUTPUT {
-    float4 Position : POSITION;
-};
-
-PS_OUTPUT main(PS_INPUT IN) {
-    PS_OUTPUT OUT;
-    return OUT;
-}"
-, 
-SHADER_HLSL9);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="64">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>draw_set_colour(c_black);
-draw_text(2, 2, "FPS: "+string(fps_real));
+Light_0 = MAE_LightCreate(LIGHT_POINT);
+MAE_LightSetDiffuse(Light_0, 1, 1, 1, 1);
+MAE_LightSetPosition(Light_0, 8, 8, 8);
 </string>
           </argument>
         </arguments>
