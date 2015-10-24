@@ -5,6 +5,9 @@
 #include <D3Dcompiler.h>
 #include <vector>
 
+//#include "Object.h" Don't these inclde yet.
+//#include "ObjectTerrain.h"
+
 class MADLLBackend
 {
 	public:
@@ -13,6 +16,8 @@ class MADLLBackend
 		std::vector<IDirect3DVertexShader9*> VShader;
 		std::vector<IDirect3DPixelShader9*> PShader;
 		std::vector<D3DLIGHT9> Light;
+
+		//std::vector<Object*> Objects; We don't want this trying to compile yet.
 
 		DWORD stFVF;
 

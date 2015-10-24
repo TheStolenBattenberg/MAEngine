@@ -27,6 +27,7 @@
   <sprites name="sprites"/>
   <backgrounds name="background">
     <background>background\tex_particle</background>
+    <background>background\background1</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -157,6 +158,10 @@
           <script>scripts\MAE_LightCreate.gml</script>
           <script>scripts\MAE_LightSetDiffuse.gml</script>
           <script>scripts\MAE_LightSetPosition.gml</script>
+          <script>scripts\MAE_LightSetRange.gml</script>
+          <script>scripts\MAE_LightSetAttenuation.gml</script>
+          <script>scripts\MAE_LightEnable.gml</script>
+          <script>scripts\MAE_LightCreateSimplePoint.gml</script>
         </scripts>
       </scripts>
       <scripts name="Private">
@@ -179,6 +184,7 @@
     <room>rooms\rm_VecMatQuat</room>
     <room>rooms\rm_Particle</room>
     <room>rooms\rm_Shader</room>
+    <room>rooms\rm_Light</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

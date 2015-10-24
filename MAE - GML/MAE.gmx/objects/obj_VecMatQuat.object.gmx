@@ -121,9 +121,6 @@ matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
 var mvp = MAE_MatrixMultiplyMatrix(matView, matProj);
 
 vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(0, 0, screenWidth, screenHeight));
-
-if (keyboard_check(vk_escape))
-    game_end();
 </string>
           </argument>
         </arguments>
@@ -154,9 +151,6 @@ if (vecPoint[2] &gt;= 0 &amp;&amp; vecPoint[2] &lt;= 1) {
     draw_set_colour(c_blue);
     draw_rectangle(vecPoint[0] - 16, vecPoint[1] - 16, vecPoint[0] + 16, vecPoint[1] + 16, 1);
 }
-
-draw_set_colour(c_black);
-draw_text(2, 2, "FPS: "+string(fps_real));
 </string>
           </argument>
         </arguments>

@@ -106,46 +106,69 @@ DLLEXPORT  double MADX9_LightCreate(double LightType)
 	MARenderBackend.Light.push_back(Light);
 	return MARenderBackend.Light.size() - 1;
 }
-
-DLLEXPORT double MADX9_LightSetDiffuse(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_LightSetAmbient(double index, double r, double g, double b, double a)
 {
-	MARenderBackend.Light[(int)index].Diffuse = D3DXCOLOR((float)r, (float)g, (float)b, (float)a);
+	MARenderBackend.Light[(int)index].Ambient = D3DXCOLOR((float)r, (float)g, (float)b, (float)a);
 	return 1;
 }
-
-DLLEXPORT double MADX9_LightSetPosition(double index, double x, double y, double z)
-{
-	MARenderBackend.Light[(int)index].Position = D3DXVECTOR3((float)x, (float)y, (float)z);
-	return 1;
-}
-
-DLLEXPORT double MADX9_LightSetRange(double index, double range)
-{
-	MARenderBackend.Light[(int)index].Range = (float)range;
-	return 1;
-}
-
 DLLEXPORT double MADX9_LightSetAttenuation0(double index, double att)
 {
 	MARenderBackend.Light[(int)index].Attenuation0 = (float)att;
 	return 1;
 }
-
 DLLEXPORT double MADX9_LightSetAttenuation1(double index, double att)
 {
 	MARenderBackend.Light[(int)index].Attenuation1 = (float)att;
 	return 1;
 }
-
 DLLEXPORT double MADX9_LightSetAttenuation2(double index, double att)
 {
 	MARenderBackend.Light[(int)index].Attenuation2 = (float)att;
 	return 1;
 }
-
-DLLEXPORT double MADX9_LightEnable(double LightIndex, double Index, double enable)
+DLLEXPORT double MADX9_LightSetDiffuse(double index, double r, double g, double b, double a)
+{
+	MARenderBackend.Light[(int)index].Diffuse = D3DXCOLOR((float)r, (float)g, (float)b, (float)a);
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetDirection(double index, double dx, double dy, double dz)
+{
+	MARenderBackend.Light[(int)index].Direction = D3DXVECTOR3((float)dx, (float)dy, (float)dz);
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetFalloff(double index, double falloff)
+{
+	MARenderBackend.Light[(int)index].Falloff = (float)falloff;
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetPhi(double index, double phi)
+{
+	MARenderBackend.Light[(int)index].Phi = D3DXToRadian((float)phi);
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetPosition(double index, double x, double y, double z)
+{
+	MARenderBackend.Light[(int)index].Position = D3DXVECTOR3((float)x, (float)y, (float)z);
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetRange(double index, double range)
+{
+	MARenderBackend.Light[(int)index].Range = (float)range;
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetSpecular(double index, double r, double g, double b, double a)
+{
+	MARenderBackend.Light[(int)index].Specular = D3DXCOLOR((float)r, (float)g, (float)b, (float)a);
+	return 1;
+}
+DLLEXPORT double MADX9_LightSetTheta(double index, double theta)
+{
+	MARenderBackend.Light[(int)index].Theta = D3DXToRadian((float)theta);
+	return 1;
+}
+DLLEXPORT double MADX9_LightEnable(double Index, double LightIndex)
 {
 	MARenderBackend.d3ddev->SetLight((DWORD)Index, &MARenderBackend.Light[(int) LightIndex]);
-	MARenderBackend.d3ddev->LightEnable((DWORD)LightIndex, TRUE);
+	MARenderBackend.d3ddev->LightEnable((DWORD)Index, TRUE);
 	return 1;
 }
