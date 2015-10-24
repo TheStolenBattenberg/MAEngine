@@ -26,12 +26,84 @@
           <argument>
             <kind>1</kind>
             <string>d3d_start();
+d3d_set_lighting(true);
+d3d_set_shading(true);
+d3d_set_depth(true);
+d3d_set_zwriteenable(true);
 
 MAE_Init(INIT_RENDER | INIT_AUDIO | INIT_COLLISION);
 
+//Creating a Advanced Light
 Light_0 = MAE_LightCreate(LIGHT_POINT);
-MAE_LightSetDiffuse(Light_0, 1, 1, 1, 1);
-MAE_LightSetPosition(Light_0, 8, 8, 8);
+MAE_LightSetDiffuse(Light_0, 255, 0, 0, 255);
+MAE_LightSetPosition(Light_0, 16, 16, 32);
+MAE_LightSetRange(Light_0, 128);
+MAE_LightSetAttenuation(Light_0, 0.0, 0.05, 0.0);
+
+//Creating a Simple Light.
+Light_1 = MAE_LightCreateSimplePoint(16, 16, 32, 128, make_colour_rgb(0, 0, 255));
+
+light = 0;
+alarm[0] = 60;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>light = !light;
+if(light = 0)
+{
+    MAE_LightEnable(0, Light_0);
+}else{
+    MAE_LightEnable(0, Light_1);
+}
+
+alarm[0] = 60;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>d3d_set_projection(-16, 0, 16, 16, 16, 0, 0, 0, 1);
+
+draw_set_colour(c_white);
+    d3d_draw_floor(8, 8, 0, 24, 24, 0, background_get_texture(background1), 24, 24);
+draw_set_colour(c_black);
 </string>
           </argument>
         </arguments>

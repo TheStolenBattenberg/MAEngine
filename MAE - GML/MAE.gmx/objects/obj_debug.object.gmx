@@ -4,11 +4,11 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -25,18 +25,38 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_text(0, 0, "Press key to go to testing room.
-    1 - Maxtix, Quaternion, Vector
-    2 - Particles
-    3 - Shaders
-");
-
-switch(keyboard_key)
+            <string>draw_set_colour(c_black);
+if(room == rm_debug)
 {
-    case ord("1"): { room_goto(rm_VecMatQuat); } break;
-    case ord("2"): { room_goto(rm_Particle); } break;
-    case ord("3"): { room_goto(rm_Shader); } break;
+    draw_text(0, 0, "Press key to select:
+        1 - Maxtix, Quaternion, Vector
+        2 - Particles
+        3 - Shaders
+        4 - Lights
+        
+        Escape - Exit.
+    ");
+    
+    switch(keyboard_key)
+    {
+        case ord("1"): { room_goto(rm_VecMatQuat); } break;
+        case ord("2"): { room_goto(rm_Particle); } break;
+        case ord("3"): { room_goto(rm_Shader); } break;
+        case ord("4"): { room_goto(rm_Light); } break;
+        
+        //case vk_escape: { game_end(); } break;
+    }
+}else{
+    draw_text(0, 0, "Press ESCAPE to go back.
+        FPS: "+string(fps_real));
+    
+    if(keyboard_check_pressed(vk_escape))
+    {
+        d3d_end();
+        room_goto(rm_debug);
+    }
 }
+
 </string>
           </argument>
         </arguments>
