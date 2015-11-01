@@ -13,10 +13,12 @@
   <ItemGroup>
     <ClCompile Include="dllbackend.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="ObjectModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllbackend.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjectTerrain.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

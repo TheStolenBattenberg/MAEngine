@@ -1,5 +1,3 @@
-#include "Object.h";
-
 class Terrain : public Object {
 	public:
 		void Generate();

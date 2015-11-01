@@ -1,11 +1,8 @@
-//It's bad to have these includes here, need to remove them still.
-#include <d3d9.h>
-#include <d3dx9.h>
-
 class Object
 {
 	public:
 		D3DXMATRIX* GetTransformation();
+		void SetTransformation(D3DXMATRIX trans);
 
 	private:
 		D3DXMATRIX Translation;

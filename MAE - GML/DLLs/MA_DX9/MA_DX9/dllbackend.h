@@ -1,12 +1,23 @@
 #include <Windows.h>
 #include <WindowsX.h>
+#include <D3Dcompiler.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <D3Dcompiler.h>
 #include <vector>
+#include <fstream>
 
-//#include "Object.h" Don't these inclde yet.
-//#include "ObjectTerrain.h"
+#include "Object.h"
+#include "ObjectTerrain.h"
+#include "ObjectModel.h"
+
+class Exception {
+	public:
+		Exception(char* error)
+		{
+			exception = error;
+		}
+		char* exception;
+};
 
 class MADLLBackend
 {
@@ -17,7 +28,7 @@ class MADLLBackend
 		std::vector<IDirect3DPixelShader9*> PShader;
 		std::vector<D3DLIGHT9> Light;
 
-		//std::vector<Object*> Objects; We don't want this trying to compile yet.
+		std::vector<Object*> Objects;
 
 		DWORD stFVF;
 
