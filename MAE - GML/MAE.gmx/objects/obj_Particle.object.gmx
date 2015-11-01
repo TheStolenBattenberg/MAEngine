@@ -43,7 +43,7 @@ MAE_ParticleSetAlpha(part, 0.5, 1);
 MAE_ParticleSetBlendmode(part, bm_add);
 
 part_area = MAE_ParticleSystemArea(8, 8, 8);
-part_test = MAE_ParticleSystemCreate(part, part_area, 100, PARTICLE_DISTRIBUTION_RANDOM);
+part_test = MAE_ParticleSystemCreate(part, part_area, 32000, PARTICLE_DISTRIBUTION_RANDOM);
 MAE_ParticleSystemUpdate(part_test, part, 4, 0, 0, 0);
 update = 0;
 steps = 0;

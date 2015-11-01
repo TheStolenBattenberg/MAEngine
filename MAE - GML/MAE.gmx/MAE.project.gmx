@@ -27,7 +27,7 @@
   <sprites name="sprites"/>
   <backgrounds name="background">
     <background>background\tex_particle</background>
-    <background>background\background1</background>
+    <background>background\tex_Light</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
