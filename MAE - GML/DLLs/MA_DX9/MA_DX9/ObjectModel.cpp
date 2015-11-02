@@ -172,32 +172,32 @@ IDirect3DVertexBuffer9* MD2Model::FetchVB(int frame)
 	return MD2VB[frame];
 }
 
-IDirect3DVertexBuffer9* MD2Model::FetchTB(void)
+IDirect3DVertexBuffer9* MD2Model::FetchTB()
 {
 	return MD2TB;
 }
 
-IDirect3DIndexBuffer9* MD2Model::FetchIB(void)
+IDirect3DIndexBuffer9* MD2Model::FetchIB()
 {
 	return MD2IB;
 }
 
-IDirect3DTexture9* MD2Model::FetchTexture(void)
+IDirect3DTexture9* MD2Model::FetchTexture()
 {
 	return Texture;
 }
 
-int MD2Model::FetchVertexCount(void)
+int MD2Model::FetchVertexCount()
 {
 	return Header.num_xyz;
 }
 
-int MD2Model::FetchTriangleCount(void)
+int MD2Model::FetchTriangleCount()
 {
 	return Header.num_tris;
 }
 
-int MD2Model::FetchFrameCount(void)
+int MD2Model::FetchFrameCount()
 {
 	return Header.num_frames;
 }
@@ -207,7 +207,7 @@ char* MD2Model::FetchFrameName(int frame)
 	return 0;
 }
 
-MD2Model::MD2Model(void)
+MD2Model::MD2Model()
 {
 	Frames = 0;
 
@@ -217,16 +217,18 @@ MD2Model::MD2Model(void)
 	{
 		MD2VB[i] = NULL;
 	}
+
 	MD2TB = NULL;
 	MD2IB = NULL;
 }
 
-MD2Model::~MD2Model(void)
+MD2Model::~MD2Model()
 {
 	for (int i = 0; i < Frames; i++)
-	{
 		MD2VB[i]->Release();
-	}
+
 	MD2TB->Release();
 	MD2IB->Release();
+
+	Texture->Release();
 }
