@@ -6,11 +6,13 @@
 
 typedef unsigned int uint;
 
-enum D3DHooksActions {
+enum D3DHooksActions
+{
 	D3DHookFetchVertexBuffer = 0x01
 };
 
-class D3DHooks {
+class D3DHooks
+{
 public:
 	D3DHooks(LPDIRECT3DDEVICE9 dev);
 	~D3DHooks();
@@ -42,7 +44,7 @@ private:
 	void hook();
 
 	LPDIRECT3DDEVICE9 dev;
-	uint              actions = 0;
 
+	uint actions       = 0;
 	uint hookedActions = 0;
 };

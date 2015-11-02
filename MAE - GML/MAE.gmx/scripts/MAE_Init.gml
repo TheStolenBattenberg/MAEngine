@@ -33,11 +33,14 @@ if (argument[0] & INIT_RENDER)
 if (argument[0] & INIT_HOOKS)
 {
     //Hooks
-    global.MADX9_HooksCreate      = external_define(global.DLL_MADX9, "MADX9_HooksCreate", dll_cdecl, ty_real, 0);
-    global.MADX9_HooksDestroy     = external_define(global.DLL_MADX9, "MADX9_HooksDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_HooksApply       = external_define(global.DLL_MADX9, "MADX9_HooksApply", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_HooksRemove      = external_define(global.DLL_MADX9, "MADX9_HooksRemove", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_HooksMakeCurrent = external_define(global.DLL_MADX9, "MADX9_HooksMakeCurrent", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_HooksCreate          = external_define(global.DLL_MADX9, "MADX9_HooksCreate", dll_cdecl, ty_real, 0);
+    global.MADX9_HooksDestroy         = external_define(global.DLL_MADX9, "MADX9_HooksDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_HooksApply           = external_define(global.DLL_MADX9, "MADX9_HooksApply", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_HooksRemove          = external_define(global.DLL_MADX9, "MADX9_HooksRemove", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_HooksMakeCurrent     = external_define(global.DLL_MADX9, "MADX9_HooksMakeCurrent", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_HooksStackPopPointer = external_define(global.DLL_MADX9, "MADX9_HooksStackPopPointer", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_HooksStackClear      = external_define(global.DLL_MADX9, "MADX9_HooksStackClear", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_HooksStackEmpty      = external_define(global.DLL_MADX9, "MADX9_HooksStackEmpty", dll_cdecl, ty_real, 1, ty_real);
 }
 
 external_call(global.MADX9_Init, window_device());
