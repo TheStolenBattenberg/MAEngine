@@ -6,6 +6,7 @@ if (argument_count > 1 && is_string(argument[1]))
 
 // Private
 global.MADX9_Init = external_define(global.DLL_MADX9, "MADX9_Init", dll_cdecl, ty_real, 1, ty_string);
+global.MADX9_Free = external_define(global.DLL_MADX9, "MADX9_Free", dll_cdecl, ty_real, 0);
 
 if (argument[0] & INIT_RENDER)
 {

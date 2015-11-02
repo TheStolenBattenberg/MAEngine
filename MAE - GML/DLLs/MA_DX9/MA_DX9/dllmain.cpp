@@ -19,6 +19,17 @@ DLLEXPORT double MADX9_Free()
 		i--;
 	}
 
+	for (size_t i = 0; i < marb.MD2Models.size(); ++i)
+		if (marb.MD2Models[i] != 0)
+			delete marb.MD2Models[i];
+
+	marb.MD2Models.clear();
+
+	if (marb.VertexDeclarationMD2 != 0) {
+		marb.VertexDeclarationMD2->Release();
+		marb.VertexDeclarationMD2 = 0;
+	}
+
 	for (size_t i = 0; i < marb.Hooks.size(); ++i)
 		if (marb.Hooks[i] != 0)
 			delete marb.Hooks[i];
@@ -197,18 +208,24 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, const char* MD2TextureF
 	if (!MD2->MD2Load(MD2ModelFile, MD2TextureFile))
 	{
 		MessageBoxA(NULL, "Failed to Load MD2 Model.", "Error!", MB_ICONERROR);
+		
+		delete MD2;
+
 		return -1;
 	}
 
-	D3DVERTEXELEMENT9 tween_decl_ve[] =
+	if (marb.VertexDeclarationMD2 == 0)
 	{
-		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
-		{ 1, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1 },
-		{ 2, 0, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
-		D3DDECL_END() // this macro is always needed as the last item! DON'T FORGET ;)
-	};
+		D3DVERTEXELEMENT9 tween_decl_ve[] =
+		{
+			{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+			{ 1, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1 },
+			{ 2, 0, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+			D3DDECL_END() // this macro is always needed as the last item! DON'T FORGET ;)
+		};
 
-	marb.d3ddev->CreateVertexDeclaration(tween_decl_ve, &marb.VertexDeclarationMD2);
+		marb.d3ddev->CreateVertexDeclaration(tween_decl_ve, &marb.VertexDeclarationMD2);
+	}
 
 	marb.MD2Models.push_back(MD2);
 	return marb.MD2Models.size() - 1;
