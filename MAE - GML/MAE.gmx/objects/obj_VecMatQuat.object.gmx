@@ -152,10 +152,6 @@ if (vecPoint[2] &gt;= 0 &amp;&amp; vecPoint[2] &lt;= 1) {
     draw_set_colour(c_blue);
     draw_rectangle(vecPoint[0] - 16, vecPoint[1] - 16, vecPoint[0] + 16, vecPoint[1] + 16, 1);
 }
-
-draw_set_colour(c_black);
-draw_text(room_width - 128, 0, "Time: " + string(t));
-draw_text(room_width - 128, 16, "Frames: " + string(f));
 </string>
           </argument>
         </arguments>

@@ -220,6 +220,15 @@
         <script>scripts\MAE_HooksStackEmpty.gml</script>
         <script>scripts\MAE_HooksStackPopPointer.gml</script>
       </scripts>
+      <scripts name="Animation">
+        <script>scripts\MAE_AnimationCreate.gml</script>
+        <script>scripts\MAE_AnimationAdd.gml</script>
+        <script>scripts\MAE_AnimationUpdate.gml</script>
+        <script>scripts\MAE_AnimationSet.gml</script>
+        <script>scripts\MAE_AnimationGetFrame1.gml</script>
+        <script>scripts\MAE_AnimationGetFrame2.gml</script>
+        <script>scripts\MAE_AnimationGetTime.gml</script>
+      </scripts>
     </scripts>
   </scripts>
   <shaders name="shaders">
