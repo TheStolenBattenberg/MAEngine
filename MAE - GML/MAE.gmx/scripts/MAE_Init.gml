@@ -23,6 +23,9 @@ if(argument0 == 1 || argument0 == 3 || argument0 == 5 || argument0 == 7)
     global.MADX9_LightSetAttenuation2 = external_define(global.DLL_MADX9, "MADX9_LightSetAttenuation2", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_LightEnable = external_define(global.DLL_MADX9, "MADX9_LightEnable", dll_cdecl, ty_real, 2, ty_real, ty_real);
     
+    //MD2
+    global.MADX9_MD2Load = external_define(global.DLL_MADX9, "MADX9_MD2Load", dll_cdecl, ty_real, 2, ty_string, ty_string);
+    global.MADX9_MD2Render = external_define(global.DLL_MADX9, "MADX9_MD2Render", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     //Init MX_DX9.
     external_call(global.MADX9_Init, window_device());
 }

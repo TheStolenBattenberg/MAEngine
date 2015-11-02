@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllbackend.h" />
+    <ClInclude Include="MD2Type.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjectTerrain.h" />

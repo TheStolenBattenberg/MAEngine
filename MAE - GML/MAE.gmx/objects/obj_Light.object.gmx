@@ -45,7 +45,6 @@ Light_1 = MAE_LightCreateSimplePoint(16, 16, 32, 128, make_colour_rgb(0, 0, 255)
 
 light = 0;
 alarm[0] = 60;
-
 </string>
           </argument>
         </arguments>
@@ -102,7 +101,7 @@ alarm[0] = 60;
             <string>d3d_set_projection(-16, 0, 16, 16, 16, 0, 0, 0, 1);
 
 draw_set_colour(c_white);
-    d3d_draw_floor(8, 8, 0, 24, 24, 0, background_get_texture(background1), 24, 24);
+    d3d_draw_floor(8, 8, 0, 24, 24, 0, background_get_texture(tex_Light), 24, 24);
 draw_set_colour(c_black);
 </string>
           </argument>

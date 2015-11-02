@@ -38,5 +38,8 @@
     <ClInclude Include="ObjectModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MD2Type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
