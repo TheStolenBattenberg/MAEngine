@@ -35,7 +35,7 @@ struct MD2_TEXTURE_VERTEX
 
 class MD2Model : public Object {
 	public:
-		int MD2Load(char* mdl_name, LPCWSTR txr_name);
+		bool MD2Load(const char* mdl_name, const char* txr_name);
 
 		IDirect3DVertexBuffer9* FetchVB(int frame);
 		IDirect3DVertexBuffer9* FetchTB(void);
@@ -46,7 +46,6 @@ class MD2Model : public Object {
 		int FetchTriangleCount(void);
 		int FetchFrameCount(void);
 		char* FetchFrameName(int frame);
-		bool IsValid(void) { return is_valid; }
 
 		MD2Model(void);
 		~MD2Model(void);
@@ -59,8 +58,6 @@ class MD2Model : public Object {
 		void FetchTextureData(std::ifstream& f_MD2);
 
 		void ValidateHeader(void);
-
-		bool is_valid;
 
 		MD2Type::Header Header;
 

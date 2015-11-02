@@ -1,5 +1,7 @@
 #include "dllbackend.h"
 
+MADLLBackend marb;
+
 int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, IDirect3DVertexShader9 ** VSOut, IDirect3DPixelShader9 ** PSOut)
 {
 	LPD3DXBUFFER VSCode, PSCode;

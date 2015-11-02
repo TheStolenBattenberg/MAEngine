@@ -37,3 +37,5 @@ class MADLLBackend
 		//Functions
 		int HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, IDirect3DVertexShader9 ** VSOut, IDirect3DPixelShader9 ** PSOut);
 };
+
+extern MADLLBackend marb;

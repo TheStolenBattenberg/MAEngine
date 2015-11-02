@@ -26,6 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>MAE_Init(INIT_RENDER);
+
+global.m = MAE_ModelLoadMD2("tris.MD2", "hobgoblin.bmp");
 </string>
           </argument>
         </arguments>
