@@ -203,9 +203,10 @@
         <script>scripts\MAE_Free.gml</script>
       </scripts>
       <scripts name="Model">
+        <script>scripts\MAE_ModelDestroyMD2.gml</script>
+        <script>scripts\MAE_ModelGetFramesMD2.gml</script>
         <script>scripts\MAE_ModelLoadMD2.gml</script>
         <script>scripts\MAE_ModelRenderMD2.gml</script>
-        <script>scripts\MAE_ModelGetFramesMD2.gml</script>
       </scripts>
       <scripts name="Hooks">
         <script>scripts\MAE_HooksApply.gml</script>

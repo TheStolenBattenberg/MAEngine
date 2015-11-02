@@ -19,6 +19,9 @@ DLLEXPORT double MADX9_Free()
 		i--;
 	}
 
+	marb.VShader.clear();
+	marb.PShader.clear();
+
 	for (size_t i = 0; i < marb.MD2Models.size(); ++i)
 		if (marb.MD2Models[i] != 0)
 			delete marb.MD2Models[i];
@@ -39,14 +42,24 @@ DLLEXPORT double MADX9_Free()
 	return 1;
 }
 
-DLLEXPORT double MADX9_ShaderCreateHLSL9(char* VSCode, char* PSCode)
+DLLEXPORT double MADX9_ShaderCreateHLSL9(const char* VSCode, const char* PSCode)
 {
-	IDirect3DVertexShader9 *VShd;
-	IDirect3DPixelShader9 *PShd;
+	IDirect3DVertexShader9* VShd;
+	IDirect3DPixelShader9*  PShd;
 
 	//Compile the Shader
 	if(marb.HLSL9Compile(VSCode, PSCode, &VShd, &PShd) == 0) 
-	{ return 0; }
+		return -1;
+
+	for (size_t i = 0; i < marb.VShader.size(); ++i)
+	{
+		if (marb.VShader[i] == 0)
+		{
+			marb.VShader[i] = VShd;
+			marb.PShader[i] = PShd;
+			return i;
+		}
+	}
 
 	//Add shaders to container and return shader index;
 	marb.VShader.push_back(VShd);
@@ -65,11 +78,15 @@ DLLEXPORT double MADX9_ShaderSetHLSL9(double index)
 
 	//Set the Vertex Shader
 	result = marb.d3ddev->SetVertexShader(marb.VShader[ShaderIndex]);
-	if(FAILED(result)) { return 0; }
+
+	if (FAILED(result))
+		return 0;
 
 	//Set the Pixel Shader
 	result = marb.d3ddev->SetPixelShader(marb.PShader[ShaderIndex]);
-	if(FAILED(result)) { return 0; }
+
+	if (FAILED(result))
+		return 0;
 
 	return 1;
 }
@@ -80,11 +97,15 @@ DLLEXPORT double MADX9_ShaderResetHLSL9()
 
 	//Reset the Vertex Shader.
 	result = marb.d3ddev->SetVertexShader(NULL);
-	if(FAILED(result)) { return 0; }
+
+	if (FAILED(result))
+		return 0;
 
 	//Reset the Pixel Shader.
 	result = marb.d3ddev->SetPixelShader(NULL);
-	if(FAILED(result)) { return 0; }
+
+	if (FAILED(result))
+		return 0;
 
 	marb.d3ddev->SetFVF(marb.stFVF);
 	return 1;
@@ -96,16 +117,16 @@ DLLEXPORT double MADX9_ShaderDestroyHLSL9(double index)
 
 	//Delete Vertex Shader
 	marb.VShader[ShaderIndex]->Release();
-	marb.VShader.erase(marb.VShader.begin() + ShaderIndex);
+	marb.VShader[ShaderIndex] = 0;
 
 	//Delete Pixel Shader
 	marb.PShader[ShaderIndex]->Release();
-	marb.PShader.erase(marb.PShader.begin() + ShaderIndex);
+	marb.PShader[ShaderIndex] = 0;
 
 	return 1;
 }
 
-DLLEXPORT  double MADX9_LightCreate(double LightType)
+DLLEXPORT double MADX9_LightCreate(double LightType)
 {
 	D3DLIGHT9 Light;
 	ZeroMemory(&Light, sizeof(Light));
@@ -227,6 +248,15 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, const char* MD2TextureF
 		marb.d3ddev->CreateVertexDeclaration(tween_decl_ve, &marb.VertexDeclarationMD2);
 	}
 
+	for (size_t i = 0; i < marb.MD2Models.size(); ++i)
+	{
+		if (marb.MD2Models[i] == 0)
+		{
+			marb.MD2Models[i] = MD2;
+			return i;
+		}
+	}
+
 	marb.MD2Models.push_back(MD2);
 	return marb.MD2Models.size() - 1;
 }
@@ -267,6 +297,14 @@ DLLEXPORT double MADX9_MD2Render(double index, double frame_1, double frame_2, d
 DLLEXPORT double MADX9_MD2GetFrames(double index)
 {
 	return marb.MD2Models[(unsigned int) index]->FetchFrameCount();
+}
+
+DLLEXPORT double MADX9_MD2Destroy(double index)
+{
+	delete marb.MD2Models[(unsigned int) index];
+	marb.MD2Models[(unsigned int)index] = 0;
+
+	return 1;
 }
 
 DLLEXPORT double MADX9_HooksCreate()

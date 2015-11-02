@@ -35,7 +35,10 @@ struct VS_OUTPUT {
 };
 
 VS_OUTPUT main(VS_INPUT IN) {
-    VS_OUTPUT OUT;       
+    VS_OUTPUT OUT;
+    
+    OUT.Position = IN.Position;
+    
     return OUT;
 }"
 
@@ -50,6 +53,9 @@ struct PS_OUTPUT {
 
 PS_OUTPUT main(PS_INPUT IN) {
     PS_OUTPUT OUT;
+    
+    OUT.Position = IN.Position;
+    
     return OUT;
 }"
 , 
