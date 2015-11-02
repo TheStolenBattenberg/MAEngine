@@ -81,6 +81,7 @@ if(room == rm_debug)
         2 - Particles
         3 - Shaders
         4 - Lights
+        5 - MD2 Animation
         
         Escape - Exit.
     ");
@@ -91,6 +92,7 @@ if(room == rm_debug)
         case ord("2"): { room_goto(rm_Particle); } break;
         case ord("3"): { room_goto(rm_Shader); } break;
         case ord("4"): { room_goto(rm_Light); } break;
+        case ord("5"): { room_goto(rm_MD2Animation); } break;
         
         //case vk_escape: { game_end(); } break;
     }

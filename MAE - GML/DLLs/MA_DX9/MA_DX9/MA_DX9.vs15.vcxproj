@@ -21,6 +21,8 @@
     <ClInclude Include="dllbackend.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="MD2Type.h" />
+    <ClInclude Include="MS3DType.h" />
+    <ClInclude Include="MSMType.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjectTerrain.h" />

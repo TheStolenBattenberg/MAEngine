@@ -203,10 +203,12 @@
         <script>scripts\MAE_Free.gml</script>
       </scripts>
       <scripts name="Model">
-        <script>scripts\MAE_ModelDestroyMD2.gml</script>
-        <script>scripts\MAE_ModelGetFramesMD2.gml</script>
-        <script>scripts\MAE_ModelLoadMD2.gml</script>
-        <script>scripts\MAE_ModelRenderMD2.gml</script>
+        <scripts name="MD2">
+          <script>scripts\MAE_ModelLoadMD2.gml</script>
+          <script>scripts\MAE_ModelGetFramesMD2.gml</script>
+          <script>scripts\MAE_ModelRenderMD2.gml</script>
+          <script>scripts\MAE_ModelDestroyMD2.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Hooks">
         <script>scripts\MAE_HooksApply.gml</script>
@@ -229,6 +231,7 @@
     <object>objects\obj_Particle</object>
     <object>objects\obj_Shader</object>
     <object>objects\obj_Light</object>
+    <object>objects\obj_MD2Animation</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_debug</room>
@@ -236,6 +239,7 @@
     <room>rooms\rm_Particle</room>
     <room>rooms\rm_Shader</room>
     <room>rooms\rm_Light</room>
+    <room>rooms\rm_MD2Animation</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

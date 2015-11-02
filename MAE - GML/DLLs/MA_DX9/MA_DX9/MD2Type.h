@@ -4,12 +4,15 @@
 *
 */
 
-typedef unsigned char byte;
+/**
+ * Types.
+ */
+#ifndef byte
+	typedef unsigned char byte;
+#endif
 
-namespace MD2Type
-{
-	struct Header
-	{
+namespace MD2Type {
+	struct Header {
 		int magic_number;
 		int version;
 

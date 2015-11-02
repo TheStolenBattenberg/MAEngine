@@ -53,5 +53,11 @@
     <ClInclude Include="Variant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MS3DType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MSMType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

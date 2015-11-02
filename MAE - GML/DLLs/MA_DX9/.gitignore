@@ -5,6 +5,7 @@
 ipch/
 Release/
 Debug/
+.vs/
 
 # =============================
 # Ignore Visual Stuidio files
