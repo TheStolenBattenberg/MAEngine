@@ -34,7 +34,7 @@ screenHeight = 768;
  * Create all matrices, quaternions and vectors
  */
 
-matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 5);
+matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 128);
 matView = MAE_MatrixCreateIdentity(4);
 matNorm = MAE_MatrixCreateIdentity(3);
 
@@ -55,6 +55,10 @@ curX = 0;
 curY = 0;
 desX = 0;
 desY = 0;
+
+t = 0;
+f = MAE_ModelGetFramesMD2(global.m);
+
 </string>
           </argument>
         </arguments>
@@ -122,6 +126,11 @@ var mvp = MAE_MatrixMultiplyMatrix(matView, matProj);
 
 vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(0, 0, screenWidth, screenHeight));
 
+t += 5 / room_speed;
+
+if (t &gt; f - 1)
+    t = 0;
+
 </string>
           </argument>
         </arguments>
@@ -144,16 +153,7 @@ vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*
- * It's important to check if the Z value contains a valid number (between 0 and 1)
- */
-
-if (vecPoint[2] &gt;= 0 &amp;&amp; vecPoint[2] &lt;= 1) {
-    draw_set_colour(c_blue);
-    draw_rectangle(vecPoint[0] - 16, vecPoint[1] - 16, vecPoint[0] + 16, vecPoint[1] + 16, 1);
-}
-
-draw_set_colour(c_black);
+            <string>draw_set_colour(c_black);
 draw_text(room_width - 128, 0, "Time: " + string(t));
 draw_text(room_width - 128, 16, "Frames: " + string(f));
 </string>
@@ -181,17 +181,11 @@ draw_text(room_width - 128, 16, "Frames: " + string(f));
             <string>matrix_set(matrix_projection, matProj);
 matrix_set(matrix_view, matView);
 
-shader_set(shdLight);
 
-shader_set_uniform_f_array(uniNormalMat, matNorm);
-shader_set_uniform_f(uniLightPos, 0, 0, -1);
-shader_set_uniform_f(uniAmbientColour, 0, 0, 0);
-shader_set_uniform_f(uniSpecColour, 1, 1, 1);
+d3d_transform_add_scaling(0.04, 0.04, 0.04);
+    MAE_ModelRenderMD2(global.m, floor(t), floor(t) + 1, t - floor(t));
+d3d_transform_set_identity();
 
-draw_set_colour(c_red);
-d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
-
-shader_reset();
 
 /*
  * Draw X, Y and Z Axis

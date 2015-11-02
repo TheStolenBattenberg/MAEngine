@@ -7,7 +7,10 @@
  *
  */
 
-#include "MD2Type.h"
+#include "MD2Type.h" //Features: Morph Target Animation.
+#include "MSMType.h" ////Features: Internal Shader, Super small file size.
+
+//#include "MS3DType.h" //Features: Bone Based Animation. !NOTE - Currently a little broken.
 
 struct MD2_POSITION_VERTEX
 {
