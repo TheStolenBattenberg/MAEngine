@@ -55,6 +55,10 @@ curX = 0;
 curY = 0;
 desX = 0;
 desY = 0;
+
+t = 0;
+f = MAE_ModelGetFramesMD2(global.m);
+
 </string>
           </argument>
         </arguments>
@@ -121,6 +125,12 @@ matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
 var mvp = MAE_MatrixMultiplyMatrix(matView, matProj);
 
 vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(0, 0, screenWidth, screenHeight));
+
+t += 5 / room_speed;
+
+if (t &gt; f - 1)
+    t = 0;
+
 </string>
           </argument>
         </arguments>
@@ -151,6 +161,10 @@ if (vecPoint[2] &gt;= 0 &amp;&amp; vecPoint[2] &lt;= 1) {
     draw_set_colour(c_blue);
     draw_rectangle(vecPoint[0] - 16, vecPoint[1] - 16, vecPoint[0] + 16, vecPoint[1] + 16, 1);
 }
+
+draw_set_colour(c_black);
+draw_text(room_width - 128, 0, "Time: " + string(t));
+draw_text(room_width - 128, 16, "Frames: " + string(f));
 </string>
           </argument>
         </arguments>
@@ -176,7 +190,7 @@ if (vecPoint[2] &gt;= 0 &amp;&amp; vecPoint[2] &lt;= 1) {
             <string>matrix_set(matrix_projection, matProj);
 matrix_set(matrix_view, matView);
 
-shader_set(shdLight);
+/*shader_set(shdLight);
 
 shader_set_uniform_f_array(uniNormalMat, matNorm);
 shader_set_uniform_f(uniLightPos, 0, 0, -1);
@@ -186,7 +200,11 @@ shader_set_uniform_f(uniSpecColour, 1, 1, 1);
 draw_set_colour(c_red);
 d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
 
-shader_reset();
+shader_reset();*/
+
+d3d_transform_add_scaling(0.03, 0.03, 0.03);
+MAE_ModelRenderMD2(global.m, floor(t), floor(t) + 1, t - floor(t));
+d3d_transform_set_identity();
 
 /*
  * Draw X, Y and Z Axis

@@ -5,11 +5,7 @@
 */
 #include "dllbackend.h"
 
-namespace {
-	MADLLBackend MARenderBackend;
-}
-
-int MD2Model::MD2Load(char* mdl_name, LPCWSTR tex_name)
+bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
 {
 	try {
 		std::ifstream f_MD2;
@@ -19,31 +15,28 @@ int MD2Model::MD2Load(char* mdl_name, LPCWSTR tex_name)
 		{ 
 			throw Exception("Failed to open MD2 file."); 
 		}
-		try {
-			is_valid = false;
-				FetchHeader(f_MD2);
-				ValidateHeader();
 
-				FetchFrameData(f_MD2);
-				FetchIndexData(f_MD2);
-				FetchTextureData(f_MD2);
-			is_valid = true;
-		}
-		catch (Exception& e)
-		{
-			MessageBoxA(NULL, e.exception, "MD2 Error!", MB_ICONERROR);
-		}
+		FetchHeader(f_MD2);
+		ValidateHeader();
+
+		FetchFrameData(f_MD2);
+		FetchIndexData(f_MD2);
+		FetchTextureData(f_MD2);
 	}
 	catch (Exception& e)
 	{
 		MessageBoxA(NULL, e.exception, "MD2 Error!", MB_ICONERROR);
+		return 0;
 	}
 
-	D3DXCreateTextureFromFile(MARenderBackend.d3ddev, tex_name, &Texture);
+	D3DXCreateTextureFromFileA(marb.d3ddev, tex_name, &Texture);
+
 	if (!Texture)
 	{
 		MessageBoxA(NULL, "Couldn't Load Texture!", "MD2 Error!", MB_ICONERROR);
+		return 0;
 	}
+
 	return 1;
 }
 
@@ -76,13 +69,10 @@ void MD2Model::FetchFrameData(std::ifstream& f_MD2)
 			}
 		}
 
+		HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(MD2_POSITION_VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2VB[f], 0);
 
-		HRESULT result = MARenderBackend.d3ddev->CreateVertexBuffer(sizeof(MD2_POSITION_VERTEX) * Header.num_xyz, D3DUSAGE_DYNAMIC, 0, D3DPOOL_DEFAULT, &MD2VB[f], 0);
 		if (FAILED(result))
-		{
-			MessageBoxA(0, "Couldn't create the DirectX9 Vertex Buffers!", "Fatal Error!", MB_ICONERROR);
-			return;
-		}
+			throw Exception("Couldn't create the DirectX9 Vertex Buffer!");
 
 		void* MemoryPointer = 0;
 		MD2VB[f]->Lock(0, 0, &MemoryPointer, 0);
@@ -111,7 +101,10 @@ void MD2Model::FetchIndexData(std::ifstream& f_MD2)
 		IndexBuffer[i][2] = TriangleBuffer[i].vertex_indicies[2];
 	}
 
-	MARenderBackend.d3ddev->CreateIndexBuffer(sizeof(MD2Type::index_buffer) * Header.num_tris, 0, D3DFMT_INDEX16, D3DPOOL_MANAGED, &MD2IB, 0);
+	HRESULT result = marb.d3ddev->CreateIndexBuffer(sizeof(MD2Type::index_buffer) * Header.num_tris, 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &MD2IB, 0);
+
+	if (FAILED(result))
+		throw Exception("Couldn't create the DirectX9 Index Buffer!");
 
 	void* MemoryPointer;
 	MD2IB->Lock(0, 0, &MemoryPointer, 0);
@@ -152,7 +145,10 @@ void MD2Model::FetchTextureData(std::ifstream& f_MD2)
 		}
 	}
 
-	MARenderBackend.d3ddev->CreateVertexBuffer(sizeof(MD2_TEXTURE_VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_MANAGED, &MD2TB, 0);
+	HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(MD2_TEXTURE_VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2TB, 0);
+
+	if (FAILED(result))
+		throw Exception("Couldn't create the DirectX9 Vertex Buffer!");
 
 	void* MemoryPointer;
 	MD2TB->Lock(0, 0, &MemoryPointer, 0);
@@ -168,9 +164,7 @@ void MD2Model::FetchTextureData(std::ifstream& f_MD2)
 void MD2Model::ValidateHeader()
 {
 	if (Header.magic_number != 844121161 || Header.version != 8 || Header.framesize == 0)
-	{
 		throw Exception("The MD2 header is corrupt.");
-	}
 }
 
 IDirect3DVertexBuffer9* MD2Model::FetchVB(int frame)
@@ -215,7 +209,6 @@ char* MD2Model::FetchFrameName(int frame)
 
 MD2Model::MD2Model(void)
 {
-	is_valid = false;
 	Frames = 0;
 
 	memset(&Header, 0, sizeof(MD2Type::Header));
