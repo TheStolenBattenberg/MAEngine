@@ -42,23 +42,22 @@ vecPoint = MAE_VectorCreate(0, 0, 0);
 
 quatView = MAE_QuaternionNorm(MAE_QuaternionRotate(MAE_QuaternionCreateRotation(-90, 45, 0), -45, 0, 0));
 
-uniNormalMat     = shader_get_uniform(shdLight, "u_NormalMat");
-uniAmbientColour = shader_get_uniform(shdLight, "u_AmbientColour");
-uniLightPos      = shader_get_uniform(shdLight, "u_LightPos");
-uniSpecColour    = shader_get_uniform(shdLight, "u_SpecColour");
 
 /*
  * Those variables are used for the smooth rotation
  */
-
+ 
 curX = 0;
 curY = 0;
 desX = 0;
 desY = 0;
 
-t = 0;
-f = MAE_ModelGetFramesMD2(global.m);
-
+/**
+ * Animation stuff.
+ */
+MAE_AnimationCreate();
+MAE_AnimationAdd(40, 45); //Animation Set 0, Running.
+MAE_AnimationSet(0);
 </string>
           </argument>
         </arguments>
@@ -126,10 +125,11 @@ var mvp = MAE_MatrixMultiplyMatrix(matView, matProj);
 
 vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(0, 0, screenWidth, screenHeight));
 
-t += 5 / room_speed;
 
-if (t &gt; f - 1)
-    t = 0;
+/**
+ * Animation stuff.
+ */
+MAE_AnimationUpdate(1);
 
 </string>
           </argument>
@@ -154,8 +154,8 @@ if (t &gt; f - 1)
           <argument>
             <kind>1</kind>
             <string>draw_set_colour(c_black);
-draw_text(room_width - 128, 0, "Time: " + string(t));
-draw_text(room_width - 128, 16, "Frames: " + string(f));
+draw_text(room_width - 196, 0, "Time: " + string(MAE_AnimationGetTime()));
+draw_text(room_width - 196, 16, "Frame: " + string(MAE_AnimationGetFrame1())+", "+string(MAE_AnimationGetFrame2()));
 </string>
           </argument>
         </arguments>
@@ -182,8 +182,8 @@ draw_text(room_width - 128, 16, "Frames: " + string(f));
 matrix_set(matrix_view, matView);
 
 
-d3d_transform_add_scaling(0.04, 0.04, 0.04);
-    MAE_ModelRenderMD2(global.m, floor(t), floor(t) + 1, t - floor(t));
+d3d_transform_add_scaling(0.06, 0.06, 0.06);
+    MAE_ModelRenderMD2(global.m, MAE_AnimationGetFrame1(), MAE_AnimationGetFrame2(), MAE_AnimationGetTime());
 d3d_transform_set_identity();
 
 
