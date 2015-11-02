@@ -31,8 +31,6 @@ d3d_set_shading(true);
 d3d_set_depth(true);
 d3d_set_zwriteenable(true);
 
-MAE_Init(INIT_RENDER | INIT_AUDIO | INIT_COLLISION);
-
 //Creating a Advanced Light
 Light_0 = MAE_LightCreate(LIGHT_POINT);
 MAE_LightSetDiffuse(Light_0, 255, 0, 0, 255);

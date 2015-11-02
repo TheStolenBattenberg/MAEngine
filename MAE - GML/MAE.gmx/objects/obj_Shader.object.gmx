@@ -25,9 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Init(INIT_RENDER | INIT_AUDIO | INIT_COLLISION);
-
-MAE_ShaderCreate(
+            <string>MAE_ShaderCreate(
 "struct VS_INPUT {
     float4 Position : POSITION;
 };

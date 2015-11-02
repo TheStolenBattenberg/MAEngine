@@ -23,12 +23,11 @@ DLLEXPORT double MADX9_Free()
 		i--;
 	}
 
-	for (size_t i = 0; i < MARenderBackend.Hooks.size(); ++i) {
-		if (MARenderBackend.Hooks[i] != 0) {
+	for (size_t i = 0; i < MARenderBackend.Hooks.size(); ++i)
+		if (MARenderBackend.Hooks[i] != 0)
 			delete MARenderBackend.Hooks[i];
-			MARenderBackend.Hooks[i] = 0;
-		}
-	}
+
+	MARenderBackend.Hooks.clear();
 
 	return 1;
 }
@@ -249,9 +248,12 @@ DLLEXPORT double MADX9_MD2Render(double index, double frame_1, double frame_2, d
 	return 1;
 }
 
-DLLEXPORT double MADX9_HooksCreate() {
-	for (size_t i = 0; i < MARenderBackend.Hooks.size(); ++i) {
-		if (MARenderBackend.Hooks[i] == 0) {
+DLLEXPORT double MADX9_HooksCreate()
+{
+	for (size_t i = 0; i < MARenderBackend.Hooks.size(); ++i)
+	{
+		if (MARenderBackend.Hooks[i] == 0)
+		{
 			MARenderBackend.Hooks[i] = new D3DHooks(MARenderBackend.d3ddev);
 			return i;
 		}
@@ -262,7 +264,8 @@ DLLEXPORT double MADX9_HooksCreate() {
 	return MARenderBackend.Hooks.size() - 1;
 }
 
-DLLEXPORT double MADX9_HooksDestroy(double ind) {
+DLLEXPORT double MADX9_HooksDestroy(double ind)
+{
 	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
 		return 0;
 
@@ -275,7 +278,8 @@ DLLEXPORT double MADX9_HooksDestroy(double ind) {
 	return 1;
 }
 
-DLLEXPORT double MADX9_HooksApply(double ind, double actions) {
+DLLEXPORT double MADX9_HooksApply(double ind, double actions)
+{
 	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
 		return 0;
 
@@ -287,7 +291,8 @@ DLLEXPORT double MADX9_HooksApply(double ind, double actions) {
 	return 1;
 }
 
-DLLEXPORT double MADX9_HooksRemove(double ind, double actions) {
+DLLEXPORT double MADX9_HooksRemove(double ind, double actions)
+{
 	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
 		return 0;
 
@@ -299,7 +304,8 @@ DLLEXPORT double MADX9_HooksRemove(double ind, double actions) {
 	return 1;
 }
 
-DLLEXPORT double MADX9_HooksMakeCurrent(double ind) {
+DLLEXPORT double MADX9_HooksMakeCurrent(double ind)
+{
 	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
 		return 0;
 
@@ -307,6 +313,68 @@ DLLEXPORT double MADX9_HooksMakeCurrent(double ind) {
 		return 0;
 
 	MARenderBackend.Hooks[(unsigned int)ind]->makeCurrent();
+
+	return 1;
+}
+
+DLLEXPORT double MADX9_HooksStackPopPointer(double ind)
+{
+	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
+		return 0;
+
+	if (MARenderBackend.Hooks[(unsigned int)ind] == 0)
+		return 0;
+
+	double p;
+
+	memset(&p, 0, sizeof(p));
+
+	if (!MARenderBackend.Hooks[(unsigned int)ind]->values.empty())
+	{
+		*((void**)&p) = MARenderBackend.Hooks[(unsigned int)ind]->values.top().getPointer();
+		MARenderBackend.Hooks[(unsigned int)ind]->values.pop();
+	}
+
+	return p;
+}
+
+DLLEXPORT double MADX9_HooksStackEmpty(double ind)
+{
+	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
+		return -1;
+
+	if (MARenderBackend.Hooks[(unsigned int)ind] == 0)
+		return -1;
+
+	return MARenderBackend.Hooks[(unsigned int)ind]->values.empty();
+}
+
+DLLEXPORT double MADX9_HooksStackClear(double ind)
+{
+	if (ind < 0 || ind >= MARenderBackend.Hooks.size())
+		return 0;
+
+	if (MARenderBackend.Hooks[(unsigned int)ind] == 0)
+		return 0;
+
+	while (!MARenderBackend.Hooks[(unsigned int)ind]->values.empty())
+		MARenderBackend.Hooks[(unsigned int)ind]->values.pop();
+
+	return 1;
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+	switch (fdwReason)
+	{
+	case DLL_PROCESS_DETACH:
+		/**
+		* Free all memory when system unloads DLL
+		*/
+
+		MADX9_Free();
+		break;
+	}
 
 	return 1;
 }
