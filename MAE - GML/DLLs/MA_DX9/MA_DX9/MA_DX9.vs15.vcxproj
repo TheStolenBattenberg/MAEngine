@@ -13,14 +13,18 @@
   <ItemGroup>
     <ClCompile Include="dllbackend.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
+    <ClCompile Include="Variant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllbackend.h" />
+    <ClInclude Include="Hooks.h" />
     <ClInclude Include="MD2Type.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjectTerrain.h" />
+    <ClInclude Include="Variant.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7D9E020-382F-4DA2-8FE4-7E4C4466448D}</ProjectGuid>

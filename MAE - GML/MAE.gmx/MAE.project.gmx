@@ -205,6 +205,13 @@
         <script>scripts\MAE_ModelLoadMD2.gml</script>
         <script>scripts\MAE_ModelRenderMD2.gml</script>
       </scripts>
+      <scripts name="Hooks">
+        <script>scripts\MAE_HooksCreate.gml</script>
+        <script>scripts\MAE_HooksDestroy.gml</script>
+        <script>scripts\MAE_HooksApply.gml</script>
+        <script>scripts\MAE_HooksRemove.gml</script>
+        <script>scripts\MAE_HooksMakeCurrent.gml</script>
+      </scripts>
     </scripts>
   </scripts>
   <shaders name="shaders">

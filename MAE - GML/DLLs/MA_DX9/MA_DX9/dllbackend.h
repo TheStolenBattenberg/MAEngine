@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "ObjectTerrain.h"
 #include "ObjectModel.h"
+#include "Hooks.h"
 
 class Exception {
 	public:
@@ -28,6 +29,7 @@ class MADLLBackend
 		std::vector<IDirect3DPixelShader9*> PShader;
 		std::vector<D3DLIGHT9> Light;
 		std::vector<MD2Model*> MD2Models; //This has to be done like this for now. For some reason the access to the Object functions are denied otherwise.
+		std::vector<D3DHooks*> Hooks;
 
 		DWORD stFVF;
 		IDirect3DVertexDeclaration9* VertexDeclarationMD2 = 0;
