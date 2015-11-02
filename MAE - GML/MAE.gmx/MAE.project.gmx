@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="3" name="datafiles">
+  <datafiles number="5" name="datafiles">
     <datafile>
       <name>MA_DX9.dll</name>
       <exists>-1</exists>
@@ -20,6 +20,40 @@
         </Config>
       </ConfigOptions>
       <filename>MA_DX9.dll</filename>
+    </datafile>
+    <datafile>
+      <name>hobgoblin.bmp</name>
+      <exists>-1</exists>
+      <size>66184</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>hobgoblin.bmp</filename>
+    </datafile>
+    <datafile>
+      <name>tris.MD2</name>
+      <exists>-1</exists>
+      <size>415460</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>tris.MD2</filename>
     </datafile>
   </datafiles>
   <NewExtensions/>
@@ -166,6 +200,10 @@
       </scripts>
       <scripts name="Private">
         <script>scripts\MAE_Init.gml</script>
+      </scripts>
+      <scripts name="Model">
+        <script>scripts\MAE_ModelLoadMD2.gml</script>
+        <script>scripts\MAE_ModelRenderMD2.gml</script>
       </scripts>
     </scripts>
   </scripts>

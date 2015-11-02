@@ -27,10 +27,10 @@ class MADLLBackend
 		std::vector<IDirect3DVertexShader9*> VShader;
 		std::vector<IDirect3DPixelShader9*> PShader;
 		std::vector<D3DLIGHT9> Light;
-
-		std::vector<Object*> Objects;
+		std::vector<MD2Model*> MD2Models; //This has to be done like this for now. For some reason the access to the Object functions are denied otherwise.
 
 		DWORD stFVF;
+		IDirect3DVertexDeclaration9* VertexDeclarationMD2 = 0;
 
 		//Functions
 		int HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, IDirect3DVertexShader9 ** VSOut, IDirect3DPixelShader9 ** PSOut);
