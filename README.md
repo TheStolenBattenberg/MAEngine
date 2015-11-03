@@ -1,8 +1,20 @@
-# MAE-Engine
-MAE Engine is a combind effort from users of the GMC, to add proper 3D capability to Game Maker Studio.
+# Mentis Animae Engine
+MAE is a combind effort from users of the GMC, to add proper 3D capability to Game Maker Studio. If you're wondering what Mentis Animae means, it's Mind and Soul in latin. Makes a cool name, huh?
+
+# Current Features
+- Advanced Vector, Quatrion and Matrix math scripts.
+- A capable lighting system, supporting Point, Spot and Directional Light types.
+- A Physics and Collision capable world, featuring Bullet Dynamics.
+- Fast 3D Model Loading and drawing.
+- MD2 3D Model Support.
+-   + MD2 Morph Target Animation
+- Pure HLSL9 Support.
 
 # Road Map:
-Nothing to see here.
+- Put something in me!
+
+# Contributing:
+- Add something.
 
 # Credits:
 - TheStolenBattenberg (MA_DX9 DLL, GML API & Functions, Making Broken Code)
