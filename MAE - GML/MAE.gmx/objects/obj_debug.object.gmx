@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Init(INIT_RENDER);
+            <string>MAE_Init(INIT_RENDER | INIT_PHYSICS);
 
 global.m = MAE_ModelLoadMD2("tris.MD2", "hobgoblin.bmp");
 </string>
