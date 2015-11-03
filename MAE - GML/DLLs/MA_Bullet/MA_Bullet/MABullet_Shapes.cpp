@@ -57,4 +57,13 @@ DLLEXPORT MAB_ShapeDestroy(double ShapeID)
 	return 1;
 }
 
-
+DLLEXPORT MAB_ShapeDestroyAll()
+{
+	if (G.Shapes.size() == 0) return 0;
+	for (auto i : G.Shapes)
+	{
+		delete i.second;
+	}
+	G.Shapes.clear();
+	return 1;
+}

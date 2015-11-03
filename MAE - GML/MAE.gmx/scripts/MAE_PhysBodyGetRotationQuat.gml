@@ -1,9 +1,9 @@
-///MAE_PhysBodyGetRotation(body)
+///MAE_PhysBodyGetRotationQuat(body)
 /*
 Returns a quaternion.
 */
 
-external_call(global.MAB_BodyGetRotation, argument0);
+external_call(global.MAB_BodyGetRotationQuat, argument0);
 var _x = external_call(global.MAB_Quat, 0);
 var _y = external_call(global.MAB_Quat, 1);
 var _z = external_call(global.MAB_Quat, 2);

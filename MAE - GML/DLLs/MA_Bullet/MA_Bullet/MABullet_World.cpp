@@ -18,7 +18,18 @@ DLLEXPORT MAB_WorldCreate()
 DLLEXPORT MAB_WorldDestroy()
 {
 	if (!G.worldExists()) return 0;
-	//TODO: Destroy the objects in the world
+	for (int i = G.World->getNumCollisionObjects() - 1; i >= 0; i--)
+	{
+		btCollisionObject* obj = G.World->getCollisionObjectArray()[i];
+		btRigidBody* body = btRigidBody::upcast(obj);
+		if (body && body->getMotionState())
+		{
+			delete body->getMotionState();
+		}
+		G.World->removeCollisionObject(obj);
+		delete obj;
+	}
+	G.Bodies.clear();
 	delete G.World;
 	delete G.Solver;
 	delete G.Dispatcher;
@@ -33,4 +44,17 @@ DLLEXPORT MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeSte
 	if (!G.worldExists()) return 0;
 	G.World->stepSimulation((btScalar)TimeStep, (int)MaxSubSteps, (btScalar)FixedTimeStep);
 	return 1;
+}
+
+DLLEXPORT MAB_WorldSetGravity(double X, double Y, double Z)
+{
+	if (!G.worldExists()) return 0;
+	G.World->setGravity(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+	return 1;
+}
+
+DLLEXPORT MAB_WorldGetBodyCount()
+{
+	if (!G.worldExists()) return 0;
+	return G.World->getNumCollisionObjects();
 }

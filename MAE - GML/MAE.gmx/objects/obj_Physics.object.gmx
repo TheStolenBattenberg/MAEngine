@@ -31,18 +31,32 @@
 MAE_PhysWorldCreate();
 
 //create ground
-MAE_PhysBodyCreate(MAE_PhysShapeCreateBox(10, 10, 0.1), 0, 0, 0, 0, 0, 0, 0);
+MAE_PhysBodyCreate(MAE_PhysShapeCreatePlane(0, 0, 1, 0), 0, 0, 0, 0, 0, 0, 0);
 
-//create some boxes that will fall to the ground
-box = 0;
-box_pos = 0;
-box_rot = 0;
+//create some shapes
+shape[0] = MAE_PhysShapeCreateBox(1, 1, 1);
+shape[1] = MAE_PhysShapeCreateSphere(1);
+shape[2] = MAE_PhysShapeCreateCone(1, 2, 2);
+shape[3] = MAE_PhysShapeCreateCylinder(1, 2, 2);
+shape[4] = MAE_PhysShapeCreateCapsule(1, 2, 2);
 
-box_shape = MAE_PhysShapeCreateBox(1, 1, 1);
+//3D models to visualize the shapes
+model[0] = d3d_model_create();
+d3d_model_block(model[0], -1, -1, -1, 1, 1, 1, 1, 1);
+model[1] = d3d_model_create();
+d3d_model_ellipsoid(model[1], -1, -1, -1, 1, 1, 1, 1, 1, 32);
+model[2] = d3d_model_create();
+d3d_model_cone(model[2], -1, -1, -1, 1, 1, 1, 1, 1, true, 32);
+model[3] = d3d_model_create();
+d3d_model_cylinder(model[3], -1, -1, -1, 1, 1, 1, 1, 1, true, 32);
+model[4] = d3d_model_create();
+d3d_model_cylinder(model[4], -1, -1, -1, 1, 1, 1, 1, 1, true, 32);
+d3d_model_ellipsoid(model[4], -1, -1, 0, 1, 1, 2, 1, 1, 32);
+d3d_model_ellipsoid(model[4], -1, -1, -2, 1, 1, 0, 1, 1, 32);
 
-num_boxes = 5;
-for(var i=0; i&lt;num_boxes; i++){
-    box[i] = MAE_PhysBodyCreate(box_shape, 1, random(pi*2), random(pi*2), random(pi*2), 0, 0, 5+i*2);
+//create rigidbodies that will fall to the ground
+for(var i=0; i&lt;array_length_1d(shape); i++){
+    body[i] = MAE_PhysBodyCreate(shape[i], 1, random(pi*2), random(pi*2), random(pi*2), 0, 0, 10+i*5);
 }
 
 </string>
@@ -67,11 +81,11 @@ for(var i=0; i&lt;num_boxes; i++){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_PhysWorldStep(1/60, 1, 1/60); //step the simulation
+            <string>MAE_PhysWorldStep(1/room_speed, 4, 1/120); //step the simulation
 
-for(var i=0; i&lt;num_boxes; i++){
-    box_pos[i] = MAE_PhysBodyGetPosition(box[i]);
-    box_rot[i] = MAE_PhysBodyGetRotation(box[i]);
+for(var i=0; i&lt;array_length_1d(body); i++){
+    position[i] = MAE_PhysBodyGetPosition(body[i]);
+    rotation[i] = MAE_PhysBodyGetRotationEuler(body[i]);
 }
 </string>
           </argument>
@@ -96,6 +110,7 @@ for(var i=0; i&lt;num_boxes; i++){
           <argument>
             <kind>1</kind>
             <string>MAE_PhysWorldDestroy();
+MAE_PhysShapeDestroyAll();
 </string>
           </argument>
         </arguments>
@@ -124,11 +139,15 @@ draw_set_color(c_dkgray);
 d3d_draw_floor(-10, -10, 0, 10 ,10, 0, -1, 1, 1);
 
 draw_set_color(c_white);
-for(var i=0; i&lt;num_boxes; i++){    
-    matrix_set(matrix_world, MAE_MatrixCreateRotationQuaternion(4, box_rot[i]));
-    var pos = box_pos[i];
-    d3d_transform_add_translation(pos[0], pos[1], pos[2]);
-    d3d_draw_block(-1, -1, -1, 1, 1, 1, background_get_texture(tex_box), 1, 1);    
+for(var i=0; i&lt;array_length_1d(body); i++){    
+    //matrix_set(matrix_world, MAE_MatrixCreateRotationQuaternion(4, box_rot[i]));
+    var rot = rotation[i];
+    d3d_transform_set_rotation_x(rot[0]);
+    d3d_transform_add_rotation_y(rot[1]);
+    d3d_transform_add_rotation_z(rot[2]);
+    var pos = position[i];
+    d3d_transform_add_translation(pos[0], pos[1], pos[2]);  
+    d3d_model_draw(model[i], 0, 0, 0, background_get_texture(tex_box));
 }
 d3d_transform_set_identity();
 </string>

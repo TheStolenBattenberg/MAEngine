@@ -31,6 +31,7 @@ struct MABullet {
 		ShapeCount++;
 		return ShapeCount - 1;
 	}
+	btVector3 toEuler(btMatrix3x3 &tm);
 
 };
 

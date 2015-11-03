@@ -27,6 +27,9 @@
     <ClCompile Include="MABullet_Bodies.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MABullet_Misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MABullet.h">

@@ -2,38 +2,33 @@
 
 MABullet G;
 
-DLLEXPORT MABullet_Free()
+btVector3 MABullet::toEuler(btMatrix3x3 &tm)
 {
-	//TODO: free stuff
-	return 1;
-}
+	btScalar x, y, z = 0;
 
-DLLEXPORT MAB_Vec(double n)
-{
-	switch ((int)n)
+	if (tm.getRow(2).x() < 0.999)
 	{
-	case 0:
-		return G.ReturnVec.x();
-	case 1:
-		return G.ReturnVec.y();
-	case 2:
-		return G.ReturnVec.z();
+		if (tm.getRow(2).x() > -0.999)
+			x = atan2(-tm.getRow(2).y(), tm.getRow(2).z());
+		else
+			x = -atan2(tm.getRow(0).y(), tm.getRow(1).y());
 	}
-	return 0;
-}
+	else
+		x = atan2(tm.getRow(0).y(), tm.getRow(1).y());
 
-DLLEXPORT MAB_Quat(double n)
-{
-	switch ((int)n)
+	if (tm.getRow(2).x() < 0.999)
 	{
-	case 0:
-		return G.ReturnQuat.x();
-	case 1:
-		return G.ReturnQuat.y();
-	case 2:
-		return G.ReturnQuat.z();
-	case 3:
-		return G.ReturnQuat.w();
+		if (tm.getRow(2).x() > -0.999)
+			y = asin(tm.getRow(2).x());
+		else
+			y = -SIMD_HALF_PI;
 	}
-	return 0;
+	else
+		y = SIMD_HALF_PI;
+
+	if (tm.getRow(2).x()< +0.999 && tm.getRow(2).x() > -0.999)
+		z = atan2(-tm.getRow(1).x(), tm.getRow(0).x());
+	else z = 0.f;
+
+	return btVector3(x*SIMD_DEGS_PER_RAD, y*SIMD_DEGS_PER_RAD, z*SIMD_DEGS_PER_RAD);
 }
