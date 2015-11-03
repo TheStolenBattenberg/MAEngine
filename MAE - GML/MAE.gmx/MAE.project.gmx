@@ -253,6 +253,10 @@
         <script>scripts\MAE_PhysWorldStep.gml</script>
         <script>scripts\MAE_PhysShapeCreateBox.gml</script>
         <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
+        <script>scripts\MAE_PhysShapeCreateCapsule.gml</script>
+        <script>scripts\MAE_PhysShapeCreateCylinder.gml</script>
+        <script>scripts\MAE_PhysShapeCreateCone.gml</script>
+        <script>scripts\MAE_PhysShapeCreatePlane.gml</script>
         <script>scripts\MAE_PhysBodyCreate.gml</script>
         <script>scripts\MAE_PhysBodyDestroy.gml</script>
         <script>scripts\MAE_PhysBodyGetPosition.gml</script>
