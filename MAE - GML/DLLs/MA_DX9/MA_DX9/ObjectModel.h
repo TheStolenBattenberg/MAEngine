@@ -12,7 +12,7 @@
 
 //#include "MS3DType.h" //Features: Bone Based Animation. !NOTE - Currently a little broken.
 
-struct MD2_POSITION_VERTEX
+struct VERTEX
 {
 	union
 	{
@@ -24,7 +24,7 @@ struct MD2_POSITION_VERTEX
 	};
 };
 
-struct MD2_TEXTURE_VERTEX
+struct TEXCOORD
 {
 	union
 	{

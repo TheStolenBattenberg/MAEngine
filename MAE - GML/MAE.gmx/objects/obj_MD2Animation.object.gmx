@@ -52,12 +52,15 @@ curY = 0;
 desX = 0;
 desY = 0;
 
+
 /**
  * Animation stuff.
  */
 MAE_AnimationCreate();
 MAE_AnimationAdd(40, 45); //Animation Set 0, Running.
 MAE_AnimationSet(0);
+
+global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", "COMMON/TEXTURE/hobgoblin.bmp");
 </string>
           </argument>
         </arguments>
@@ -129,7 +132,7 @@ vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(
 /**
  * Animation stuff.
  */
-MAE_AnimationUpdate(1);
+MAE_AnimationUpdate(5);
 
 </string>
           </argument>
@@ -183,7 +186,7 @@ matrix_set(matrix_view, matView);
 
 
 d3d_transform_add_scaling(0.06, 0.06, 0.06);
-    MAE_ModelRenderMD2(global.m, MAE_AnimationGetFrame1(), MAE_AnimationGetFrame2(), MAE_AnimationGetTime());
+    MAE_ModelMD2Render(global.m, MAE_AnimationGetFrame1(), MAE_AnimationGetFrame2(), MAE_AnimationGetTime());
 d3d_transform_set_identity();
 
 

@@ -282,9 +282,9 @@ DLLEXPORT double MADX9_MD2Render(double index, double frame_1, double frame_2, d
 	marb.d3ddev->SetVertexDeclaration(marb.VertexDeclarationMD2);
 
 	marb.d3ddev->SetIndices(MD2->FetchIB());
-	marb.d3ddev->SetStreamSource(0, MD2->FetchVB((int) frame_1), 0, sizeof(MD2_POSITION_VERTEX));
-	marb.d3ddev->SetStreamSource(1, MD2->FetchVB((int) frame_2), 0, sizeof(MD2_POSITION_VERTEX));
-	marb.d3ddev->SetStreamSource(2, MD2->FetchTB(), 0, sizeof(MD2_TEXTURE_VERTEX));
+	marb.d3ddev->SetStreamSource(0, MD2->FetchVB((int) frame_1), 0, sizeof(VERTEX));
+	marb.d3ddev->SetStreamSource(1, MD2->FetchVB((int) frame_2), 0, sizeof(VERTEX));
+	marb.d3ddev->SetStreamSource(2, MD2->FetchTB(), 0, sizeof(TEXCOORD));
 
 	marb.d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, MD2->FetchVertexCount(), 0, MD2->FetchTriangleCount());
 

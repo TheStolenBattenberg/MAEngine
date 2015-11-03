@@ -14,48 +14,31 @@
 	typedef unsigned short word;
 #endif
 
+#define MSM_VERSION 0x00000001
 
 namespace MSMType {
 	struct Header {
 		char Tag[4]; //Should be 'MSMf'
 		int Version; //Depends on version, for this one it's '1'.
 		word VertexCount;
-		word NormalCount;
-		word TexcoordCount;
 		word TriangleCount;
 		word MaterialCount;
-		byte MaterialType; //1 == Diffuse, 2 == Texture
 		byte HasShader;
 	};
-
-	struct Vertices {
-		float Vertex[3];
-	};
-
-	struct Normal {
-		float Norm[3];
-	};
-
-	struct Texcoord {
+	struct Triangle {
+		word VertexIndex[3];
+		float Normal[3][3];
 		float S[3];
 		float T[3];
 	};
 
-	struct Triangle {
-		byte Group;
-		word VertexIndex[3];
-		word NormalIndex[3];
-		word TexcoordIndex[3];
-	};
-
 	struct MaterialDiffuse {
-		byte Group;
-		byte Diffuse[4];
-	};
-
-	struct MaterialTexture {
-		byte Group;
-		char Texture[128]; //Should probably make this part able to be over ridden.
+		float Diffuse[4];
+		float Ambient[4];
+		float Specular[4];
+		float Emissive[4];
+		float SpecularPower;
+		char Texture[128];
 	};
 
 	struct Shader {
