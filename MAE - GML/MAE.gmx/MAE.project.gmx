@@ -22,40 +22,6 @@
       <filename>MA_DX9.dll</filename>
     </datafile>
     <datafile>
-      <name>hobgoblin.bmp</name>
-      <exists>-1</exists>
-      <size>66184</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>hobgoblin.bmp</filename>
-    </datafile>
-    <datafile>
-      <name>tris.MD2</name>
-      <exists>-1</exists>
-      <size>415460</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>tris.MD2</filename>
-    </datafile>
-    <datafile>
       <name>MA_Bullet.dll</name>
       <exists>-1</exists>
       <size>1885696</size>
@@ -72,6 +38,46 @@
       </ConfigOptions>
       <filename>MA_Bullet.dll</filename>
     </datafile>
+    <datafiles number="6" name="COMMON">
+      <datafiles number="6" name="MODEL">
+        <datafile>
+          <name>hobgoblin.md2</name>
+          <exists>-1</exists>
+          <size>415460</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>hobgoblin.md2</filename>
+        </datafile>
+      </datafiles>
+      <datafiles number="6" name="TEXTURE">
+        <datafile>
+          <name>hobgoblin.bmp</name>
+          <exists>-1</exists>
+          <size>66184</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>hobgoblin.bmp</filename>
+        </datafile>
+      </datafiles>
+    </datafiles>
   </datafiles>
   <NewExtensions/>
   <sounds name="sound"/>
@@ -84,103 +90,6 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="MAE">
-      <scripts name="Math">
-        <scripts name="Utilities">
-          <script>scripts\MAE_ViewportCreate.gml</script>
-        </scripts>
-        <scripts name="Vector">
-          <script>scripts\MAE_ToVec2.gml</script>
-          <script>scripts\MAE_ToVec3.gml</script>
-          <script>scripts\MAE_ToVec4.gml</script>
-          <script>scripts\MAE_VectorIsVec2.gml</script>
-          <script>scripts\MAE_VectorIsVec3.gml</script>
-          <script>scripts\MAE_VectorIsVec4.gml</script>
-          <script>scripts\MAE_VectorAdd.gml</script>
-          <script>scripts\MAE_VectorCreate.gml</script>
-          <script>scripts\MAE_VectorCreateAngle2D.gml</script>
-          <script>scripts\MAE_VectorCreateAngle3D.gml</script>
-          <script>scripts\MAE_VectorCross.gml</script>
-          <script>scripts\MAE_VectorDistance.gml</script>
-          <script>scripts\MAE_VectorDivide.gml</script>
-          <script>scripts\MAE_VectorDot.gml</script>
-          <script>scripts\MAE_VectorDup.gml</script>
-          <script>scripts\MAE_VectorGet.gml</script>
-          <script>scripts\MAE_VectorMagnitude.gml</script>
-          <script>scripts\MAE_VectorMagnitudeSquared.gml</script>
-          <script>scripts\MAE_VectorMultiply.gml</script>
-          <script>scripts\MAE_VectorMultiplyMatrix.gml</script>
-          <script>scripts\MAE_VectorNorm.gml</script>
-          <script>scripts\MAE_VectorProject.gml</script>
-          <script>scripts\MAE_VectorReflect.gml</script>
-          <script>scripts\MAE_VectorSet.gml</script>
-          <script>scripts\MAE_VectorSubtract.gml</script>
-          <script>scripts\MAE_VectorUnproject.gml</script>
-          <script>scripts\MAE_VectorUnprojectInverse.gml</script>
-        </scripts>
-        <scripts name="Matrix">
-          <script>scripts\MAE_MatrixCreate.gml</script>
-          <script>scripts\MAE_MatrixCreateIdentity.gml</script>
-          <script>scripts\MAE_MatrixCreateLookAt.gml</script>
-          <script>scripts\MAE_MatrixCreateNormalMatrix.gml</script>
-          <script>scripts\MAE_MatrixCreateOrtho.gml</script>
-          <script>scripts\MAE_MatrixCreatePerspective.gml</script>
-          <script>scripts\MAE_MatrixCreateRotation.gml</script>
-          <script>scripts\MAE_MatrixCreateRotationQuaternion.gml</script>
-          <script>scripts\MAE_MatrixCreateRotationVector.gml</script>
-          <script>scripts\MAE_MatrixCreateRotationX.gml</script>
-          <script>scripts\MAE_MatrixCreateRotationY.gml</script>
-          <script>scripts\MAE_MatrixCreateRotationZ.gml</script>
-          <script>scripts\MAE_MatrixCreateScaling.gml</script>
-          <script>scripts\MAE_MatrixCreateTranslation.gml</script>
-          <script>scripts\MAE_MatrixDet.gml</script>
-          <script>scripts\MAE_MatrixDivide.gml</script>
-          <script>scripts\MAE_MatrixDup.gml</script>
-          <script>scripts\MAE_MatrixGet.gml</script>
-          <script>scripts\MAE_MatrixGetDimension.gml</script>
-          <script>scripts\MAE_MatrixGetMatrix.gml</script>
-          <script>scripts\MAE_MatrixInverse.gml</script>
-          <script>scripts\MAE_MatrixMultiply.gml</script>
-          <script>scripts\MAE_MatrixMultiplyMatrix.gml</script>
-          <script>scripts\MAE_MatrixRotate.gml</script>
-          <script>scripts\MAE_MatrixRotateQuaternion.gml</script>
-          <script>scripts\MAE_MatrixRotateVector.gml</script>
-          <script>scripts\MAE_MatrixRotateX.gml</script>
-          <script>scripts\MAE_MatrixRotateY.gml</script>
-          <script>scripts\MAE_MatrixRotateZ.gml</script>
-          <script>scripts\MAE_MatrixScale.gml</script>
-          <script>scripts\MAE_MatrixSet.gml</script>
-          <script>scripts\MAE_MatrixTranslate.gml</script>
-          <script>scripts\MAE_MatrixTranspose.gml</script>
-          <script>scripts\MAE_MatrixToMat2.gml</script>
-          <script>scripts\MAE_MatrixToMat3.gml</script>
-          <script>scripts\MAE_MatrixToMat4.gml</script>
-          <script>scripts\MAE_MatrixIsMat2.gml</script>
-          <script>scripts\MAE_MatrixIsMat3.gml</script>
-          <script>scripts\MAE_MatrixIsMat4.gml</script>
-        </scripts>
-        <scripts name="Quaternion">
-          <script>scripts\MAE_QuaternionCreate.gml</script>
-          <script>scripts\MAE_QuaternionCreateIdentity.gml</script>
-          <script>scripts\MAE_QuaternionCreateRotation.gml</script>
-          <script>scripts\MAE_QuaternionCreateRotationMatrix.gml</script>
-          <script>scripts\MAE_QuaternionCreateRotationVector.gml</script>
-          <script>scripts\MAE_QuaternionDup.gml</script>
-          <script>scripts\MAE_QuaternionGet.gml</script>
-          <script>scripts\MAE_QuaternionGetRotationX.gml</script>
-          <script>scripts\MAE_QuaternionGetRotationY.gml</script>
-          <script>scripts\MAE_QuaternionGetRotationZ.gml</script>
-          <script>scripts\MAE_QuaternionInvert.gml</script>
-          <script>scripts\MAE_QuaternionMagnitude.gml</script>
-          <script>scripts\MAE_QuaternionMagnitudeSquared.gml</script>
-          <script>scripts\MAE_QuaternionMultiply.gml</script>
-          <script>scripts\MAE_QuaternionNorm.gml</script>
-          <script>scripts\MAE_QuaternionRotate.gml</script>
-          <script>scripts\MAE_QuaternionRotateMatrix.gml</script>
-          <script>scripts\MAE_QuaternionRotateVector.gml</script>
-          <script>scripts\MAE_QuaternionSet.gml</script>
-          <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
-        </scripts>
-      </scripts>
       <scripts name="Render">
         <scripts name="Particles">
           <scripts name="Particle">
@@ -215,59 +124,162 @@
           <script>scripts\MAE_LightEnable.gml</script>
           <script>scripts\MAE_LightCreateSimplePoint.gml</script>
         </scripts>
+        <scripts name="Hooks">
+          <script>scripts\MAE_HooksApply.gml</script>
+          <script>scripts\MAE_HooksCreate.gml</script>
+          <script>scripts\MAE_HooksDestroy.gml</script>
+          <script>scripts\MAE_HooksMakeCurrent.gml</script>
+          <script>scripts\MAE_HooksRemove.gml</script>
+          <script>scripts\MAE_HooksStackClear.gml</script>
+          <script>scripts\MAE_HooksStackEmpty.gml</script>
+          <script>scripts\MAE_HooksStackPopPointer.gml</script>
+        </scripts>
+        <scripts name="Model">
+          <scripts name="MD2">
+            <script>scripts\MAE_ModelMD2Load.gml</script>
+            <script>scripts\MAE_ModelMD2Frames.gml</script>
+            <script>scripts\MAE_ModelMD2Render.gml</script>
+            <script>scripts\MAE_ModelMD2Destroy.gml</script>
+          </scripts>
+        </scripts>
+        <scripts name="Animation">
+          <script>scripts\MAE_AnimationCreate.gml</script>
+          <script>scripts\MAE_AnimationAdd.gml</script>
+          <script>scripts\MAE_AnimationUpdate.gml</script>
+          <script>scripts\MAE_AnimationSet.gml</script>
+          <script>scripts\MAE_AnimationGetFrame1.gml</script>
+          <script>scripts\MAE_AnimationGetFrame2.gml</script>
+          <script>scripts\MAE_AnimationGetTime.gml</script>
+        </scripts>
+      </scripts>
+      <scripts name="Physics">
+        <scripts name="World">
+          <script>scripts\MAE_PhysWorldCreate.gml</script>
+          <script>scripts\MAE_PhysWorldDestroy.gml</script>
+          <script>scripts\MAE_PhysWorldStep.gml</script>
+          <script>scripts\MAE_PhysWorldSetGravity.gml</script>
+          <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
+        </scripts>
+        <scripts name="Shape">
+          <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
+          <script>scripts\MAE_PhysShapeCreateBox.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCapsule.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCylinder.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCone.gml</script>
+          <script>scripts\MAE_PhysShapeCreatePlane.gml</script>
+          <script>scripts\MAE_PhysShapeDestroy.gml</script>
+          <script>scripts\MAE_PhysShapeDestroyAll.gml</script>
+        </scripts>
+        <scripts name="Body">
+          <script>scripts\MAE_PhysBodyCreate.gml</script>
+          <script>scripts\MAE_PhysBodyDestroy.gml</script>
+          <script>scripts\MAE_PhysBodyGetPosition.gml</script>
+          <script>scripts\MAE_PhysBodyGetRotationQuat.gml</script>
+          <script>scripts\MAE_PhysBodyGetRotationEuler.gml</script>
+          <script>scripts\MAE_PhysBodySetPosition.gml</script>
+          <script>scripts\MAE_PhysBodySetRotation.gml</script>
+        </scripts>
+      </scripts>
+      <scripts name="Utilities">
+        <scripts name="Math">
+          <scripts name="Vector">
+            <script>scripts\MAE_ToVec2.gml</script>
+            <script>scripts\MAE_ToVec3.gml</script>
+            <script>scripts\MAE_ToVec4.gml</script>
+            <script>scripts\MAE_VectorIsVec2.gml</script>
+            <script>scripts\MAE_VectorIsVec3.gml</script>
+            <script>scripts\MAE_VectorIsVec4.gml</script>
+            <script>scripts\MAE_VectorAdd.gml</script>
+            <script>scripts\MAE_VectorCreate.gml</script>
+            <script>scripts\MAE_VectorCreateAngle2D.gml</script>
+            <script>scripts\MAE_VectorCreateAngle3D.gml</script>
+            <script>scripts\MAE_VectorCross.gml</script>
+            <script>scripts\MAE_VectorDistance.gml</script>
+            <script>scripts\MAE_VectorDivide.gml</script>
+            <script>scripts\MAE_VectorDot.gml</script>
+            <script>scripts\MAE_VectorDup.gml</script>
+            <script>scripts\MAE_VectorGet.gml</script>
+            <script>scripts\MAE_VectorMagnitude.gml</script>
+            <script>scripts\MAE_VectorMagnitudeSquared.gml</script>
+            <script>scripts\MAE_VectorMultiply.gml</script>
+            <script>scripts\MAE_VectorMultiplyMatrix.gml</script>
+            <script>scripts\MAE_VectorNorm.gml</script>
+            <script>scripts\MAE_VectorProject.gml</script>
+            <script>scripts\MAE_VectorReflect.gml</script>
+            <script>scripts\MAE_VectorSet.gml</script>
+            <script>scripts\MAE_VectorSubtract.gml</script>
+            <script>scripts\MAE_VectorUnproject.gml</script>
+            <script>scripts\MAE_VectorUnprojectInverse.gml</script>
+          </scripts>
+          <scripts name="Matrix">
+            <script>scripts\MAE_MatrixCreate.gml</script>
+            <script>scripts\MAE_MatrixCreateIdentity.gml</script>
+            <script>scripts\MAE_MatrixCreateLookAt.gml</script>
+            <script>scripts\MAE_MatrixCreateNormalMatrix.gml</script>
+            <script>scripts\MAE_MatrixCreateOrtho.gml</script>
+            <script>scripts\MAE_MatrixCreatePerspective.gml</script>
+            <script>scripts\MAE_MatrixCreateRotation.gml</script>
+            <script>scripts\MAE_MatrixCreateRotationQuaternion.gml</script>
+            <script>scripts\MAE_MatrixCreateRotationVector.gml</script>
+            <script>scripts\MAE_MatrixCreateRotationX.gml</script>
+            <script>scripts\MAE_MatrixCreateRotationY.gml</script>
+            <script>scripts\MAE_MatrixCreateRotationZ.gml</script>
+            <script>scripts\MAE_MatrixCreateScaling.gml</script>
+            <script>scripts\MAE_MatrixCreateTranslation.gml</script>
+            <script>scripts\MAE_MatrixDet.gml</script>
+            <script>scripts\MAE_MatrixDivide.gml</script>
+            <script>scripts\MAE_MatrixDup.gml</script>
+            <script>scripts\MAE_MatrixGet.gml</script>
+            <script>scripts\MAE_MatrixGetDimension.gml</script>
+            <script>scripts\MAE_MatrixGetMatrix.gml</script>
+            <script>scripts\MAE_MatrixInverse.gml</script>
+            <script>scripts\MAE_MatrixMultiply.gml</script>
+            <script>scripts\MAE_MatrixMultiplyMatrix.gml</script>
+            <script>scripts\MAE_MatrixRotate.gml</script>
+            <script>scripts\MAE_MatrixRotateQuaternion.gml</script>
+            <script>scripts\MAE_MatrixRotateVector.gml</script>
+            <script>scripts\MAE_MatrixRotateX.gml</script>
+            <script>scripts\MAE_MatrixRotateY.gml</script>
+            <script>scripts\MAE_MatrixRotateZ.gml</script>
+            <script>scripts\MAE_MatrixScale.gml</script>
+            <script>scripts\MAE_MatrixSet.gml</script>
+            <script>scripts\MAE_MatrixTranslate.gml</script>
+            <script>scripts\MAE_MatrixTranspose.gml</script>
+            <script>scripts\MAE_MatrixToMat2.gml</script>
+            <script>scripts\MAE_MatrixToMat3.gml</script>
+            <script>scripts\MAE_MatrixToMat4.gml</script>
+            <script>scripts\MAE_MatrixIsMat2.gml</script>
+            <script>scripts\MAE_MatrixIsMat3.gml</script>
+            <script>scripts\MAE_MatrixIsMat4.gml</script>
+          </scripts>
+          <scripts name="Quaternion">
+            <script>scripts\MAE_QuaternionCreate.gml</script>
+            <script>scripts\MAE_QuaternionCreateIdentity.gml</script>
+            <script>scripts\MAE_QuaternionCreateRotation.gml</script>
+            <script>scripts\MAE_QuaternionCreateRotationMatrix.gml</script>
+            <script>scripts\MAE_QuaternionCreateRotationVector.gml</script>
+            <script>scripts\MAE_QuaternionDup.gml</script>
+            <script>scripts\MAE_QuaternionGet.gml</script>
+            <script>scripts\MAE_QuaternionGetRotationX.gml</script>
+            <script>scripts\MAE_QuaternionGetRotationY.gml</script>
+            <script>scripts\MAE_QuaternionGetRotationZ.gml</script>
+            <script>scripts\MAE_QuaternionInvert.gml</script>
+            <script>scripts\MAE_QuaternionMagnitude.gml</script>
+            <script>scripts\MAE_QuaternionMagnitudeSquared.gml</script>
+            <script>scripts\MAE_QuaternionMultiply.gml</script>
+            <script>scripts\MAE_QuaternionNorm.gml</script>
+            <script>scripts\MAE_QuaternionRotate.gml</script>
+            <script>scripts\MAE_QuaternionRotateMatrix.gml</script>
+            <script>scripts\MAE_QuaternionRotateVector.gml</script>
+            <script>scripts\MAE_QuaternionSet.gml</script>
+            <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
+          </scripts>
+        </scripts>
+        <script>scripts\MAE_ViewportCreate.gml</script>
       </scripts>
       <scripts name="Private">
         <script>scripts\MAE_Init.gml</script>
         <script>scripts\MAE_Free.gml</script>
-      </scripts>
-      <scripts name="Model">
-        <scripts name="MD2">
-          <script>scripts\MAE_ModelLoadMD2.gml</script>
-          <script>scripts\MAE_ModelGetFramesMD2.gml</script>
-          <script>scripts\MAE_ModelRenderMD2.gml</script>
-          <script>scripts\MAE_ModelDestroyMD2.gml</script>
-        </scripts>
-      </scripts>
-      <scripts name="Hooks">
-        <script>scripts\MAE_HooksApply.gml</script>
-        <script>scripts\MAE_HooksCreate.gml</script>
-        <script>scripts\MAE_HooksDestroy.gml</script>
-        <script>scripts\MAE_HooksMakeCurrent.gml</script>
-        <script>scripts\MAE_HooksRemove.gml</script>
-        <script>scripts\MAE_HooksStackClear.gml</script>
-        <script>scripts\MAE_HooksStackEmpty.gml</script>
-        <script>scripts\MAE_HooksStackPopPointer.gml</script>
-      </scripts>
-      <scripts name="Animation">
-        <script>scripts\MAE_AnimationCreate.gml</script>
-        <script>scripts\MAE_AnimationAdd.gml</script>
-        <script>scripts\MAE_AnimationUpdate.gml</script>
-        <script>scripts\MAE_AnimationSet.gml</script>
-        <script>scripts\MAE_AnimationGetFrame1.gml</script>
-        <script>scripts\MAE_AnimationGetFrame2.gml</script>
-        <script>scripts\MAE_AnimationGetTime.gml</script>
-      </scripts>
-      <scripts name="Physics">
-        <script>scripts\MAE_PhysWorldCreate.gml</script>
-        <script>scripts\MAE_PhysWorldDestroy.gml</script>
-        <script>scripts\MAE_PhysWorldStep.gml</script>
-        <script>scripts\MAE_PhysWorldSetGravity.gml</script>
-        <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
-        <script>scripts\MAE_PhysShapeCreateBox.gml</script>
-        <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
-        <script>scripts\MAE_PhysShapeCreateCapsule.gml</script>
-        <script>scripts\MAE_PhysShapeCreateCylinder.gml</script>
-        <script>scripts\MAE_PhysShapeCreateCone.gml</script>
-        <script>scripts\MAE_PhysShapeCreatePlane.gml</script>
-        <script>scripts\MAE_PhysShapeDestroy.gml</script>
-        <script>scripts\MAE_PhysShapeDestroyAll.gml</script>
-        <script>scripts\MAE_PhysBodyCreate.gml</script>
-        <script>scripts\MAE_PhysBodyDestroy.gml</script>
-        <script>scripts\MAE_PhysBodyGetPosition.gml</script>
-        <script>scripts\MAE_PhysBodyGetRotationQuat.gml</script>
-        <script>scripts\MAE_PhysBodyGetRotationEuler.gml</script>
-        <script>scripts\MAE_PhysBodySetPosition.gml</script>
-        <script>scripts\MAE_PhysBodySetRotation.gml</script>
       </scripts>
     </scripts>
   </scripts>

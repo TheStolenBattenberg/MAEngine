@@ -54,7 +54,7 @@ void MD2Model::FetchFrameData(std::ifstream& f_MD2)
 	f_MD2.seekg(Header.ofs_frames, std::ios::beg);
 	f_MD2.read((char*)FrameBuffer, MD2_FrameSize);
 
-	MD2_POSITION_VERTEX* Vertices = new MD2_POSITION_VERTEX[Header.num_xyz];
+	VERTEX* Vertices = new VERTEX[Header.num_xyz];
 
 	MD2Type::Frame* CurrentFrame = (MD2Type::Frame*)FrameBuffer;
 	for (int f = 0; f < Header.num_frames; f++)
@@ -69,14 +69,14 @@ void MD2Model::FetchFrameData(std::ifstream& f_MD2)
 			}
 		}
 
-		HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(MD2_POSITION_VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2VB[f], 0);
+		HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2VB[f], 0);
 
 		if (FAILED(result))
 			throw Exception("Couldn't create the DirectX9 Vertex Buffer!");
 
 		void* MemoryPointer = 0;
 		MD2VB[f]->Lock(0, 0, &MemoryPointer, 0);
-		memcpy(MemoryPointer, Vertices, sizeof(MD2_POSITION_VERTEX)*Header.num_xyz);
+		memcpy(MemoryPointer, Vertices, sizeof(VERTEX)*Header.num_xyz);
 		MD2VB[f]->Unlock();
 
 		Frames++;
@@ -118,7 +118,7 @@ void MD2Model::FetchIndexData(std::ifstream& f_MD2)
 void MD2Model::FetchTextureData(std::ifstream& f_MD2)
 {
 	MD2Type::Texcoord* CoordBuffer = new MD2Type::Texcoord[Header.num_st];
-	MD2_TEXTURE_VERTEX* TextureBuffer = new MD2_TEXTURE_VERTEX[Header.num_st];
+	TEXCOORD* TextureBuffer = new TEXCOORD[Header.num_st];
 
 	f_MD2.seekg(Header.ofs_st, std::ios::beg);
 	f_MD2.read((char*)CoordBuffer, sizeof(MD2Type::Texcoord) * Header.num_st);
@@ -129,7 +129,7 @@ void MD2Model::FetchTextureData(std::ifstream& f_MD2)
 		TextureBuffer[i].t = ((float)CoordBuffer[i].t / (float)Header.skinheight);
 	}
 
-	MD2_TEXTURE_VERTEX* VertexTextureBuffer = new MD2_TEXTURE_VERTEX[Header.num_xyz];
+	TEXCOORD* VertexTextureBuffer = new TEXCOORD[Header.num_xyz];
 	MD2Type::Triangle* TriangleBuffer = new MD2Type::Triangle[Header.num_tris];
 
 	f_MD2.seekg(Header.ofs_tris, std::ios::beg);
@@ -145,14 +145,14 @@ void MD2Model::FetchTextureData(std::ifstream& f_MD2)
 		}
 	}
 
-	HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(MD2_TEXTURE_VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2TB, 0);
+	HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(TEXCOORD) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2TB, 0);
 
 	if (FAILED(result))
 		throw Exception("Couldn't create the DirectX9 Vertex Buffer!");
 
 	void* MemoryPointer;
 	MD2TB->Lock(0, 0, &MemoryPointer, 0);
-	memcpy(MemoryPointer, VertexTextureBuffer, sizeof(MD2_TEXTURE_VERTEX) * Header.num_xyz);
+	memcpy(MemoryPointer, VertexTextureBuffer, sizeof(TEXCOORD) * Header.num_xyz);
 	MD2TB->Unlock();
 
 	delete[] TriangleBuffer;
