@@ -1,11 +1,12 @@
-///MAE_Init(flags,[dll])
+///MAE_Init(flags,[DX9_DLL],[Bullet_DLL])
 global.DLL_MADX9 = "MA_DX9.dll";
 global.DLL_MABullet = "MA_Bullet.dll";
 
-////////////////////// What to do here? Pass in separate paramaters for each DLL?
 if (argument_count > 1 && is_string(argument[1]))
     global.DLL_MADX9 = argument[1];
-
+if (argument_count > 2 && is_string(argument[2]))
+    global.DLL_MABullet = argument[2];
+    
 // Private
 global.MADX9_Init = external_define(global.DLL_MADX9, "MADX9_Init", dll_cdecl, ty_real, 1, ty_string);
 global.MADX9_Free = external_define(global.DLL_MADX9, "MADX9_Free", dll_cdecl, ty_real, 0);
@@ -50,17 +51,22 @@ if (argument[0] & INIT_HOOKS)
 
 external_call(global.MADX9_Init, window_device());
 
-if (1){//TODO: use flag
+if (argument[0] & INIT_PHYSICS)
+{
     //Physics
-    global.MAB_WorldCreate       = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
-    global.MAB_WorldDestroy      = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);
-    global.MAB_WorldStep         = external_define(global.DLL_MABullet, "MAB_WorldStep", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_Vec               = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_Quat              = external_define(global.DLL_MABullet, "MAB_Quat", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_ShapeCreateBox    = external_define(global.DLL_MABullet, "MAB_ShapeCreateBox", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_ShapeCreateSphere = external_define(global.DLL_MABullet, "MAB_ShapeCreateSphere", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_BodyCreate        = external_define(global.DLL_MABullet, "MAB_BodyCreate", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MAB_BodyDestroy       = external_define(global.DLL_MABullet, "MAB_BodyDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_BodyGetPosition   = external_define(global.DLL_MABullet, "MAB_BodyGetPosition", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_BodyGetRotation   = external_define(global.DLL_MABullet, "MAB_BodyGetRotation", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_WorldCreate         = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
+    global.MAB_WorldDestroy        = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);
+    global.MAB_WorldStep           = external_define(global.DLL_MABullet, "MAB_WorldStep", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_Vec                 = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_Quat                = external_define(global.DLL_MABullet, "MAB_Quat", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_ShapeCreateBox      = external_define(global.DLL_MABullet, "MAB_ShapeCreateBox", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateSphere   = external_define(global.DLL_MABullet, "MAB_ShapeCreateSphere", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_ShapeCreateCapsule  = external_define(global.DLL_MABullet, "MAB_ShapeCreateCapsule", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateCylinder = external_define(global.DLL_MABullet, "MAB_ShapeCreateCylinder", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateCone     = external_define(global.DLL_MABullet, "MAB_ShapeCreateCone", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreatePlane    = external_define(global.DLL_MABullet, "MAB_ShapeCreatePlane", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_BodyCreate          = external_define(global.DLL_MABullet, "MAB_BodyCreate", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_BodyDestroy         = external_define(global.DLL_MABullet, "MAB_BodyDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodyGetPosition     = external_define(global.DLL_MABullet, "MAB_BodyGetPosition", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodyGetRotation     = external_define(global.DLL_MABullet, "MAB_BodyGetRotation", dll_cdecl, ty_real, 1, ty_real);
 }
