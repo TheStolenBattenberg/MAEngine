@@ -1,6 +1,8 @@
 ///MAE_Init(flags,[dll])
 global.DLL_MADX9 = "MA_DX9.dll";
+global.DLL_MABullet = "MA_Bullet.dll";
 
+////////////////////// What to do here? Pass in separate paramaters for each DLL?
 if (argument_count > 1 && is_string(argument[1]))
     global.DLL_MADX9 = argument[1];
 
@@ -47,3 +49,18 @@ if (argument[0] & INIT_HOOKS)
 }
 
 external_call(global.MADX9_Init, window_device());
+
+if (1){//TODO: use flag
+    //Physics
+    global.MAB_WorldCreate       = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
+    global.MAB_WorldDestroy      = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);
+    global.MAB_WorldStep         = external_define(global.DLL_MABullet, "MAB_WorldStep", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_Vec               = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_Quat              = external_define(global.DLL_MABullet, "MAB_Quat", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_ShapeCreateBox    = external_define(global.DLL_MABullet, "MAB_ShapeCreateBox", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateSphere = external_define(global.DLL_MABullet, "MAB_ShapeCreateSphere", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodyCreate        = external_define(global.DLL_MABullet, "MAB_BodyCreate", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_BodyDestroy       = external_define(global.DLL_MABullet, "MAB_BodyDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodyGetPosition   = external_define(global.DLL_MABullet, "MAB_BodyGetPosition", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodyGetRotation   = external_define(global.DLL_MABullet, "MAB_BodyGetRotation", dll_cdecl, ty_real, 1, ty_real);
+}
