@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="5" name="datafiles">
+  <datafiles number="6" name="datafiles">
     <datafile>
       <name>MA_DX9.dll</name>
       <exists>-1</exists>
@@ -55,6 +55,23 @@
       </ConfigOptions>
       <filename>tris.MD2</filename>
     </datafile>
+    <datafile>
+      <name>MA_Bullet.dll</name>
+      <exists>-1</exists>
+      <size>1885696</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>MA_Bullet.dll</filename>
+    </datafile>
   </datafiles>
   <NewExtensions/>
   <sounds name="sound"/>
@@ -62,6 +79,7 @@
   <backgrounds name="background">
     <background>background\tex_particle</background>
     <background>background\tex_Light</background>
+    <background>background\tex_box</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -229,6 +247,17 @@
         <script>scripts\MAE_AnimationGetFrame2.gml</script>
         <script>scripts\MAE_AnimationGetTime.gml</script>
       </scripts>
+      <scripts name="Physics">
+        <script>scripts\MAE_PhysWorldCreate.gml</script>
+        <script>scripts\MAE_PhysWorldDestroy.gml</script>
+        <script>scripts\MAE_PhysWorldStep.gml</script>
+        <script>scripts\MAE_PhysShapeCreateBox.gml</script>
+        <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
+        <script>scripts\MAE_PhysBodyCreate.gml</script>
+        <script>scripts\MAE_PhysBodyDestroy.gml</script>
+        <script>scripts\MAE_PhysBodyGetPosition.gml</script>
+        <script>scripts\MAE_PhysBodyGetRotation.gml</script>
+      </scripts>
     </scripts>
   </scripts>
   <shaders name="shaders">
@@ -241,6 +270,7 @@
     <object>objects\obj_Shader</object>
     <object>objects\obj_Light</object>
     <object>objects\obj_MD2Animation</object>
+    <object>objects\obj_Physics</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_debug</room>
@@ -249,6 +279,7 @@
     <room>rooms\rm_Shader</room>
     <room>rooms\rm_Light</room>
     <room>rooms\rm_MD2Animation</room>
+    <room>rooms\rm_Physics</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

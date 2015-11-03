@@ -1,0 +1,23 @@
+# =============================
+# Ignore Visual Studio folders
+# =============================
+
+ipch/
+MA_Bullet/Release/
+MA_Bullet/Debug/
+.vs/
+
+# =============================
+# Ignore Visual Studio files
+# =============================
+
+*.sdf
+*.suo
+*.opensdf
+
+# =============================
+# Keep Bullet libs
+# =============================
+
+!bullet/lib/Debug/*.lib
+!bullet/lib/Release/*.lib
