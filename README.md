@@ -20,3 +20,7 @@ MAE is a combind effort from users of the GMC, to add proper 3D capability to Ga
 - TheStolenBattenberg (MA_DX9 DLL, GML API & Functions, Making Broken Code)
 - falki147 (MA_DX9 DLL, GML API & Functions, Fixing Broken Code)
 - TickleForce (MA_Bullet DLL, GML API & Functions)
+
+# Used Libraries:
+- DirectX9 in MA_DX9, DirectX9 belongs to Microsoft Obviously.
+- Bullet Physics in MA_Bullet, 
