@@ -89,3 +89,93 @@ DLLEXPORT MAB_WorldDebugDraw(LPDIRECT3DDEVICE9 pointer)
 	DebugDrawer->debugDraw();
 	return 1;
 }
+
+DLLEXPORT MAB_WorldRaycast(double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
+{
+	if (!G.worldExists()) return -1;
+	btVector3 start = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
+	btVector3 end = btVector3((btScalar)XT, (btScalar)YT, (btScalar)ZT);
+	btCollisionWorld::ClosestRayResultCallback callback(start, end);
+	callback.m_collisionFilterGroup = (short)Group;
+	callback.m_collisionFilterMask = (short)Mask;
+	G.World->rayTest(start, end, callback);
+	if (callback.hasHit())
+	{
+		G.HitResult.Position = callback.m_hitPointWorld;
+		G.HitResult.Normal = callback.m_hitNormalWorld;
+		G.HitResult.Fraction = callback.m_closestHitFraction;
+		G.HitResult.BodyID = callback.m_collisionObject->getUserIndex();
+		G.HitResult.UserIndex = G.Bodies[G.HitResult.BodyID]->UserIndex;
+		return 1;
+	}
+	return 0;
+}
+/*
+DLLEXPORT MAB_WorldRaycastSingle(double BodyID, double X, double Y, double Z, double XT, double YT, double ZT)
+{
+	if (!G.worldExists()) return -1;
+	btVector3 startvec = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
+	btVector3 endvec = btVector3((btScalar)XT, (btScalar)YT, (btScalar)ZT);
+	btTransform start, end = btTransform::getIdentity();
+	start.setOrigin(startvec);
+	end.setOrigin(endvec);
+	btCollisionObject* obj = static_cast<btCollisionObject*>(G.getBody(BodyID));
+	btCollisionWorld::ClosestRayResultCallback callback(startvec, endvec);
+	G.World->rayTestSingle(start, end, G.getBody(BodyID), G.getBody(BodyID)->getCollisionShape(), G.getBody(BodyID)->getWorldTransform(), callback);
+	if (callback.hasHit())
+	{
+		G.HitResult.Position = callback.m_hitPointWorld;
+		G.HitResult.Normal = callback.m_hitNormalWorld;
+		G.HitResult.Fraction = callback.m_closestHitFraction;
+		G.HitResult.BodyID = callback.m_collisionObject->getUserIndex();
+		G.HitResult.UserIndex = G.Bodies[G.HitResult.BodyID]->UserIndex;
+		return 1;
+	}
+	return 0;
+}
+*/
+
+DLLEXPORT MAB_WorldSweep(double ShapeID, double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
+{
+	if (!G.worldExists()) return -1;
+	if (!G.shapeExists(ShapeID)) return -2;
+	btConvexShape* convex = dynamic_cast<btConvexShape*>(G.getShape(ShapeID));
+	if (!convex) return -3;
+	btVector3 startvec = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
+	btVector3 endvec = btVector3((btScalar)XT, (btScalar)YT, (btScalar)ZT);
+	btTransform start, end = btTransform::getIdentity();
+	start.setOrigin(startvec);
+	end.setOrigin(endvec);
+	btCollisionWorld::ClosestConvexResultCallback callback(startvec, endvec);
+	G.World->convexSweepTest(convex, start, end, callback);
+	if (callback.hasHit())
+	{
+		G.HitResult.Position = callback.m_hitPointWorld;
+		G.HitResult.Normal = callback.m_hitNormalWorld;
+		G.HitResult.Fraction = callback.m_closestHitFraction;
+		G.HitResult.BodyID = callback.m_hitCollisionObject->getUserIndex();
+		G.HitResult.UserIndex = G.Bodies[G.HitResult.BodyID]->UserIndex;
+		return 1;
+	}
+	return 0;
+}
+
+DLLEXPORT MAB_WorldOverlap(double ShapeID, double X, double Y, double Z, double RX, double RY, double RZ, double RW, double Group, double Mask)
+{
+	if (!G.worldExists()) return -1;
+	if (!G.shapeExists(ShapeID)) return -2;
+	btTransform trans;
+	trans.setOrigin(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+	trans.setRotation(btQuaternion((btScalar)RX, (btScalar)RY, (btScalar)RZ, (btScalar)RW));
+	btCollisionObject* obj = new btCollisionObject();
+	obj->setCollisionShape(G.getShape(ShapeID));
+	obj->setWorldTransform(trans);
+	G.World->addCollisionObject(obj, (short)Group, (short)Mask);
+	G.World->updateAabbs();
+	MAOverlapCallback callback(obj);
+	G.OverlapResults.clear();
+	G.World->contactTest(obj, callback);
+	G.World->removeCollisionObject(obj);
+	delete obj;
+	return G.OverlapResults.size();
+}
