@@ -62,10 +62,15 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_WorldGetBodyCount = external_define(global.DLL_MABullet, "MAB_WorldGetBodyCount", dll_cdecl, ty_real, 0);
     global.MAB_WorldExists       = external_define(global.DLL_MABullet, "MAB_WorldExists", dll_cdecl, ty_real, 0);
     global.MAB_WorldDebugDraw    = external_define(global.DLL_MABullet, "MAB_WorldDebugDraw", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_WorldRaycast      = external_define(global.DLL_MABullet, "MAB_WorldRaycast", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_WorldSweep        = external_define(global.DLL_MABullet, "MAB_WorldSweep", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_WorldOverlap      = external_define(global.DLL_MABullet, "MAB_WorldOverlap", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     
     //Misc
-    global.MAB_Vec  = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_Quat = external_define(global.DLL_MABullet, "MAB_Quat", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_Vec           = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_Quat          = external_define(global.DLL_MABullet, "MAB_Quat", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_HitResult     = external_define(global.DLL_MABullet, "MAB_HitResult", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_OverlapResult = external_define(global.DLL_MABullet, "MAB_OverlapResult", dll_cdecl, ty_real, 1, ty_real);
     
     //Shape
     global.MAB_ShapeCreateBox      = external_define(global.DLL_MABullet, "MAB_ShapeCreateBox", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);

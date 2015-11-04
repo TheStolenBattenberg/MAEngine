@@ -12,21 +12,23 @@ DLLEXPORT MAB_BodyCreate(double ShapeID, double Mass, double XRot, double YRot, 
 	btVector3 intertia(0.f, 0.f, 0.f);
 	shape->calculateLocalInertia((btScalar)Mass, intertia);
 	btRigidBody::btRigidBodyConstructionInfo bodyCI((btScalar)Mass, motionstate, shape, intertia);
-	btRigidBody* body = new btRigidBody(bodyCI);
-	G.World->addRigidBody(body);
+	btRigidBody* rigidbody = new btRigidBody(bodyCI);
+	MABody* body = new MABody(rigidbody);
+	G.World->addRigidBody(rigidbody);
+	rigidbody->setUserIndex(G.BodyCount);
 	G.Bodies[G.BodyCount] = body;
-	G.BodyCount++;	
+	G.BodyCount++;
 	return G.BodyCount - 1;
 }
 
 DLLEXPORT MAB_BodyDestroy(double BodyID)
 {
 	if (!G.bodyExists(BodyID)) return 0;
-	int ID = (int)BodyID;
-	G.World->removeCollisionObject(G.Bodies[ID]);
-	delete G.Bodies[ID]->getMotionState();
-	delete G.Bodies[ID];
-	G.Bodies.erase(ID);
+	G.World->removeCollisionObject(G.getBody(BodyID));
+	delete G.getBody(BodyID)->getMotionState();
+	delete G.getBody(BodyID);
+	delete G.Bodies[(int)BodyID];
+	G.Bodies.erase((int)BodyID);
 	return 1;
 }
 
@@ -63,7 +65,6 @@ DLLEXPORT MAB_BodyGetLinearDamping       (double BodyID){ return G.getBody(BodyI
 DLLEXPORT MAB_BodyGetFriction            (double BodyID){ return G.getBody(BodyID)->getFriction(); }
 DLLEXPORT MAB_BodyGetRestitution         (double BodyID){ return G.getBody(BodyID)->getRestitution(); }
 DLLEXPORT MAB_BodyGetRollingFriction     (double BodyID){ return G.getBody(BodyID)->getRollingFriction(); }
-DLLEXPORT MAB_BodyGetUserIndex           (double BodyID){ return G.getBody(BodyID)->getUserIndex(); }
 DLLEXPORT MAB_BodyGetDeactivationTime    (double BodyID){ return G.getBody(BodyID)->getDeactivationTime(); }
 DLLEXPORT MAB_BodyIsStatic               (double BodyID){ return G.getBody(BodyID)->isStaticObject(); }
 DLLEXPORT MAB_BodyIsKinematic            (double BodyID){ return G.getBody(BodyID)->isKinematicObject(); }
@@ -71,6 +72,7 @@ DLLEXPORT MAB_BodyGetShape               (double BodyID){ return G.getBody(BodyI
 DLLEXPORT MAB_BodyIsActive               (double BodyID){ return G.getBody(BodyID)->isActive(); }
 DLLEXPORT MAB_BodyGetGroup               (double BodyID){ return G.getBody(BodyID)->getBroadphaseProxy()->m_collisionFilterGroup; }
 DLLEXPORT MAB_BodyGetMask                (double BodyID){ return G.getBody(BodyID)->getBroadphaseProxy()->m_collisionFilterMask; }
+DLLEXPORT MAB_BodyGetUserIndex           (double BodyID){ return G.Bodies[(int)BodyID]->UserIndex; }
 
 DLLEXPORT MAB_BodySetPosition(double BodyID, double X, double Y, double Z)
 {
@@ -135,7 +137,7 @@ DLLEXPORT MAB_BodySetGravity(double BodyID, double X, double Y, double Z){
 	G.getBody(BodyID)->setGravity(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
 	return 1;}
 DLLEXPORT MAB_BodySetUserIndex(double BodyID, double index) {
-	G.getBody(BodyID)->setUserIndex((int)index);
+	G.Bodies[(int)BodyID]->UserIndex = (int)index;
 	return 1;}
 DLLEXPORT MAB_BodySetDeactivationTime(double BodyID, double time) {
 	G.getBody(BodyID)->setDeactivationTime((btScalar)time);

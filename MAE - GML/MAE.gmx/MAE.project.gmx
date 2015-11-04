@@ -162,6 +162,13 @@
           <script>scripts\MAE_PhysWorldGetGravity.gml</script>
           <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
           <script>scripts\MAE_PhysWorldDebugDraw.gml</script>
+          <script>scripts\MAE_PhysWorldRaycast.gml</script>
+          <script>scripts\MAE_PhysWorldSweep.gml</script>
+          <script>scripts\MAE_PhysWorldOverlap.gml</script>
+          <script>scripts\MAE_PhysWorldHitBody.gml</script>
+          <script>scripts\MAE_PhysWorldHitPosition.gml</script>
+          <script>scripts\MAE_PhysWorldHitNormal.gml</script>
+          <script>scripts\MAE_PhysWorldHitFraction.gml</script>
         </scripts>
         <scripts name="Shape">
           <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
@@ -192,6 +199,7 @@
           <script>scripts\MAE_PhysBodyGetDeactivationTime.gml</script>
           <script>scripts\MAE_PhysBodyIsStatic.gml</script>
           <script>scripts\MAE_PhysBodyIsKinematic.gml</script>
+          <script>scripts\MAE_PhysBodyIsDynamic.gml</script>
           <script>scripts\MAE_PhysBodyIsActive.gml</script>
           <script>scripts\MAE_PhysBodyGetShape.gml</script>
           <script>scripts\MAE_PhysBodyGetGroup.gml</script>
