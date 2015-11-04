@@ -12,9 +12,7 @@ bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
 		f_MD2.open(mdl_name, std::ios::in | std::ios::binary); 
 		
 		if (!f_MD2.is_open())
-		{ 
-			throw Exception("Failed to open MD2 file."); 
-		}
+			throw Exception("Failed to open MD2 file.");
 
 		FetchHeader(f_MD2);
 		ValidateHeader();
@@ -25,15 +23,15 @@ bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
 	}
 	catch (Exception& e)
 	{
-		MessageBoxA(NULL, e.exception, "MD2 Error!", MB_ICONERROR);
+		marb.err.onError(e.exception);
 		return 0;
 	}
 
-	D3DXCreateTextureFromFileA(marb.d3ddev, tex_name, &Texture);
+	HRESULT res = D3DXCreateTextureFromFile(marb.d3ddev, tex_name, &Texture);
 
-	if (!Texture)
+	if (FAILED(res))
 	{
-		MessageBoxA(NULL, "Couldn't Load Texture!", "MD2 Error!", MB_ICONERROR);
+		marb.err.onErrorDX9("Couldn't load texture", res);
 		return 0;
 	}
 
@@ -220,15 +218,22 @@ MD2Model::MD2Model()
 
 	MD2TB = NULL;
 	MD2IB = NULL;
+
+	Texture = NULL;
 }
 
 MD2Model::~MD2Model()
 {
 	for (int i = 0; i < Frames; i++)
-		MD2VB[i]->Release();
+		if (MD2VB[i] != 0)
+			MD2VB[i]->Release();
 
-	MD2TB->Release();
-	MD2IB->Release();
+	if (MD2TB != 0)
+		MD2TB->Release();
 
-	Texture->Release();
+	if (MD2IB != 0)
+		MD2IB->Release();
+
+	if (Texture != 0)
+		Texture->Release();
 }

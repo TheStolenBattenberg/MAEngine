@@ -85,7 +85,7 @@ if(room == rm_debug)
         Escape - Exit.
     ");
     
-    switch(keyboard_key)
+    switch(keyboard_lastkey)
     {
         case ord("1"): { room_goto(rm_VecMatQuat); } break;
         case ord("2"): { room_goto(rm_Particle); } break;
@@ -93,14 +93,15 @@ if(room == rm_debug)
         case ord("4"): { room_goto(rm_Light); } break;
         case ord("5"): { room_goto(rm_MD2Animation); } break;
         case ord("6"): { room_goto(rm_Physics); } break;
-        
-        //case vk_escape: { game_end(); } break;
     }
+    
+    if (keyboard_check_released(vk_escape))
+        game_end();
 }else{
     draw_text(0, 0, "Press ESCAPE to go back.
         FPS: "+string(fps_real));
     
-    if(keyboard_check_pressed(vk_escape))
+    if(keyboard_check_released(vk_escape))
     {
         d3d_end();
         room_goto(rm_debug);

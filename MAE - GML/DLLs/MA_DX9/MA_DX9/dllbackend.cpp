@@ -2,7 +2,12 @@
 
 MADLLBackend marb;
 
-int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, LPDIRECT3DVERTEXSHADER9* VSOut, LPDIRECT3DPIXELSHADER9* PSOut)
+MADLLBackend::MADLLBackend()
+{
+	err.flags = ErrorShowMessage | ErrorShowDebugMessage;
+}
+
+bool MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, LPDIRECT3DVERTEXSHADER9* VSOut, LPDIRECT3DPIXELSHADER9* PSOut)
 {
 	LPD3DXBUFFER Code;
 	LPD3DXCONSTANTTABLE ConstantTable;
@@ -11,11 +16,11 @@ int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderStri
 	LPD3DXBUFFER buf;
 
 	//Attempt to compile Vertex shader
-	result = D3DXCompileShader(VertexShaderString, strlen(VertexShaderString), NULL, NULL, "main", "vs_3_0", D3DXSHADER_ENABLE_BACKWARDS_COMPATIBILITY, &Code, &buf, &ConstantTable);
+	result = D3DXCompileShader(VertexShaderString, strlen(VertexShaderString), NULL, NULL, "main", D3DXGetVertexShaderProfile(marb.d3ddev), 0, &Code, &buf, &ConstantTable);
 
 	if (FAILED(result))
 	{
-		MessageBoxA(0, (char*)buf->GetBufferPointer(), "Failed to compile shader", MB_OK);
+		err.onError((char*) buf->GetBufferPointer());
 		buf->Release();
 		return 0;
 	}
@@ -26,14 +31,17 @@ int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderStri
 	Code->Release();
 
 	if (FAILED(result))
+	{
+		err.onErrorDX9("Failed to create vertex shader", result);
 		return 0;
+	}
 
 	//Atempt to compile Pixel Shader
-	result = D3DXCompileShader(PixelShaderString, strlen(PixelShaderString), NULL, NULL, "main", "vs_3_0", D3DXSHADER_ENABLE_BACKWARDS_COMPATIBILITY, &Code, &buf, &ConstantTable);
+	result = D3DXCompileShader(PixelShaderString, strlen(PixelShaderString), NULL, NULL, "main", D3DXGetPixelShaderProfile(marb.d3ddev), 0, &Code, &buf, &ConstantTable);
 	
 	if (FAILED(result))
 	{
-		MessageBoxA(0, (char*)buf->GetBufferPointer(), "Failed to compile shader", MB_OK);
+		err.onError((char*) buf->GetBufferPointer());
 		buf->Release();
 		(*VSOut)->Release();
 		return 0;
@@ -46,6 +54,7 @@ int MADLLBackend::HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderStri
 	
 	if (FAILED(result))
 	{
+		err.onErrorDX9("Failed to create pixel shader", result);
 		(*VSOut)->Release();
 		return 0;
 	}

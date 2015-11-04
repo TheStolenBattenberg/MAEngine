@@ -13,12 +13,14 @@
   <ItemGroup>
     <ClCompile Include="dllbackend.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Error.cpp" />
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
     <ClCompile Include="Variant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllbackend.h" />
+    <ClInclude Include="Error.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="MD2Type.h" />
     <ClInclude Include="MS3DType.h" />
@@ -26,25 +28,27 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjectTerrain.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="Variant.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7D9E020-382F-4DA2-8FE4-7E4C4466448D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MA_DX9</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -78,6 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -94,6 +99,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

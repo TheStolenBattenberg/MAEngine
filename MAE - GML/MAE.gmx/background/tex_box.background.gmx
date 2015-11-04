@@ -12,7 +12,7 @@
   <TextureGroups>
     <TextureGroup0>0</TextureGroup0>
   </TextureGroups>
-  <For3D>0</For3D>
+  <For3D>-1</For3D>
   <width>64</width>
   <height>64</height>
   <data>images\tex_box.png</data>
