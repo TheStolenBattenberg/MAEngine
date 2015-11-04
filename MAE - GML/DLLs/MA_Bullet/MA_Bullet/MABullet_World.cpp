@@ -39,6 +39,11 @@ DLLEXPORT MAB_WorldDestroy()
 	return 1;
 }
 
+DLLEXPORT MAB_WorldExists()
+{
+	return (G.worldExists()) ? 1 : 0;
+}
+
 DLLEXPORT MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeStep)
 {
 	if (!G.worldExists()) return 0;
@@ -50,6 +55,13 @@ DLLEXPORT MAB_WorldSetGravity(double X, double Y, double Z)
 {
 	if (!G.worldExists()) return 0;
 	G.World->setGravity(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+	return 1;
+}
+
+DLLEXPORT MAB_WorldGetGravity()
+{
+	if (!G.worldExists()) return 0;
+	G.ReturnVec = G.World->getGravity();
 	return 1;
 }
 

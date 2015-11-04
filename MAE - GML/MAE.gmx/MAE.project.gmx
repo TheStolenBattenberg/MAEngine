@@ -157,7 +157,9 @@
           <script>scripts\MAE_PhysWorldCreate.gml</script>
           <script>scripts\MAE_PhysWorldDestroy.gml</script>
           <script>scripts\MAE_PhysWorldStep.gml</script>
+          <script>scripts\MAE_PhysWorldExists.gml</script>
           <script>scripts\MAE_PhysWorldSetGravity.gml</script>
+          <script>scripts\MAE_PhysWorldGetGravity.gml</script>
           <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
         </scripts>
         <scripts name="Shape">
@@ -176,8 +178,47 @@
           <script>scripts\MAE_PhysBodyGetPosition.gml</script>
           <script>scripts\MAE_PhysBodyGetRotationQuat.gml</script>
           <script>scripts\MAE_PhysBodyGetRotationEuler.gml</script>
+          <script>scripts\MAE_PhysBodyGetLinearVelocity.gml</script>
+          <script>scripts\MAE_PhysBodyGetAngularVelocity.gml</script>
+          <script>scripts\MAE_PhysBodyGetAnisotropicFriction.gml</script>
+          <script>scripts\MAE_PhysBodyGetGravity.gml</script>
+          <script>scripts\MAE_PhysBodyGetAngularDamping.gml</script>
+          <script>scripts\MAE_PhysBodyGetLinearDamping.gml</script>
+          <script>scripts\MAE_PhysBodyGetFriction.gml</script>
+          <script>scripts\MAE_PhysBodyGetRestitution.gml</script>
+          <script>scripts\MAE_PhysBodyGetRollingFriction.gml</script>
+          <script>scripts\MAE_PhysBodyGetUserIndex.gml</script>
+          <script>scripts\MAE_PhysBodyGetDeactivationTime.gml</script>
+          <script>scripts\MAE_PhysBodyIsStatic.gml</script>
+          <script>scripts\MAE_PhysBodyIsKinematic.gml</script>
+          <script>scripts\MAE_PhysBodyIsActive.gml</script>
+          <script>scripts\MAE_PhysBodyGetShape.gml</script>
+          <script>scripts\MAE_PhysBodyGetGroup.gml</script>
+          <script>scripts\MAE_PhysBodyGetMask.gml</script>
           <script>scripts\MAE_PhysBodySetPosition.gml</script>
           <script>scripts\MAE_PhysBodySetRotation.gml</script>
+          <script>scripts\MAE_PhysBodySetLinearVelocity.gml</script>
+          <script>scripts\MAE_PhysBodySetAngularVelocity.gml</script>
+          <script>scripts\MAE_PhysBodySetLinearFactor.gml</script>
+          <script>scripts\MAE_PhysBodySetAngularFactor.gml</script>
+          <script>scripts\MAE_PhysBodySetAnisotropicFriction.gml</script>
+          <script>scripts\MAE_PhysBodySetGravity.gml</script>
+          <script>scripts\MAE_PhysBodySetDamping.gml</script>
+          <script>scripts\MAE_PhysBodySetFriction.gml</script>
+          <script>scripts\MAE_PhysBodySetRestitution.gml</script>
+          <script>scripts\MAE_PhysBodySetRollingFriction.gml</script>
+          <script>scripts\MAE_PhysBodySetShape.gml</script>
+          <script>scripts\MAE_PhysBodySetGroupMask.gml</script>
+          <script>scripts\MAE_PhysBodySetDeactivationTime.gml</script>
+          <script>scripts\MAE_PhysBodyDisableDeactivation.gml</script>
+          <script>scripts\MAE_PhysBodyActivate.gml</script>
+          <script>scripts\MAE_PhysBodyDeactivate.gml</script>
+          <script>scripts\MAE_PhysBodyApplyCentralImpulse.gml</script>
+          <script>scripts\MAE_PhysBodyApplyCentralForce.gml</script>
+          <script>scripts\MAE_PhysBodyApplyImpulse.gml</script>
+          <script>scripts\MAE_PhysBodyApplyForce.gml</script>
+          <script>scripts\MAE_PhysBodyApplyTorque.gml</script>
+          <script>scripts\MAE_PhysBodyApplyTorqueImpulse.gml</script>
         </scripts>
       </scripts>
       <scripts name="Utilities">

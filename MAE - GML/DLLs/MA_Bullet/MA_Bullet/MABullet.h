@@ -28,6 +28,7 @@ struct MABullet {
 	inline btRigidBody* getBody(double BodyID) { return Bodies[(int)BodyID]; };
 	inline double addShape(btCollisionShape* Shape) {
 		Shapes[ShapeCount] = Shape;
+		Shape->setUserIndex(ShapeCount);
 		ShapeCount++;
 		return ShapeCount - 1;
 	}
