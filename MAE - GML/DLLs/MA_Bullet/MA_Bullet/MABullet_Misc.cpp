@@ -1,4 +1,5 @@
 #include "MABullet.h"
+#include "MABullet_DebugDraw.h"
 
 DLLEXPORT MABullet_Free()
 {

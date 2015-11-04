@@ -12,6 +12,7 @@ struct MABullet {
 	btCollisionDispatcher* Dispatcher = nullptr;
 	btSequentialImpulseConstraintSolver* Solver = nullptr;
 	btDiscreteDynamicsWorld* World = nullptr;
+	btIDebugDraw* DebugDrawer = nullptr;
 
 	btVector3 ReturnVec = btVector3(0.f, 0.f, 0.f);
 	btQuaternion ReturnQuat = btQuaternion();

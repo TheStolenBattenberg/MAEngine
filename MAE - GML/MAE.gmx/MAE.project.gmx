@@ -161,6 +161,7 @@
           <script>scripts\MAE_PhysWorldSetGravity.gml</script>
           <script>scripts\MAE_PhysWorldGetGravity.gml</script>
           <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
+          <script>scripts\MAE_PhysWorldDebugDraw.gml</script>
         </scripts>
         <scripts name="Shape">
           <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
