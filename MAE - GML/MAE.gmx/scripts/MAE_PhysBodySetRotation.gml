@@ -1,4 +1,4 @@
-///MAE_PhysWorldSetRotation(BodyID, rotation)
+///MAE_PhysBodySetRotation(body, rotation)
 /*
 Accepts a 3-component vector of euler angles, a quaternion, or 3 seperate euler angles.
 */

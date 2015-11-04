@@ -37,7 +37,7 @@ MAE_PhysBodyCreate(MAE_PhysShapeCreatePlane(0, 0, 1, 0), 0, 0, 0, 0, 0, 0, 0);
 shape[0] = MAE_PhysShapeCreateBox(1, 1, 1);
 shape[1] = MAE_PhysShapeCreateSphere(1);
 shape[2] = MAE_PhysShapeCreateCone(1, 2, 2);
-shape[3] = MAE_PhysShapeCreateCylinder(1, 2, 2);
+shape[3] = MAE_PhysShapeCreateCylinder(1, 1, 2);
 shape[4] = MAE_PhysShapeCreateCapsule(1, 2, 2);
 
 //3D models to visualize the shapes

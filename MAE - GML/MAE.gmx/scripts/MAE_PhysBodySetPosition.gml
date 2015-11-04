@@ -1,4 +1,4 @@
-///MAE_PhysWorldSetPosition(BodyID, x, y, z)
+///MAE_PhysBodySetPosition(body, x, y, z)
 /*
 Accepts a vector or 3 seperate reals.
 */
