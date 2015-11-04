@@ -10,6 +10,7 @@
 #include "ObjectTerrain.h"
 #include "ObjectModel.h"
 #include "Hooks.h"
+#include "Error.h"
 
 class Exception {
 	public:
@@ -23,6 +24,10 @@ class Exception {
 class MADLLBackend
 {
 	public:
+		MADLLBackend();
+
+		Error err;
+
 		LPDIRECT3D9 d3d;
 		LPDIRECT3DDEVICE9 d3ddev;
 		std::vector<IDirect3DVertexShader9*> VShader;
@@ -35,7 +40,7 @@ class MADLLBackend
 		IDirect3DVertexDeclaration9* VertexDeclarationMD2 = 0;
 
 		//Functions
-		int HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, IDirect3DVertexShader9 ** VSOut, IDirect3DPixelShader9 ** PSOut);
+		bool HLSL9Compile(LPCSTR VertexShaderString, LPCSTR PixelShaderString, LPDIRECT3DVERTEXSHADER9* VSOut, LPDIRECT3DPIXELSHADER9* PSOut);
 };
 
 extern MADLLBackend marb;
