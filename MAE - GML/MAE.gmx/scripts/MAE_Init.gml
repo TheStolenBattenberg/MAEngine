@@ -61,6 +61,7 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_WorldGetGravity   = external_define(global.DLL_MABullet, "MAB_WorldGetGravity", dll_cdecl, ty_real, 0);
     global.MAB_WorldGetBodyCount = external_define(global.DLL_MABullet, "MAB_WorldGetBodyCount", dll_cdecl, ty_real, 0);
     global.MAB_WorldExists       = external_define(global.DLL_MABullet, "MAB_WorldExists", dll_cdecl, ty_real, 0);
+    global.MAB_WorldDebugDraw    = external_define(global.DLL_MABullet, "MAB_WorldDebugDraw", dll_cdecl, ty_real, 1, ty_real);
     
     //Misc
     global.MAB_Vec  = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);

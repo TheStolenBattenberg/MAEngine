@@ -1,4 +1,5 @@
 #include "MABullet.h"
+#include "MABullet_DebugDraw.h"
 
 DLLEXPORT MAB_WorldCreate()
 {
@@ -35,6 +36,10 @@ DLLEXPORT MAB_WorldDestroy()
 	delete G.Dispatcher;
 	delete G.CollisionConfiguration;
 	delete G.Broadphase;
+	if (G.DebugDrawer) {
+		delete G.DebugDrawer;
+		G.DebugDrawer = nullptr;
+	}
 	G.World = nullptr;
 	return 1;
 }
@@ -48,6 +53,7 @@ DLLEXPORT MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeSte
 {
 	if (!G.worldExists()) return 0;
 	G.World->stepSimulation((btScalar)TimeStep, (int)MaxSubSteps, (btScalar)FixedTimeStep);
+	if (G.DebugDrawer) static_cast<MABulletDebugDraw*>(G.DebugDrawer)->update = true;
 	return 1;
 }
 
@@ -69,4 +75,17 @@ DLLEXPORT MAB_WorldGetBodyCount()
 {
 	if (!G.worldExists()) return 0;
 	return G.World->getNumCollisionObjects();
+}
+
+DLLEXPORT MAB_WorldDebugDraw(LPDIRECT3DDEVICE9 pointer)
+{
+	if (!G.worldExists()) return 0;
+	if (!G.DebugDrawer) {
+		MABulletDebugDraw* DebugDrawer = new MABulletDebugDraw((LPDIRECT3DDEVICE9)pointer);
+		G.DebugDrawer = DebugDrawer;
+		G.World->setDebugDrawer(DebugDrawer);
+	}
+	MABulletDebugDraw* DebugDrawer = static_cast<MABulletDebugDraw*>(G.DebugDrawer);
+	DebugDrawer->debugDraw();
+	return 1;
 }
