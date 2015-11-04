@@ -151,6 +151,11 @@
           <script>scripts\MAE_AnimationGetFrame2.gml</script>
           <script>scripts\MAE_AnimationGetTime.gml</script>
         </scripts>
+        <scripts name="Error">
+          <script>scripts\MAE_ErrorSetFlags.gml</script>
+          <script>scripts\MAE_ErrorEmpty.gml</script>
+          <script>scripts\MAE_ErrorPop.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Physics">
         <scripts name="World">

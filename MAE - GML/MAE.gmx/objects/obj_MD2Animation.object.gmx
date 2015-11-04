@@ -84,7 +84,7 @@ global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", "COMMON/TEXTURE/hobgob
           <argument>
             <kind>1</kind>
             <string>/*
- * Rotation of the cube
+ * Rotation of the model
  * curX/Y contains the point where the program thinks the mouse is
  * desX/Y contains the point of the actual position
  */
@@ -118,16 +118,6 @@ curY += (desY - curY) * 0.2;
 
 matView = MAE_MatrixTranslate(MAE_MatrixCreateRotationQuaternion(4, quatView), MAE_VectorCreate(0, 0, 3));
 matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
-
-/*
- * 3D to 2D conversion
- * mvp is the same as gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION]
- */
-
-var mvp = MAE_MatrixMultiplyMatrix(matView, matProj);
-
-vecPoint = MAE_VectorProject(MAE_VectorCreate(1, 1, 1), mvp, MAE_ViewportCreate(0, 0, screenWidth, screenHeight));
-
 
 /**
  * Animation stuff.

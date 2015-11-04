@@ -71,7 +71,7 @@ uint Variant::getUnsignedInteger() {
 	return value.UnsignedInteger;
 }
 
-float  Variant::getFloat() {
+float Variant::getFloat() {
 	if (type != VariantTypeFloat)
 		return 0;
 
@@ -85,7 +85,7 @@ double Variant::getDouble() {
 	return value.Double;
 }
 
-void*  Variant::getPointer() {
+void* Variant::getPointer() {
 	if (type != VariantTypePointer)
 		return 0;
 
