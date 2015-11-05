@@ -333,9 +333,8 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd)
 
 	MD2Model* MD2 = new MD2Model();
 
-	if (!MD2->MD2Load(MD2ModelFile))
+	if (!MD2->load(MD2ModelFile))
 	{
-		mamain.err.onError("Failed to Load MD2 Model");
 		delete MD2;
 		return -1;
 	}
@@ -373,32 +372,32 @@ DLLEXPORT double MADX9_MD2Render(double index, double frame_1, double frame_2, d
 	if ((uint) index >= mamain.MD2Models.size())
 		return 0;
 
-	MD2Model* MD2 = mamain.MD2Models[(int) index];
+	MD2Model* MD2 = mamain.MD2Models[(uint) index];
 
-	if (frame_1 > MD2->FetchFrameCount())
-		frame_1 = MD2->FetchFrameCount();
+	if (frame_1 > MD2->getFrameCount())
+		frame_1 = MD2->getFrameCount();
 	else if (frame_1 < 0)
 		frame_1 = 0;
 
-	if (frame_2 > MD2->FetchFrameCount())
-		frame_2 = MD2->FetchFrameCount();
+	if (frame_2 > MD2->getFrameCount())
+		frame_2 = MD2->getFrameCount();
 	else if (frame_2 < 0)
 		frame_2 = 0;
 
 	float t = (float) tween;
 
-	mamain.d3ddev->SetTexture(0, MD2->FetchTexture());
+	mamain.d3ddev->SetTexture(0, MD2->getTex());
 
 	mamain.d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);
 	mamain.d3ddev->SetRenderState(D3DRS_TWEENFACTOR, *(DWORD*) &t);
 	mamain.d3ddev->SetVertexDeclaration(mamain.VertexDeclarationMD2);
 
-	mamain.d3ddev->SetIndices(MD2->FetchIB());
-	mamain.d3ddev->SetStreamSource(0, MD2->FetchVB((int) frame_1), 0, sizeof(VERTEX));
-	mamain.d3ddev->SetStreamSource(1, MD2->FetchVB((int) frame_2), 0, sizeof(VERTEX));
-	mamain.d3ddev->SetStreamSource(2, MD2->FetchTB(), 0, sizeof(TEXCOORD));
+	mamain.d3ddev->SetIndices(MD2->getIB());
+	mamain.d3ddev->SetStreamSource(0, MD2->getVB((uint) frame_1), 0, sizeof(Vertex));
+	mamain.d3ddev->SetStreamSource(1, MD2->getVB((uint) frame_2), 0, sizeof(Vertex));
+	mamain.d3ddev->SetStreamSource(2, MD2->getTB(), 0, sizeof(TexCoord));
 
-	mamain.d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, MD2->FetchVertexCount(), 0, MD2->FetchTriangleCount());
+	mamain.d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, MD2->getVertCount(), 0, MD2->getTriCount());
 
 	mamain.d3ddev->SetVertexDeclaration(NULL);
 	mamain.d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);
@@ -411,7 +410,7 @@ DLLEXPORT double MADX9_MD2GetFrames(double index)
 	if ((uint) index >= mamain.MD2Models.size())
 		return 0;
 
-	return mamain.MD2Models[(uint) index]->FetchFrameCount();
+	return mamain.MD2Models[(uint) index]->getFrameCount();
 }
 
 DLLEXPORT double MADX9_MD2Destroy(double index)

@@ -12,64 +12,39 @@
 
 //#include "MS3DType.h" //Features: Bone Based Animation. !NOTE - Currently a little broken.
 
-struct VERTEX
+struct Vertex
 {
-	union
-	{
-		struct
-		{
-			float x, y, z;
-		};
-		float a[3];
-	};
+	float x, y, z;
 };
 
-struct TEXCOORD
+struct TexCoord
 {
-	union
-	{
-		struct
-		{
-			float s, t;
-		};
-		float a[2];
-	};
+	float s, t;
 };
 
 class MD2Model : public Object {
-	public:
-		bool MD2Load(const char* mdl_name);
-		void setTexture(LPDIRECT3DTEXTURE9 tex);
+public:
+	~MD2Model();
 
-		IDirect3DVertexBuffer9* FetchVB(int frame);
-		IDirect3DVertexBuffer9* FetchTB();
-		IDirect3DIndexBuffer9* FetchIB();
-		IDirect3DTexture9* FetchTexture();
+	bool load(std::string model);
+	void setTexture(LPDIRECT3DTEXTURE9 tex);
 
-		int FetchVertexCount();
-		int FetchTriangleCount();
-		int FetchFrameCount();
-		char* FetchFrameName(int frame);
+	LPDIRECT3DVERTEXBUFFER9 getVB(uint frame);
+	LPDIRECT3DVERTEXBUFFER9 getTB();
+	LPDIRECT3DINDEXBUFFER9  getIB();
+	LPDIRECT3DTEXTURE9      getTex();
 
-		MD2Model();
-		~MD2Model();
+	uint getVertCount();
+	uint getTriCount();
+	uint getFrameCount();
 
-	protected:
-		void FetchHeader(std::ifstream& f_MD2);
+private:
+	uint vertCount = 0;
+	uint triCount  = 0;
 
-		void FetchFrameData(std::ifstream& f_MD2);
-		void FetchIndexData(std::ifstream& f_MD2);
-		void FetchTextureData(std::ifstream& f_MD2);
+	LPDIRECT3DTEXTURE9 tex = 0;
 
-		void ValidateHeader(void);
-
-		MD2Type::Header Header;
-
-		IDirect3DTexture9* Texture;
-
-		IDirect3DVertexBuffer9* MD2VB[512];
-		IDirect3DVertexBuffer9* MD2TB;
-		IDirect3DIndexBuffer9* MD2IB;
-
-		int Frames;
+	std::vector<LPDIRECT3DVERTEXBUFFER9> vertBufs;
+	LPDIRECT3DINDEXBUFFER9 indBuf = 0;
+	LPDIRECT3DVERTEXBUFFER9 texBuf = 0;
 };
