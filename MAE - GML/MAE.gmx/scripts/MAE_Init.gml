@@ -56,6 +56,7 @@ if (argument[0] & INIT_RENDER)
     
     // Misc
     global.MADX9_SamplerSetState = external_define(global.DLL_MADX9, "MADX9_SamplerSetState", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MADX9_RenderSetState  = external_define(global.DLL_MADX9, "MADX9_RenderSetState", dll_cdecl, ty_real, 2, ty_real, ty_real);
 }
 
 if (argument[0] & INIT_HOOKS)
