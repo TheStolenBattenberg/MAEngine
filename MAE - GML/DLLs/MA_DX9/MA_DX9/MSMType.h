@@ -30,7 +30,7 @@ namespace MSMType {
         float x;
         float y;
         float z;
-    }
+	};
     
 	struct Triangle {
 		word VertexIndex[3];

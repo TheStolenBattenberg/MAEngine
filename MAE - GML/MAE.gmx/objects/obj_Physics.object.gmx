@@ -31,8 +31,10 @@ camera_pos = MAE_VectorCreate(16, 16, 16);
 //create physics world
 MAE_PhysWorldCreate();
 
+
 //create ground
 MAE_PhysBodyCreate(MAE_PhysShapeCreatePlane(0, 0, 1, 0), 0, 0, 0, 0, 0, 0, 0);
+
 
 //create some shapes
 shape[0] = MAE_PhysShapeCreateBox(1, 1, 1);

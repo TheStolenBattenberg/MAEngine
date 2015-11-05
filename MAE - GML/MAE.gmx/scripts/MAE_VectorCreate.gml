@@ -1,10 +1,16 @@
 ///MAE_VectorCreate(...);
 
 /**
- * To-do:
- *      Add Description.
+ * Description:
+ *   Creates a vector.
+ * 
+ * Arguments:
+ *   [2-4] - Vector Value.
  *
+ * Return:
+ *   Vector ID.
  */
+ 
 switch (argument_count) {
 case 2:
     var v;

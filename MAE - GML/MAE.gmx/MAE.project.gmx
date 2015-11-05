@@ -92,6 +92,14 @@
     <scripts name="MAE">
       <scripts name="Render">
         <scripts name="Particles">
+          <script>scripts\Particle_System_Note.gml</script>
+          <scripts name="System">
+            <script>scripts\MAE_ParticleSystemCreate.gml</script>
+            <script>scripts\MAE_ParticleSystemDestroy.gml</script>
+            <script>scripts\MAE_ParticleSystemDraw.gml</script>
+            <script>scripts\MAE_ParticleSystemArea.gml</script>
+            <script>scripts\MAE_ParticleSystemUpdate.gml</script>
+          </scripts>
           <scripts name="Particle">
             <script>scripts\MAE_ParticleCreate.gml</script>
             <script>scripts\MAE_ParticleDestroy.gml</script>
@@ -100,13 +108,6 @@
             <script>scripts\MAE_ParticleSetColour.gml</script>
             <script>scripts\MAE_ParticleSetAlpha.gml</script>
             <script>scripts\MAE_ParticleSetBlendmode.gml</script>
-          </scripts>
-          <scripts name="System">
-            <script>scripts\MAE_ParticleSystemCreate.gml</script>
-            <script>scripts\MAE_ParticleSystemDestroy.gml</script>
-            <script>scripts\MAE_ParticleSystemDraw.gml</script>
-            <script>scripts\MAE_ParticleSystemArea.gml</script>
-            <script>scripts\MAE_ParticleSystemUpdate.gml</script>
           </scripts>
         </scripts>
         <scripts name="Shader">
@@ -117,12 +118,13 @@
         </scripts>
         <scripts name="Light">
           <script>scripts\MAE_LightCreate.gml</script>
+          <script>scripts\MAE_LightCreateSimplePoint.gml</script>
+          <script>scripts\MAE_LightDestroy.gml</script>
           <script>scripts\MAE_LightSetDiffuse.gml</script>
           <script>scripts\MAE_LightSetPosition.gml</script>
           <script>scripts\MAE_LightSetRange.gml</script>
           <script>scripts\MAE_LightSetAttenuation.gml</script>
           <script>scripts\MAE_LightEnable.gml</script>
-          <script>scripts\MAE_LightCreateSimplePoint.gml</script>
         </scripts>
         <scripts name="Hooks">
           <script>scripts\MAE_HooksApply.gml</script>
@@ -144,12 +146,12 @@
         </scripts>
         <scripts name="Animation">
           <script>scripts\MAE_AnimationCreate.gml</script>
-          <script>scripts\MAE_AnimationAdd.gml</script>
           <script>scripts\MAE_AnimationUpdate.gml</script>
+          <script>scripts\MAE_AnimationAdd.gml</script>
           <script>scripts\MAE_AnimationSet.gml</script>
-          <script>scripts\MAE_AnimationGetFrame1.gml</script>
-          <script>scripts\MAE_AnimationGetFrame2.gml</script>
-          <script>scripts\MAE_AnimationGetTime.gml</script>
+          <script>scripts\MAE_AnimationGetFrame.gml</script>
+          <script>scripts\MAE_AnimationGetFrameNext.gml</script>
+          <script>scripts\MAE_AnimationGetTween.gml</script>
         </scripts>
         <scripts name="Error">
           <script>scripts\MAE_ErrorSetFlags.gml</script>
@@ -238,31 +240,31 @@
       <scripts name="Utilities">
         <scripts name="Math">
           <scripts name="Vector">
-            <script>scripts\MAE_ToVec2.gml</script>
-            <script>scripts\MAE_ToVec3.gml</script>
-            <script>scripts\MAE_ToVec4.gml</script>
-            <script>scripts\MAE_VectorIsVec2.gml</script>
-            <script>scripts\MAE_VectorIsVec3.gml</script>
-            <script>scripts\MAE_VectorIsVec4.gml</script>
-            <script>scripts\MAE_VectorAdd.gml</script>
             <script>scripts\MAE_VectorCreate.gml</script>
             <script>scripts\MAE_VectorCreateAngle2D.gml</script>
             <script>scripts\MAE_VectorCreateAngle3D.gml</script>
+            <script>scripts\MAE_VectorIsVec2.gml</script>
+            <script>scripts\MAE_VectorIsVec3.gml</script>
+            <script>scripts\MAE_VectorIsVec4.gml</script>
+            <script>scripts\MAE_ToVec2.gml</script>
+            <script>scripts\MAE_ToVec3.gml</script>
+            <script>scripts\MAE_ToVec4.gml</script>
+            <script>scripts\MAE_VectorAdd.gml</script>
+            <script>scripts\MAE_VectorSubtract.gml</script>
+            <script>scripts\MAE_VectorDivide.gml</script>
+            <script>scripts\MAE_VectorMultiply.gml</script>
             <script>scripts\MAE_VectorCross.gml</script>
             <script>scripts\MAE_VectorDistance.gml</script>
-            <script>scripts\MAE_VectorDivide.gml</script>
             <script>scripts\MAE_VectorDot.gml</script>
             <script>scripts\MAE_VectorDup.gml</script>
             <script>scripts\MAE_VectorGet.gml</script>
             <script>scripts\MAE_VectorMagnitude.gml</script>
             <script>scripts\MAE_VectorMagnitudeSquared.gml</script>
-            <script>scripts\MAE_VectorMultiply.gml</script>
             <script>scripts\MAE_VectorMultiplyMatrix.gml</script>
             <script>scripts\MAE_VectorNorm.gml</script>
             <script>scripts\MAE_VectorProject.gml</script>
             <script>scripts\MAE_VectorReflect.gml</script>
             <script>scripts\MAE_VectorSet.gml</script>
-            <script>scripts\MAE_VectorSubtract.gml</script>
             <script>scripts\MAE_VectorUnproject.gml</script>
             <script>scripts\MAE_VectorUnprojectInverse.gml</script>
           </scripts>
@@ -329,8 +331,8 @@
             <script>scripts\MAE_QuaternionSet.gml</script>
             <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
           </scripts>
+          <script>scripts\MAE_ViewportCreate.gml</script>
         </scripts>
-        <script>scripts\MAE_ViewportCreate.gml</script>
       </scripts>
       <scripts name="Private">
         <script>scripts\MAE_Init.gml</script>

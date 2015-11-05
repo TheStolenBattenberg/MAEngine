@@ -1,10 +1,17 @@
 ///MAE_VectorAdd(v1, v2);
 
 /**
- * To-do:
- *      Add Description.
+ * Description:
+ *   Adds second vector to first vector.
+ * 
+ * Arguments:
+ *   1 - First Vector.
+ *   2 - Second Vector.
  *
+ * Return:
+ *   ID of First Vector.
  */
+ 
 switch (array_length_1d(argument0)) {
 case 2:
     argument0[0] += argument1[0];

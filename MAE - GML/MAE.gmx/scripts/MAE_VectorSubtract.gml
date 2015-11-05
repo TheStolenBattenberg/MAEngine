@@ -1,9 +1,15 @@
 ///MAE_VectorSubtract(v1, v2);
 
 /**
- * To-do:
- *      Add Description.
+ * Description:
+ *   Subtracts second vector from first vector.
+ * 
+ * Arguments:
+ *   1 - First Vector.
+ *   2 - Second Vector.
  *
+ * Return:
+ *   Vector ID.
  */
 switch (array_length_1d(argument0)) {
 case 2:
