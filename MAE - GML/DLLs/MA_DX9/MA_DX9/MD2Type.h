@@ -8,56 +8,56 @@
 
 #include "Types.h"
 
-namespace MD2Type {
-	struct Header {
-		int magic_number;
-		int version;
+namespace MD2Type
+{
+	struct Header
+	{
+		uint magicNumber;
+		uint version;
 
-		int skinwidth;
-		int skinheight;
-		int framesize;
+		uint skinWidth;
+		uint skinHeight;
+		uint frameSize;
 
-		int num_skin;
-		int num_xyz;
-		int num_st;
-		int num_tris;
-		int num_glcmds;
-		int num_frames;
+		uint numSkin;
+		uint numVert;
+		uint numST;
+		uint numTris;
+		uint numGLCmds;
+		uint numFrames;
 
-		int ofs_skins;
-		int ofs_st;
-		int ofs_tris;
-		int ofs_frames;
-		int ofs_glcmds;
-		int ofs_end;
+		uint ofsSkins;
+		uint ofsST;
+		uint ofsTris;
+		uint ofsFrames;
+		uint ofsGLCmds;
+		uint ofsEnd;
 	};
 
 	struct Vertex
 	{
 		ubyte vertex[3];
-		ubyte unused_normal_index;
+		ubyte normInd;
 	};
 
 	struct Frame
 	{
-		float scale[3];
-		float translate[3];
-		char name[16];
+		float  scale[3];
+		float  translate[3];
+		char   name[16];
 		Vertex verticies[1];
 	};
 
 	struct Triangle
 	{
-		short vertex_indicies[3];
-		short texture_indicies[3];
+		short vertInd[3];
+		short texInd[3];
 	};
-	typedef short index_buffer[3];
+
+	typedef short IndexBuffer[3];
 
 	struct Texcoord
 	{
 		short s, t;
 	};
-
-	typedef char skin_name[64];
-
 };
