@@ -170,8 +170,8 @@ MAE_AnimationUpdate(5);
           <argument>
             <kind>1</kind>
             <string>draw_set_colour(c_black);
-draw_text(room_width - 196, 0, "Time: " + string(MAE_AnimationGetTime()));
-draw_text(room_width - 196, 16, "Frame: " + string(MAE_AnimationGetFrame1())+", "+string(MAE_AnimationGetFrame2()));
+draw_text(room_width - 196, 0, "Time: " + string(MAE_AnimationGetTween()));
+draw_text(room_width - 196, 16, "Frame: " + string(MAE_AnimationGetFrame())+", "+string(MAE_AnimationGetFrameNext()));
 </string>
           </argument>
         </arguments>
