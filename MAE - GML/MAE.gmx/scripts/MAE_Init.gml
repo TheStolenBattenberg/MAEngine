@@ -38,7 +38,7 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_LightDisable         = external_define(global.DLL_MADX9, "MADX9_LightDisable", dll_cdecl, ty_real, 1, ty_real);
     
     //MD2
-    global.MADX9_MD2Load      = external_define(global.DLL_MADX9, "MADX9_MD2Load", dll_cdecl, ty_real, 2, ty_string, ty_string);
+    global.MADX9_MD2Load      = external_define(global.DLL_MADX9, "MADX9_MD2Load", dll_cdecl, ty_real, 2, ty_string, ty_real);
     global.MADX9_MD2Render    = external_define(global.DLL_MADX9, "MADX9_MD2Render", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MD2GetFrames = external_define(global.DLL_MADX9, "MADX9_MD2GetFrames", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_MD2Destroy   = external_define(global.DLL_MADX9, "MADX9_MD2Destroy", dll_cdecl, ty_real, 1, ty_real);
@@ -47,6 +47,11 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_ErrorSetFlags = external_define(global.DLL_MADX9, "MADX9_ErrorSetFlags", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_ErrorEmpty    = external_define(global.DLL_MADX9, "MADX9_ErrorEmpty", dll_cdecl, ty_real, 0);
     global.MADX9_ErrorPop      = external_define(global.DLL_MADX9, "MADX9_ErrorPop", dll_cdecl, ty_string, 0);
+    
+    // Textures
+    global.MADX9_TextureCreateFromFile    = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromFile", dll_cdecl, ty_real, 2, ty_string, ty_real);
+    global.MADX9_TextureCreateFromPointer = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureDestroy           = external_define(global.DLL_MADX9, "MADX9_TextureDestroy", dll_cdecl, ty_real, 1, ty_real);
 }
 
 if (argument[0] & INIT_HOOKS)

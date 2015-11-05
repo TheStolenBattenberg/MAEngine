@@ -6,7 +6,7 @@
  *
  * Arguments:
  *   [1] - MD2 File.
- *   [2] - Texture File.
+ *   [2] - Texture index.
  *
  * Returns:
  *   0 on Error, 1 on success. 

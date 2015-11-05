@@ -24,28 +24,34 @@ void MADLLMain::free()
 {
 	flags &= ~FlagInitialized;
 
-	for (uint i = 0; i < mamain.Shader.size(); ++i)
-		if (mamain.Shader[i] != 0)
-			delete mamain.Shader[i];
+	for (uint i = 0; i < Shader.size(); ++i)
+		if (Shader[i] != 0)
+			delete Shader[i];
 
-	mamain.Shader.clear();
+	Shader.clear();
 
-	for (uint i = 0; i < mamain.MD2Models.size(); ++i)
-		if (mamain.MD2Models[i] != 0)
-			delete mamain.MD2Models[i];
+	for (uint i = 0; i < MD2Models.size(); ++i)
+		if (MD2Models[i] != 0)
+			delete MD2Models[i];
 
-	mamain.MD2Models.clear();
+	MD2Models.clear();
 
-	if (mamain.VertexDeclarationMD2 != 0) {
-		mamain.VertexDeclarationMD2->Release();
-		mamain.VertexDeclarationMD2 = 0;
+	if (VertexDeclarationMD2 != 0) {
+		VertexDeclarationMD2->Release();
+		VertexDeclarationMD2 = 0;
 	}
 
-	for (uint i = 0; i < mamain.Hooks.size(); ++i)
-		if (mamain.Hooks[i] != 0)
-			delete mamain.Hooks[i];
+	for (uint i = 0; i < Hooks.size(); ++i)
+		if (Hooks[i] != 0)
+			delete Hooks[i];
 
-	mamain.Hooks.clear();
+	Hooks.clear();
+
+	for (uint i = 0; i < Textures.size(); ++i)
+		if (Textures[i] != 0)
+			delete Textures[i];
+
+	Textures.clear();
 
 	if (d3ddev != 0)
 		d3ddev->Release();
@@ -60,11 +66,6 @@ void MADLLMain::free()
 const char* MADLLMain::returnStr(std::string str)
 {
 	return (retStr = str).c_str();
-}
-
-void MADLLMain::reset()
-{
-	// TODO: Add code to handle resets
 }
 
 bool MADLLMain::isInitialized()

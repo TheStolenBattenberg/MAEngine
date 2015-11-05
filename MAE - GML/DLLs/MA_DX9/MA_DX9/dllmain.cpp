@@ -323,18 +323,24 @@ DLLEXPORT double MADX9_LightDisable(double Index) {
 	return 1;
 }
 
-DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, const char* MD2TextureFile)
+DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd)
 {
+	if ((uint) texInd >= mamain.Textures.size())
+		return 0;
+
+	if (mamain.Textures[(uint) texInd] == 0)
+		return 0;
+
 	MD2Model* MD2 = new MD2Model();
 
-	if (!MD2->MD2Load(MD2ModelFile, MD2TextureFile))
+	if (!MD2->MD2Load(MD2ModelFile))
 	{
 		mamain.err.onError("Failed to Load MD2 Model");
-		
 		delete MD2;
-
 		return -1;
 	}
+
+	MD2->setTexture(mamain.Textures[(uint) texInd]->tex);
 
 	if (mamain.VertexDeclarationMD2 == 0)
 	{
@@ -545,6 +551,70 @@ DLLEXPORT double MADX9_ErrorEmpty() {
 
 DLLEXPORT const char* MADX9_ErrorPop() {
 	return mamain.returnStr(mamain.err.pop());
+}
+
+DLLEXPORT double MADX9_TextureCreateFromFile(const char* file, Texture::MipMaps mipmaps)
+{
+	Texture* tex = new Texture();
+
+	if (!tex->loadFromFile(file, mipmaps))
+	{
+		delete tex;
+		return -1;
+	}
+
+	for (uint i = 0; i < mamain.Textures.size(); ++i)
+	{
+		if (mamain.Textures[i] == 0)
+		{
+			mamain.Textures[i] = tex;
+			return i;
+		}
+	}
+
+	mamain.Textures.push_back(tex);
+	return mamain.Textures.size() - 1;
+}
+
+DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
+{
+	Texture* tex = new Texture();
+
+	memcpy(&tex->tex, &ptr, sizeof(tex->tex));
+
+	if (tex->tex == 0)
+	{
+		delete tex;
+		return -1;
+	}
+
+	tex->tex->AddRef();
+
+	for (uint i = 0; i < mamain.Textures.size(); ++i)
+	{
+		if (mamain.Textures[i] == 0)
+		{
+			mamain.Textures[i] = tex;
+			return i;
+		}
+	}
+
+	mamain.Textures.push_back(tex);
+	return mamain.Textures.size() - 1;
+}
+
+DLLEXPORT double MADX9_TextureDestroy(double ind)
+{
+	if ((uint) ind >= mamain.Textures.size())
+		return 0;
+
+	if (mamain.Textures[(uint) ind] == 0)
+		return 0;
+
+	delete mamain.Textures[(uint) ind];
+	mamain.Textures[(uint) ind] = 0;
+
+	return 1;
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

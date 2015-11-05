@@ -60,7 +60,23 @@ MAE_AnimationCreate();
 hobgoblin_run = MAE_AnimationAdd(40, 45); //Running,
 MAE_AnimationSet(hobgoblin_run);
 
-global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", "COMMON/TEXTURE/hobgoblin.bmp");
+/**
+ * Load texture
+ */
+
+var t = MAE_TextureCreateFromFile("COMMON/TEXTURE/hobgoblin.bmp", 0);
+
+/**
+ * Load model
+ */
+
+global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", t);
+
+/**
+ * Free texture because we don't need it anymore
+ */
+
+MAE_TextureDestroy(t);
 </string>
           </argument>
         </arguments>

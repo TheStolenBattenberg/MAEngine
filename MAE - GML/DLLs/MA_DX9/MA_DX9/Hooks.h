@@ -8,7 +8,8 @@
 
 enum D3DHooksActions
 {
-	D3DHookFetchVertexBuffer = 0x01
+	D3DHookFetchVertexBufferCreate = 0x01,
+	D3DHookFetchTextureSet         = 0x02
 };
 
 class D3DHooks
