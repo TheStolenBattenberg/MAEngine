@@ -25,6 +25,13 @@ namespace MSMType {
 		word MaterialCount;
 		byte HasShader;
 	};
+    
+    struct Vertex {
+        float x;
+        float y;
+        float z;
+    }
+    
 	struct Triangle {
 		word VertexIndex[3];
 		float Normal[3][3];
