@@ -616,6 +616,25 @@ DLLEXPORT double MADX9_TextureDestroy(double ind)
 	return 1;
 }
 
+DLLEXPORT double MADX9_TextureSet(double ind, double stage)
+{
+	if (ind < 0)
+		return SUCCEEDED(mamain.d3ddev->SetTexture((uint) stage, 0));
+
+	if ((uint) ind >= mamain.Textures.size())
+		return 0;
+
+	if (mamain.Textures[(uint) ind] == 0)
+		return 0;
+
+	return SUCCEEDED(mamain.d3ddev->SetTexture((uint) stage, mamain.Textures[(uint) ind]->tex));
+}
+
+DLLEXPORT double MADX9_SamplerSetState(double stage, double type, double value)
+{
+	return SUCCEEDED(mamain.d3ddev->SetSamplerState((uint) stage, (D3DSAMPLERSTATETYPE) (uint) type, (uint) value));
+}
+
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch (fdwReason)
