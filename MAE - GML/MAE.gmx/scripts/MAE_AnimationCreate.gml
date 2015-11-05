@@ -1,4 +1,16 @@
 ///MAE_AnimationCreate();
+
+/**
+ * Description:
+ *   Creates an animation controller.
+ *
+ * Arguments:
+ *   [N/A]
+ *
+ * Returns:
+ *   [N/A]
+ */
+
 ANI_TIME = 0;
 ANI_FRAME_1 = 0;
 ANI_FRAME_2 = 0;

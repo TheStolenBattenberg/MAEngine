@@ -1,4 +1,16 @@
 ///MAE_AnimationUpdate(FPS);
+
+/**
+ * Description:
+ *   Updates an animation.
+ *
+ * Arguments:
+ *   [1] FPS of animation.
+ *
+ * Returns:
+ *   [N/A]
+ */
+ 
 ANI_TIME += argument0 / room_speed;
 if(ANI_TIME >= 1)
 {

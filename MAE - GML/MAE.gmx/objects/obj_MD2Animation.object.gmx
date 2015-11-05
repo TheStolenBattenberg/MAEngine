@@ -53,12 +53,12 @@ desX = 0;
 desY = 0;
 
 
-/**
+/*
  * Animation stuff.
  */
 MAE_AnimationCreate();
-MAE_AnimationAdd(40, 45); //Animation Set 0, Running.
-MAE_AnimationSet(0);
+hobgoblin_run = MAE_AnimationAdd(40, 45); //Running,
+MAE_AnimationSet(hobgoblin_run);
 
 global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", "COMMON/TEXTURE/hobgoblin.bmp");
 </string>
@@ -129,6 +129,29 @@ MAE_AnimationUpdate(5);
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>MAE_ModelMD2Destroy(global.m);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
@@ -176,7 +199,7 @@ matrix_set(matrix_view, matView);
 
 
 d3d_transform_add_scaling(0.06, 0.06, 0.06);
-    MAE_ModelMD2Render(global.m, MAE_AnimationGetFrame1(), MAE_AnimationGetFrame2(), MAE_AnimationGetTime());
+    MAE_ModelMD2Render(global.m, MAE_AnimationGetFrame(), MAE_AnimationGetFrameNext(), MAE_AnimationGetTween());
 d3d_transform_set_identity();
 
 
