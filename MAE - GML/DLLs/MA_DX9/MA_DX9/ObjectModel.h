@@ -38,7 +38,8 @@ struct TEXCOORD
 
 class MD2Model : public Object {
 	public:
-		bool MD2Load(const char* mdl_name, const char* txr_name);
+		bool MD2Load(const char* mdl_name);
+		void setTexture(LPDIRECT3DTEXTURE9 tex);
 
 		IDirect3DVertexBuffer9* FetchVB(int frame);
 		IDirect3DVertexBuffer9* FetchTB();

@@ -79,15 +79,12 @@ bool Shader::compile(std::string vert, std::string pixel) {
 }
 
 Texture::~Texture() {
-	if (texSys != 0)
-		texSys->Release();
-
-	if (texGPU != 0)
-		texGPU->Release();
+	if (tex != 0)
+		tex->Release();
 }
 
-bool Texture::loadFromFile(std::string file, bool mipmaps) {
-	HRESULT res = D3DXCreateTextureFromFileEx(mamain.d3ddev, file.c_str(), 0, 0, mipmaps ? 0 : 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_SYSTEMMEM, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &texSys);
+bool Texture::loadFromFile(std::string file, MipMaps mipmaps) {
+	HRESULT res = D3DXCreateTextureFromFileEx(mamain.d3ddev, file.c_str(), 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex);
 
 	if (FAILED(res)) {
 		mamain.err.onErrorDX9("Couldn't load texture", res);
@@ -95,13 +92,4 @@ bool Texture::loadFromFile(std::string file, bool mipmaps) {
 	}
 
 	return 1;
-}
-
-void Texture::upload() {
-	// TODO: Upload texture to gpu
-}
-
-void Texture::freeGPU() {
-	if (texGPU != 0)
-		texGPU->Release();
 }

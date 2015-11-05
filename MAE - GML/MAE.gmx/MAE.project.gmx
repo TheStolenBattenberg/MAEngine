@@ -158,6 +158,11 @@
           <script>scripts\MAE_ErrorEmpty.gml</script>
           <script>scripts\MAE_ErrorPop.gml</script>
         </scripts>
+        <scripts name="Textures">
+          <script>scripts\MAE_TextureCreateFromFile.gml</script>
+          <script>scripts\MAE_TextureCreateFromPointer.gml</script>
+          <script>scripts\MAE_TextureDestroy.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Physics">
         <scripts name="World">

@@ -457,25 +457,27 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="18">
-      <constant name="mat_view">0</constant>
-      <constant name="mat_projection">1</constant>
-      <constant name="mat_world">2</constant>
-      <constant name="mat_world_view">3</constant>
-      <constant name="mat_world_view_projection">4</constant>
-      <constant name="PARTICLE_BILLBOARD">0</constant>
-      <constant name="PARTICLE_STANDARD">1</constant>
-      <constant name="PARTICLE_DISTRIBUTION_RANDOM">0</constant>
-      <constant name="PARTICLE_DISTRIBUTION_SPHERE">1</constant>
-      <constant name="SHADER_HLSL9">9</constant>
+    <constants number="20">
+      <constant name="HOOK_FETCHTEXSET">$02</constant>
+      <constant name="HOOK_FETCHVBCREATE">$01</constant>
       <constant name="INIT_ALL">$FFFFFFFF</constant>
-      <constant name="INIT_RENDER">$01</constant>
       <constant name="INIT_AUDIO">$02</constant>
-      <constant name="INIT_PHYSICS">$04</constant>
       <constant name="INIT_HOOKS">$08</constant>
+      <constant name="INIT_PHYSICS">$04</constant>
+      <constant name="INIT_RENDER">$01</constant>
+      <constant name="LIGHT_DIRECTIONAL">2</constant>
       <constant name="LIGHT_POINT">0</constant>
       <constant name="LIGHT_SPOT">1</constant>
-      <constant name="LIGHT_DIRECTIONAL">2</constant>
+      <constant name="mat_projection">1</constant>
+      <constant name="mat_view">0</constant>
+      <constant name="mat_world_view_projection">4</constant>
+      <constant name="mat_world_view">3</constant>
+      <constant name="mat_world">2</constant>
+      <constant name="PARTICLE_BILLBOARD">0</constant>
+      <constant name="PARTICLE_DISTRIBUTION_RANDOM">0</constant>
+      <constant name="PARTICLE_DISTRIBUTION_SPHERE">1</constant>
+      <constant name="PARTICLE_STANDARD">1</constant>
+      <constant name="SHADER_HLSL9">9</constant>
     </constants>
   </ConfigConstants>
 </Config>

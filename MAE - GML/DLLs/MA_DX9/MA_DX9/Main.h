@@ -43,13 +43,12 @@ public:
 	std::vector<D3DLIGHT9> Light;
 	std::vector<MD2Model*> MD2Models;
 	std::vector<D3DHooks*> Hooks;
+	std::vector<Texture*>  Textures;
 
 	DWORD stFVF;
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMD2 = 0;
 
 private:
-	void reset();
-
 	std::string retStr;
 
 	enum {

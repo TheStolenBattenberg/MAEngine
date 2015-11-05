@@ -5,7 +5,7 @@
 */
 #include "Main.h"
 
-bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
+bool MD2Model::MD2Load(const char* mdl_name)
 {
 	try {
 		std::ifstream f_MD2;
@@ -27,15 +27,13 @@ bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
 		return 0;
 	}
 
-	HRESULT res = D3DXCreateTextureFromFile(mamain.d3ddev, tex_name, &Texture);
-
-	if (FAILED(res))
-	{
-		mamain.err.onErrorDX9("Couldn't load texture", res);
-		return 0;
-	}
-
 	return 1;
+}
+
+void MD2Model::setTexture(LPDIRECT3DTEXTURE9 tex)
+{
+	tex->AddRef();
+	Texture = tex;
 }
 
 void MD2Model::FetchHeader(std::ifstream& f_MD2)

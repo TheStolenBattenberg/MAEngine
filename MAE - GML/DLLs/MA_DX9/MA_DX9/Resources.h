@@ -17,12 +17,15 @@ public:
 
 class Texture {
 public:
+	enum MipMaps {
+		MipMapsNone     = 0x00,
+		MipMapsGenerate = 0x01,
+		MipMapsFromFile = 0x02
+	};
+
 	~Texture();
 
-	bool loadFromFile(std::string file, bool mipmaps);
-	void upload();
-	void freeGPU();
+	bool loadFromFile(std::string file, MipMaps mipmaps);
 
-	LPDIRECT3DTEXTURE9 texSys = 0;
-	LPDIRECT3DTEXTURE9 texGPU = 0;
+	LPDIRECT3DTEXTURE9 tex = 0;
 };
