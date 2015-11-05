@@ -26,7 +26,10 @@ bool MD2Model::load(std::string model)
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 		
 	if (!f.is_open())
-		throw Exception("Failed to open MD2 file.");
+	{
+		mamain.err.onError("Failed to open MD2 file.");
+		return 0;
+	}
 
 	/**
 	 * Load and validate MD2 Header
@@ -37,7 +40,10 @@ bool MD2Model::load(std::string model)
 	f.read((char*) &h, sizeof(h));
 
 	if (h.magicNumber != 0x32504449 || h.version != 8 || h.frameSize == 0)
-		throw Exception("The MD2 header is corrupt.");
+	{
+		mamain.err.onError("The MD2 header is corrupt.");
+		return 0;
+	}
 
 	triCount  = h.numTris;
 	vertCount = h.numVert;
@@ -146,8 +152,10 @@ bool MD2Model::load(std::string model)
 	TexCoord* VertexTextureBuffer;
 	texBuf->Lock(0, 0, (void**) &VertexTextureBuffer, 0);
 
-	for (uint t = 0; t < h.numTris; ++t) {
-		for (uint i = 0; i < 3; ++i) {
+	for (uint t = 0; t < h.numTris; ++t)
+	{
+		for (uint i = 0; i < 3; ++i)
+		{
 			VertexTextureBuffer[TriangleBuffer[t].vertInd[i]].s = (float) CoordBuffer[TriangleBuffer[t].texInd[i]].s / h.skinWidth;
 			VertexTextureBuffer[TriangleBuffer[t].vertInd[i]].t = (float) CoordBuffer[TriangleBuffer[t].texInd[i]].t / h.skinHeight;
 		}

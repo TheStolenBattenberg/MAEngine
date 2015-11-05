@@ -162,6 +162,10 @@
           <script>scripts\MAE_TextureCreateFromFile.gml</script>
           <script>scripts\MAE_TextureCreateFromPointer.gml</script>
           <script>scripts\MAE_TextureDestroy.gml</script>
+          <script>scripts\MAE_TextureSet.gml</script>
+        </scripts>
+        <scripts name="Misc">
+          <script>scripts\MAE_SamplerSetState.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">

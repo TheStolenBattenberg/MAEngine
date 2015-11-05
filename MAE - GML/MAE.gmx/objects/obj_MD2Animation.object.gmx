@@ -64,7 +64,7 @@ MAE_AnimationSet(hobgoblin_run);
  * Load texture
  */
 
-var t = MAE_TextureCreateFromFile("COMMON/TEXTURE/hobgoblin.bmp", 0);
+var t = MAE_TextureCreateFromFile("COMMON/TEXTURE/hobgoblin.bmp", MIPMAPS_NONE);
 
 /**
  * Load model
