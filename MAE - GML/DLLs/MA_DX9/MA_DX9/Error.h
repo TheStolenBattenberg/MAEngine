@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Types.h"
-
 #include <string>
 #include <stack>
+
+#include "Types.h"
 
 enum {
 	ErrorShowMessage      = 0x01,

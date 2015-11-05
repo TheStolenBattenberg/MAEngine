@@ -1,15 +1,12 @@
+#pragma once
+
 /**
 *
 * NOTE :-> This MD2Type Class is taken from an example by Brian Jorgensen, on Gamedev.net.
 *
 */
 
-/**
- * Types.
- */
-#ifndef byte
-	typedef unsigned char byte;
-#endif
+#include "Types.h"
 
 namespace MD2Type {
 	struct Header {
@@ -37,8 +34,8 @@ namespace MD2Type {
 
 	struct Vertex
 	{
-		byte vertex[3];
-		byte unused_normal_index;
+		ubyte vertex[3];
+		ubyte unused_normal_index;
 	};
 
 	struct Frame
