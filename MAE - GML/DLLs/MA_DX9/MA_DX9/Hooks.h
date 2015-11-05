@@ -1,10 +1,10 @@
-#include "Variant.h"
+#pragma once
 
 #include <d3d9.h>
-
 #include <stack>
 
-typedef unsigned int uint;
+#include "Variant.h"
+#include "Types.h"
 
 enum D3DHooksActions
 {

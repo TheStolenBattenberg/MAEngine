@@ -1,4 +1,6 @@
-typedef unsigned int uint;
+#pragma once
+
+#include "Types.h"
 
 enum VariantTypes {
 	VariantTypeNull,

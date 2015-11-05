@@ -3,7 +3,7 @@
 * NOTE :-> See note inside ObjectModel.h.
 * 
 */
-#include "dllbackend.h"
+#include "Main.h"
 
 bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
 {
@@ -23,15 +23,15 @@ bool MD2Model::MD2Load(const char* mdl_name, const char* tex_name)
 	}
 	catch (Exception& e)
 	{
-		marb.err.onError(e.exception);
+		mamain.err.onError(e.exception);
 		return 0;
 	}
 
-	HRESULT res = D3DXCreateTextureFromFile(marb.d3ddev, tex_name, &Texture);
+	HRESULT res = D3DXCreateTextureFromFile(mamain.d3ddev, tex_name, &Texture);
 
 	if (FAILED(res))
 	{
-		marb.err.onErrorDX9("Couldn't load texture", res);
+		mamain.err.onErrorDX9("Couldn't load texture", res);
 		return 0;
 	}
 
@@ -67,7 +67,7 @@ void MD2Model::FetchFrameData(std::ifstream& f_MD2)
 			}
 		}
 
-		HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2VB[f], 0);
+		HRESULT result = mamain.d3ddev->CreateVertexBuffer(sizeof(VERTEX) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2VB[f], 0);
 
 		if (FAILED(result))
 			throw Exception("Couldn't create the DirectX9 Vertex Buffer!");
@@ -99,7 +99,7 @@ void MD2Model::FetchIndexData(std::ifstream& f_MD2)
 		IndexBuffer[i][2] = TriangleBuffer[i].vertex_indicies[2];
 	}
 
-	HRESULT result = marb.d3ddev->CreateIndexBuffer(sizeof(MD2Type::index_buffer) * Header.num_tris, 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &MD2IB, 0);
+	HRESULT result = mamain.d3ddev->CreateIndexBuffer(sizeof(MD2Type::index_buffer) * Header.num_tris, 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &MD2IB, 0);
 
 	if (FAILED(result))
 		throw Exception("Couldn't create the DirectX9 Index Buffer!");
@@ -143,7 +143,7 @@ void MD2Model::FetchTextureData(std::ifstream& f_MD2)
 		}
 	}
 
-	HRESULT result = marb.d3ddev->CreateVertexBuffer(sizeof(TEXCOORD) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2TB, 0);
+	HRESULT result = mamain.d3ddev->CreateVertexBuffer(sizeof(TEXCOORD) * Header.num_xyz, 0, 0, D3DPOOL_DEFAULT, &MD2TB, 0);
 
 	if (FAILED(result))
 		throw Exception("Couldn't create the DirectX9 Vertex Buffer!");
