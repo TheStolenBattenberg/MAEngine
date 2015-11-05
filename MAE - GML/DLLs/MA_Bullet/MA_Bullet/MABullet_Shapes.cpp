@@ -48,10 +48,55 @@ DLLEXPORT MAB_ShapeCreateCone(double Radius, double Height, double UpAxis)
 	return G.addShape(shape);
 }
 
-DLLEXPORT MAB_ShapeDestroy(double ShapeID)
+DLLEXPORT MAB_ShapeCreateCompound()
 {
-	int ID = (int)ShapeID;
+	btCollisionShape* shape = new btCompoundShape(true);
+	return G.addShape(shape);
+}
+
+DLLEXPORT MAB_ShapeAddChild(double ParentID, double ChildID, double X, double Y, double Z, double RX, double RY, double RZ, double RW)
+{
+	btCompoundShape* parent = dynamic_cast<btCompoundShape*>(G.getShape(ParentID));
+	if(!parent) return -1;
+	btTransform trans;
+	trans.setOrigin(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+	trans.setRotation(btQuaternion((btScalar)RX, (btScalar)RY, (btScalar)RZ, (btScalar)RW));
+	parent->addChildShape(trans, G.getShape(ChildID));
+	return parent->getNumChildShapes()-1;
+}
+
+DLLEXPORT MAB_ShapeRemoveChild(double ParentID, double ChildIndex)
+{
+	btCompoundShape* parent = dynamic_cast<btCompoundShape*>(G.getShape(ParentID));
+	if (!parent) return 0;
+	parent->removeChildShapeByIndex((int)ChildIndex);
+	return 1;
+}
+
+DLLEXPORT MAB_ShapeUpdateChildTransform(double ParentID, double ChildIndex, double X, double Y, double Z, double RX, double RY, double RZ, double RW)
+{
+	btCompoundShape* parent = dynamic_cast<btCompoundShape*>(G.getShape(ParentID));
+	if (!parent) return 0;
+	btTransform trans;
+	trans.setOrigin(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+	trans.setRotation(btQuaternion((btScalar)RX, (btScalar)RY, (btScalar)RZ, (btScalar)RW));
+	parent->updateChildTransform((int)ChildIndex, trans, true);
+	return 1;
+}
+
+DLLEXPORT MAB_ShapeDestroy(double ShapeID, double DestroyChildShapes)
+{
 	if (!G.shapeExists(ShapeID)) return 0;
+	if (DestroyChildShapes) {
+		btCompoundShape* compound = dynamic_cast<btCompoundShape*>(G.getShape(ShapeID));
+		if (compound) {
+			for (int i = 0; i < compound->getNumChildShapes(); i++) {
+				G.Shapes.erase(compound->getChildShape(i)->getUserIndex());
+				delete compound->getChildShape(i);			
+			}
+		}
+	}
+	int ID = (int)ShapeID;
 	delete G.Shapes[ID];
 	G.Shapes.erase(ID);
 	return 1;
@@ -65,5 +110,17 @@ DLLEXPORT MAB_ShapeDestroyAll()
 		delete i.second;
 	}
 	G.Shapes.clear();
+	return 1;
+}
+
+DLLEXPORT MAB_ShapeSetMargin(double ShapeID, double Margin)
+{
+	G.getShape(ShapeID)->setMargin((btScalar)Margin);
+	return 1;
+}
+
+DLLEXPORT MAB_ShapeSetScaling(double ShapeID, double X, double Y, double Z)
+{
+	G.getShape(ShapeID)->setLocalScaling(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
 	return 1;
 }

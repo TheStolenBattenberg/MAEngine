@@ -86,14 +86,20 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_OverlapResult = external_define(global.DLL_MABullet, "MAB_OverlapResult", dll_cdecl, ty_real, 1, ty_real);
     
     //Shape
-    global.MAB_ShapeCreateBox      = external_define(global.DLL_MABullet, "MAB_ShapeCreateBox", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_ShapeCreateSphere   = external_define(global.DLL_MABullet, "MAB_ShapeCreateSphere", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_ShapeCreateCapsule  = external_define(global.DLL_MABullet, "MAB_ShapeCreateCapsule", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_ShapeCreateCylinder = external_define(global.DLL_MABullet, "MAB_ShapeCreateCylinder", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_ShapeCreateCone     = external_define(global.DLL_MABullet, "MAB_ShapeCreateCone", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_ShapeCreatePlane    = external_define(global.DLL_MABullet, "MAB_ShapeCreatePlane", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
-    global.MAB_ShapeDestroy        = external_define(global.DLL_MABullet, "MAB_ShapeDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_ShapeDestroyAll     = external_define(global.DLL_MABullet, "MAB_ShapeDestroyAll", dll_cdecl, ty_real, 0);
+    global.MAB_ShapeCreateBox            = external_define(global.DLL_MABullet, "MAB_ShapeCreateBox", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateSphere         = external_define(global.DLL_MABullet, "MAB_ShapeCreateSphere", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_ShapeCreateCapsule        = external_define(global.DLL_MABullet, "MAB_ShapeCreateCapsule", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateCylinder       = external_define(global.DLL_MABullet, "MAB_ShapeCreateCylinder", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateCone           = external_define(global.DLL_MABullet, "MAB_ShapeCreateCone", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreatePlane          = external_define(global.DLL_MABullet, "MAB_ShapeCreatePlane", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateCompound       = external_define(global.DLL_MABullet, "MAB_ShapeCreateCompound", dll_cdecl, ty_real, 0);
+    global.MAB_ShapeAddChild             = external_define(global.DLL_MABullet, "MAB_ShapeAddChild", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ShapeRemoveChild          = external_define(global.DLL_MABullet, "MAB_ShapeRemoveChild", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_ShapeUpdateChildTransform = external_define(global.DLL_MABullet, "MAB_ShapeUpdateChildTransform", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ShapeDestroy              = external_define(global.DLL_MABullet, "MAB_ShapeDestroy", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_ShapeDestroyAll           = external_define(global.DLL_MABullet, "MAB_ShapeDestroyAll", dll_cdecl, ty_real, 0);
+    global.MAB_ShapeSetMargin            = external_define(global.DLL_MABullet, "MAB_ShapeSetMargin", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_ShapeSetScaling           = external_define(global.DLL_MABullet, "MAB_ShapeSetScaling", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     
     //Body
     global.MAB_BodyCreate                 = external_define(global.DLL_MABullet, "MAB_BodyCreate", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
@@ -130,6 +136,7 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_BodySetAnisotropicFriction = external_define(global.DLL_MABullet, "MAB_BodySetAnisotropicFriction", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     global.MAB_BodySetRestitution         = external_define(global.DLL_MABullet, "MAB_BodySetRestitution", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_BodySetRollingFriction     = external_define(global.DLL_MABullet, "MAB_BodySetRollingFriction", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_BodySetUserIndex           = external_define(global.DLL_MABullet, "MAB_BodySetUserIndex", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_BodySetGravity             = external_define(global.DLL_MABullet, "MAB_BodySetGravity", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     global.MAB_BodySetDeactivationTime    = external_define(global.DLL_MABullet, "MAB_BodySetDeactivationTime", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_BodyDisableDeactivation    = external_define(global.DLL_MABullet, "MAB_BodyDisableDeactivation", dll_cdecl, ty_real, 1, ty_real);

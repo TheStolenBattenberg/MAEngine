@@ -184,8 +184,14 @@
           <script>scripts\MAE_PhysShapeCreateCylinder.gml</script>
           <script>scripts\MAE_PhysShapeCreateCone.gml</script>
           <script>scripts\MAE_PhysShapeCreatePlane.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCompound.gml</script>
+          <script>scripts\MAE_PhysShapeAddChild.gml</script>
+          <script>scripts\MAE_PhysShapeRemoveChild.gml</script>
+          <script>scripts\MAE_PhysShapeUpdateChildTransform.gml</script>
           <script>scripts\MAE_PhysShapeDestroy.gml</script>
           <script>scripts\MAE_PhysShapeDestroyAll.gml</script>
+          <script>scripts\MAE_PhysShapeSetMargin.gml</script>
+          <script>scripts\MAE_PhysShapeSetScaling.gml</script>
         </scripts>
         <scripts name="Body">
           <script>scripts\MAE_PhysBodyCreate.gml</script>
@@ -223,6 +229,7 @@
           <script>scripts\MAE_PhysBodySetFriction.gml</script>
           <script>scripts\MAE_PhysBodySetRestitution.gml</script>
           <script>scripts\MAE_PhysBodySetRollingFriction.gml</script>
+          <script>scripts\MAE_PhysBodySetUserIndex.gml</script>
           <script>scripts\MAE_PhysBodySetShape.gml</script>
           <script>scripts\MAE_PhysBodySetGroupMask.gml</script>
           <script>scripts\MAE_PhysBodySetDeactivationTime.gml</script>
