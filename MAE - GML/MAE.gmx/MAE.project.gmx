@@ -166,6 +166,7 @@
         </scripts>
         <scripts name="Misc">
           <script>scripts\MAE_SamplerSetState.gml</script>
+          <script>scripts\MAE_RenderSetState.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">

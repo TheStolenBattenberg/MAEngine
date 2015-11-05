@@ -635,6 +635,34 @@ DLLEXPORT double MADX9_SamplerSetState(double stage, double type, double value)
 	return SUCCEEDED(mamain.d3ddev->SetSamplerState((uint) stage, (D3DSAMPLERSTATETYPE) (uint) type, (uint) value));
 }
 
+DLLEXPORT double MADX9_RenderSetState(double state, double value)
+{
+	uint v;
+
+	switch ((D3DRENDERSTATETYPE) (uint) state)
+	{
+	case D3DRS_FOGSTART:
+	case D3DRS_FOGEND:
+	case D3DRS_FOGDENSITY:
+	case D3DRS_POINTSIZE:
+	case D3DRS_POINTSIZE_MIN:
+	case D3DRS_POINTSCALE_A:
+	case D3DRS_POINTSCALE_B:
+	case D3DRS_POINTSCALE_C:
+	case D3DRS_PATCHEDGESTYLE:
+	case D3DRS_POINTSIZE_MAX:
+	case D3DRS_TWEENFACTOR:
+	case D3DRS_DEPTHBIAS:
+		*(float*) &v = (float) value;
+		break;
+	default:
+		v = (uint) value;
+		break;
+	}
+
+	return SUCCEEDED(mamain.d3ddev->SetRenderState((D3DRENDERSTATETYPE) (uint) state, v));
+}
+
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch (fdwReason)
