@@ -4,7 +4,7 @@ var flags = INIT_ALL;
 global.DLL_MADX9 = "MA_DX9.dll";
 global.DLL_MABullet = "MA_Bullet.dll";
 
-if (argument_count > 0 && is_real(argument[0]))
+if (argument_count > 0 && is_real(argument[0]) && argument[0] != 0)
     flags = argument[0];
 
 if (argument_count > 1 && is_string(argument[1]))
@@ -20,10 +20,15 @@ global.MADX9_Free = external_define(global.DLL_MADX9, "MADX9_Free", dll_cdecl, t
 if (argument[0] & INIT_RENDER)
 {
     //Shaders
-    global.MADX9_ShaderCreateHLSL9  = external_define(global.DLL_MADX9, "MADX9_ShaderCreateHLSL9", dll_cdecl, ty_real, 2, ty_string, ty_string);
-    global.MADX9_ShaderSetHLSL9     = external_define(global.DLL_MADX9, "MADX9_ShaderSetHLSL9", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_ShaderResetHLSL9   = external_define(global.DLL_MADX9, "MADX9_ShaderResetHLSL9", dll_cdecl, ty_real, 0);
-    global.MADX9_ShaderDestroyHLSL9 = external_define(global.DLL_MADX9, "MADX9_ShaderDestroyHLSL9", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ShaderCreateHLSL9     = external_define(global.DLL_MADX9, "MADX9_ShaderCreateHLSL9", dll_cdecl, ty_real, 2, ty_string, ty_string);
+    global.MADX9_ShaderSetHLSL9        = external_define(global.DLL_MADX9, "MADX9_ShaderSetHLSL9", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ShaderResetHLSL9      = external_define(global.DLL_MADX9, "MADX9_ShaderResetHLSL9", dll_cdecl, ty_real, 0);
+    global.MADX9_ShaderDestroyHLSL9    = external_define(global.DLL_MADX9, "MADX9_ShaderDestroyHLSL9", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ShaderFindConstant    = external_define(global.DLL_MADX9, "MADX9_ShaderFindConstant", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_string);
+    global.MADX9_ShaderSetConstantVec3 = external_define(global.DLL_MADX9, "MADX9_ShaderSetConstantVec3", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_ShaderSetConstantVec4 = external_define(global.DLL_MADX9, "MADX9_ShaderSetConstantVec4", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_ShaderSetConstantMat3 = external_define(global.DLL_MADX9, "MADX9_ShaderSetConstantMat3", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MADX9_ShaderSetConstantMat4 = external_define(global.DLL_MADX9, "MADX9_ShaderSetConstantMat4", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     
     //Lights
     global.MADX9_LightCreate          = external_define(global.DLL_MADX9, "MADX9_LightCreate", dll_cdecl, ty_real, 1, ty_real);
@@ -57,6 +62,10 @@ if (argument[0] & INIT_RENDER)
     // Misc
     global.MADX9_SamplerSetState = external_define(global.DLL_MADX9, "MADX9_SamplerSetState", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     global.MADX9_RenderSetState  = external_define(global.DLL_MADX9, "MADX9_RenderSetState", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    
+    // Internal
+    global.MADX9_MatStackFloat = external_define(global.DLL_MADX9, "MADX9_MatStackFloat", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_MatStackClear = external_define(global.DLL_MADX9, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
 }
 
 if (argument[0] & INIT_HOOKS)

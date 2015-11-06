@@ -27,9 +27,6 @@
             <kind>1</kind>
             <string>d3d_start();
 d3d_set_lighting(true);
-d3d_set_shading(true);
-d3d_set_depth(true);
-d3d_set_zwriteenable(true);
 
 //Creating a Advanced Light
 Light_0 = MAE_LightCreate(LIGHT_POINT);
@@ -74,6 +71,34 @@ if(light = 0)
 }
 
 alarm[0] = 60;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>MAE_LightDisable(0);
+
+MAE_LightDestroy(Light_0);
+MAE_LightDestroy(Light_1);
+
+d3d_set_lighting(0);
 </string>
           </argument>
         </arguments>

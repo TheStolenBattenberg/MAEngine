@@ -109,6 +109,83 @@ DLLEXPORT double MADX9_ShaderDestroyHLSL9(double index)
 	return 1;
 }
 
+DLLEXPORT double MADX9_ShaderFindConstant(double index, double shd, const char* c)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	return t->find(c);
+}
+
+DLLEXPORT double MADX9_ShaderSetConstantVec3(double index, double shd, double c, double x, double y, double z)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	vec3 v = {(float) x, (float) y, (float) z};
+
+	return t->setVec3((uint) c, v);
+}
+
+DLLEXPORT double MADX9_ShaderSetConstantVec4(double index, double shd, double c, double x, double y, double z, double w)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	vec4 v = {(float) x, (float) y, (float) z, (float) w};
+
+	return t->setVec4((uint) c, v);
+}
+
+DLLEXPORT double MADX9_ShaderSetConstantMat3(double index, double shd, double c)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	mat3 v;
+
+	memcpy(v, mamain.matStack.data(), sizeof(v));
+
+	return t->setMat3((uint) c, v);
+}
+
+DLLEXPORT double MADX9_ShaderSetConstantMat4(double index, double shd, double c)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	mat4 v;
+
+	memcpy(v, mamain.matStack.data(), sizeof(v));
+
+	return t->setMat4((uint) c, v);
+}
+
 DLLEXPORT double MADX9_LightCreate(double LightType)
 {
 	D3DLIGHT9 Light;
@@ -661,6 +738,23 @@ DLLEXPORT double MADX9_RenderSetState(double state, double value)
 	}
 
 	return SUCCEEDED(mamain.d3ddev->SetRenderState((D3DRENDERSTATETYPE) (uint) state, v));
+}
+
+DLLEXPORT double MADX9_MatStackFloat(double v1, double v2, double v3, double v4)
+{
+	mamain.matStack.push_back((float) v1);
+	mamain.matStack.push_back((float) v2);
+	mamain.matStack.push_back((float) v3);
+	mamain.matStack.push_back((float) v4);
+
+	return 1;
+}
+
+DLLEXPORT double MADX9_MatStackClear()
+{
+	mamain.matStack.clear();
+
+	return 1;
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

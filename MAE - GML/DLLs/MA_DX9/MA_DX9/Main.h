@@ -49,6 +49,12 @@ public:
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMD2 = 0;
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMSM = 0;
 
+	/**
+	 * This stack can be used to transfer matrices to the DLL using MADX9_MatStackFloat and MADX9_MatStackClear
+	 */
+
+	std::vector<float> matStack;
+
 private:
 	std::string retStr;
 
