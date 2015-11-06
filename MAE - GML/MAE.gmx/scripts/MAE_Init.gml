@@ -173,6 +173,7 @@ if (argument[0] & INIT_PHYSICS)
     
     //Constraints
     global.MAB_ConstraintCreateP2P         = external_define(global.DLL_MABullet, "MAB_ConstraintCreateP2P", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreateFixed       = external_define(global.DLL_MABullet, "MAB_ConstraintCreateFixed", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_ConstraintSetPivot          = external_define(global.DLL_MABullet, "MAB_ConstraintSetPivot", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_ConstraintSetBreakThreshold = external_define(global.DLL_MABullet, "MAB_ConstraintSetBreakThreshold", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_ConstraintSetEnabled        = external_define(global.DLL_MABullet, "MAB_ConstraintSetEnabled", dll_cdecl, ty_real, 2, ty_real, ty_real);

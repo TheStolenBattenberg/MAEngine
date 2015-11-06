@@ -1,4 +1,4 @@
-///MAE_PhysConstraintCreateP2P(bodyA, point_A, world_space_A, bodyB, point_B, world_space_B)
+///MAE_PhysConstraintCreateP2P(bodyA, point_A, is_world_space_A, bodyB, point_B, is_world_space_B)
 /*
 Creates a constraint between 2 points.
 Second point is optional.

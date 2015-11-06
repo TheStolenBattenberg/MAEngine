@@ -57,8 +57,15 @@ d3d_model_ellipsoid(model[4], -1, -1, -2, 1, 1, 0, 1, 1, 32);
 
 //create rigidbodies that will fall to the ground
 for(var i=0; i&lt;array_length_1d(shape); i++){
-    body[i] = MAE_PhysBodyCreate(shape[i], 1, random(pi*2), random(pi*2), random(pi*2), 0, 0, 10+i*5);
+    body[i] = MAE_PhysBodyCreate(shape[i], 1, random(pi*2), random(pi*2), random(pi*2), 0, 0, 10+i*3);
 }
+
+/*
+MAE_PhysConstraintCreateFixed(body[0], body[1]);
+MAE_PhysConstraintCreateFixed(body[1], body[2]);
+MAE_PhysConstraintCreateFixed(body[2], body[3]);
+MAE_PhysConstraintCreateFixed(body[3], body[4]);
+*/
 
 //debug draw toggle
 debugdraw = false;
@@ -91,7 +98,7 @@ mouse_vector = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_PhysWorldStep(1/room_speed, 4, 1/120); //step the simulation
+            <string>MAE_PhysWorldStep(1/room_speed, 5, 1/120); //step the simulation
 
 //drag bodies with mouse
 if(!is_array(mouse_vector)) exit;

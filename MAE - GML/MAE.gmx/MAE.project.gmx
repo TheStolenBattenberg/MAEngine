@@ -264,6 +264,7 @@
         </scripts>
         <scripts name="Constraint">
           <script>scripts\MAE_PhysConstraintCreateP2P.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateFixed.gml</script>
           <script>scripts\MAE_PhysConstraintSetPivot.gml</script>
           <script>scripts\MAE_PhysConstraintSetBreakThreshold.gml</script>
           <script>scripts\MAE_PhysConstraintSetEnabled.gml</script>
