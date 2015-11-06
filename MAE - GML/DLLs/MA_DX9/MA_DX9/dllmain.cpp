@@ -17,6 +17,28 @@ DLLEXPORT double MADX9_Free()
 	return 1;
 }
 
+DLLEXPORT double MADX9_ShaderCreateASM(const char* VSCode, const char* PSCode)
+{
+	Shader* shd = new Shader();
+	if (!shd->compileasm(VSCode, PSCode))
+	{
+		delete shd;
+		return -1;
+	}
+
+	for (uint i = 0; i < mamain.Shader.size(); ++i)
+	{
+		if (mamain.Shader[i] == 0)
+		{
+			mamain.Shader[i] = shd;
+			return i;
+		}
+	}
+
+	mamain.Shader.push_back(shd);
+	return mamain.Shader.size() - 1;
+}
+
 DLLEXPORT double MADX9_ShaderCreateHLSL9(const char* VSCode, const char* PSCode)
 {
 	Shader* shd = new Shader();
@@ -41,7 +63,7 @@ DLLEXPORT double MADX9_ShaderCreateHLSL9(const char* VSCode, const char* PSCode)
 	return mamain.Shader.size() - 1;
 }
 
-DLLEXPORT double MADX9_ShaderSetHLSL9(double index)
+DLLEXPORT double MADX9_ShaderSet(double index)
 {
 	if ((uint) index > mamain.Shader.size())
 		return 0;
@@ -75,7 +97,7 @@ DLLEXPORT double MADX9_ShaderSetHLSL9(double index)
 	return 1;
 }
 
-DLLEXPORT double MADX9_ShaderResetHLSL9()
+DLLEXPORT double MADX9_ShaderReset()
 {
 	HRESULT result;
 
@@ -95,7 +117,7 @@ DLLEXPORT double MADX9_ShaderResetHLSL9()
 	return 1;
 }
 
-DLLEXPORT double MADX9_ShaderDestroyHLSL9(double index)
+DLLEXPORT double MADX9_ShaderDestroy(double index)
 {
 	if ((uint) index > mamain.Shader.size())
 		return 0;

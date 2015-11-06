@@ -8,13 +8,15 @@
 switch(argument2)
 {
     case SHADER_HLSL9:        
-        result = external_call(global.MADX9_ShaderCreateHLSL9, argument0, argument1);       
+        result = external_call(global.MADX9_ShaderCreateHLSL9, argument0, argument1);
+        show_debug_message(result);  
         return result;
     break;
     
     case SHADER_ASM:
-        show_debug_message("Unimplemented.");
-        return 0;
+        result = external_call(global.MADX9_ShaderCreateASM, argument0, argument1);
+        show_debug_message(result);
+        return result;
     break;
     
     case SHADER_FILE:
