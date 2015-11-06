@@ -3,8 +3,6 @@
 #include "MABullet.h"
 #include "d3d9.h"
 #include "d3dx9.h"
-#include <iostream>
-#include <vector>
 
 struct Vertex
 {
@@ -27,7 +25,7 @@ public:
 	MABulletDebugDraw(LPDIRECT3DDEVICE9 device)
 	{
 		d3ddev = device; 
-		m_debugMode = btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE | btIDebugDraw::DBG_DrawContactPoints;
+		m_debugMode = btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE | btIDebugDraw::DBG_DrawContactPoints | btIDebugDraw::DBG_DrawConstraints;
 	};
 
 	virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor);

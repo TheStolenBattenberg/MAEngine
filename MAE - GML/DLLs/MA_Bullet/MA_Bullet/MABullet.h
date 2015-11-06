@@ -40,20 +40,29 @@ struct MABullet {
 	int ShapeCount = 0;
 	std::unordered_map<int, MABody*> Bodies;
 	int BodyCount = 0;
+	std::unordered_map<int, btTypedConstraint*> Constraints;
+	int ConstraintCount = 0;
 
 	inline bool worldExists() { return (World) ? true : false; };
-	inline bool shapeExists(double ShapeID){ return (Shapes.count((int)ShapeID) > 0); };
-	inline bool bodyExists(double BodyID){ return (Bodies.count((int)BodyID) > 0); };
+	inline bool shapeExists(double ShapeID) { return (Shapes.count((int)ShapeID) > 0); };
+	inline bool bodyExists(double BodyID) { return (Bodies.count((int)BodyID) > 0); };
+	inline bool constraintExists(double ConstraintID) { return (Constraints.count((int)ConstraintID) > 0); }
 	inline btCollisionShape* getShape(double ShapeID) { return Shapes[(int)ShapeID]; };
 	inline btRigidBody* getBody(double BodyID) { return Bodies[(int)BodyID]->Body; };
+	inline btTypedConstraint* getConstraint(double ConstraintID) { return Constraints[(int)ConstraintID]; }
 	inline double addShape(btCollisionShape* Shape) {
 		Shapes[ShapeCount] = Shape;
 		Shape->setUserIndex(ShapeCount);
 		ShapeCount++;
 		return ShapeCount - 1;
 	}
+	inline double addConstraint(btTypedConstraint* Constraint) {
+		Constraints[ConstraintCount] = Constraint;
+		Constraint->setUserConstraintId(ConstraintCount);
+		ConstraintCount++;
+		return ConstraintCount - 1;
+	}
 	btVector3 toEuler(btMatrix3x3 &tm);
-
 };
 
 extern MABullet G;

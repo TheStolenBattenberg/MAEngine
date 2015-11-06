@@ -19,18 +19,20 @@ DLLEXPORT MAB_WorldCreate()
 DLLEXPORT MAB_WorldDestroy()
 {
 	if (!G.worldExists()) return 0;
-	for (int i = G.World->getNumCollisionObjects() - 1; i >= 0; i--)
+	for (auto i : G.Constraints)
 	{
-		btCollisionObject* obj = G.World->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		if (body && body->getMotionState())
-		{
-			delete body->getMotionState();
-		}
-		G.World->removeCollisionObject(obj);
-		delete obj;
+		G.World->removeConstraint(i.second);
+		delete i.second;
 	}
-	G.Bodies.clear();
+	G.Constraints.clear();
+	for (auto i : G.Bodies)
+	{
+		G.World->removeCollisionObject(i.second->Body);
+		delete i.second->Body->getMotionState();
+		delete i.second->Body;
+		delete i.second;
+	}
+	G.Bodies.clear();	
 	delete G.World;
 	delete G.Solver;
 	delete G.Dispatcher;
@@ -75,6 +77,12 @@ DLLEXPORT MAB_WorldGetBodyCount()
 {
 	if (!G.worldExists()) return 0;
 	return G.World->getNumCollisionObjects();
+}
+
+DLLEXPORT MAB_WorldGetConstraintCount()
+{
+	if (!G.worldExists()) return 0;
+	return G.World->getNumConstraints();
 }
 
 DLLEXPORT MAB_WorldDebugDraw(LPDIRECT3DDEVICE9 pointer)

@@ -77,17 +77,18 @@ external_call(global.MADX9_Init, window_device());
 if (argument[0] & INIT_PHYSICS)
 {
     //World
-    global.MAB_WorldCreate       = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
-    global.MAB_WorldDestroy      = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);
-    global.MAB_WorldStep         = external_define(global.DLL_MABullet, "MAB_WorldStep", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_WorldSetGravity   = external_define(global.DLL_MABullet, "MAB_WorldSetGravity", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MAB_WorldGetGravity   = external_define(global.DLL_MABullet, "MAB_WorldGetGravity", dll_cdecl, ty_real, 0);
-    global.MAB_WorldGetBodyCount = external_define(global.DLL_MABullet, "MAB_WorldGetBodyCount", dll_cdecl, ty_real, 0);
-    global.MAB_WorldExists       = external_define(global.DLL_MABullet, "MAB_WorldExists", dll_cdecl, ty_real, 0);
-    global.MAB_WorldDebugDraw    = external_define(global.DLL_MABullet, "MAB_WorldDebugDraw", dll_cdecl, ty_real, 1, ty_real);
-    global.MAB_WorldRaycast      = external_define(global.DLL_MABullet, "MAB_WorldRaycast", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MAB_WorldSweep        = external_define(global.DLL_MABullet, "MAB_WorldSweep", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MAB_WorldOverlap      = external_define(global.DLL_MABullet, "MAB_WorldOverlap", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_WorldCreate             = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
+    global.MAB_WorldDestroy            = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);
+    global.MAB_WorldStep               = external_define(global.DLL_MABullet, "MAB_WorldStep", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_WorldSetGravity         = external_define(global.DLL_MABullet, "MAB_WorldSetGravity", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_WorldGetGravity         = external_define(global.DLL_MABullet, "MAB_WorldGetGravity", dll_cdecl, ty_real, 0);
+    global.MAB_WorldGetBodyCount       = external_define(global.DLL_MABullet, "MAB_WorldGetBodyCount", dll_cdecl, ty_real, 0);
+    global.MAB_WorldGetConstraintCount = external_define(global.DLL_MABullet, "MAB_WorldGetConstraintCount", dll_cdecl, ty_real, 0);
+    global.MAB_WorldExists             = external_define(global.DLL_MABullet, "MAB_WorldExists", dll_cdecl, ty_real, 0);
+    global.MAB_WorldDebugDraw          = external_define(global.DLL_MABullet, "MAB_WorldDebugDraw", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_WorldRaycast            = external_define(global.DLL_MABullet, "MAB_WorldRaycast", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_WorldSweep              = external_define(global.DLL_MABullet, "MAB_WorldSweep", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_WorldOverlap            = external_define(global.DLL_MABullet, "MAB_WorldOverlap", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     
     //Misc
     global.MAB_Vec           = external_define(global.DLL_MABullet, "MAB_Vec", dll_cdecl, ty_real, 1, ty_real);
@@ -160,4 +161,11 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_BodyApplyForce             = external_define(global.DLL_MABullet, "MAB_BodyApplyForce", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_BodyApplyTorque            = external_define(global.DLL_MABullet, "MAB_BodyApplyTorque", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_BodyApplyTorqueImpulse     = external_define(global.DLL_MABullet, "MAB_BodyApplyTorqueImpulse", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
+    
+    //Constraints
+    global.MAB_ConstraintCreateP2P         = external_define(global.DLL_MABullet, "MAB_ConstraintCreateP2P", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintSetPivot          = external_define(global.DLL_MABullet, "MAB_ConstraintSetPivot", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintSetBreakThreshold = external_define(global.DLL_MABullet, "MAB_ConstraintSetBreakThreshold", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_ConstraintSetEnabled        = external_define(global.DLL_MABullet, "MAB_ConstraintSetEnabled", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_ConstraintDestroy           = external_define(global.DLL_MABullet, "MAB_ConstraintDestroy", dll_cdecl, ty_real, 1, ty_real);
 }
