@@ -47,6 +47,7 @@ public:
 
 	DWORD stFVF;
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMD2 = 0;
+	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMSM = 0;
 
 private:
 	std::string retStr;

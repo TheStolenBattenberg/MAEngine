@@ -1,12 +1,17 @@
 #pragma once
 
 /**
-*
-* NOTE :-> This MD2Type Class is taken from an example by Brian Jorgensen, on Gamedev.net.
-*
-*/
-
+ * Includes
+ */
 #include "Types.h"
+
+
+/**
+ * IDTech 2 Model
+ * Version 8
+ */
+#define MD2_MAGICNUMBER 0x32504449
+#define MD2_VERSION 0x08
 
 namespace MD2Type
 {
