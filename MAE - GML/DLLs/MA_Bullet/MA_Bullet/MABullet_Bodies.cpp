@@ -24,9 +24,16 @@ DLLEXPORT MAB_BodyCreate(double ShapeID, double Mass, double XRot, double YRot, 
 DLLEXPORT MAB_BodyDestroy(double BodyID)
 {
 	if (!G.bodyExists(BodyID)) return 0;
-	G.World->removeCollisionObject(G.getBody(BodyID));
-	delete G.getBody(BodyID)->getMotionState();
-	delete G.getBody(BodyID);
+	btRigidBody* body = G.getBody(BodyID);
+	G.World->removeCollisionObject(body);
+	for (int i = body->getNumConstraintRefs() - 1; i >= 0; i--)
+	{
+		btTypedConstraint* constraint = body->getConstraintRef(i);
+		G.Constraints.erase(constraint->getUserConstraintId());
+		delete constraint;
+	}
+	delete body->getMotionState();
+	delete body;
 	delete G.Bodies[(int)BodyID];
 	G.Bodies.erase((int)BodyID);
 	return 1;

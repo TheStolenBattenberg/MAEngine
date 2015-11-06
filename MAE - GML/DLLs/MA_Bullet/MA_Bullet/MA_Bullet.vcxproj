@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MABullet.cpp" />
+    <ClCompile Include="MABullet_Constraints.cpp" />
     <ClCompile Include="MABullet_DebugDraw.cpp" />
     <ClCompile Include="MABullet_Misc.cpp" />
     <ClCompile Include="MABullet_Bodies.cpp" />

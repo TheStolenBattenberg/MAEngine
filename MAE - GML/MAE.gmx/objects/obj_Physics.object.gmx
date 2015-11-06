@@ -31,10 +31,8 @@ camera_pos = MAE_VectorCreate(16, 16, 16);
 //create physics world
 MAE_PhysWorldCreate();
 
-
 //create ground
 MAE_PhysBodyCreate(MAE_PhysShapeCreatePlane(0, 0, 1, 0), 0, 0, 0, 0, 0, 0, 0);
-
 
 //create some shapes
 shape[0] = MAE_PhysShapeCreateBox(1, 1, 1);
@@ -68,11 +66,9 @@ debugdraw = false;
 //mouse drag
 dragging_body = -1;
 dragging_distance = 0;
+dragging_constraint = -1;
 mouse_vector = 0;
 
-//overlap test
-overlap_box = MAE_PhysShapeCreateBox(2, 2, 2);
-overlap_pos = MAE_VectorCreate(0, 0, 2.1);
 </string>
           </argument>
         </arguments>
@@ -97,12 +93,6 @@ overlap_pos = MAE_VectorCreate(0, 0, 2.1);
             <kind>1</kind>
             <string>MAE_PhysWorldStep(1/room_speed, 4, 1/120); //step the simulation
 
-//get transform of each body
-for(var i=0; i&lt;array_length_1d(body); i++){
-    position[i] = MAE_PhysBodyGetPosition(body[i]);
-    rotation[i] = MAE_PhysBodyGetRotationEuler(body[i]);
-}
-
 //drag bodies with mouse
 if(!is_array(mouse_vector)) exit;
 if(mouse_check_button_pressed(mb_left)){
@@ -114,17 +104,20 @@ if(mouse_check_button_pressed(mb_left)){
         dragging_body = MAE_PhysWorldHitBody();
         if(!MAE_PhysBodyIsDynamic(dragging_body)) dragging_body = -1;
         else{
-            dragging_distance = MAE_VectorDistance(MAE_PhysBodyGetPosition(dragging_body), camera_pos);
+            dragging_distance = MAE_PhysWorldHitFraction() * ray_dist;
             MAE_PhysBodyActivate(dragging_body);
+            dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true);
         }
     }
 }
 else if(mouse_check_button(mb_left)){
     if(dragging_body != -1){
         var target_pos = MAE_VectorAdd(camera_pos, MAE_VectorMultiply(mouse_vector, dragging_distance));
-        var spd = MAE_VectorMultiply(MAE_VectorSubtract(target_pos, MAE_PhysBodyGetPosition(dragging_body)), 8);
-        MAE_PhysBodySetLinearVelocity(dragging_body, spd);
+        MAE_PhysConstraintSetPivot(dragging_constraint, 1, target_pos);
     }
+}
+if(mouse_check_button_released(mb_left)){
+    MAE_PhysConstraintDestroy(dragging_constraint);
 }
 
 </string>
@@ -175,7 +168,8 @@ MAE_PhysShapeDestroyAll();
             <kind>1</kind>
             <string>draw_set_color(c_black);
 draw_text(400, 0, "Physics Bodies: "+string(MAE_PhysWorldGetBodyCount()));
-draw_text(400, 16, "Press D to toggle debug draw");
+draw_text(400, 16, "Constraints: "+string(MAE_PhysWorldGetConstraintCount()));
+draw_text(400, 32, "Press D to toggle debug draw");
 </string>
           </argument>
         </arguments>
@@ -217,28 +211,13 @@ draw_set_color(c_white);
 d3d_set_culling(true);
 if(debugdraw) draw_set_alpha(0.15);
 for(var i=0; i&lt;array_length_1d(body); i++){
-    var rot = rotation[i];
-    d3d_transform_set_rotation_x(rot[0]);
-    d3d_transform_add_rotation_y(rot[1]);
-    d3d_transform_add_rotation_z(rot[2]);
-    var pos = position[i];
-    d3d_transform_add_translation(pos[0], pos[1], pos[2]);  
+    matrix_set(matrix_world, MAE_PhysBodyGetTransform(body[i]));
     d3d_model_draw(model[i], 0, 0, 0, background_get_texture(tex_box));
 }
 d3d_transform_set_identity();
 d3d_set_culling(false);
 draw_set_alpha(1);
 
-//overlap test
-/*
-draw_set_alpha(0.15);
-draw_set_color(c_blue);
-if(MAE_PhysWorldOverlap(overlap_box, overlap_pos, MAE_QuaternionCreateIdentity())) draw_set_color(c_aqua);
-d3d_transform_set_translation(overlap_pos[0], overlap_pos[1], overlap_pos[2]);
-d3d_draw_block(-2, -2, -2, 2, 2, 2, -1, 1, 1);
-d3d_transform_set_identity();
-draw_set_alpha(1);
-*/
 </string>
           </argument>
         </arguments>

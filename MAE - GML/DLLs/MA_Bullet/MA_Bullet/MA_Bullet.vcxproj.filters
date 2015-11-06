@@ -33,6 +33,9 @@
     <ClCompile Include="MABullet_DebugDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MABullet_Constraints.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MABullet.h">

@@ -178,6 +178,7 @@
           <script>scripts\MAE_PhysWorldSetGravity.gml</script>
           <script>scripts\MAE_PhysWorldGetGravity.gml</script>
           <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
+          <script>scripts\MAE_PhysWorldGetConstraintCount.gml</script>
           <script>scripts\MAE_PhysWorldDebugDraw.gml</script>
           <script>scripts\MAE_PhysWorldRaycast.gml</script>
           <script>scripts\MAE_PhysWorldSweep.gml</script>
@@ -207,8 +208,10 @@
           <script>scripts\MAE_PhysBodyCreate.gml</script>
           <script>scripts\MAE_PhysBodyDestroy.gml</script>
           <script>scripts\MAE_PhysBodyGetPosition.gml</script>
-          <script>scripts\MAE_PhysBodyGetRotationQuat.gml</script>
           <script>scripts\MAE_PhysBodyGetRotationEuler.gml</script>
+          <script>scripts\MAE_PhysBodyGetRotationQuat.gml</script>
+          <script>scripts\MAE_PhysBodyGetRotationMatrix.gml</script>
+          <script>scripts\MAE_PhysBodyGetTransform.gml</script>
           <script>scripts\MAE_PhysBodyGetLinearVelocity.gml</script>
           <script>scripts\MAE_PhysBodyGetAngularVelocity.gml</script>
           <script>scripts\MAE_PhysBodyGetAnisotropicFriction.gml</script>
@@ -252,6 +255,13 @@
           <script>scripts\MAE_PhysBodyApplyForce.gml</script>
           <script>scripts\MAE_PhysBodyApplyTorque.gml</script>
           <script>scripts\MAE_PhysBodyApplyTorqueImpulse.gml</script>
+        </scripts>
+        <scripts name="Constraint">
+          <script>scripts\MAE_PhysConstraintCreateP2P.gml</script>
+          <script>scripts\MAE_PhysConstraintSetPivot.gml</script>
+          <script>scripts\MAE_PhysConstraintSetBreakThreshold.gml</script>
+          <script>scripts\MAE_PhysConstraintSetEnabled.gml</script>
+          <script>scripts\MAE_PhysConstraintDestroy.gml</script>
         </scripts>
       </scripts>
       <scripts name="Utilities">
