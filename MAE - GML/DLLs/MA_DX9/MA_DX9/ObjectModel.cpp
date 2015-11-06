@@ -1,10 +1,8 @@
-/**
-*
-* NOTE :-> See note inside ObjectModel.h.
-* 
-*/
 #include "Main.h"
 
+/**
+ * MD2 Model
+ */
 MD2Model::~MD2Model()
 {
 	for (uint i = 0; i < vertBufs.size(); ++i)
@@ -39,7 +37,7 @@ bool MD2Model::load(std::string model)
 
 	f.read((char*) &h, sizeof(h));
 
-	if (h.magicNumber != 0x32504449 || h.version != 8 || h.frameSize == 0)
+	if (h.magicNumber != MD2_MAGICNUMBER || h.version != MD2_VERSION || h.frameSize == 0)
 	{
 		mamain.err.onError("The MD2 header is corrupt.");
 		return 0;
@@ -166,6 +164,8 @@ bool MD2Model::load(std::string model)
 	delete[] CoordBuffer;
 	delete[] TriangleBuffer;
 
+	f.close();
+
 	return 1;
 }
 
@@ -211,4 +211,166 @@ uint MD2Model::getTriCount()
 uint MD2Model::getFrameCount()
 {
 	return vertBufs.size();
+}
+
+/**
+ * MSM Model
+ */
+MSMModel::~MSMModel()
+{
+	for (uint i = 0; i < meshCount; ++i)
+	{
+		if (meshBuf[i] != 0)
+			meshBuf[i]->Release();
+
+		if (indBuf[i] != 0)
+			indBuf[i]->Release();
+
+		if (tex[i] != 0)
+			tex[i]->Release();
+	}
+}
+
+bool MSMModel::load(std::string model)
+{
+	std::ifstream f(model, std::ios::in | std::ios::binary);
+
+	if (!f.is_open())
+	{
+		mamain.err.onError("Failed to open MSM file.");
+		return 0;
+	}
+
+	/**
+	 * Load and validate MSM Header.
+	 */
+	MSMType::Header h;
+
+	f.read((char*)&h, sizeof(h));
+
+	if (h.magicNumber != MSM_MAGICNUMBER || h.Version != MSM_VERSION || h.MeshCount == 0)
+	{
+		mamain.err.onError("The MSM Header is corrupt.");
+		return 0;
+	}
+
+	meshCount = h.MeshCount;
+	vertCount.reserve(meshCount);
+	triCount.reserve(meshCount);
+	hasShader.reserve(meshCount);
+	meshBuf.reserve(meshCount);
+	indBuf.reserve(meshCount);
+	tex.reserve(meshCount);
+	mat.reserve(meshCount);
+
+
+	/**
+	 * Load MSM Meshs.
+	 */
+	HRESULT result;
+
+	for (uint i = 0; i < meshCount; ++i)
+	{
+		f.read((char*)&vertCount[i], sizeof(ushort));
+		f.read((char*)&triCount[i], sizeof(ushort));
+		f.read((char*)&hasShader[i], sizeof(byte));
+
+
+		/**
+		 * Load MSM Vertices.
+		 */
+		result = mamain.d3ddev->CreateVertexBuffer(vertCount[i] * sizeof(MSMType::Vertex), 0, 0, D3DPOOL_DEFAULT, &meshBuf[i], 0);
+		if (FAILED(result))
+		{
+			mamain.err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
+			return 0;
+		}
+
+		MSMType::Vertex* Vertices;
+
+		meshBuf[i]->Lock(0, 0, (void**) &Vertices, 0);
+			f.read((char*)&Vertices, sizeof(MSMType::Vertex) * vertCount[i]);
+		meshBuf[i]->Unlock();
+
+		delete[] Vertices;
+
+		/**
+		 * Load MSM Indices
+		 */
+		result = mamain.d3ddev->CreateIndexBuffer(triCount[i] * sizeof(MSMType::Triangle), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf[i], 0);
+		if (FAILED(result))
+		{
+			mamain.err.onErrorDX9("Couldn't create the DirectX9 Index Buffer!", result);
+			return 0;
+		}
+
+		MSMType::Triangle* Index;
+
+		indBuf[i]->Lock(0, 0, (void**)&Index, 0);
+			f.read((char*)&Index, sizeof(MSMType::Triangle) * triCount[i]);
+		indBuf[i]->Unlock();
+
+		delete[] Index;
+
+		/**
+		 * Load MSM Material
+		 */
+		f.read((char*)&mat[i].Diffuse, sizeof(float)*4);
+		f.read((char*)&mat[i].Ambient, sizeof(float)*4);
+		f.read((char*)&mat[i].Specular, sizeof(float)*4);
+		f.read((char*)&mat[i].Emissive, sizeof(float)*4);
+		f.read((char*)&mat[i].Power, sizeof(float));
+
+		/**
+		* TO-DO.
+		*/
+	}
+
+	f.close();
+
+	return 1;
+}
+
+void MSMModel::setTexture(LPDIRECT3DTEXTURE9 tex, uint mesh)
+{
+	if (this->tex[mesh] != 0)
+		this->tex[mesh]->Release();
+
+	tex->AddRef();
+	this->tex[mesh] = tex;
+}
+
+LPDIRECT3DVERTEXBUFFER9 MSMModel::getMesh(uint mesh)
+{
+	return meshBuf[mesh];
+}
+
+LPDIRECT3DINDEXBUFFER9 MSMModel::getIB(uint mesh)
+{
+	return indBuf[mesh];
+}
+
+IDirect3DTexture9* MSMModel::getTex(uint mesh)
+{
+	return tex[mesh];
+}
+
+D3DMATERIAL9 MSMModel::getMat(uint mesh)
+{
+	return mat[mesh];
+}
+
+uint MSMModel::getTriCount(uint mesh)
+{
+	return triCount[mesh];
+}
+
+uint MSMModel::getVertCount(uint mesh)
+{
+	return vertCount[mesh];
+}
+
+uint MSMModel::getMeshCount()
+{
+	return meshCount;
 }

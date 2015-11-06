@@ -1,18 +1,16 @@
+#include "MD2Type.h"
+#include "MSMType.h"
+
+
 /**
- * 
- * NOTE :-> This is probably a rather bad way to go about the Model Objects, it shouldn't be bad for speed but more for expandability.
- *          It might be a good idea to split the ObjectModel class into different ones, if we have more model types.
- *
- * Also note that the MD2 loader is based off an artical by Brian Jorgensen, on Gamedev.net Props to him for helping the world learn!
- *
- */
-
-#include "MD2Type.h" //Features: Morph Target Animation.
-#include "MSMType.h" ////Features: Internal Shader, Super small file size.
-
-//#include "MS3DType.h" //Features: Bone Based Animation. !NOTE - Currently a little broken.
-
+* Formats
+*/
 struct Vertex
+{
+	float x, y, z;
+};
+
+struct Normal
 {
 	float x, y, z;
 };
@@ -22,6 +20,10 @@ struct TexCoord
 	float s, t;
 };
 
+
+/**
+* MD2 Model
+*/
 class MD2Model : public Object {
 public:
 	~MD2Model();
@@ -45,6 +47,38 @@ private:
 	LPDIRECT3DTEXTURE9 tex = 0;
 
 	std::vector<LPDIRECT3DVERTEXBUFFER9> vertBufs;
-	LPDIRECT3DINDEXBUFFER9 indBuf = 0;
 	LPDIRECT3DVERTEXBUFFER9 texBuf = 0;
+	LPDIRECT3DINDEXBUFFER9 indBuf = 0;
+};
+
+/**
+ * MSM Model
+ */
+class MSMModel : public Object {
+public:
+	~MSMModel();
+
+	bool load(std::string model);
+	void setTexture(LPDIRECT3DTEXTURE9, uint mesh);
+
+	LPDIRECT3DVERTEXBUFFER9 getMesh(uint mesh);
+	LPDIRECT3DINDEXBUFFER9  getIB(uint mesh);
+	LPDIRECT3DTEXTURE9      getTex(uint mesh);
+	D3DMATERIAL9            getMat(uint mesh);
+
+	uint getVertCount(uint mesh);
+	uint getTriCount(uint mesh);
+	uint getMeshCount();
+
+private: //There has to be a better way to handle multiple mesh objects.
+	ushort meshCount = 0;
+	std::vector<ushort> vertCount;
+	std::vector<ushort> triCount;
+	std::vector<byte> hasShader;
+
+	std::vector<LPDIRECT3DTEXTURE9> tex;
+	std::vector<D3DMATERIAL9> mat;
+
+	std::vector<LPDIRECT3DVERTEXBUFFER9> meshBuf;
+	std::vector<LPDIRECT3DINDEXBUFFER9> indBuf;
 };

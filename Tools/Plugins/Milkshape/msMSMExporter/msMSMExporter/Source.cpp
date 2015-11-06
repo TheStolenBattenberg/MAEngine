@@ -14,6 +14,7 @@
 #include <string>
 #include <Windows.h>
 
+#pragma pack(1)
 #ifndef byte
 typedef unsigned char byte;
 #endif
@@ -132,7 +133,7 @@ typedef struct msModel
 	msVec3      Position;
 	msVec3      Rotation;
 } msModel;
-
+#pragma pack()
 // ----------------------------------------------------------------------------
 
 class cMsPlugIn
@@ -204,23 +205,58 @@ int MyPlugin::Execute(msModel * pModel)
 	ofn.lpstrDefExt = "msm";
 	GetSaveFileName(&ofn);
 
-
+	//Flags.
 	int MSM_VERSION = 0x00000001;
-	int nNumMeshes = pModel->nNumMeshes;
-	word nNumVertices = 0;
-	word nNumFaces = 0;
-	word nNumMaterials = 1;
+
+
 	byte nHasShader = 0;
+
+	int nNumMeshes = pModel->nNumMeshes;
 	std::ofstream f_MSM(ofn.lpstrFile, std::ios::out | std::ios::binary);;
 	{
 		f_MSM.write("M", sizeof(char));
 		f_MSM.write("S", sizeof(char));
 		f_MSM.write("M", sizeof(char));
 		f_MSM.write("f", sizeof(char));
-		f_MSM.write(MSM_VERSION, sizeof(int));
+		f_MSM.write(reinterpret_cast<const char *>(&MSM_VERSION), sizeof(int));
+		f_MSM.write(reinterpret_cast<const char*>(&nNumMeshes), sizeof(int));
+
+		for (int group = 0; group < nNumMeshes; group++)
+		{
+			f_MSM.write(reinterpret_cast<const char *>(&pModel->pMeshes[group].nNumVertices), sizeof(word));
+			f_MSM.write(reinterpret_cast<const char *>(&pModel->pMeshes[group].nNumTriangles), sizeof(word));
+			f_MSM.write(reinterpret_cast<const char *>(&nHasShader), sizeof(byte));
+
+			//Vertices
+			for (int vertex = 0; vertex < pModel->pMeshes[group].nNumVertices; vertex++)
+			{
+				msVertex * pVertices = pModel->pMeshes[group].pVertices;
+				f_MSM.write(reinterpret_cast<const char *>(&pVertices->Vertex[0]), sizeof(float));
+				f_MSM.write(reinterpret_cast<const char *>(&pVertices->Vertex[1]), sizeof(float));
+				f_MSM.write(reinterpret_cast<const char *>(&pVertices->Vertex[2]), sizeof(float));
+			}
+
+			//Faces
+			for (int face = 0; face < pModel->pMeshes[group].nNumTriangles; face++)
+			{
+				msTriangle * pFaces = pModel->pMeshes[group].pTriangles;
+				f_MSM.write(reinterpret_cast<const char *>(&pFaces->nVertexIndices[0]), sizeof(word));
+				//Norm 1
+				//Texcoord 1
+
+				f_MSM.write(reinterpret_cast<const char *>(&pFaces->nVertexIndices[1]), sizeof(word));
+				//Norm 2
+				//Texcoord 2
+
+				f_MSM.write(reinterpret_cast<const char *>(&pFaces->nVertexIndices[2]), sizeof(word));
+				//Norm 3
+				//Texcoord 3
+			}
+		}
 	}
 	f_MSM.close();
 
+	delete[] pModel;
 	return 0;
 }
 

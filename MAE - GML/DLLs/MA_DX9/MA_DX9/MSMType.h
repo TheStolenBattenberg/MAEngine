@@ -1,57 +1,63 @@
-/**
- * MAE Static Model.
- * Version 1.
- */
+#pragma once
 
 /**
- * Types.
+ * Includes
  */
-#ifndef byte
-	typedef unsigned char byte;
-#endif
+#include "Types.h"
 
-#ifndef word
-	typedef unsigned short word;
-#endif
 
-#define MSM_VERSION 0x00000001
+/**
+ * MAE Static Model
+ * Version 1
+ */
+#define MSM_MAGICNUMBER 0x664D534D
+#define MSM_VERSION 0x01
 
-namespace MSMType {
-	struct Header {
-		char Tag[4]; //Should be 'MSMf'
-		int Version; //Depends on version, for this one it's '1'.
-		word VertexCount;
-		word TriangleCount;
-		word MaterialCount;
-		byte HasShader;
-	};
-    
+namespace MSMType {    
     struct Vertex {
-        float x;
-        float y;
-        float z;
+        float vX; //Position
+        float vY;
+        float vZ;
+		float nX; //Normal
+		float nY;
+		float nZ;
+		float tU; //Texcoord
+		float tV;
 	};
     
 	struct Triangle {
-		word VertexIndex[3];
-		float Normal[3][3];
-		float S[3];
-		float T[3];
+		ushort VertexIndex[3];
 	};
 
-	struct MaterialDiffuse {
+	struct Material {
 		float Diffuse[4];
 		float Ambient[4];
 		float Specular[4];
 		float Emissive[4];
 		float SpecularPower;
-		char Texture[128];
 	};
 
 	struct Shader {
-		word VShaderNameLength;
+		ushort VShaderNameLength;
 		char VShader; //Multiply by VShaderNameLength when loading.
-		word PShaderNameLength;
+		ushort PShaderNameLength;
 		char PShader; //Multiply by PShaderNameLength when loading.
 	};
+    
+	struct Header {
+		uint magicNumber;
+		uint Version;
+		ushort MeshCount;
+	};
+
+    struct Mesh {
+		ushort VertexCount;
+		ushort TriangleCount;
+        byte HasShader;
+        
+        Vertex MeshVertex;
+        Triangle MeshTriangle;
+        Material MeshMaterial;
+        Shader MeshShader;
+    };
 }
