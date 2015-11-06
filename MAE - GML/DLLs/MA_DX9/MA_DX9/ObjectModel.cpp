@@ -322,8 +322,18 @@ bool MSMModel::load(std::string model)
 		f.read((char*)&mat[i].Power, sizeof(float));
 
 		/**
-		* TO-DO.
+		* Load MSM Shader.
 		*/
+		if (hasShader[i] == 1)
+		{
+			ushort* VShaderLength;
+			f.read((char*)&VShaderLength, sizeof(ushort));
+			// Read VShaderCode
+
+			ushort* PShaderLength;
+			f.read((char*)&PShaderLength, sizeof(ushort));
+			// Read PShaderCode
+		}
 	}
 
 	f.close();
