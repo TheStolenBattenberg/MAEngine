@@ -28,12 +28,45 @@
             <string>d3d_start();
 d3d_set_lighting(true);
 
+//Create a vertex buffer model. D3D draw sucks.
+vertex_format_begin(); //Format
+{
+    vertex_format_add_position_3d();
+    vertex_format_add_normal();
+}
+v_fmt = vertex_format_end();
+
+v_buf = vertex_create_buffer();
+vertex_begin(v_buf, v_fmt);
+{
+    vertex_position_3d(v_buf, 24, 24, 0);
+    vertex_normal(v_buf, 0, 0, 1);
+    
+    vertex_position_3d(v_buf, 24, 8,  0);
+    vertex_normal(v_buf, 0, 0, 1);
+    
+    vertex_position_3d(v_buf, 8,  8,  0);
+    vertex_normal(v_buf, 0, 0, 1);
+       
+    vertex_position_3d(v_buf, 24, 24, 0);
+    vertex_normal(v_buf, 0, 0, 1);
+    
+    vertex_position_3d(v_buf, 8,  8,  0);
+    vertex_normal(v_buf, 0, 0, 1);
+    
+    vertex_position_3d(v_buf, 8,  24, 0);
+    vertex_normal(v_buf, 0, 0, 1);
+}
+vertex_end(v_buf);
+vertex_freeze(v_buf);
+
+
 //Creating a Material.
 Mat_0 = MAE_MaterialCreate();
 MAE_MaterialSetDiffuse(Mat_0, 204, 204, 204, 204);
 MAE_MaterialSetAmbient(Mat_0, 51, 51, 51, 255);
-MAE_MaterialSetSpecular(Mat_0, 0, 0, 0, 0);
-MAE_MaterialSetEmissive(Mat_0, 0, 0, 0, 0);
+MAE_MaterialSetSpecular(Mat_0, 0, 0, 0, 255);
+MAE_MaterialSetEmissive(Mat_0, 0, 0, 0, 255);
 MAE_MaterialSetSpecularPower(Mat_0, 0);
 
 
@@ -135,7 +168,7 @@ d3d_set_lighting(false);
             <string>d3d_set_projection(-16, 0, 16, 16, 16, 0, 0, 0, 1);
 
 MAE_MaterialSet(Mat_0);
-d3d_draw_floor(8, 8, 0, 24, 24, 0, -1, 1, 1);
+vertex_submit(v_buf, pr_trianglelist, -1);
 </string>
           </argument>
         </arguments>
