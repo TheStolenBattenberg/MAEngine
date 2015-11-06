@@ -170,10 +170,6 @@
           <script>scripts\MAE_TextureDestroy.gml</script>
           <script>scripts\MAE_TextureSet.gml</script>
         </scripts>
-        <scripts name="Misc">
-          <script>scripts\MAE_SamplerSetState.gml</script>
-          <script>scripts\MAE_RenderSetState.gml</script>
-        </scripts>
         <scripts name="Material">
           <script>scripts\MAE_MaterialCreate.gml</script>
           <script>scripts\MAE_MaterialDestroy.gml</script>
@@ -183,6 +179,10 @@
           <script>scripts\MAE_MaterialSetSpecularPower.gml</script>
           <script>scripts\MAE_MaterialSetEmissive.gml</script>
           <script>scripts\MAE_MaterialSet.gml</script>
+        </scripts>
+        <scripts name="Misc">
+          <script>scripts\MAE_SamplerSetState.gml</script>
+          <script>scripts\MAE_RenderSetState.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">

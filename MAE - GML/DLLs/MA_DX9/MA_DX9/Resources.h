@@ -29,6 +29,7 @@ public:
 	~Shader();
 
 	bool compile(std::string vert, std::string pixel);
+	bool compileasm(std::string vert, std::string pixel);
 
 	LPDIRECT3DVERTEXSHADER9 VShader    = 0;
 	LPDIRECT3DPIXELSHADER9  PShader    = 0;

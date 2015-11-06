@@ -57,12 +57,62 @@ Shader::~Shader() {
 		PShader->Release();
 }
 
+bool Shader::compileasm(std::string vert, std::string pixel) {
+	LPD3DXBUFFER code;
+	LPD3DXBUFFER err;
+
+	//Assemble Vertex Shader
+	{
+		HRESULT result = D3DXAssembleShader(vert.c_str(), vert.length(), NULL, NULL, 0, &code, &err);
+		if (FAILED(result)) {
+			mamain.err.onError((char*)err->GetBufferPointer());
+			err->Release();
+
+			return 0;
+		}
+
+		result = mamain.d3ddev->CreateVertexShader((DWORD*)code->GetBufferPointer(), &VShader);
+		code->Release();
+
+		if (FAILED(result)) {
+			mamain.err.onErrorDX9("Failed to create vertex shader", result);
+
+			return 0;
+		}
+	}
+
+	//Assemble Pixel Shader
+	{
+		HRESULT result = D3DXAssembleShader(pixel.c_str(), pixel.length(), NULL, NULL, 0, &code, &err);
+		if (FAILED(result)) {
+			mamain.err.onError((char*)err->GetBufferPointer());
+			err->Release();
+
+			VShader->Release();
+			VShader = 0;
+
+			return 0;
+		}
+
+		result = mamain.d3ddev->CreatePixelShader((DWORD*)code->GetBufferPointer(), &PShader);
+		code->Release();
+
+		if (FAILED(result)) {
+			mamain.err.onErrorDX9("Failed to create pixel shader", result);
+
+			VShader->Release();
+			VShader = 0;
+
+			return 0;
+		}
+	}
+}
+
 bool Shader::compile(std::string vert, std::string pixel) {
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER err;
 
 	HRESULT result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(mamain.d3ddev), 0, &code, &err, &VConstants.constants);
-
 	if (FAILED(result)) {
 		mamain.err.onError((char*) err->GetBufferPointer());
 		

@@ -5,4 +5,4 @@
  *      Add Description.
  *
  */
-return external_call(global.MADX9_ShaderDestroyHLSL9, argument0);
+return external_call(global.MADX9_ShaderDestroy, argument0);

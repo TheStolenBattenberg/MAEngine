@@ -21,9 +21,10 @@ if (argument[0] & INIT_RENDER)
 {
     //Shaders
     global.MADX9_ShaderCreateHLSL9     = external_define(global.DLL_MADX9, "MADX9_ShaderCreateHLSL9", dll_cdecl, ty_real, 2, ty_string, ty_string);
-    global.MADX9_ShaderSetHLSL9        = external_define(global.DLL_MADX9, "MADX9_ShaderSetHLSL9", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_ShaderResetHLSL9      = external_define(global.DLL_MADX9, "MADX9_ShaderResetHLSL9", dll_cdecl, ty_real, 0);
-    global.MADX9_ShaderDestroyHLSL9    = external_define(global.DLL_MADX9, "MADX9_ShaderDestroyHLSL9", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ShaderCreateASM       = external_define(global.DLL_MADX9, "MADX9_ShaderCreateASM", dll_cdecl, ty_real, 2, ty_string, ty_string);
+    global.MADX9_ShaderSet             = external_define(global.DLL_MADX9, "MADX9_ShaderSet", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ShaderReset           = external_define(global.DLL_MADX9, "MADX9_ShaderReset", dll_cdecl, ty_real, 0);
+    global.MADX9_ShaderDestroy         = external_define(global.DLL_MADX9, "MADX9_ShaderDestroy", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_ShaderFindConstant    = external_define(global.DLL_MADX9, "MADX9_ShaderFindConstant", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_string);
     global.MADX9_ShaderSetConstantVec3 = external_define(global.DLL_MADX9, "MADX9_ShaderSetConstantVec3", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_ShaderSetConstantVec4 = external_define(global.DLL_MADX9, "MADX9_ShaderSetConstantVec4", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);

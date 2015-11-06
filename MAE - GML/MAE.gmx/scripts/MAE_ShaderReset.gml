@@ -5,4 +5,4 @@
  *      Add Description.
  *
  */
-external_call(global.MADX9_ShaderResetHLSL9);
+external_call(global.MADX9_ShaderReset);
