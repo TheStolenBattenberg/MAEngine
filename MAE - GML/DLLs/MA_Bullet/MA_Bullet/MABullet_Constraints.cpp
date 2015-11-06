@@ -6,13 +6,21 @@ DLLEXPORT MAB_ConstraintCreateP2P(double BodyA, double AX, double AY, double AZ,
 	btVector3 pointA = btVector3((btScalar)AX, (btScalar)AY, (btScalar)AZ);
 	btVector3 pointB = btVector3((btScalar)BX, (btScalar)BY, (btScalar)BZ);
 	if(WorldA) pointA = G.getBody(BodyA)->getWorldTransform().inverse() * pointA;
-	if(WorldB) pointB = G.getBody(BodyA)->getWorldTransform().inverse() * pointB;
+	if(WorldB) pointB = G.getBody(BodyB)->getWorldTransform().inverse() * pointB;
 	if (BodyB < 0) constraint = new btPoint2PointConstraint(*G.getBody(BodyA), pointA);
-	else constraint = new btPoint2PointConstraint(*G.getBody(BodyA), *G.getBody(BodyB), btVector3((btScalar)AX, (btScalar)AY, (btScalar)AZ), btVector3((btScalar)BX, (btScalar)BY, (btScalar)BZ));
+	else constraint = new btPoint2PointConstraint(*G.getBody(BodyA), *G.getBody(BodyB), pointA, pointB);
 	constraint->m_setting.m_impulseClamp = 5.f;
 	constraint->m_setting.m_tau = 0.001f;
-	constraint->setDbgDrawSize(0.5f);
 	G.World->addConstraint(constraint, false);
+	return G.addConstraint(constraint);
+}
+
+DLLEXPORT MAB_ConstraintCreateFixed(double BodyA, double BodyB)
+{
+	btFixedConstraint* constraint;
+	btTransform trans = G.getBody(BodyA)->getWorldTransform().inverse() * G.getBody(BodyB)->getWorldTransform();
+	constraint = new btFixedConstraint(*G.getBody(BodyA), *G.getBody(BodyB), btTransform::getIdentity(), trans.inverse());
+	G.World->addConstraint(constraint, true);
 	return G.addConstraint(constraint);
 }
 
