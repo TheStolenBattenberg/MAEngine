@@ -40,6 +40,41 @@ shape[1] = MAE_PhysShapeCreateSphere(1);
 shape[2] = MAE_PhysShapeCreateCone(1, 2, 2);
 shape[3] = MAE_PhysShapeCreateCylinder(1, 1, 2);
 shape[4] = MAE_PhysShapeCreateCapsule(1, 2, 2);
+buf = buffer_create(64, buffer_grow, 1);
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, -1);
+
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, -1);
+
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, -1);
+
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, -1);
+
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, 1);
+
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, 1);
+
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, 1);
+
+buffer_write(buf, buffer_f32, 1);
+buffer_write(buf, buffer_f32, -1);
+buffer_write(buf, buffer_f32, 1);
+
+shape[5] = MAE_PhysShapeCreateConvexHull(buf, 8);
+buffer_delete(buf);
 
 //3D models to visualize the shapes
 model[0] = d3d_model_create();
@@ -54,6 +89,7 @@ model[4] = d3d_model_create();
 d3d_model_cylinder(model[4], -1, -1, -1, 1, 1, 1, 1, 1, false, 32);
 d3d_model_ellipsoid(model[4], -1, -1, 0, 1, 1, 2, 1, 1, 32);
 d3d_model_ellipsoid(model[4], -1, -1, -2, 1, 1, 0, 1, 1, 32);
+model[5] = model[0];
 
 //create rigidbodies that will fall to the ground
 for(var i=0; i&lt;array_length_1d(shape); i++){
@@ -65,6 +101,7 @@ MAE_PhysConstraintCreateFixed(body[0], body[1]);
 MAE_PhysConstraintCreateFixed(body[1], body[2]);
 MAE_PhysConstraintCreateFixed(body[2], body[3]);
 MAE_PhysConstraintCreateFixed(body[3], body[4]);
+MAE_PhysConstraintCreateFixed(body[4], body[5]);
 */
 
 //debug draw toggle

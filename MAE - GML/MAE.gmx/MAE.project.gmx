@@ -215,6 +215,8 @@
           <script>scripts\MAE_PhysShapeAddChild.gml</script>
           <script>scripts\MAE_PhysShapeRemoveChild.gml</script>
           <script>scripts\MAE_PhysShapeUpdateChildTransform.gml</script>
+          <script>scripts\MAE_PhysShapeCreateTriMesh.gml</script>
+          <script>scripts\MAE_PhysShapeCreateConvexHull.gml</script>
           <script>scripts\MAE_PhysShapeDestroy.gml</script>
           <script>scripts\MAE_PhysShapeDestroyAll.gml</script>
           <script>scripts\MAE_PhysShapeSetMargin.gml</script>
