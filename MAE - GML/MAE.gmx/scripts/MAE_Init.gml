@@ -126,6 +126,8 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_ShapeAddChild             = external_define(global.DLL_MABullet, "MAB_ShapeAddChild", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_ShapeRemoveChild          = external_define(global.DLL_MABullet, "MAB_ShapeRemoveChild", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_ShapeUpdateChildTransform = external_define(global.DLL_MABullet, "MAB_ShapeUpdateChildTransform", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ShapeCreateTriMesh        = external_define(global.DLL_MABullet, "MAB_ShapeCreateTriMesh", dll_cdecl, ty_real, 4, ty_real, ty_string, ty_real, ty_real);
+    global.MAB_ShapeCreateConvexHull     = external_define(global.DLL_MABullet, "MAB_ShapeCreateConvexHull", dll_cdecl, ty_real, 2, ty_string, ty_real);
     global.MAB_ShapeDestroy              = external_define(global.DLL_MABullet, "MAB_ShapeDestroy", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_ShapeDestroyAll           = external_define(global.DLL_MABullet, "MAB_ShapeDestroyAll", dll_cdecl, ty_real, 0);
     global.MAB_ShapeSetMargin            = external_define(global.DLL_MABullet, "MAB_ShapeSetMargin", dll_cdecl, ty_real, 2, ty_real, ty_real);

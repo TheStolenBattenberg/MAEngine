@@ -84,18 +84,53 @@ DLLEXPORT MAB_ShapeUpdateChildTransform(double ParentID, double ChildIndex, doub
 	return 1;
 }
 
+DLLEXPORT MAB_ShapeCreateTriMesh(float* Buffer, double NumTriangles, double Convex, double WeldingThreshold)
+{
+	btTriangleMesh* mesh = new btTriangleMesh(false, false);
+	mesh->m_weldingThreshold = (btScalar)WeldingThreshold;
+	for (int i = 0; i < NumTriangles; i++)
+	{
+		int index = i * 9;
+		btVector3 v1 = btVector3(Buffer[index + 0], Buffer[index + 1], Buffer[index + 2]);
+		btVector3 v2 = btVector3(Buffer[index + 3], Buffer[index + 4], Buffer[index + 5]);
+		btVector3 v3 = btVector3(Buffer[index + 6], Buffer[index + 7], Buffer[index + 8]);
+		mesh->addTriangle(v1, v2, v3, (WeldingThreshold > 0));
+	}
+	btCollisionShape* shape;
+	if (Convex)
+	{
+		shape = new btConvexTriangleMeshShape(mesh, true);
+		delete mesh;
+	}
+	else {
+		shape = new btBvhTriangleMeshShape(mesh, true, true);
+	}
+	return G.addShape(shape);
+}
+
+DLLEXPORT MAB_ShapeCreateConvexHull(float* Buffer, double NumVertices)
+{
+	btCollisionShape* shape = new btConvexHullShape(Buffer, (int)NumVertices, 12);
+	return G.addShape(shape);
+}
+
 DLLEXPORT MAB_ShapeDestroy(double ShapeID, double DestroyChildShapes)
 {
 	if (!G.shapeExists(ShapeID)) return 0;
+	btCollisionShape* shape = G.getShape(ShapeID);
 	if (DestroyChildShapes) {
-		btCompoundShape* compound = dynamic_cast<btCompoundShape*>(G.getShape(ShapeID));
+		btCompoundShape* compound = dynamic_cast<btCompoundShape*>(shape);
 		if (compound) {
 			for (int i = 0; i < compound->getNumChildShapes(); i++) {
 				G.Shapes.erase(compound->getChildShape(i)->getUserIndex());
+				btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(compound->getChildShape(i));
+				if (trimesh) delete trimesh->getMeshInterface();
 				delete compound->getChildShape(i);			
 			}
 		}
 	}
+	btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(shape);
+	if (trimesh) delete trimesh->getMeshInterface();
 	int ID = (int)ShapeID;
 	delete G.Shapes[ID];
 	G.Shapes.erase(ID);
@@ -107,6 +142,8 @@ DLLEXPORT MAB_ShapeDestroyAll()
 	if (G.Shapes.size() == 0) return 0;
 	for (auto i : G.Shapes)
 	{
+		btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(i.second);
+		if (trimesh) delete trimesh->getMeshInterface();
 		delete i.second;
 	}
 	G.Shapes.clear();
