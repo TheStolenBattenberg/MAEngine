@@ -3,7 +3,7 @@
 
 
 /**
-* Formats
+* Types
 */
 struct Vertex
 {

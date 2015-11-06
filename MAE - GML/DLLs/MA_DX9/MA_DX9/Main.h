@@ -8,12 +8,13 @@
 #include <vector>
 #include <fstream>
 
-#include "Object.h"
-#include "ObjectTerrain.h"
-#include "ObjectModel.h"
 #include "Hooks.h"
 #include "Error.h"
 #include "Resources.h"
+
+#include "Object.h"
+#include "ObjectTerrain.h"
+#include "ObjectModel.h"
 
 class Exception {
 	public:
@@ -41,6 +42,7 @@ public:
 
 	std::vector<Shader*>   Shader;
 	std::vector<D3DLIGHT9> Light;
+	std::vector<D3DMATERIAL9> Material;
 	std::vector<MD2Model*> MD2Models;
 	std::vector<D3DHooks*> Hooks;
 	std::vector<Texture*>  Textures;

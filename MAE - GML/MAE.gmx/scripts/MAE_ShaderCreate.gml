@@ -7,20 +7,19 @@
  */
 switch(argument2)
 {
-    case SHADER_HLSL9:
-        show_debug_message("Compiling and Setting HLSL9 shader!");
-        
-        result = external_call(global.MADX9_ShaderCreateHLSL9, argument0, argument1);
-        
-        if(result < 0)
-        {
-            show_debug_message("Failed to compile shader.");
-            return result;
-        }
-        
-        show_debug_message("Compiled Vertex & Pixel Shader ID: "+string(result));
-        
+    case SHADER_HLSL9:        
+        result = external_call(global.MADX9_ShaderCreateHLSL9, argument0, argument1);       
         return result;
+    break;
+    
+    case SHADER_ASM:
+        show_debug_message("Unimplemented.");
+        return 0;
+    break;
+    
+    case SHADER_FILE:
+        show_debug_message("Unimplemented.");
+        return 0;
     break;
     
     default:
