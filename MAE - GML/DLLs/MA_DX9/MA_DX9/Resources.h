@@ -1,7 +1,28 @@
 #pragma once
 
 #include <d3d9.h>
+#include <d3dx9.h>
 #include <string>
+#include <vector>
+
+#include "Types.h"
+
+class ShaderConstants {
+public:
+	~ShaderConstants();
+
+	uint find(std::string c);
+
+	bool setVec3(uint c, const vec3& v);
+	bool setVec4(uint c, const vec4& v);
+	bool setMat3(uint c, const mat3& m);
+	bool setMat4(uint c, const mat4& m);
+
+	LPD3DXCONSTANTTABLE constants = 0;
+
+private:
+	std::vector<D3DXHANDLE> handles;
+};
 
 class Shader {
 public:
@@ -11,8 +32,9 @@ public:
 
 	LPDIRECT3DVERTEXSHADER9 VShader    = 0;
 	LPDIRECT3DPIXELSHADER9  PShader    = 0;
-	LPD3DXCONSTANTTABLE     VConstants = 0;
-	LPD3DXCONSTANTTABLE     PConstants = 0;
+
+	ShaderConstants VConstants;
+	ShaderConstants PConstants;
 };
 
 class Texture {

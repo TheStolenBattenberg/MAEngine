@@ -457,7 +457,7 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="222">
+    <constants number="224">
       <constant name="BLEND_BLENDFACTOR">14</constant>
       <constant name="BLEND_BOTHINVSRCALPHA">13</constant>
       <constant name="BLEND_BOTHSRCALPHA">12</constant>
@@ -651,6 +651,8 @@
       <constant name="SHADE_GOURAUD">2</constant>
       <constant name="SHADE_PHONG">3</constant>
       <constant name="SHADER_HLSL9">9</constant>
+      <constant name="SHD_PIXEL">1</constant>
+      <constant name="SHD_VERT">0</constant>
       <constant name="STENCILOP_DECR">8</constant>
       <constant name="STENCILOP_DECRSAT">5</constant>
       <constant name="STENCILOP_INCR">7</constant>

@@ -115,6 +115,11 @@
           <script>scripts\MAE_ShaderSet.gml</script>
           <script>scripts\MAE_ShaderReset.gml</script>
           <script>scripts\MAE_ShaderDestroy.gml</script>
+          <script>scripts\MAE_ShaderFindConstant.gml</script>
+          <script>scripts\MAE_ShaderSetConstantVec3.gml</script>
+          <script>scripts\MAE_ShaderSetConstantVec4.gml</script>
+          <script>scripts\MAE_ShaderSetConstantMat3.gml</script>
+          <script>scripts\MAE_ShaderSetConstantMat4.gml</script>
         </scripts>
         <scripts name="Light">
           <script>scripts\MAE_LightCreate.gml</script>
@@ -125,6 +130,7 @@
           <script>scripts\MAE_LightSetRange.gml</script>
           <script>scripts\MAE_LightSetAttenuation.gml</script>
           <script>scripts\MAE_LightEnable.gml</script>
+          <script>scripts\MAE_LightDisable.gml</script>
         </scripts>
         <scripts name="Hooks">
           <script>scripts\MAE_HooksApply.gml</script>

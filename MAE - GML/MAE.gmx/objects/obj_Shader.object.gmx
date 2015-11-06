@@ -19,47 +19,154 @@
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
+        <whoName>other</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>d3d_start();
+
+shd = MAE_ShaderCreate(
+"
+uniform float4x4 uMatWorldView  : register(c0);
+uniform float4x4 uMatProjection : register(c4);
+uniform float3x3 uMatNormal     : register(c8);
+
+struct VS_INPUT {
+    float4 colour   : COLOR0;
+    float3 normal   : NORMAL0;
+    float3 position : POSITION;
+};
+
+struct VS_OUTPUT {
+    float4 positionSS : POSITION;
+    float4 colour     : TEXCOORD0;
+    float3 normal     : TEXCOORD1;
+    float3 position   : TEXCOORD2;
+};
+
+VS_OUTPUT main(VS_INPUT input) {
+    VS_OUTPUT output;
+    
+    output.colour   = input.colour;
+    output.normal   = normalize(mul(uMatNormal, input.normal));
+    output.position = mul(uMatWorldView, float4(input.position, 1.0)).xyz;
+    
+    output.positionSS = mul(uMatProjection, float4(output.position, 1.0));
+    
+    return output;
+}
+"
+,
+"
+uniform float3 uAmbientColour : register(c0);
+uniform float3 uLightPos      : register(c1);
+uniform float3 uSpecColour    : register(c2);
+
+struct PS_INPUT {
+    float4 colour   : TEXCOORD0;
+    float3 normal   : TEXCOORD1;
+    float3 position : TEXCOORD2;
+};
+
+struct PS_OUTPUT {
+    float4 colour : COLOR0;
+};
+
+PS_OUTPUT main(PS_INPUT input) {
+    float4 diffuseColour = input.colour;
+    
+    float3 lightDir = normalize(uLightPos - input.position);
+    float3 viewDir  = normalize(-input.position);
+    
+    float lamb = max(dot(lightDir, input.normal), 0.0);
+    float spec = pow(max(dot(normalize(lightDir + viewDir), input.normal), 0.0), 16.0);
+    
+    PS_OUTPUT output;
+    
+    output.colour = float4(uAmbientColour + lamb * diffuseColour.xyz + spec * uSpecColour, diffuseColour.w);
+    
+    return output;
+}
+", 
+SHADER_HLSL9);
+
+var screenWidth  = 1024;
+var screenHeight = 768;
+
+matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 8);
+matView = MAE_MatrixCreateLookAt(MAE_VectorCreate(3, 3, 4), MAE_VectorCreate(0, 0, 0), MAE_VectorCreate(0, 0, 1));
+matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
+
+uMatWorldView  = MAE_ShaderFindConstant(shd, SHD_VERT, "uMatWorldView");
+uMatProjection = MAE_ShaderFindConstant(shd, SHD_VERT, "uMatProjection");
+uMatNormal     = MAE_ShaderFindConstant(shd, SHD_VERT, "uMatNormal");
+
+uAmbientColour = MAE_ShaderFindConstant(shd, SHD_PIXEL, "uAmbientColour");
+uLightPos      = MAE_ShaderFindConstant(shd, SHD_PIXEL, "uLightPos")
+uSpecColour    = MAE_ShaderFindConstant(shd, SHD_PIXEL, "uSpecColour")
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ShaderCreate(
-"struct VS_INPUT {
-    float4 Position : POSITION;
-};
+            <string>MAE_ShaderDestroy(shd);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>MAE_ShaderSet(shd);
 
-struct VS_OUTPUT {
-    float4 Position : POSITION;
-};
+MAE_ShaderSetConstantMat4(shd, SHD_VERT, uMatWorldView, matView);
+MAE_ShaderSetConstantMat4(shd, SHD_VERT, uMatProjection, matProj);
+MAE_ShaderSetConstantMat3(shd, SHD_VERT, uMatNormal, matNorm);
 
-VS_OUTPUT main(VS_INPUT IN) {
-    VS_OUTPUT OUT;
-    
-    OUT.Position = IN.Position;
-    
-    return OUT;
-}"
+MAE_ShaderSetConstantVec3(shd, SHD_PIXEL, uAmbientColour, MAE_VectorCreate(0, 0, 0));
+MAE_ShaderSetConstantVec3(shd, SHD_PIXEL, uLightPos, MAE_VectorCreate(0, 0, -1));
+MAE_ShaderSetConstantVec3(shd, SHD_PIXEL, uSpecColour, MAE_VectorCreate(1, 1, 1));
 
-, 
-"struct PS_INPUT {
-    float4 Position : POSITION;
-};
+draw_set_colour(c_red);
+d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
 
-struct PS_OUTPUT {
-    float4 Position : POSITION;
-};
+MAE_ShaderReset();
 
-PS_OUTPUT main(PS_INPUT IN) {
-    PS_OUTPUT OUT;
-    
-    OUT.Position = IN.Position;
-    
-    return OUT;
-}"
-, 
-SHADER_HLSL9);
 </string>
           </argument>
         </arguments>

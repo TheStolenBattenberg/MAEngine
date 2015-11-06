@@ -1,25 +1,67 @@
 #include "Main.h"
 #include "Resources.h"
 
+ShaderConstants::~ShaderConstants() {
+	if (constants != 0)
+		constants->Release();
+}
+
+uint ShaderConstants::find(std::string c) {
+	D3DXHANDLE h = constants->GetConstantByName(0, c.c_str());
+
+	for (uint i = 0; i < handles.size(); ++i)
+		if (handles[i] == h)
+			return i;
+
+	handles.push_back(h);
+	return handles.size() - 1;
+}
+
+bool ShaderConstants::setVec3(uint c, const vec3& v)
+{
+	if (c >= handles.size())
+		return 0;
+
+	return SUCCEEDED(constants->SetFloatArray(mamain.d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
+}
+
+bool ShaderConstants::setVec4(uint c, const vec4& v)
+{
+	if (c >= handles.size())
+		return 0;
+
+	return SUCCEEDED(constants->SetFloatArray(mamain.d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
+}
+
+bool ShaderConstants::setMat3(uint c, const mat3& v)
+{
+	if (c >= handles.size())
+		return 0;
+
+	return SUCCEEDED(constants->SetFloatArray(mamain.d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
+}
+
+bool ShaderConstants::setMat4(uint c, const mat4& v)
+{
+	if (c >= handles.size())
+		return 0;
+
+	return SUCCEEDED(constants->SetFloatArray(mamain.d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
+}
+
 Shader::~Shader() {
 	if (VShader != 0)
 		VShader->Release();
 
 	if (PShader != 0)
 		PShader->Release();
-
-	if (VConstants != 0)
-		VConstants->Release();
-
-	if (PConstants != 0)
-		PConstants->Release();
 }
 
 bool Shader::compile(std::string vert, std::string pixel) {
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER err;
 
-	HRESULT result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(mamain.d3ddev), 0, &code, &err, &VConstants);
+	HRESULT result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(mamain.d3ddev), 0, &code, &err, &VConstants.constants);
 
 	if (FAILED(result)) {
 		mamain.err.onError((char*) err->GetBufferPointer());
@@ -35,24 +77,18 @@ bool Shader::compile(std::string vert, std::string pixel) {
 
 	if (FAILED(result)) {
 		mamain.err.onErrorDX9("Failed to create vertex shader", result);
-
-		VConstants->Release();
-		VConstants = 0;
-
 		return 0;
 	}
 
-	result = D3DXCompileShader(pixel.c_str(), pixel.length(), NULL, NULL, "main", D3DXGetPixelShaderProfile(mamain.d3ddev), 0, &code, &err, &PConstants);
+	result = D3DXCompileShader(pixel.c_str(), pixel.length(), NULL, NULL, "main", D3DXGetPixelShaderProfile(mamain.d3ddev), 0, &code, &err, &PConstants.constants);
 
 	if (FAILED(result)) {
 		mamain.err.onError((char*) err->GetBufferPointer());
 
 		err->Release();
+		
 		VShader->Release();
-		VConstants->Release();
-
-		VShader    = 0;
-		VConstants = 0;
+		VShader = 0;
 
 		return 0;
 	}
@@ -65,13 +101,8 @@ bool Shader::compile(std::string vert, std::string pixel) {
 		mamain.err.onErrorDX9("Failed to create pixel shader", result);
 
 		VShader->Release();
-		VConstants->Release();
-		PConstants->Release();
-
-		VShader    = 0;
-		VConstants = 0;
-		PConstants = 0;
-
+		VShader = 0;
+		
 		return 0;
 	}
 

@@ -15,7 +15,7 @@ switch(argument2)
         if(result < 0)
         {
             show_debug_message("Failed to compile shader.");
-            return 0;
+            return result;
         }
         
         show_debug_message("Compiled Vertex & Pixel Shader ID: "+string(result));
