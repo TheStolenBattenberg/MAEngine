@@ -53,7 +53,7 @@ DLLEXPORT MAB_BodyGetRotationQuat(double BodyID)
 	btTransform trans;
 	//G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
 	trans = G.getBody(BodyID)->getWorldTransform();
-	G.ReturnQuat = trans.getRotation();
+	G.ReturnQuat = trans.getRotation().inverse();
 	return 1;
 }
 
@@ -84,6 +84,11 @@ DLLEXPORT MAB_BodyGetGroup               (double BodyID){ return G.getBody(BodyI
 DLLEXPORT MAB_BodyGetMask                (double BodyID){ return G.getBody(BodyID)->getBroadphaseProxy()->m_collisionFilterMask; }
 DLLEXPORT MAB_BodyGetUserIndex           (double BodyID){ return G.Bodies[(int)BodyID]->UserIndex; }
 
+DLLEXPORT MAB_BodyGetIgnore(double BodyID, double OtherBodyID)
+{
+	return G.getBody(BodyID)->checkCollideWith(G.getBody(OtherBodyID));
+}
+
 DLLEXPORT MAB_BodySetPosition(double BodyID, double X, double Y, double Z)
 {
 	btTransform trans;
@@ -102,7 +107,7 @@ DLLEXPORT MAB_BodySetRotationQuat(double BodyID, double X, double Y, double Z, d
 	btRigidBody* body = G.getBody(BodyID);
 	//body->getMotionState()->getWorldTransform(trans);
 	trans = body->getWorldTransform();
-	trans.setRotation(btQuaternion((btScalar)X, (btScalar)Y, (btScalar)Z, (btScalar)W));
+	trans.setRotation(btQuaternion((btScalar)X, (btScalar)Y, (btScalar)Z, -(btScalar)W));
 	//body->getMotionState()->setWorldTransform(trans);
 	body->setWorldTransform(trans);
 	return 1;
@@ -169,6 +174,9 @@ DLLEXPORT MAB_BodyDeactivate(double BodyID) {
 	return 1;}
 DLLEXPORT MAB_BodySetShape(double BodyID, double ShapeID) {
 	G.getBody(BodyID)->setCollisionShape(G.getShape(ShapeID));
+	return 1;}
+DLLEXPORT MAB_BodySetIgnore(double BodyID, double IgnoreBodyID, double Ignore) {
+	G.getBody(BodyID)->setIgnoreCollisionCheck(G.getBody(IgnoreBodyID), (Ignore > 0));
 	return 1;}
 DLLEXPORT MAB_BodySetGroupMask(double BodyID, double group, double mask) {
 	G.getBody(BodyID)->getBroadphaseProxy()->m_collisionFilterGroup = (short)group;
