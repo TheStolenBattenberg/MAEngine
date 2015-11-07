@@ -14,7 +14,7 @@ if (array_length_1d(argument0) < 4) {
 
 var v = MAE_VectorMultiplyMatrix(argument0, argument1);
 
-if (v[3] == 0)
+if (sign(v[3]) == 0)
     return undefined;
 
 return MAE_VectorCreate((v[0] / v[3] + 1) / 2 * argument2[2] + argument2[0],

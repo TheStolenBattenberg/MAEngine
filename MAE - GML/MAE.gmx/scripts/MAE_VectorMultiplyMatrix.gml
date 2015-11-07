@@ -7,6 +7,9 @@
  */
 switch (array_length_1d(argument1)) {
 case 4:
+    if (array_length_1d(argument0) < 2)
+        return undefined;
+    
     var v;
     
     v[1] = argument0[0] * argument1[1] + argument0[1] * argument1[3];
@@ -14,6 +17,9 @@ case 4:
     
     return v;
 case 9:
+    if (array_length_1d(argument0) < 3)
+        return undefined;
+    
     var v;
     
     v[2] = argument0[0] * argument1[2] + argument0[1] * argument1[5] + argument0[2] * argument1[8];
@@ -22,6 +28,13 @@ case 9:
     
     return v;
 case 16:
+    if (array_length_1d(argument0) < 4) {
+        if (array_length_1d(argument0) == 3)
+            argument0[3] = 1;
+        else
+            return undefined;
+    }
+    
     var v;
     
     v[3] = argument0[0] * argument1[3] + argument0[1] * argument1[7] + argument0[2] * argument1[11] + argument0[3] * argument1[15];

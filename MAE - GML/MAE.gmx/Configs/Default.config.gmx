@@ -457,7 +457,7 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="226">
+    <constants number="232">
       <constant name="BLEND_BLENDFACTOR">14</constant>
       <constant name="BLEND_BOTHINVSRCALPHA">13</constant>
       <constant name="BLEND_BOTHSRCALPHA">12</constant>
@@ -497,6 +497,12 @@
       <constant name="DEGREE_QUINTIC">5</constant>
       <constant name="DMT_DISABLE">1</constant>
       <constant name="DMT_ENABLE">0</constant>
+      <constant name="EULER_XYZ">0</constant>
+      <constant name="EULER_XZY">3</constant>
+      <constant name="EULER_YXZ">5</constant>
+      <constant name="EULER_YZX">1</constant>
+      <constant name="EULER_ZXY">2</constant>
+      <constant name="EULER_ZYX">4</constant>
       <constant name="FILL_POINT">1</constant>
       <constant name="FILL_SOLID">3</constant>
       <constant name="FILL_WIREFRAME">2</constant>
@@ -650,9 +656,9 @@
       <constant name="SHADE_FLAT">1</constant>
       <constant name="SHADE_GOURAUD">2</constant>
       <constant name="SHADE_PHONG">3</constant>
-      <constant name="SHADER_HLSL9">0</constant>
       <constant name="SHADER_ASM">1</constant>
       <constant name="SHADER_FILE">2</constant>
+      <constant name="SHADER_HLSL9">0</constant>
       <constant name="SHD_PIXEL">1</constant>
       <constant name="SHD_VERT">0</constant>
       <constant name="STENCILOP_DECR">8</constant>

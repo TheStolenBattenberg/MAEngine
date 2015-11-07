@@ -7,7 +7,7 @@
  */
 var l = MAE_VectorMagnitude(argument0);
 
-if (l != 0) {
+if (sign(l) != 0) {
     switch (array_length_1d(argument0)) {
     case 2:
         argument0[@ 0] /= l;

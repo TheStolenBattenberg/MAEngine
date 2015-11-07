@@ -367,10 +367,9 @@
             <script>scripts\MAE_QuaternionCreateRotationVector.gml</script>
             <script>scripts\MAE_QuaternionDup.gml</script>
             <script>scripts\MAE_QuaternionGet.gml</script>
-            <script>scripts\MAE_QuaternionGetRotationX.gml</script>
-            <script>scripts\MAE_QuaternionGetRotationY.gml</script>
-            <script>scripts\MAE_QuaternionGetRotationZ.gml</script>
+            <script>scripts\MAE_QuaternionGetRotation.gml</script>
             <script>scripts\MAE_QuaternionInvert.gml</script>
+            <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
             <script>scripts\MAE_QuaternionMagnitude.gml</script>
             <script>scripts\MAE_QuaternionMagnitudeSquared.gml</script>
             <script>scripts\MAE_QuaternionMultiply.gml</script>
@@ -379,7 +378,6 @@
             <script>scripts\MAE_QuaternionRotateMatrix.gml</script>
             <script>scripts\MAE_QuaternionRotateVector.gml</script>
             <script>scripts\MAE_QuaternionSet.gml</script>
-            <script>scripts\MAE_QuaternionIsQuaternion.gml</script>
           </scripts>
           <script>scripts\MAE_ViewportCreate.gml</script>
         </scripts>

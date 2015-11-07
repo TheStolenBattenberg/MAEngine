@@ -5,4 +5,4 @@
  *      Add Description.
  *
  */
-return MAE_QuaternionMultiply(MAE_QuaternionCreateRotationVector(argument1, argument2), argument0);
+return MAE_QuaternionMultiply(argument0, MAE_QuaternionCreateRotationVector(argument1, argument2));

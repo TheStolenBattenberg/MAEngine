@@ -5,4 +5,4 @@
  *      Add Description.
  *
  */
-return MAE_QuaternionMultiply(MAE_QuaternionCreateRotationMatrix(argument1), argument0);
+return MAE_QuaternionMultiply(argument0, MAE_QuaternionCreateRotationMatrix(argument1));
