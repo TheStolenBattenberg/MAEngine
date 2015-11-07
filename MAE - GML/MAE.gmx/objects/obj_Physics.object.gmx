@@ -40,41 +40,17 @@ shape[1] = MAE_PhysShapeCreateSphere(1);
 shape[2] = MAE_PhysShapeCreateCone(1, 2, 2);
 shape[3] = MAE_PhysShapeCreateCylinder(1, 1, 2);
 shape[4] = MAE_PhysShapeCreateCapsule(1, 2, 2);
-buf = buffer_create(64, buffer_grow, 1);
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, -1);
-
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, -1);
-
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, -1);
-
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, -1);
-
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, 1);
-
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, 1);
-
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, 1);
-
-buffer_write(buf, buffer_f32, 1);
-buffer_write(buf, buffer_f32, -1);
-buffer_write(buf, buffer_f32, 1);
-
-shape[5] = MAE_PhysShapeCreateConvexHull(buf, 8);
-buffer_delete(buf);
+buf = MAE_PhysVertexBufferCreate();
+MAE_PhysVertexBufferAddVertex(buf, -1, -1, -1);
+MAE_PhysVertexBufferAddVertex(buf, -1, 1, -1);
+MAE_PhysVertexBufferAddVertex(buf, 1, 1, -1);
+MAE_PhysVertexBufferAddVertex(buf, 1, -1, -1);
+MAE_PhysVertexBufferAddVertex(buf, -1, -1, 1);
+MAE_PhysVertexBufferAddVertex(buf, -1, 1, 1);
+MAE_PhysVertexBufferAddVertex(buf, 1, 1, 1);
+MAE_PhysVertexBufferAddVertex(buf, 1, -1, 1);
+shape[5] = MAE_PhysShapeCreateConvexHull(buf);
+MAE_PhysVertexBufferDestroy(buf);
 
 //3D models to visualize the shapes
 model[0] = d3d_model_create();
