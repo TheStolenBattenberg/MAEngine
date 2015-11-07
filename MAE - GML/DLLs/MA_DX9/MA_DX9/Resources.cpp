@@ -81,6 +81,7 @@ bool Shader::compileasm(std::string vert, std::string pixel) {
 		}
 	}
 
+
 	//Assemble Pixel Shader
 	{
 		HRESULT result = D3DXAssembleShader(pixel.c_str(), pixel.length(), NULL, NULL, 0, &code, &err);
@@ -106,6 +107,7 @@ bool Shader::compileasm(std::string vert, std::string pixel) {
 			return 0;
 		}
 	}
+	return 1;
 }
 
 bool Shader::compile(std::string vert, std::string pixel) {
