@@ -17,7 +17,9 @@ argument0[1] = -((argument0[1] - argument2[1]) / argument2[3] * 2 - 1);
 
 var v = MAE_VectorMultiplyMatrix(argument0, argument1);
 
-if (v[3] != 0)
+if (sign(v[3]) != 0)
     MAE_VectorDivide(v, v[3]);
+else
+    return undefined;
 
 return MAE_VectorCreate(v[0], v[1], v[2]);

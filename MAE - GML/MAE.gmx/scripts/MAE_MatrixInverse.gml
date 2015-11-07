@@ -16,7 +16,7 @@ case 4:
     
     var det = argument0[0] * argument0[3] - argument0[2] * argument0[1];
     
-    if (det == 0)
+    if (sign(det) == 0)
         return undefined;
     
     MAE_MatrixDivide(mat, det);
@@ -39,7 +39,7 @@ case 9:
               argument0[3] * (argument0[1] * argument0[8] - argument0[7] * argument0[2]) +
               argument0[6] * (argument0[1] * argument0[5] - argument0[4] * argument0[2])
     
-    if (det == 0)
+    if (sign(det) == 0)
         return undefined;
     
     MAE_MatrixDivide(mat, det);
@@ -87,7 +87,7 @@ case 16:
     
     var det = argument0[0] * mat[0] + argument0[1] * mat[4] + argument0[2] * mat[8] + argument0[3] * mat[12];
     
-    if (det == 0)
+    if (sign(det) == 0)
         return undefined;
     
     MAE_MatrixDivide(mat, det);

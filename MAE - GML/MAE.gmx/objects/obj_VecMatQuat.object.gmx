@@ -40,7 +40,7 @@ matNorm = MAE_MatrixCreateIdentity(3);
 
 vecPoint = MAE_VectorCreate(0, 0, 0);
 
-quatView = MAE_QuaternionNorm(MAE_QuaternionRotate(MAE_QuaternionCreateRotation(-90, 45, 0), -45, 0, 0));
+quatView = MAE_QuaternionNorm(MAE_QuaternionCreateRotation(135, 0, -45, EULER_ZYX));
 
 uniNormalMat     = shader_get_uniform(shdLight, "u_NormalMat");
 uniAmbientColour = shader_get_uniform(shdLight, "u_AmbientColour");
@@ -97,7 +97,7 @@ if (mouse_check_button(mb_left)) {
  * Rotate the quaternion and normalize it
  */
 
-quatView = MAE_QuaternionNorm(MAE_QuaternionRotate(quatView, -(desY - curY) * 0.2, -(desX - curX) * 0.2, 0));
+quatView = MAE_QuaternionNorm(MAE_QuaternionRotate(quatView, (desY - curY) * 0.2, (desX - curX) * 0.2, 0));
 
 /*
  * Make the difference smaller each step by 20%

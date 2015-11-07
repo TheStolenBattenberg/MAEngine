@@ -1,22 +1,63 @@
-///MAE_QuaternionCreateRotation(x, y, z);
+///MAE_QuaternionCreateRotation(x, y, z, [order]);
 
 /**
  * To-do:
  *      Add Description.
  *
  */
-var sx = dsin(argument0 / 2);
-var cx = dcos(argument0 / 2);
-var sy = dsin(argument1 / 2);
-var dy = dcos(argument1 / 2);
-var sz = dsin(argument2 / 2);
-var cz = dcos(argument2 / 2);
+var order = EULER_XYZ;
+
+if (argument_count > 3)
+    order = argument[3];
+
+var sx = dsin(argument[0] / 2);
+var cx = dcos(argument[0] / 2);
+var sy = dsin(argument[1] / 2);
+var cy = dcos(argument[1] / 2);
+var sz = dsin(argument[2] / 2);
+var cz = dcos(argument[2] / 2);
 
 var ret;
 
-ret[3] = cx * dy * cz + sx * sy * sz;
-ret[2] = cx * dy * sz - sx * sy * cz;
-ret[1] = cx * sy * cz + sx * dy * sz;
-ret[0] = sx * dy * cz - cx * sy * sz;
+switch (order) {
+case EULER_XYZ:
+    ret[3] = cx * cy * cz - sx * sy * sz;
+    ret[2] = cx * cy * sz + sx * sy * cz;
+    ret[1] = cx * sy * cz - sx * cy * sz;
+    ret[0] = sx * cy * cz + cx * sy * sz;
+    break;
+case EULER_YXZ:
+    ret[3] = cx * cy * cz + sx * sy * sz;
+    ret[2] = cx * cy * sz - sx * sy * cz;
+    ret[1] = cx * sy * cz - sx * cy * sz;
+    ret[0] = sx * cy * cz + cx * sy * sz;
+    break;
+case EULER_ZXY:
+    ret[3] = cx * cy * cz - sx * sy * sz;
+    ret[2] = cx * cy * sz + sx * sy * cz;
+    ret[1] = cx * sy * cz + sx * cy * sz;
+    ret[0] = sx * cy * cz - cx * sy * sz;
+    break;
+case EULER_ZYX:
+    ret[3] = cx * cy * cz + sx * sy * sz;
+    ret[2] = cx * cy * sz - sx * sy * cz;
+    ret[1] = cx * sy * cz + sx * cy * sz;
+    ret[0] = sx * cy * cz - cx * sy * sz;
+    break;
+case EULER_YZX:
+    ret[3] = cx * cy * cz - sx * sy * sz;
+    ret[2] = cx * cy * sz - sx * sy * cz;
+    ret[1] = cx * sy * cz + sx * cy * sz;
+    ret[0] = sx * cy * cz + cx * sy * sz;
+    break;
+case EULER_XZY:
+    ret[3] = cx * cy * cz + sx * sy * sz;
+    ret[2] = cx * cy * sz + sx * sy * cz;
+    ret[1] = cx * sy * cz - sx * cy * sz;
+    ret[0] = sx * cy * cz - cx * sy * sz;
+    break;
+default:
+    return undefined;
+}
 
 return ret;

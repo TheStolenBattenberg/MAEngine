@@ -1,8 +1,13 @@
-///MAE_MatrixRotate(m, x, y, z);
+///MAE_MatrixRotate(m, x, y, z, [order]);
 
 /**
  * To-do:
  *      Add Description.
  *
  */
-return MAE_MatrixMultiplyMatrix(argument0, MAE_MatrixCreateRotation(MAE_MatrixGetDimension(argument0), argument1, argument2, argument3));
+var order = EULER_XYZ;
+
+if (argument_count > 4)
+    order = argument[4];
+
+return MAE_MatrixMultiplyMatrix(argument[0], MAE_MatrixCreateRotation(MAE_MatrixGetDimension(argument0), argument[1], argument[2], argument[3], order));

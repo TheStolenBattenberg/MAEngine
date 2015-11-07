@@ -5,14 +5,16 @@
  *      Add Description.
  *
  */
+var c = dcos(argument1), s = dsin(argument1);
+
 switch (argument0) {
 case 2:
     var mat;
     
-    mat[3] = dcos(argument1);
-    mat[2] = -dsin(argument1);
-    mat[1] = dsin(argument1);
-    mat[0] = dcos(argument1);
+    mat[3] = c;
+    mat[2] = s;
+    mat[1] = -s;
+    mat[0] = c;
     
     return mat;
 case 3:
@@ -22,11 +24,11 @@ case 3:
     mat[7] = 0;
     mat[6] = 0;
     mat[5] = 0;
-    mat[4] = dcos(argument1);
-    mat[3] = -dsin(argument1);
+    mat[4] = c;
+    mat[3] = s;
     mat[2] = 0;
-    mat[1] = dsin(argument1);
-    mat[0] = dcos(argument1);
+    mat[1] = -s;
+    mat[0] = c;
     
     return mat;
 case 4:
@@ -42,12 +44,12 @@ case 4:
     mat[08] = 0;
     mat[07] = 0;
     mat[06] = 0;
-    mat[05] = dcos(argument1);
-    mat[04] = -dsin(argument1);
+    mat[05] = c;
+    mat[04] = s;
     mat[03] = 0;
     mat[02] = 0;
-    mat[01] = dsin(argument1);
-    mat[00] = dcos(argument1);
+    mat[01] = -s;
+    mat[00] = c;
     
     return mat;
 }
