@@ -245,6 +245,7 @@
           <script>scripts\MAE_PhysBodyGetRollingFriction.gml</script>
           <script>scripts\MAE_PhysBodyGetUserIndex.gml</script>
           <script>scripts\MAE_PhysBodyGetDeactivationTime.gml</script>
+          <script>scripts\MAE_PhysBodyGetIgnore.gml</script>
           <script>scripts\MAE_PhysBodyIsStatic.gml</script>
           <script>scripts\MAE_PhysBodyIsKinematic.gml</script>
           <script>scripts\MAE_PhysBodyIsDynamic.gml</script>
@@ -266,6 +267,7 @@
           <script>scripts\MAE_PhysBodySetRollingFriction.gml</script>
           <script>scripts\MAE_PhysBodySetUserIndex.gml</script>
           <script>scripts\MAE_PhysBodySetShape.gml</script>
+          <script>scripts\MAE_PhysBodySetIgnore.gml</script>
           <script>scripts\MAE_PhysBodySetGroupMask.gml</script>
           <script>scripts\MAE_PhysBodySetDeactivationTime.gml</script>
           <script>scripts\MAE_PhysBodyDisableDeactivation.gml</script>

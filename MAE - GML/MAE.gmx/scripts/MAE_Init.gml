@@ -151,12 +151,14 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_BodyGetRollingFriction     = external_define(global.DLL_MABullet, "MAB_BodyGetRollingFriction", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyGetUserIndex           = external_define(global.DLL_MABullet, "MAB_BodyGetUserIndex", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyGetDeactivationTime    = external_define(global.DLL_MABullet, "MAB_BodyGetDeactivationTime", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodyGetIgnore              = external_define(global.DLL_MABullet, "MAB_BodyGetIgnore", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_BodyIsStatic               = external_define(global.DLL_MABullet, "MAB_BodyIsStatic", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyIsKinematic            = external_define(global.DLL_MABullet, "MAB_BodyIsKinematic", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyGetShape               = external_define(global.DLL_MABullet, "MAB_BodyGetShape", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyIsActive               = external_define(global.DLL_MABullet, "MAB_BodyIsActive", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyGetGroup               = external_define(global.DLL_MABullet, "MAB_BodyGetGroup", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_BodyGetMask                = external_define(global.DLL_MABullet, "MAB_BodyGetMask", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_BodySetIgnore              = external_define(global.DLL_MABullet, "MAB_BodySetIgnore", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     global.MAB_BodySetPosition            = external_define(global.DLL_MABullet, "MAB_BodySetPosition", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     global.MAB_BodySetRotationQuat        = external_define(global.DLL_MABullet, "MAB_BodySetRotationQuat", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_BodySetRotationEuler       = external_define(global.DLL_MABullet, "MAB_BodySetRotationEuler", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
