@@ -99,6 +99,8 @@ external_call(global.MADX9_Init, window_device());
 
 if (argument[0] & INIT_PHYSICS)
 {
+    global.MAB_Free = external_define(global.DLL_MABullet, "MAB_Free", dll_cdecl, ty_real, 0);
+    
     //World
     global.MAB_WorldCreate             = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
     global.MAB_WorldDestroy            = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);

@@ -2,6 +2,36 @@
 
 MABullet G;
 
+bool MABullet::destroyWorld()
+{
+	if (!G.worldExists()) return false;
+	for (auto i : G.Constraints)
+	{
+		G.World->removeConstraint(i.second);
+		delete i.second;
+	}
+	G.Constraints.clear();
+	for (auto i : G.Bodies)
+	{
+		G.World->removeCollisionObject(i.second->Body);
+		delete i.second->Body->getMotionState();
+		delete i.second->Body;
+		delete i.second;
+	}
+	G.Bodies.clear();
+	delete G.World;
+	delete G.Solver;
+	delete G.Dispatcher;
+	delete G.CollisionConfiguration;
+	delete G.Broadphase;
+	if (G.DebugDrawer) {
+		delete G.DebugDrawer;
+		G.DebugDrawer = nullptr;
+	}
+	G.World = nullptr;
+	return true;
+}
+
 btVector3 MABullet::toEuler(btMatrix3x3 &tm)
 {
 	btScalar x, y, z = 0;
