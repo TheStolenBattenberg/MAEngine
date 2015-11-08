@@ -3,6 +3,12 @@
 
 DLLEXPORT MAB_Free()
 {
+	for (auto i : G.Shapes)
+	{
+		btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(i.second);
+		if (trimesh) delete trimesh->getMeshInterface();
+		delete i.second;
+	}
 	return G.destroyWorld();
 }
 
