@@ -18,32 +18,7 @@ DLLEXPORT MAB_WorldCreate()
 
 DLLEXPORT MAB_WorldDestroy()
 {
-	if (!G.worldExists()) return 0;
-	for (auto i : G.Constraints)
-	{
-		G.World->removeConstraint(i.second);
-		delete i.second;
-	}
-	G.Constraints.clear();
-	for (auto i : G.Bodies)
-	{
-		G.World->removeCollisionObject(i.second->Body);
-		delete i.second->Body->getMotionState();
-		delete i.second->Body;
-		delete i.second;
-	}
-	G.Bodies.clear();	
-	delete G.World;
-	delete G.Solver;
-	delete G.Dispatcher;
-	delete G.CollisionConfiguration;
-	delete G.Broadphase;
-	if (G.DebugDrawer) {
-		delete G.DebugDrawer;
-		G.DebugDrawer = nullptr;
-	}
-	G.World = nullptr;
-	return 1;
+	return G.destroyWorld();
 }
 
 DLLEXPORT MAB_WorldExists()

@@ -1,10 +1,9 @@
 #include "MABullet.h"
 #include "MABullet_DebugDraw.h"
 
-DLLEXPORT MABullet_Free()
+DLLEXPORT MAB_Free()
 {
-	//TODO: free stuff
-	return 1;
+	return G.destroyWorld();
 }
 
 DLLEXPORT MAB_Vec(double n)

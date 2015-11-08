@@ -62,6 +62,7 @@ struct MABullet {
 		ConstraintCount++;
 		return ConstraintCount - 1;
 	}
+	bool destroyWorld();
 	btVector3 toEuler(btMatrix3x3 &tm);
 };
 
