@@ -9,12 +9,36 @@ ShaderConstants::~ShaderConstants() {
 uint ShaderConstants::find(std::string c) {
 	D3DXHANDLE h = constants->GetConstantByName(0, c.c_str());
 
+	if (h == 0)
+		return 0;
+
 	for (uint i = 0; i < handles.size(); ++i)
 		if (handles[i] == h)
 			return i;
 
 	handles.push_back(h);
 	return handles.size() - 1;
+}
+
+uint ShaderConstants::getSampler(uint c) {
+	if (c >= handles.size())
+		return InvalidSampler;
+
+	return constants->GetSamplerIndex(handles[c]);
+}
+
+bool ShaderConstants::setFloat(uint c, float f) {
+	if (c >= handles.size())
+		return 0;
+
+	return SUCCEEDED(constants->SetFloat(mamain.d3ddev, handles[c], f));
+}
+
+bool ShaderConstants::setVec2(uint c, const vec2& v) {
+	if (c >= handles.size())
+		return 0;
+
+	return SUCCEEDED(constants->SetFloatArray(mamain.d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
 }
 
 bool ShaderConstants::setVec3(uint c, const vec3& v)
@@ -115,6 +139,7 @@ bool Shader::compile(std::string vert, std::string pixel) {
 	LPD3DXBUFFER err;
 
 	HRESULT result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(mamain.d3ddev), 0, &code, &err, &VConstants.constants);
+	
 	if (FAILED(result)) {
 		mamain.err.onError((char*) err->GetBufferPointer());
 		

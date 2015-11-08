@@ -48,6 +48,8 @@ uAmbientColour = MAE_ShaderFindConstant(Shd_01, SHD_PIXEL, "uAmbientColour");
 uLightPos      = MAE_ShaderFindConstant(Shd_01, SHD_PIXEL, "uLightPos")
 uSpecColour    = MAE_ShaderFindConstant(Shd_01, SHD_PIXEL, "uSpecColour")
 
+
+
 shader = "1";
 keyboard_lastchar = "1";
 </string>
