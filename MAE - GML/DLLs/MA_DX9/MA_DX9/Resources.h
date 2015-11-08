@@ -9,10 +9,18 @@
 
 class ShaderConstants {
 public:
+	enum {
+		InvalidSampler = 0xFFFFFFFF
+	};
+
 	~ShaderConstants();
 
 	uint find(std::string c);
+	uint getSampler(uint c);
 
+	bool setFloat(uint c, float f);
+
+	bool setVec2(uint c, const vec2& v);
 	bool setVec3(uint c, const vec3& v);
 	bool setVec4(uint c, const vec4& v);
 	bool setMat3(uint c, const mat3& m);

@@ -144,6 +144,47 @@ DLLEXPORT double MADX9_ShaderFindConstant(double index, double shd, const char* 
 	return t->find(c);
 }
 
+DLLEXPORT double MADX9_ShaderGetSampler(double index, double shd, double c)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	uint val = (shd ? mamain.Shader[(uint) index]->PConstants : mamain.Shader[(uint) index]->VConstants).getSampler((uint) c);
+
+	return val == ShaderConstants::InvalidSampler ? -1 : val;
+}
+
+DLLEXPORT double MADX9_ShaderSetConstantFloat(double index, double shd, double c, double x)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	return t->setFloat((uint) c, (float) x);
+}
+
+DLLEXPORT double MADX9_ShaderSetConstantVec2(double index, double shd, double c, double x, double y)
+{
+	if ((uint) index >= mamain.Shader.size())
+		return -1;
+
+	if (mamain.Shader[(uint) index] == 0)
+		return -1;
+
+	ShaderConstants* t = shd ? &mamain.Shader[(uint) index]->PConstants : &mamain.Shader[(uint) index]->VConstants;
+
+	vec2 v = {(float) x, (float) y};
+
+	return t->setVec2((uint) c, v);
+}
+
 DLLEXPORT double MADX9_ShaderSetConstantVec3(double index, double shd, double c, double x, double y, double z)
 {
 	if ((uint) index >= mamain.Shader.size())
