@@ -1,13 +1,15 @@
 #pragma once
+
+
 /**
  * Includes
  */
 #include "Types.h"
 
- /**
-  * IDTech 2 Model
-  * Version 8
-  */
+/**
+* IDTech 2 Model
+* Version 8
+*/
 #define MD2_MAGICNUMBER 0x32504449
 #define MD2_VERSION 0x08
 
