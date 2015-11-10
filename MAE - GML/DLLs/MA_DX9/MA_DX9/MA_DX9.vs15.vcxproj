@@ -30,9 +30,9 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelMD2.h" />
+    <ClInclude Include="ModelMPM.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Hooks.h" />
-    <ClInclude Include="MD2Type.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Variant.h" />
