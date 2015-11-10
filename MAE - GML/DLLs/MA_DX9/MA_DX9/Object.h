@@ -1,3 +1,5 @@
+#include "Mesh.h"
+
 class Object
 {
 	public:

@@ -1,15 +1,13 @@
 #pragma once
-
 /**
  * Includes
  */
 #include "Types.h"
 
-
-/**
- * IDTech 2 Model
- * Version 8
- */
+ /**
+  * IDTech 2 Model
+  * Version 8
+  */
 #define MD2_MAGICNUMBER 0x32504449
 #define MD2_VERSION 0x08
 
@@ -65,4 +63,31 @@ namespace MD2Type
 	{
 		short s, t;
 	};
+};
+
+class MD2Model : public Object {
+public:
+	~MD2Model();
+
+	bool load(std::string model);
+	void setTexture(LPDIRECT3DTEXTURE9 tex);
+
+	LPDIRECT3DVERTEXBUFFER9 getVB(uint frame);
+	LPDIRECT3DVERTEXBUFFER9 getTB();
+	LPDIRECT3DINDEXBUFFER9  getIB();
+	LPDIRECT3DTEXTURE9      getTex();
+
+	uint getVertCount();
+	uint getTriCount();
+	uint getFrameCount();
+
+private:
+	uint vertCount = 0;
+	uint triCount = 0;
+
+	LPDIRECT3DTEXTURE9 tex = 0;
+
+	std::vector<LPDIRECT3DVERTEXBUFFER9> vertBufs;
+	LPDIRECT3DVERTEXBUFFER9 texBuf = 0;
+	LPDIRECT3DINDEXBUFFER9 indBuf = 0;
 };

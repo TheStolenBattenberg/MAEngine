@@ -4,40 +4,6 @@
     <Config>Configs\Default</Config>
   </Configs>
   <datafiles number="6" name="datafiles">
-    <datafile>
-      <name>MA_DX9.dll</name>
-      <exists>-1</exists>
-      <size>10240</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>MA_DX9.dll</filename>
-    </datafile>
-    <datafile>
-      <name>MA_Bullet.dll</name>
-      <exists>-1</exists>
-      <size>1885696</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>MA_Bullet.dll</filename>
-    </datafile>
     <datafiles number="6" name="COMMON">
       <datafiles number="6" name="MODEL">
         <datafile>
@@ -78,6 +44,40 @@
         </datafile>
       </datafiles>
     </datafiles>
+    <datafile>
+      <name>MA_DX9.dll</name>
+      <exists>-1</exists>
+      <size>10240</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>MA_DX9.dll</filename>
+    </datafile>
+    <datafile>
+      <name>MA_Bullet.dll</name>
+      <exists>-1</exists>
+      <size>1885696</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>MA_Bullet.dll</filename>
+    </datafile>
   </datafiles>
   <NewExtensions/>
   <sounds name="sound"/>

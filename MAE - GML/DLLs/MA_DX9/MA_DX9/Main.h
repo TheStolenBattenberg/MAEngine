@@ -1,5 +1,10 @@
 #pragma once
 
+#define DLLEXPORT extern "C" __declspec (dllexport)
+
+/**
+ * Includes
+ */
 #include <Windows.h>
 #include <WindowsX.h>
 #include <D3Dcompiler.h>
@@ -13,8 +18,7 @@
 #include "Resources.h"
 
 #include "Object.h"
-#include "ObjectTerrain.h"
-#include "ObjectModel.h"
+#include "ModelMD2.h"
 
 class Exception {
 	public:
