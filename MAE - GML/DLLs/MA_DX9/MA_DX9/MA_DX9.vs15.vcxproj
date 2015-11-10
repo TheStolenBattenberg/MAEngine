@@ -15,21 +15,25 @@
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Hooks.cpp" />
-    <ClCompile Include="ObjectModel.cpp" />
+    <ClCompile Include="MA_Light.cpp" />
+    <ClCompile Include="MA_Material.cpp" />
+    <ClCompile Include="MA_Misc.cpp" />
+    <ClCompile Include="MA_Model.cpp" />
+    <ClCompile Include="MA_Shader.cpp" />
+    <ClCompile Include="MA_Texture.cpp" />
+    <ClCompile Include="ModelMD2.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Variant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ModelMD2.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="MD2Type.h" />
-    <ClInclude Include="MS3DType.h" />
-    <ClInclude Include="MSMType.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectModel.h" />
-    <ClInclude Include="ObjectTerrain.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Variant.h" />
   </ItemGroup>
