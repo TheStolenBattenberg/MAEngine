@@ -1,20 +1,19 @@
 #pragma once
 
-
 /**
  * Includes
  */
-#include "Types.h"
 
-/**
-* IDTech 2 Model
-* Version 8
-*/
-#define MD2_MAGICNUMBER 0x32504449
-#define MD2_VERSION 0x08
+#include "Types.h"
 
 namespace MD2Type
 {
+	enum
+	{
+		Version     = 0x00000008ul,
+		MagicNumber = 0x32504449ul
+	};
+
 	struct Header
 	{
 		uint magicNumber;
@@ -67,7 +66,8 @@ namespace MD2Type
 	};
 };
 
-class MD2Model : public Object {
+class MD2Model : public Object
+{
 public:
 	~MD2Model();
 

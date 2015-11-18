@@ -2,9 +2,11 @@
 
 #include "Types.h"
 
-class Variant {
+class Variant
+{
 public:
-	enum Types {
+	enum Types
+	{
 		TypeNull,
 		TypeInteger,
 		TypeUnsignedInteger,
@@ -39,7 +41,8 @@ public:
 private:
 	Types type;
 
-	union {
+	union
+	{
 		int    Integer;
 		uint   UnsignedInteger;
 		float  Float;

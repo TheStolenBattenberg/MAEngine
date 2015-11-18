@@ -11,17 +11,17 @@ DLLEXPORT double MADX9_TextureCreateFromFile(const char* file, Texture::MipMaps 
 		return -1;
 	}
 
-	for (uint i = 0; i < mamain.Textures.size(); ++i)
+	for (uint i = 0; i < mamain->Textures.size(); ++i)
 	{
-		if (mamain.Textures[i] == 0)
+		if (mamain->Textures[i] == 0)
 		{
-			mamain.Textures[i] = tex;
+			mamain->Textures[i] = tex;
 			return i;
 		}
 	}
 
-	mamain.Textures.push_back(tex);
-	return mamain.Textures.size() - 1;
+	mamain->Textures.push_back(tex);
+	return mamain->Textures.size() - 1;
 }
 
 DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
@@ -38,29 +38,29 @@ DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
 
 	tex->tex->AddRef();
 
-	for (uint i = 0; i < mamain.Textures.size(); ++i)
+	for (uint i = 0; i < mamain->Textures.size(); ++i)
 	{
-		if (mamain.Textures[i] == 0)
+		if (mamain->Textures[i] == 0)
 		{
-			mamain.Textures[i] = tex;
+			mamain->Textures[i] = tex;
 			return i;
 		}
 	}
 
-	mamain.Textures.push_back(tex);
-	return mamain.Textures.size() - 1;
+	mamain->Textures.push_back(tex);
+	return mamain->Textures.size() - 1;
 }
 
 DLLEXPORT double MADX9_TextureDestroy(double ind)
 {
-	if ((uint)ind >= mamain.Textures.size())
+	if ((uint)ind >= mamain->Textures.size())
 		return 0;
 
-	if (mamain.Textures[(uint)ind] == 0)
+	if (mamain->Textures[(uint)ind] == 0)
 		return 0;
 
-	delete mamain.Textures[(uint)ind];
-	mamain.Textures[(uint)ind] = 0;
+	delete mamain->Textures[(uint)ind];
+	mamain->Textures[(uint)ind] = 0;
 
 	return 1;
 }
@@ -68,13 +68,13 @@ DLLEXPORT double MADX9_TextureDestroy(double ind)
 DLLEXPORT double MADX9_TextureSet(double ind, double stage)
 {
 	if (ind < 0)
-		return SUCCEEDED(mamain.d3ddev->SetTexture((uint)stage, 0));
+		return SUCCEEDED(mamain->d3ddev->SetTexture((uint)stage, 0));
 
-	if ((uint)ind >= mamain.Textures.size())
+	if ((uint)ind >= mamain->Textures.size())
 		return 0;
 
-	if (mamain.Textures[(uint)ind] == 0)
+	if (mamain->Textures[(uint)ind] == 0)
 		return 0;
 
-	return SUCCEEDED(mamain.d3ddev->SetTexture((uint)stage, mamain.Textures[(uint)ind]->tex));
+	return SUCCEEDED(mamain->d3ddev->SetTexture((uint)stage, mamain->Textures[(uint)ind]->tex));
 }

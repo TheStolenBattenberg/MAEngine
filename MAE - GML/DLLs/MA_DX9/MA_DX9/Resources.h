@@ -7,9 +7,11 @@
 
 #include "Types.h"
 
-class ShaderConstants {
+class ShaderConstants
+{
 public:
-	enum {
+	enum
+	{
 		InvalidSampler = 0xFFFFFFFF
 	};
 
@@ -32,7 +34,8 @@ private:
 	std::vector<D3DXHANDLE> handles;
 };
 
-class Shader {
+class Shader
+{
 public:
 	~Shader();
 
@@ -46,9 +49,11 @@ public:
 	ShaderConstants PConstants;
 };
 
-class Texture {
+class Texture
+{
 public:
-	enum MipMaps {
+	enum MipMaps
+	{
 		MipMapsNone     = 0x00,
 		MipMapsGenerate = 0x01,
 		MipMapsFromFile = 0x02

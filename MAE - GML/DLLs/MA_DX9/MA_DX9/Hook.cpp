@@ -1,10 +1,10 @@
 #define CINTERFACE
 
-#include "Hooks.h"
+#include "Hook.h"
 
 #include <stack>
 
-D3DHook* hookObj = 0;
+Hook* hookObj = 0;
 
 struct
 {
@@ -14,7 +14,7 @@ struct
 	HRESULT(_stdcall *DrawPrimitive)(LPDIRECT3DDEVICE9 This, D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount);
 } originalFunctions;
 
-D3DHook::D3DHook(LPDIRECT3DDEVICE9 dev)
+Hook::Hook(LPDIRECT3DDEVICE9 dev)
 {
 	this->dev = dev;
 	dev->lpVtbl->AddRef(dev);
@@ -22,7 +22,7 @@ D3DHook::D3DHook(LPDIRECT3DDEVICE9 dev)
 	hookObj = this;
 }
 
-D3DHook::~D3DHook()
+Hook::~Hook()
 {
 	if (hookedActions & FetchVertexBufferCreate)
 	{
@@ -48,7 +48,7 @@ D3DHook::~D3DHook()
 	hookObj = 0;
 }
 
-bool D3DHook::enable(Actions a)
+bool Hook::enable(Actions a)
 {
 	if ((a & IgnoreVertexBuffer) && propertys.find(IgnoreedVertexBuffer) == propertys.end())
 		return 0;
@@ -59,13 +59,13 @@ bool D3DHook::enable(Actions a)
 	return 1;
 }
 
-void D3DHook::disable(Actions a)
+void Hook::disable(Actions a)
 {
 	actions &= ~a;
 	hook();
 }
 
-bool D3DHook::set(Propertys prop, Variant& v)
+bool Hook::set(Propertys prop, Variant& v)
 {
 	switch (prop)
 	{
@@ -81,7 +81,7 @@ bool D3DHook::set(Propertys prop, Variant& v)
 	return 0;
 }
 
-void D3DHook::hook() {
+void Hook::hook() {
 	if ((actions & FetchVertexBufferCreate) && !(hookedActions & FetchVertexBufferCreate))
 	{
 		originalFunctions.CreateVertexBuffer = dev->lpVtbl->CreateVertexBuffer;
@@ -90,7 +90,7 @@ void D3DHook::hook() {
 		{
 			HRESULT res = originalFunctions.CreateVertexBuffer(This, Length, Usage, FVF, Pool, ppVertexBuffer, pSharedHandle);
 
-			if (!FAILED(res))
+			if (SUCCEEDED(res))
 			{
 				(*ppVertexBuffer)->lpVtbl->AddRef(*ppVertexBuffer);
 				hookObj->values.push((void*)*ppVertexBuffer);

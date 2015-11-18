@@ -6,17 +6,17 @@
  */
 
 DLLEXPORT double MADX9_ErrorSetFlags(double flags) {
-	mamain.err.flags = (uint)flags;
+	mamain->err.flags = (uint)flags;
 
 	return 1;
 }
 
 DLLEXPORT double MADX9_ErrorEmpty() {
-	return mamain.err.empty();
+	return mamain->err.empty();
 }
 
 DLLEXPORT const char* MADX9_ErrorPop() {
-	return mamain.returnStr(mamain.err.pop());
+	return mamain->returnStr(mamain->err.pop());
 }
 
 /**
@@ -25,12 +25,12 @@ DLLEXPORT const char* MADX9_ErrorPop() {
 
 DLLEXPORT double MADX9_HookEnable(double actions)
 {
-	return mamain.hook->enable((D3DHook::Actions) (uint) actions);
+	return mamain->hook->enable((Hook::Actions) (uint) actions);
 }
 
 DLLEXPORT double MADX9_HookDisable(double actions)
 {
-	mamain.hook->disable((D3DHook::Actions) (uint) actions);
+	mamain->hook->disable((Hook::Actions) (uint) actions);
 
 	return 1;
 }
@@ -39,10 +39,10 @@ DLLEXPORT double MADX9_HookStackPopPointer(double ind)
 {
 	double p = 0.0;
 
-	if (!mamain.hook->values.empty())
+	if (!mamain->hook->values.empty())
 	{
-		*((void**) &p) = mamain.hook->values.top().getPointer();
-		mamain.hook->values.pop();
+		*((void**) &p) = mamain->hook->values.top().getPointer();
+		mamain->hook->values.pop();
 	}
 
 	return p;
@@ -50,20 +50,20 @@ DLLEXPORT double MADX9_HookStackPopPointer(double ind)
 
 DLLEXPORT double MADX9_HookStackEmpty(double ind)
 {
-	return mamain.hook->values.empty();
+	return mamain->hook->values.empty();
 }
 
 DLLEXPORT double MADX9_HookStackClear(double ind)
 {
-	while (!mamain.hook->values.empty())
-		mamain.hook->values.pop();
+	while (!mamain->hook->values.empty())
+		mamain->hook->values.pop();
 
 	return 1;
 }
 
 DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
 {
-	return mamain.hook->set((D3DHook::Propertys) (uint) prop, Variant(*(void**) &value));
+	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant(*(void**) &value));
 }
 
 /**
@@ -72,7 +72,7 @@ DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
 
 DLLEXPORT double MADX9_SamplerSetState(double stage, double type, double value)
 {
-	return SUCCEEDED(mamain.d3ddev->SetSamplerState((uint)stage, (D3DSAMPLERSTATETYPE)(uint)type, (uint)value));
+	return SUCCEEDED(mamain->d3ddev->SetSamplerState((uint)stage, (D3DSAMPLERSTATETYPE)(uint)type, (uint)value));
 }
 
 DLLEXPORT double MADX9_RenderSetState(double state, double value)
@@ -100,7 +100,7 @@ DLLEXPORT double MADX9_RenderSetState(double state, double value)
 		break;
 	}
 
-	return SUCCEEDED(mamain.d3ddev->SetRenderState((D3DRENDERSTATETYPE)(uint)state, v));
+	return SUCCEEDED(mamain->d3ddev->SetRenderState((D3DRENDERSTATETYPE)(uint)state, v));
 }
 
 /**
@@ -109,12 +109,21 @@ DLLEXPORT double MADX9_RenderSetState(double state, double value)
 
 DLLEXPORT double MADX9_FlushBegin()
 {
-	mamain.flush->beginFetch();
+	mamain->flush->beginFetch();
 	return 1;
 }
 
 DLLEXPORT double MADX9_FlushEnd()
 {
-	mamain.flush->endFetch();
+	mamain->flush->endFetch();
 	return 1;
+}
+
+/**
+ * Misc :D
+ */
+
+DLLEXPORT double MADX9_FreePointer(double p)
+{
+	return SUCCEEDED((*(LPUNKNOWN*) &p)->Release());
 }

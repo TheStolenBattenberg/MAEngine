@@ -3,7 +3,7 @@
 /**
  * Description:
  *   Flushes GameMaker: Studio's drawing buffer. This might be useful when changing
- *   render states using the MAE_RenderSetState function
+ *   render states using the MAE_RenderSetState function. Requires INIT_FLUSH.
  *
  * Returns:
  *   Nothing.
