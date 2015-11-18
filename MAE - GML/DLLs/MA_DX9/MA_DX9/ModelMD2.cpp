@@ -22,7 +22,7 @@ bool MD2Model::load(std::string model)
 
 	if (!f.is_open())
 	{
-		mamain.err.onError("Failed to open MD2 file.");
+		mamain->err.onError("Failed to open MD2 file.");
 		return 0;
 	}
 
@@ -34,9 +34,9 @@ bool MD2Model::load(std::string model)
 
 	f.read((char*)&h, sizeof(h));
 
-	if (h.magicNumber != MD2_MAGICNUMBER || h.version != MD2_VERSION || h.frameSize == 0)
+	if (h.magicNumber != MD2Type::MagicNumber || h.version != MD2Type::Version || h.frameSize == 0)
 	{
-		mamain.err.onError("The MD2 header is corrupt.");
+		mamain->err.onError("The MD2 header is corrupt.");
 		return 0;
 	}
 
@@ -62,11 +62,11 @@ bool MD2Model::load(std::string model)
 
 		LPDIRECT3DVERTEXBUFFER9 vb;
 
-		HRESULT result = mamain.d3ddev->CreateVertexBuffer(h.numVert * sizeof(Vertex), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
+		HRESULT result = mamain->d3ddev->CreateVertexBuffer(h.numVert * sizeof(Vertex), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 		if (FAILED(result))
 		{
-			mamain.err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
+			mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
 
 			delete[] FrameBuffer;
 
@@ -100,11 +100,11 @@ bool MD2Model::load(std::string model)
 	* Load index data
 	*/
 
-	HRESULT result = mamain.d3ddev->CreateIndexBuffer(h.numTris * sizeof(MD2Type::IndexBuffer), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf, 0);
+	HRESULT result = mamain->d3ddev->CreateIndexBuffer(h.numTris * sizeof(MD2Type::IndexBuffer), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf, 0);
 
 	if (FAILED(result))
 	{
-		mamain.err.onErrorDX9("Couldn't create the DirectX9 Index Buffer!", result);
+		mamain->err.onErrorDX9("Couldn't create the DirectX9 Index Buffer!", result);
 
 		delete[] TriangleBuffer;
 
@@ -132,11 +132,11 @@ bool MD2Model::load(std::string model)
 	f.seekg(h.ofsST, std::ios::beg);
 	f.read((char*)CoordBuffer, h.numST * sizeof(*CoordBuffer));
 
-	result = mamain.d3ddev->CreateVertexBuffer(h.numVert * sizeof(TexCoord), 0, 0, D3DPOOL_DEFAULT, &texBuf, 0);
+	result = mamain->d3ddev->CreateVertexBuffer(h.numVert * sizeof(TexCoord), 0, 0, D3DPOOL_DEFAULT, &texBuf, 0);
 
 	if (FAILED(result))
 	{
-		mamain.err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
+		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
 
 		delete[] CoordBuffer;
 		delete[] TriangleBuffer;

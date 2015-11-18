@@ -7,16 +7,17 @@
 
 #include <iostream>
 
-void Error::onError(std::string s) {
-	if (flags & ErrorShowMessage)
+void Error::onError(std::string s)
+{
+	if (flags & ShowMessage)
 		MessageBox(0, s.c_str(), "MA_DX9", MB_OK | MB_ICONERROR);
 
-	if (flags & ErrorShowDebugMessage) {
+	if (flags & ShowDebugMessage) {
 		std::cout << s << std::endl;
 		std::cout.flush();
 	}
 
-	if (flags & ErrorPushToStack)
+	if (flags & PushToStack)
 		if (errorStack.size() < maxStack)
 			errorStack.push(s);
 }

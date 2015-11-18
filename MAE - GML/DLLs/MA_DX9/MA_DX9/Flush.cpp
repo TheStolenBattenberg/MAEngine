@@ -3,7 +3,7 @@
 
 Flush::~Flush()
 {
-	// mamain.hook->disable(D3DHook::IgnoreVertexBuffer);
+	mamain->hook->disable(Hook::IgnoreVertexBuffer);
 
 	if (vb != 0)
 		vb->Release();
@@ -14,24 +14,24 @@ void Flush::beginFetch()
 	if (vb != 0)
 		vb->Release();
 
-	mamain.hook->enable(D3DHook::FetchVertexBufferCreate);
+	mamain->hook->enable(Hook::FetchVertexBufferCreate);
 }
 
 void Flush::endFetch()
 {
-	mamain.hook->disable(D3DHook::FetchVertexBufferCreate);
+	mamain->hook->disable(Hook::FetchVertexBufferCreate);
 
-	if (mamain.hook->values.empty())
+	if (mamain->hook->values.empty())
 		return;
 
-	if (mamain.hook->values.top().getType() != Variant::TypePointer)
+	if (mamain->hook->values.top().getType() != Variant::TypePointer)
 		return;
 
-	vb = (LPDIRECT3DVERTEXBUFFER9) mamain.hook->values.top().getPointer();
+	vb = (LPDIRECT3DVERTEXBUFFER9) mamain->hook->values.top().getPointer();
 
-	while (!mamain.hook->values.empty())
-		mamain.hook->values.pop();
+	while (!mamain->hook->values.empty())
+		mamain->hook->values.pop();
 
-	mamain.hook->set(D3DHook::IgnoreedVertexBuffer, Variant(vb));
-	mamain.hook->enable(D3DHook::IgnoreVertexBuffer);
+	mamain->hook->set(Hook::IgnoreedVertexBuffer, Variant(vb));
+	mamain->hook->enable(Hook::IgnoreVertexBuffer);
 }

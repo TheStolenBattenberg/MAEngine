@@ -5,14 +5,16 @@
 
 #include "Types.h"
 
-enum {
-	ErrorShowMessage      = 0x01,
-	ErrorShowDebugMessage = 0x02,
-	ErrorPushToStack      = 0x04
-};
-
-class Error {
+class Error
+{
 public:
+	enum
+	{
+		ShowMessage      = 0x01,
+		ShowDebugMessage = 0x02,
+		PushToStack      = 0x04
+	};
+
 	void onError(std::string s);
 	void onErrorDX9(std::string s, long res);
 	bool empty();

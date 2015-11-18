@@ -7,7 +7,7 @@
 #include "Variant.h"
 #include "Types.h"
 
-class D3DHook
+class Hook
 {
 public:
 	enum Actions
@@ -23,8 +23,8 @@ public:
 		IgnoreNextDrawCall   = 0x01
 	};
 
-	D3DHook(LPDIRECT3DDEVICE9 dev);
-	~D3DHook();
+	Hook(LPDIRECT3DDEVICE9 dev);
+	~Hook();
 
 	/**
 	 * Enables a action

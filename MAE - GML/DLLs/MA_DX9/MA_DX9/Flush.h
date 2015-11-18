@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hooks.h"
+#include "Hook.h"
 
 class Flush
 {
