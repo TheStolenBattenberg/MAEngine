@@ -457,7 +457,7 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="232">
+    <constants number="233">
       <constant name="BLEND_BLENDFACTOR">14</constant>
       <constant name="BLEND_BOTHINVSRCALPHA">13</constant>
       <constant name="BLEND_BOTHSRCALPHA">12</constant>
@@ -514,6 +514,7 @@
       <constant name="HOOK_FETCHVBCREATE">$01</constant>
       <constant name="INIT_ALL">$FFFFFFFF</constant>
       <constant name="INIT_AUDIO">$02</constant>
+      <constant name="INIT_FLUSH">$18</constant>
       <constant name="INIT_HOOKS">$08</constant>
       <constant name="INIT_PHYSICS">$04</constant>
       <constant name="INIT_RENDER">$01</constant>

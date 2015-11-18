@@ -14,6 +14,7 @@
 #include <fstream>
 
 #include "Hooks.h"
+#include "Flush.h"
 #include "Error.h"
 #include "Resources.h"
 
@@ -48,8 +49,10 @@ public:
 	std::vector<D3DLIGHT9> Light;
 	std::vector<D3DMATERIAL9> Material;
 	std::vector<MD2Model*> MD2Models;
-	std::vector<D3DHooks*> Hooks;
 	std::vector<Texture*>  Textures;
+
+	D3DHook* hook = 0;
+	Flush* flush = 0;
 
 	DWORD stFVF;
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMD2 = 0;

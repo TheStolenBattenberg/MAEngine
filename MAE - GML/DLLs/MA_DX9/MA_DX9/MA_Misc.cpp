@@ -4,6 +4,7 @@
 /**
  * Errors
  */
+
 DLLEXPORT double MADX9_ErrorSetFlags(double flags) {
 	mamain.err.flags = (uint)flags;
 
@@ -19,125 +20,56 @@ DLLEXPORT const char* MADX9_ErrorPop() {
 }
 
 /**
- * Hooks
+ * Hook
  */
-DLLEXPORT double MADX9_HooksCreate()
+
+DLLEXPORT double MADX9_HookEnable(double actions)
 {
-	for (uint i = 0; i < mamain.Hooks.size(); ++i)
+	return mamain.hook->enable((D3DHook::Actions) (uint) actions);
+}
+
+DLLEXPORT double MADX9_HookDisable(double actions)
+{
+	mamain.hook->disable((D3DHook::Actions) (uint) actions);
+
+	return 1;
+}
+
+DLLEXPORT double MADX9_HookStackPopPointer(double ind)
+{
+	double p = 0.0;
+
+	if (!mamain.hook->values.empty())
 	{
-		if (mamain.Hooks[i] == 0)
-		{
-			mamain.Hooks[i] = new D3DHooks(mamain.d3ddev);
-			return i;
-		}
-	}
-
-	mamain.Hooks.push_back(new D3DHooks(mamain.d3ddev));
-	return mamain.Hooks.size() - 1;
-}
-
-DLLEXPORT double MADX9_HooksDestroy(double ind)
-{
-	if ((uint)ind >= mamain.Hooks.size())
-		return 0;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return 0;
-
-	delete mamain.Hooks[(uint)ind];
-	mamain.Hooks[(uint)ind] = 0;
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_HooksApply(double ind, double actions)
-{
-	if ((uint)ind >= mamain.Hooks.size())
-		return 0;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return 0;
-
-	mamain.Hooks[(uint)ind]->apply((D3DHooksActions)(uint)actions);
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_HooksRemove(double ind, double actions)
-{
-	if ((uint)ind >= mamain.Hooks.size())
-		return 0;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return 0;
-
-	mamain.Hooks[(uint)ind]->remove((D3DHooksActions)(uint)actions);
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_HooksMakeCurrent(double ind)
-{
-	if ((uint)ind >= mamain.Hooks.size())
-		return 0;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return 0;
-
-	mamain.Hooks[(uint)ind]->makeCurrent();
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_HooksStackPopPointer(double ind)
-{
-	if ((uint)ind >= mamain.Hooks.size())
-		return 0;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return 0;
-
-	double p;
-
-	memset(&p, 0, sizeof(p));
-
-	if (!mamain.Hooks[(uint)ind]->values.empty())
-	{
-		*((void**)&p) = mamain.Hooks[(uint)ind]->values.top().getPointer();
-		mamain.Hooks[(uint)ind]->values.pop();
+		*((void**) &p) = mamain.hook->values.top().getPointer();
+		mamain.hook->values.pop();
 	}
 
 	return p;
 }
 
-DLLEXPORT double MADX9_HooksStackEmpty(double ind)
+DLLEXPORT double MADX9_HookStackEmpty(double ind)
 {
-	if ((uint)ind >= mamain.Hooks.size())
-		return -1;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return -1;
-
-	return mamain.Hooks[(uint)ind]->values.empty();
+	return mamain.hook->values.empty();
 }
 
-DLLEXPORT double MADX9_HooksStackClear(double ind)
+DLLEXPORT double MADX9_HookStackClear(double ind)
 {
-	if ((uint)ind >= mamain.Hooks.size())
-		return 0;
-
-	if (mamain.Hooks[(uint)ind] == 0)
-		return 0;
-
-	while (!mamain.Hooks[(uint)ind]->values.empty())
-		mamain.Hooks[(uint)ind]->values.pop();
+	while (!mamain.hook->values.empty())
+		mamain.hook->values.pop();
 
 	return 1;
+}
+
+DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
+{
+	return mamain.hook->set((D3DHook::Propertys) (uint) prop, Variant(*(void**) &value));
 }
 
 /**
  * States
  */
+
 DLLEXPORT double MADX9_SamplerSetState(double stage, double type, double value)
 {
 	return SUCCEEDED(mamain.d3ddev->SetSamplerState((uint)stage, (D3DSAMPLERSTATETYPE)(uint)type, (uint)value));
@@ -169,4 +101,20 @@ DLLEXPORT double MADX9_RenderSetState(double state, double value)
 	}
 
 	return SUCCEEDED(mamain.d3ddev->SetRenderState((D3DRENDERSTATETYPE)(uint)state, v));
+}
+
+/**
+ * Flush
+ */
+
+DLLEXPORT double MADX9_FlushBegin()
+{
+	mamain.flush->beginFetch();
+	return 1;
+}
+
+DLLEXPORT double MADX9_FlushEnd()
+{
+	mamain.flush->endFetch();
+	return 1;
 }

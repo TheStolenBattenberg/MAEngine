@@ -2,44 +2,51 @@
 
 #include <d3d9.h>
 #include <stack>
+#include <map>
 
 #include "Variant.h"
 #include "Types.h"
 
-enum D3DHooksActions
-{
-	D3DHookFetchVertexBufferCreate = 0x01,
-	D3DHookFetchTextureSet         = 0x02
-};
-
-class D3DHooks
+class D3DHook
 {
 public:
-	D3DHooks(LPDIRECT3DDEVICE9 dev);
-	~D3DHooks();
+	enum Actions
+	{
+		FetchVertexBufferCreate = 0x01,
+		FetchTextureSet         = 0x02,
+		IgnoreVertexBuffer      = 0x04
+	};
+
+	enum Propertys
+	{
+		IgnoreedVertexBuffer = 0x00,
+		IgnoreNextDrawCall   = 0x01
+	};
+
+	D3DHook(LPDIRECT3DDEVICE9 dev);
+	~D3DHook();
 
 	/**
 	 * Enables a action
 	 */
 
-	void apply(D3DHooksActions a);
+	bool enable(Actions a);
 
 	/**
 	 * Disables a action
 	 */
 
-	void remove(D3DHooksActions a);
+	void disable(Actions a);
 
 	/**
-	 * Makes this object the current one. Must be called in order to achieve anything.
+	 * Sets a property to change the behaviour
 	 */
 
-	void makeCurrent();
+	bool set(Propertys prop, Variant& v);
 
 	std::stack<Variant> values;
 
-protected:
-	void releaseHooks();
+	std::map<Propertys, Variant> propertys;
 
 private:
 	void hook();
