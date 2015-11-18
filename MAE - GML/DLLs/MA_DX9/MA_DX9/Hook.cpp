@@ -114,12 +114,10 @@ void Hook::hook() {
 
 		dev->lpVtbl->SetTexture = [](LPDIRECT3DDEVICE9 This, DWORD Sampler, LPDIRECT3DBASETEXTURE9 pTexture) -> HRESULT
 		{
-			HRESULT res = originalFunctions.SetTexture(This, Sampler, pTexture);
-
 			pTexture->lpVtbl->AddRef(pTexture);
 			hookObj->values.push((void*) pTexture);
 
-			return res;
+			return originalFunctions.SetTexture(This, Sampler, pTexture);
 		};
 
 		hookedActions |= FetchTextureSet;

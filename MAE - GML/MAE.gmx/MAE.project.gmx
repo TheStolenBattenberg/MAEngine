@@ -185,6 +185,7 @@
           <script>scripts\MAE_SamplerSetState.gml</script>
           <script>scripts\MAE_RenderSetState.gml</script>
           <script>scripts\MAE_Flush.gml</script>
+          <script>scripts\MAE_FreePointer.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">

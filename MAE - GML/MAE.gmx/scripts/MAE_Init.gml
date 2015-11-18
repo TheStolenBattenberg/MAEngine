@@ -78,10 +78,12 @@ if (argument[0] & INIT_RENDER)
     // Misc
     global.MADX9_SamplerSetState = external_define(global.DLL_MADX9, "MADX9_SamplerSetState", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     global.MADX9_RenderSetState  = external_define(global.DLL_MADX9, "MADX9_RenderSetState", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_FreePointer     = external_define(global.DLL_MADX9, "MADX9_FreePointer", dll_cdecl, ty_real, 1, ty_real);
     
     // Internal
-    global.MADX9_MatStackFloat = external_define(global.DLL_MADX9, "MADX9_MatStackFloat", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_MatStackClear = external_define(global.DLL_MADX9, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
+    global.MADX9_MatStackFloat8 = external_define(global.DLL_MADX9, "MADX9_MatStackFloat8", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_MatStackFloat9 = external_define(global.DLL_MADX9, "MADX9_MatStackFloat9", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_MatStackClear  = external_define(global.DLL_MADX9, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
 }
 
 if (argument[0] & INIT_HOOKS)
