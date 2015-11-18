@@ -54,6 +54,9 @@
     <ClCompile Include="ModelMD2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Flush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelMPM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Flush.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

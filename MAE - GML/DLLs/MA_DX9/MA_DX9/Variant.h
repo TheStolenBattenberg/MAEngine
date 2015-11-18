@@ -2,17 +2,17 @@
 
 #include "Types.h"
 
-enum VariantTypes {
-	VariantTypeNull,
-	VariantTypeInteger,
-	VariantTypeUnsignedInteger,
-	VariantTypeFloat,
-	VariantTypeDouble,
-	VariantTypePointer
-};
-
 class Variant {
 public:
+	enum Types {
+		TypeNull,
+		TypeInteger,
+		TypeUnsignedInteger,
+		TypeFloat,
+		TypeDouble,
+		TypePointer
+	};
+
 	Variant();
 	Variant(int val);
 	Variant(uint val);
@@ -20,7 +20,7 @@ public:
 	Variant(double val);
 	Variant(void* val);
 
-	VariantTypes getType();
+	Types getType();
 
 	void setNull();
 
@@ -37,7 +37,7 @@ public:
 	void*  getPointer();
 
 private:
-	VariantTypes type;
+	Types type;
 
 	union {
 		int    Integer;

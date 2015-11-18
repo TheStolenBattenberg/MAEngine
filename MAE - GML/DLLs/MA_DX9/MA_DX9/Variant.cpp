@@ -24,69 +24,69 @@ Variant::Variant(void* val) {
 	set(val);
 }
 
-VariantTypes Variant::getType() {
+Variant::Types Variant::getType() {
 	return type;
 }
 
 void Variant::setNull() {
-	type = VariantTypeNull;
+	type = TypeNull;
 }
 
 void Variant::set(int val) {
-	type = VariantTypeInteger;
+	type = TypeInteger;
 	value.Integer = val;
 }
 
 void Variant::set(uint val) {
-	type = VariantTypeUnsignedInteger;
+	type = TypeUnsignedInteger;
 	value.UnsignedInteger = val;
 }
 
 void Variant::set(float val) {
-	type = VariantTypeFloat;
+	type = TypeFloat;
 	value.Float = val;
 }
 
 void Variant::set(double val) {
-	type = VariantTypeDouble;
+	type = TypeDouble;
 	value.Double = val;
 }
 
 void Variant::set(void* val) {
-	type = VariantTypePointer;
+	type = TypePointer;
 	value.Pointer = val;
 }
 
 int Variant::getInteger() {
-	if (type != VariantTypeInteger)
+	if (type != TypeInteger)
 		return 0;
 
 	return value.Integer;
 }
 
 uint Variant::getUnsignedInteger() {
-	if (type != VariantTypeUnsignedInteger)
+	if (type != TypeUnsignedInteger)
 		return 0;
 
 	return value.UnsignedInteger;
 }
 
 float Variant::getFloat() {
-	if (type != VariantTypeFloat)
+	if (type != TypeFloat)
 		return 0;
 
 	return value.Float;
 }
 
 double Variant::getDouble() {
-	if (type != VariantTypeDouble)
+	if (type != TypeDouble)
 		return 0;
 
 	return value.Double;
 }
 
 void* Variant::getPointer() {
-	if (type != VariantTypePointer)
+	if (type != TypePointer)
 		return 0;
 
 	return value.Pointer;

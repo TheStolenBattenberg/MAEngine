@@ -9,12 +9,15 @@ MADLLMain::MADLLMain()
 
 void MADLLMain::init(LPDIRECT3DDEVICE9 d3ddev)
 {
-	if ((flags & FlagInitialized) == 0)
+	if (!isInitialized())
 	{
 		d3ddev->AddRef();
 		d3ddev->GetDirect3D(&d3d);
 
 		this->d3ddev = d3ddev;
+
+		hook = new D3DHook(d3ddev);
+		flush = new Flush();
 
 		flags |= FlagInitialized;
 	}
@@ -41,12 +44,6 @@ void MADLLMain::free()
 		VertexDeclarationMD2 = 0;
 	}
 
-	for (uint i = 0; i < Hooks.size(); ++i)
-		if (Hooks[i] != 0)
-			delete Hooks[i];
-
-	Hooks.clear();
-
 	for (uint i = 0; i < Textures.size(); ++i)
 		if (Textures[i] != 0)
 			delete Textures[i];
@@ -61,6 +58,9 @@ void MADLLMain::free()
 
 	d3ddev = 0;
 	d3d    = 0;
+
+	delete flush;
+	delete hook;
 }
 
 const char* MADLLMain::returnStr(std::string str)
