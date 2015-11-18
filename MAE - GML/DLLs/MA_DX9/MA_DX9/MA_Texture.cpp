@@ -28,7 +28,7 @@ DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
 {
 	Texture* tex = new Texture();
 
-	memcpy(&tex->tex, &ptr, sizeof(tex->tex));
+	tex->tex = *(LPDIRECT3DTEXTURE9*) &ptr;
 
 	if (tex->tex == 0)
 	{
