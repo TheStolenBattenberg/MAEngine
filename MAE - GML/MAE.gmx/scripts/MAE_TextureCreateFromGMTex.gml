@@ -18,9 +18,9 @@ draw_primitive_begin_texture(pr_pointlist, argument0);
 draw_vertex(0, 0);
 draw_primitive_end();
 
-MAE_HookEnable(HOOK_FETCHTEXSET);
+MAE_HookEnable(HOOK_ACTIONFETCHTEXSET);
 MAE_Flush();
-MAE_HookDisable(HOOK_FETCHTEXSET);
+MAE_HookDisable(HOOK_ACTIONFETCHTEXSET);
 
 if (MAE_HookStackEmpty())
     return -1;

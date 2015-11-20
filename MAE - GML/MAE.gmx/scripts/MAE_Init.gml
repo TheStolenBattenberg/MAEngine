@@ -86,7 +86,7 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_MatStackClear  = external_define(global.DLL_MADX9, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
 }
 
-if (argument[0] & INIT_HOOKS)
+if (argument[0] & INIT_HOOK)
 {
     //Hooks
     global.MADX9_HookEnable             = external_define(global.DLL_MADX9, "MADX9_HookEnable", dll_cdecl, ty_real, 1, ty_real);
@@ -94,6 +94,8 @@ if (argument[0] & INIT_HOOKS)
     global.MADX9_HookStackPopPointer    = external_define(global.DLL_MADX9, "MADX9_HookStackPopPointer", dll_cdecl, ty_real, 0);
     global.MADX9_HookStackClear         = external_define(global.DLL_MADX9, "MADX9_HookStackClear", dll_cdecl, ty_real, 0);
     global.MADX9_HookStackEmpty         = external_define(global.DLL_MADX9, "MADX9_HookStackEmpty", dll_cdecl, ty_real, 0);
+    global.MADX9_HookSetPropertyNull    = external_define(global.DLL_MADX9, "MADX9_HookSetPropertyNull", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_HookSetPropertyInt     = external_define(global.DLL_MADX9, "MADX9_HookSetPropertyInt", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_HookSetPropertyPointer = external_define(global.DLL_MADX9, "MADX9_HookSetPropertyPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
 }
 
