@@ -12,15 +12,25 @@ class Hook
 public:
 	enum Actions
 	{
-		FetchVertexBufferCreate = 0x01,
-		FetchTextureSet         = 0x02,
-		IgnoreVertexBuffer      = 0x04
+		ActionFetchVBCreate        = 0x01,
+		ActionFetchTexSet          = 0x02,
+		ActionFetchTexCreate       = 0x04,
+		ActionRedirectVertexBuffer = 0x08,
+		ActionRedirectTexture      = 0x10,
+		ActionForceTexPool         = 0x20,
+		ActionForceVBPool          = 0x40
 	};
 
 	enum Propertys
 	{
-		IgnoreedVertexBuffer = 0x00,
-		IgnoreNextDrawCall   = 0x01
+		PropertyRedirectVBFrom    = 0x01,
+		PropertyRedirectVBTo      = 0x02,
+		PropertyRedirectVBRemove  = 0x03,
+		PropertyRedirectTexFrom   = 0x04,
+		PropertyRedirectTexTo     = 0x05,
+		PropertyRedirectTexRemove = 0x06,
+		PropertyForceTexPool      = 0x07,
+		PropertyForceVBPool       = 0x08
 	};
 
 	Hook(LPDIRECT3DDEVICE9 dev);
@@ -46,13 +56,33 @@ public:
 
 	std::stack<Variant> values;
 
-	std::map<Propertys, Variant> propertys;
-
 private:
+	enum HookedFunctions
+	{
+		HookedFuncCreateTex    = 0x01,
+		HookedFuncCreateVB     = 0x02,
+		HookedFuncDrawPrim     = 0x04,
+		HookedFuncSetTex       = 0x08,
+		HookedFuncSetStreamSrc = 0x10
+	};
+
 	void hook();
 
 	LPDIRECT3DDEVICE9 dev;
 
-	uint actions       = 0;
-	uint hookedActions = 0;
+	uint hookedFuncs = 0;
+
+	LPDIRECT3DBASETEXTURE9 curTex = 0;
+	LPDIRECT3DVERTEXBUFFER9 curVB = 0;
+
+protected:
+	uint actions = 0;
+
+	uint invalidVB  = 0;
+	uint invalidTex = 0;
+
+	std::map<LPDIRECT3DBASETEXTURE9, LPDIRECT3DBASETEXTURE9>   redirectTex;
+	std::map<LPDIRECT3DVERTEXBUFFER9, LPDIRECT3DVERTEXBUFFER9> redirectVB;
+
+	std::map<Propertys, Variant> propertys;
 };

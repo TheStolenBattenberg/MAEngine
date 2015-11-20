@@ -3,8 +3,6 @@
 
 Flush::~Flush()
 {
-	mamain->hook->disable(Hook::IgnoreVertexBuffer);
-
 	if (vb != 0)
 		vb->Release();
 }
@@ -14,12 +12,12 @@ void Flush::beginFetch()
 	if (vb != 0)
 		vb->Release();
 
-	mamain->hook->enable(Hook::FetchVertexBufferCreate);
+	mamain->hook->enable(Hook::ActionFetchVBCreate);
 }
 
 void Flush::endFetch()
 {
-	mamain->hook->disable(Hook::FetchVertexBufferCreate);
+	mamain->hook->disable(Hook::ActionFetchVBCreate);
 
 	if (mamain->hook->values.empty())
 		return;
@@ -32,6 +30,6 @@ void Flush::endFetch()
 	while (!mamain->hook->values.empty())
 		mamain->hook->values.pop();
 
-	mamain->hook->set(Hook::IgnoreedVertexBuffer, Variant(vb));
-	mamain->hook->enable(Hook::IgnoreVertexBuffer);
+	mamain->hook->set(Hook::PropertyRedirectVBFrom, Variant(vb));
+	mamain->hook->enable(Hook::ActionRedirectVertexBuffer);
 }

@@ -61,6 +61,16 @@ DLLEXPORT double MADX9_HookStackClear(double ind)
 	return 1;
 }
 
+DLLEXPORT double MADX9_HookSetPropertyNull(double prop)
+{
+	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant());
+}
+
+DLLEXPORT double MADX9_HookSetPropertyInt(double prop, double value)
+{
+	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant((int) value));
+}
+
 DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
 {
 	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant(*(void**) &value));

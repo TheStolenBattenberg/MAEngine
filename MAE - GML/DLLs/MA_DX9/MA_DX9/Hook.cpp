@@ -8,10 +8,11 @@ Hook* hookObj = 0;
 
 struct
 {
+	HRESULT(_stdcall *CreateTexture)(LPDIRECT3DDEVICE9 This, UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, LPDIRECT3DTEXTURE9* ppTexture, HANDLE* pSharedHandle);
 	HRESULT(_stdcall *CreateVertexBuffer)(LPDIRECT3DDEVICE9 This, UINT Length, DWORD Usage, DWORD FVF, D3DPOOL Pool, LPDIRECT3DVERTEXBUFFER9* ppVertexBuffer, HANDLE* pSharedHandle);
+	HRESULT(_stdcall *DrawPrimitive)(LPDIRECT3DDEVICE9 This, D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount);
 	HRESULT(_stdcall *SetTexture)(LPDIRECT3DDEVICE9 This, DWORD Sampler, LPDIRECT3DBASETEXTURE9 pTexture);
 	HRESULT(_stdcall *SetStreamSource)(LPDIRECT3DDEVICE9 This, UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT OffsetInBytes, UINT Stride);
-	HRESULT(_stdcall *DrawPrimitive)(LPDIRECT3DDEVICE9 This, D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount);
 } originalFunctions;
 
 Hook::Hook(LPDIRECT3DDEVICE9 dev)
@@ -24,24 +25,22 @@ Hook::Hook(LPDIRECT3DDEVICE9 dev)
 
 Hook::~Hook()
 {
-	if (hookedActions & FetchVertexBufferCreate)
-	{
+	if (hookedFuncs & HookedFuncCreateTex)
+		dev->lpVtbl->CreateTexture = originalFunctions.CreateTexture;
+
+	if (hookedFuncs & HookedFuncCreateVB)
 		dev->lpVtbl->CreateVertexBuffer = originalFunctions.CreateVertexBuffer;
-		hookedActions &= ~FetchVertexBufferCreate;
-	}
 
-	if (hookedActions & FetchTextureSet)
-	{
-		dev->lpVtbl->SetTexture = originalFunctions.SetTexture;
-		hookedActions &= ~FetchTextureSet;
-	}
-
-	if (hookedActions & IgnoreVertexBuffer)
-	{
-		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
+	if (hookedFuncs & HookedFuncDrawPrim)
 		dev->lpVtbl->DrawPrimitive = originalFunctions.DrawPrimitive;
-		hookedActions &= ~IgnoreVertexBuffer;
-	}
+
+	if (hookedFuncs & HookedFuncSetStreamSrc)
+		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
+
+	if (hookedFuncs & HookedFuncSetTex)
+		dev->lpVtbl->SetTexture = originalFunctions.SetTexture;
+
+	hookedFuncs = 0;
 
 	dev->lpVtbl->Release(dev);
 
@@ -50,8 +49,17 @@ Hook::~Hook()
 
 bool Hook::enable(Actions a)
 {
-	if ((a & IgnoreVertexBuffer) && propertys.find(IgnoreedVertexBuffer) == propertys.end())
+	if ((a & ActionForceTexPool) && propertys.find(PropertyForceTexPool) == propertys.end())
 		return 0;
+
+	if ((a & ActionForceVBPool) && propertys.find(PropertyForceVBPool) == propertys.end())
+		return 0;
+
+	if ((a & ActionRedirectTexture))
+		invalidTex = 0;
+
+	if ((a & ActionRedirectVertexBuffer))
+		invalidVB = 0;
 
 	actions |= a;
 	hook();
@@ -69,11 +77,62 @@ bool Hook::set(Propertys prop, Variant& v)
 {
 	switch (prop)
 	{
-	case IgnoreedVertexBuffer:
+	case PropertyRedirectVBFrom:
 		if (v.getType() != Variant::TypePointer)
 			return 0;
 
-		propertys[prop] = v;
+		curVB = (LPDIRECT3DVERTEXBUFFER9) v.getPointer();
+		redirectVB[curVB] = 0;
+
+		return 1;
+	case PropertyRedirectVBTo:
+		if (curVB == 0 || v.getType() != Variant::TypePointer)
+			return 0;
+
+		redirectVB[curVB] = (LPDIRECT3DVERTEXBUFFER9) v.getPointer();
+
+		return 1;
+	case PropertyRedirectVBRemove:
+		if (v.getType() != Variant::TypePointer)
+			return 0;
+
+		redirectVB.erase((LPDIRECT3DVERTEXBUFFER9) v.getPointer());
+
+		return 1;
+	case PropertyRedirectTexFrom:
+		if (v.getType() != Variant::TypePointer)
+			return 0;
+
+		curTex = (LPDIRECT3DBASETEXTURE9) v.getPointer();
+		redirectTex[curTex] = 0;
+
+		return 1;
+	case PropertyRedirectTexTo:
+		if (curTex == 0 || v.getType() != Variant::TypePointer)
+			return 0;
+
+		redirectTex[curTex] = (LPDIRECT3DBASETEXTURE9) v.getPointer();
+
+		return 1;
+	case PropertyRedirectTexRemove:
+		if (v.getType() != Variant::TypePointer)
+			return 0;
+
+		redirectTex.erase((LPDIRECT3DBASETEXTURE9) v.getPointer());
+
+		return 1;
+	case PropertyForceTexPool:
+		if (v.getType() != Variant::TypeInteger)
+			return 0;
+
+		propertys[PropertyForceTexPool] = v;
+
+		return 1;
+	case PropertyForceVBPool:
+		if (v.getType() != Variant::TypeInteger)
+			return 0;
+
+		propertys[PropertyForceVBPool] = v;
 
 		return 1;
 	}
@@ -82,89 +141,187 @@ bool Hook::set(Propertys prop, Variant& v)
 }
 
 void Hook::hook() {
-	if ((actions & FetchVertexBufferCreate) && !(hookedActions & FetchVertexBufferCreate))
+	
+	/**
+	 * CreateVertexBuffer Hook
+	 */
+
+	if ((actions & ActionFetchVBCreate || actions & ActionForceVBPool) && !(hookedFuncs & HookedFuncCreateVB))
 	{
 		originalFunctions.CreateVertexBuffer = dev->lpVtbl->CreateVertexBuffer;
 
 		dev->lpVtbl->CreateVertexBuffer = [](LPDIRECT3DDEVICE9 This, UINT Length, DWORD Usage, DWORD FVF, D3DPOOL Pool, LPDIRECT3DVERTEXBUFFER9* ppVertexBuffer, HANDLE* pSharedHandle) -> HRESULT
 		{
+			if (hookObj->actions & ActionForceVBPool)
+				Pool = (D3DPOOL) hookObj->propertys[PropertyForceVBPool].getInteger();
+
 			HRESULT res = originalFunctions.CreateVertexBuffer(This, Length, Usage, FVF, Pool, ppVertexBuffer, pSharedHandle);
 
-			if (SUCCEEDED(res))
+			if (hookObj->actions & ActionFetchVBCreate)
 			{
-				(*ppVertexBuffer)->lpVtbl->AddRef(*ppVertexBuffer);
-				hookObj->values.push((void*)*ppVertexBuffer);
+				if (SUCCEEDED(res))
+				{
+					(*ppVertexBuffer)->lpVtbl->AddRef(*ppVertexBuffer);
+					hookObj->values.push((void*) *ppVertexBuffer);
+				}
 			}
 
 			return res;
 		};
 
-		hookedActions |= FetchVertexBufferCreate;
+		hookedFuncs |= HookedFuncCreateVB;
 	}
 
-	if (!(actions & FetchVertexBufferCreate) && (hookedActions & FetchVertexBufferCreate))
+	if (!(actions & ActionFetchVBCreate) && !(actions & ActionForceVBPool) && (hookedFuncs & HookedFuncCreateVB))
 	{
 		dev->lpVtbl->CreateVertexBuffer = originalFunctions.CreateVertexBuffer;
-		hookedActions &= ~FetchVertexBufferCreate;
+		hookedFuncs &= ~HookedFuncCreateVB;
 	}
 
-	if ((actions & FetchTextureSet) && !(hookedActions & FetchTextureSet))
+	/**
+	 * SetTexture Hook
+	 */
+
+	if ((actions & ActionFetchTexSet || actions & ActionRedirectTexture) && !(hookedFuncs & HookedFuncSetTex))
 	{
 		originalFunctions.SetTexture = dev->lpVtbl->SetTexture;
 
 		dev->lpVtbl->SetTexture = [](LPDIRECT3DDEVICE9 This, DWORD Sampler, LPDIRECT3DBASETEXTURE9 pTexture) -> HRESULT
 		{
-			pTexture->lpVtbl->AddRef(pTexture);
-			hookObj->values.push((void*) pTexture);
+			if (hookObj->actions & ActionFetchTexSet)
+			{
+				pTexture->lpVtbl->AddRef(pTexture);
+				hookObj->values.push((void*) pTexture);
+			}
+
+			if (hookObj->actions & ActionRedirectTexture)
+			{
+				hookObj->invalidTex &= ~(1 << Sampler);
+
+				if (hookObj->redirectTex.find(pTexture) != hookObj->redirectTex.end())
+				{
+					LPDIRECT3DBASETEXTURE9 tex = hookObj->redirectTex[pTexture];
+
+					if (tex == 0)
+					{
+						hookObj->invalidTex |= 1 << Sampler;
+						return D3D_OK;
+					}
+					else
+						return originalFunctions.SetTexture(This, Sampler, tex);
+				}
+			}
 
 			return originalFunctions.SetTexture(This, Sampler, pTexture);
 		};
 
-		hookedActions |= FetchTextureSet;
+		hookedFuncs |= HookedFuncSetTex;
 	}
 
-	if (!(actions & FetchTextureSet) && (hookedActions & FetchTextureSet))
+	if (!(actions & ActionFetchTexSet) && !(actions & ActionRedirectTexture) && (hookedFuncs & HookedFuncSetTex))
 	{
 		dev->lpVtbl->SetTexture = originalFunctions.SetTexture;
-		hookedActions &= ~FetchTextureSet;
+		hookedFuncs &= ~HookedFuncSetTex;
 	}
 
-	if ((actions & IgnoreVertexBuffer) && !(hookedActions & IgnoreVertexBuffer))
-	{
-		hookObj->propertys[IgnoreNextDrawCall] = Variant((int) 0);
+	/**
+	 * SetStreamSource Hook
+	 */
 
+	if ((actions & ActionRedirectVertexBuffer) && !(hookedFuncs & HookedFuncSetStreamSrc))
+	{
 		originalFunctions.SetStreamSource = dev->lpVtbl->SetStreamSource;
-		originalFunctions.DrawPrimitive   = dev->lpVtbl->DrawPrimitive;
 
 		dev->lpVtbl->SetStreamSource = [](LPDIRECT3DDEVICE9 This, UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT OffsetInBytes, UINT Stride) -> HRESULT
 		{
-			if (hookObj->propertys[IgnoreedVertexBuffer].getPointer() == pStreamData)
+			hookObj->invalidVB &= ~(1 << StreamNumber);
+
+			if (hookObj->redirectVB.find(pStreamData) != hookObj->redirectVB.end())
 			{
-				hookObj->propertys[IgnoreNextDrawCall] = Variant((int) 1);
-				return D3D_OK;
+				LPDIRECT3DVERTEXBUFFER9 vb = hookObj->redirectVB[pStreamData];
+
+				if (vb == 0)
+				{
+					hookObj->invalidVB |= 1 << StreamNumber;
+					return D3D_OK;
+				}
+				else
+					return originalFunctions.SetStreamSource(This, StreamNumber, vb, OffsetInBytes, Stride);
 			}
 
 			return originalFunctions.SetStreamSource(This, StreamNumber, pStreamData, OffsetInBytes, Stride);
 		};
 
+		hookedFuncs |= HookedFuncSetStreamSrc;
+	}
+
+	if (!(actions & ActionRedirectVertexBuffer) && (hookedFuncs & HookedFuncSetStreamSrc))
+	{
+		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
+		hookedFuncs &= ~HookedFuncSetStreamSrc;
+	}
+
+	/**
+	 * DrawPrimitive Hook
+	 */
+
+	if ((actions & ActionRedirectTexture || actions & ActionRedirectVertexBuffer) && !(hookedFuncs & HookedFuncDrawPrim))
+	{
+		originalFunctions.DrawPrimitive = dev->lpVtbl->DrawPrimitive;
+
 		dev->lpVtbl->DrawPrimitive = [](LPDIRECT3DDEVICE9 This, D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount)->HRESULT
 		{
-			if (hookObj->propertys[IgnoreNextDrawCall].getInteger())
-			{
-				hookObj->propertys[IgnoreNextDrawCall] = Variant((int) 0);
+			if (((hookObj->actions & ActionRedirectTexture) && hookObj->invalidTex != 0) ||
+				(hookObj->actions & ActionRedirectVertexBuffer) && hookObj->invalidVB != 0) {
+				
 				return D3D_OK;
 			}
-
+			
 			return originalFunctions.DrawPrimitive(This, PrimitiveType, StartVertex, PrimitiveCount);
 		};
 
-		hookedActions |= IgnoreVertexBuffer;
+		hookedFuncs |= HookedFuncDrawPrim;
 	}
 
-	if (!(actions & IgnoreVertexBuffer) && (hookedActions & IgnoreVertexBuffer))
+	if (!(actions & ActionRedirectTexture) && !(actions & ActionRedirectVertexBuffer) && (hookedFuncs & HookedFuncDrawPrim))
 	{
 		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
-		dev->lpVtbl->DrawPrimitive = originalFunctions.DrawPrimitive;
-		hookedActions &= ~IgnoreVertexBuffer;
+		hookedFuncs &= ~HookedFuncDrawPrim;
+	}
+
+	/**
+	* CreateTexture Hook
+	*/
+
+	if ((actions & ActionFetchTexCreate || actions & ActionForceTexPool) && !(hookedFuncs & HookedFuncCreateTex))
+	{
+		originalFunctions.CreateTexture = dev->lpVtbl->CreateTexture;
+
+		dev->lpVtbl->CreateTexture = [](LPDIRECT3DDEVICE9 This, UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, LPDIRECT3DTEXTURE9* ppTexture, HANDLE* pSharedHandle) -> HRESULT
+		{
+			if (hookObj->actions & ActionForceTexPool)
+				Pool = (D3DPOOL) hookObj->propertys[PropertyForceTexPool].getInteger();
+
+			HRESULT res = originalFunctions.CreateTexture(This, Width, Height, Levels, Usage, Format, Pool, ppTexture, pSharedHandle);
+
+			if (hookObj->actions & ActionFetchTexCreate)
+			{
+				if (SUCCEEDED(res))
+				{
+					(*ppTexture)->lpVtbl->AddRef(*ppTexture);
+					hookObj->values.push((void*) *ppTexture);
+				}
+			}
+
+			return res;
+		};
+
+		hookedFuncs |= HookedFuncCreateTex;
+	}
+
+	if (!(actions & ActionFetchTexCreate) && !(actions & ActionForceTexPool) && (hookedFuncs & HookedFuncCreateTex))
+	{
+		dev->lpVtbl->CreateVertexBuffer = originalFunctions.CreateVertexBuffer;
+		hookedFuncs &= ~HookedFuncCreateTex;
 	}
 }
