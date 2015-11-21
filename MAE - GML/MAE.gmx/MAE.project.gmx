@@ -91,6 +91,65 @@
   <scripts name="scripts">
     <scripts name="MAE">
       <scripts name="Render">
+        <scripts name="Animation">
+          <script>scripts\MAE_AnimationCreate.gml</script>
+          <script>scripts\MAE_AnimationUpdate.gml</script>
+          <script>scripts\MAE_AnimationAdd.gml</script>
+          <script>scripts\MAE_AnimationSet.gml</script>
+          <script>scripts\MAE_AnimationGetFrame.gml</script>
+          <script>scripts\MAE_AnimationGetFrameNext.gml</script>
+          <script>scripts\MAE_AnimationGetTween.gml</script>
+        </scripts>
+        <scripts name="Error">
+          <script>scripts\MAE_ErrorSetFlags.gml</script>
+          <script>scripts\MAE_ErrorEmpty.gml</script>
+          <script>scripts\MAE_ErrorPop.gml</script>
+        </scripts>
+        <scripts name="Hook">
+          <script>scripts\MAE_HookDisable.gml</script>
+          <script>scripts\MAE_HookEnable.gml</script>
+          <script>scripts\MAE_HookSetPropertyInt.gml</script>
+          <script>scripts\MAE_HookSetPropertyNull.gml</script>
+          <script>scripts\MAE_HookSetPropertyPointer.gml</script>
+          <script>scripts\MAE_HookStackClear.gml</script>
+          <script>scripts\MAE_HookStackEmpty.gml</script>
+          <script>scripts\MAE_HookStackPopPointer.gml</script>
+        </scripts>
+        <scripts name="Light">
+          <script>scripts\MAE_LightCreate.gml</script>
+          <script>scripts\MAE_LightCreateSimplePoint.gml</script>
+          <script>scripts\MAE_LightDestroy.gml</script>
+          <script>scripts\MAE_LightSetDiffuse.gml</script>
+          <script>scripts\MAE_LightSetPosition.gml</script>
+          <script>scripts\MAE_LightSetRange.gml</script>
+          <script>scripts\MAE_LightSetAttenuation.gml</script>
+          <script>scripts\MAE_LightEnable.gml</script>
+          <script>scripts\MAE_LightDisable.gml</script>
+        </scripts>
+        <scripts name="Material">
+          <script>scripts\MAE_MaterialCreate.gml</script>
+          <script>scripts\MAE_MaterialDestroy.gml</script>
+          <script>scripts\MAE_MaterialSetDiffuse.gml</script>
+          <script>scripts\MAE_MaterialSetAmbient.gml</script>
+          <script>scripts\MAE_MaterialSetSpecular.gml</script>
+          <script>scripts\MAE_MaterialSetSpecularPower.gml</script>
+          <script>scripts\MAE_MaterialSetEmissive.gml</script>
+          <script>scripts\MAE_MaterialSet.gml</script>
+        </scripts>
+        <scripts name="Misc">
+          <script>scripts\MAE_SamplerSetState.gml</script>
+          <script>scripts\MAE_RenderSetState.gml</script>
+          <script>scripts\MAE_Flush.gml</script>
+          <script>scripts\MAE_FreePointer.gml</script>
+        </scripts>
+        <scripts name="Model">
+          <scripts name="MD2">
+            <script>scripts\MAE_ModelMD2Load.gml</script>
+            <script>scripts\MAE_ModelMD2Frames.gml</script>
+            <script>scripts\MAE_ModelMD2Render.gml</script>
+            <script>scripts\MAE_ModelMD2Destroy.gml</script>
+          </scripts>
+        </scripts>
         <scripts name="Particles">
           <script>scripts\Particle_System_Note.gml</script>
           <scripts name="System">
@@ -124,71 +183,30 @@
           <script>scripts\MAE_ShaderSetConstantMat3.gml</script>
           <script>scripts\MAE_ShaderSetConstantMat4.gml</script>
         </scripts>
-        <scripts name="Light">
-          <script>scripts\MAE_LightCreate.gml</script>
-          <script>scripts\MAE_LightCreateSimplePoint.gml</script>
-          <script>scripts\MAE_LightDestroy.gml</script>
-          <script>scripts\MAE_LightSetDiffuse.gml</script>
-          <script>scripts\MAE_LightSetPosition.gml</script>
-          <script>scripts\MAE_LightSetRange.gml</script>
-          <script>scripts\MAE_LightSetAttenuation.gml</script>
-          <script>scripts\MAE_LightEnable.gml</script>
-          <script>scripts\MAE_LightDisable.gml</script>
-        </scripts>
-        <scripts name="Hooks">
-          <script>scripts\MAE_HookDisable.gml</script>
-          <script>scripts\MAE_HookEnable.gml</script>
-          <script>scripts\MAE_HookSetPropertyInt.gml</script>
-          <script>scripts\MAE_HookSetPropertyNull.gml</script>
-          <script>scripts\MAE_HookSetPropertyPointer.gml</script>
-          <script>scripts\MAE_HookStackClear.gml</script>
-          <script>scripts\MAE_HookStackEmpty.gml</script>
-          <script>scripts\MAE_HookStackPopPointer.gml</script>
-        </scripts>
-        <scripts name="Model">
-          <scripts name="MD2">
-            <script>scripts\MAE_ModelMD2Load.gml</script>
-            <script>scripts\MAE_ModelMD2Frames.gml</script>
-            <script>scripts\MAE_ModelMD2Render.gml</script>
-            <script>scripts\MAE_ModelMD2Destroy.gml</script>
-          </scripts>
-        </scripts>
-        <scripts name="Animation">
-          <script>scripts\MAE_AnimationCreate.gml</script>
-          <script>scripts\MAE_AnimationUpdate.gml</script>
-          <script>scripts\MAE_AnimationAdd.gml</script>
-          <script>scripts\MAE_AnimationSet.gml</script>
-          <script>scripts\MAE_AnimationGetFrame.gml</script>
-          <script>scripts\MAE_AnimationGetFrameNext.gml</script>
-          <script>scripts\MAE_AnimationGetTween.gml</script>
-        </scripts>
-        <scripts name="Error">
-          <script>scripts\MAE_ErrorSetFlags.gml</script>
-          <script>scripts\MAE_ErrorEmpty.gml</script>
-          <script>scripts\MAE_ErrorPop.gml</script>
+        <scripts name="Surfaces">
+          <script>scripts\MAE_SurfaceCreateDepthStencil.gml</script>
+          <script>scripts\MAE_SurfaceCreateFromPointer.gml</script>
+          <script>scripts\MAE_SurfaceCreateFromTexture.gml</script>
+          <script>scripts\MAE_SurfaceCreateRenderTarget.gml</script>
+          <script>scripts\MAE_SurfaceGetPointer.gml</script>
+          <script>scripts\MAE_SurfaceReset.gml</script>
+          <script>scripts\MAE_SurfaceSet.gml</script>
+          <script>scripts\MAE_SurfaceUpdate.gml</script>
+          <script>scripts\MAE_SurfaceDestroy.gml</script>
         </scripts>
         <scripts name="Textures">
+          <script>scripts\MAE_TextureCreate.gml</script>
           <script>scripts\MAE_TextureCreateFromFile.gml</script>
+          <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
           <script>scripts\MAE_TextureCreateFromGMTex.gml</script>
           <script>scripts\MAE_TextureCreateFromPointer.gml</script>
           <script>scripts\MAE_TextureDestroy.gml</script>
+          <script>scripts\MAE_TextureGenerateMipMaps.gml</script>
+          <script>scripts\MAE_TextureGetPointer.gml</script>
+          <script>scripts\MAE_TextureGetSurfaceCount.gml</script>
           <script>scripts\MAE_TextureSet.gml</script>
-        </scripts>
-        <scripts name="Material">
-          <script>scripts\MAE_MaterialCreate.gml</script>
-          <script>scripts\MAE_MaterialDestroy.gml</script>
-          <script>scripts\MAE_MaterialSetDiffuse.gml</script>
-          <script>scripts\MAE_MaterialSetAmbient.gml</script>
-          <script>scripts\MAE_MaterialSetSpecular.gml</script>
-          <script>scripts\MAE_MaterialSetSpecularPower.gml</script>
-          <script>scripts\MAE_MaterialSetEmissive.gml</script>
-          <script>scripts\MAE_MaterialSet.gml</script>
-        </scripts>
-        <scripts name="Misc">
-          <script>scripts\MAE_SamplerSetState.gml</script>
-          <script>scripts\MAE_RenderSetState.gml</script>
-          <script>scripts\MAE_Flush.gml</script>
-          <script>scripts\MAE_FreePointer.gml</script>
+          <script>scripts\MAE_TextureSetMipMapFilter.gml</script>
+          <script>scripts\MAE_TextureUpdate.gml</script>
         </scripts>
         <scripts name="Region">
           <script>scripts\MAE_RegionCreate.gml</script>

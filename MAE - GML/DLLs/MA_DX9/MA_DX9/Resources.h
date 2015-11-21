@@ -42,11 +42,37 @@ public:
 	bool compile(std::string vert, std::string pixel);
 	bool compileasm(std::string vert, std::string pixel);
 
-	LPDIRECT3DVERTEXSHADER9 VShader    = 0;
-	LPDIRECT3DPIXELSHADER9  PShader    = 0;
+	LPDIRECT3DVERTEXSHADER9 VShader = 0;
+	LPDIRECT3DPIXELSHADER9  PShader = 0;
 
 	ShaderConstants VConstants;
 	ShaderConstants PConstants;
+};
+
+class Surface
+{
+public:
+	~Surface();
+
+	bool createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard);
+	bool createFromPointer(LPDIRECT3DSURFACE9 surf);
+	bool createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable);
+
+	bool set(uint level);
+	bool reset(uint level);
+
+	bool update(Surface& surf);
+
+	LPDIRECT3DSURFACE9 surf;
+
+protected:
+	enum
+	{
+		FlagRenderTarget = 0x01,
+		FlagDepthStencil = 0x02
+	};
+
+	uint flags;
 };
 
 class Texture
@@ -61,7 +87,22 @@ public:
 
 	~Texture();
 
+	bool create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool);
+	bool generateMipMaps();
+	bool getSurface(uint level, Surface& surf);
+	uint getSurfaceCount();
 	bool loadFromFile(std::string file, MipMaps mipmaps);
+	bool loadFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
+	bool setMipMapFilter(D3DTEXTUREFILTERTYPE filter);
+	bool update(Texture& src);
 
 	LPDIRECT3DTEXTURE9 tex = 0;
+
+private:
+	enum
+	{
+		FlagMipMaps = 0x01
+	};
+
+	uint flags;
 };

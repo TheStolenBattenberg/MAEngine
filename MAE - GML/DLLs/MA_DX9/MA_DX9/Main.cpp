@@ -13,7 +13,6 @@ MADX9Main::MADX9Main(LPDIRECT3DDEVICE9 d3ddev)
 	this->d3ddev = d3ddev;
 
 	hook = new Hook(d3ddev);
-	flush = new Flush();
 }
 
 MADX9Main::~MADX9Main()
@@ -29,6 +28,12 @@ MADX9Main::~MADX9Main()
 			delete i;
 
 	MD2Models.clear();
+
+	for (auto i: Surfaces)
+		if (i != 0)
+			delete i;
+
+	Surfaces.clear();
 
 	for (auto i: Textures)
 		if (i != 0)
@@ -69,10 +74,8 @@ MADX9Main::~MADX9Main()
 	d3ddev = 0;
 	d3d    = 0;
 
-	delete flush;
 	delete hook;
 
-	flush = 0;
 	hook  = 0;
 }
 

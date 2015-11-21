@@ -42,6 +42,12 @@ Hook::~Hook()
 
 	hookedFuncs = 0;
 
+	for (auto i: redirectTex)
+		i.second->lpVtbl->Release(i.second);
+
+	for (auto i: redirectVB)
+		i.second->lpVtbl->Release(i.second);
+
 	dev->lpVtbl->Release(dev);
 
 	hookObj = 0;
@@ -75,6 +81,9 @@ void Hook::disable(Actions a)
 
 bool Hook::set(Propertys prop, Variant& v)
 {
+	LPDIRECT3DVERTEXBUFFER9 pVB  = 0;
+	LPDIRECT3DBASETEXTURE9  pTex = 0;
+
 	switch (prop)
 	{
 	case PropertyRedirectVBFrom:
@@ -89,13 +98,23 @@ bool Hook::set(Propertys prop, Variant& v)
 		if (curVB == 0 || v.getType() != Variant::TypePointer)
 			return 0;
 
-		redirectVB[curVB] = (LPDIRECT3DVERTEXBUFFER9) v.getPointer();
+		pVB = (LPDIRECT3DVERTEXBUFFER9) v.getPointer();
+
+		pVB->lpVtbl->AddRef(pVB);
+
+		redirectVB[curVB] = pVB;
 
 		return 1;
 	case PropertyRedirectVBRemove:
 		if (v.getType() != Variant::TypePointer)
 			return 0;
 
+		if (redirectVB.find((LPDIRECT3DVERTEXBUFFER9) v.getPointer()) == redirectVB.end())
+			return 0;
+
+		pVB = redirectVB[(LPDIRECT3DVERTEXBUFFER9) v.getPointer()];
+
+		pVB->lpVtbl->Release(pVB);
 		redirectVB.erase((LPDIRECT3DVERTEXBUFFER9) v.getPointer());
 
 		return 1;
@@ -111,13 +130,23 @@ bool Hook::set(Propertys prop, Variant& v)
 		if (curTex == 0 || v.getType() != Variant::TypePointer)
 			return 0;
 
-		redirectTex[curTex] = (LPDIRECT3DBASETEXTURE9) v.getPointer();
+		pTex = (LPDIRECT3DBASETEXTURE9) v.getPointer();
+
+		pTex->lpVtbl->AddRef(pTex);
+
+		redirectTex[curTex] = pTex;
 
 		return 1;
 	case PropertyRedirectTexRemove:
 		if (v.getType() != Variant::TypePointer)
 			return 0;
 
+		if (redirectTex.find((LPDIRECT3DBASETEXTURE9) v.getPointer()) == redirectTex.end())
+			return 0;
+
+		pTex = redirectTex[(LPDIRECT3DBASETEXTURE9) v.getPointer()];
+
+		pTex->lpVtbl->Release(pTex);
 		redirectTex.erase((LPDIRECT3DBASETEXTURE9) v.getPointer());
 
 		return 1;
