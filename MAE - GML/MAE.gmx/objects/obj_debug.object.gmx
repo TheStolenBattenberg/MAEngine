@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Init(INIT_RENDER | INIT_PHYSICS);
+            <string>MAE_Init(INIT_RENDER | INIT_PHYSICS | INIT_HOOKS | INIT_FLUSH);
 </string>
           </argument>
         </arguments>
@@ -101,13 +101,28 @@ if(room == rm_debug)
     draw_text(0, 0, "Press ESCAPE to go back.
         FPS: "+string(fps_real));
     
+    /**
+     * Render Time
+     */
+    draw_set_colour(c_black);
+    draw_rectangle(0, room_height-24, 128, room_height, false);
+    
+    var render_time = 1000 / fps_real;  
+    if(render_time &lt; 8)
+    { draw_set_colour(c_lime); }else
+    if(render_time &gt; 8)
+    { draw_set_colour(c_yellow); } else
+    if(render_time &gt; 16)
+    { draw_set_colour(c_red); }
+    draw_text(2, room_height-20, "MS: "+string(render_time));
+      
+    
     if(keyboard_check_released(vk_escape))
     {
         d3d_end();
         room_goto(rm_debug);
     }
 }
-
 </string>
           </argument>
         </arguments>
