@@ -1,6 +1,11 @@
 #include "Main.h"
 #include "Resources.h"
 
+const uint MaxRenderTargets = 16;
+
+std::stack<LPDIRECT3DSURFACE9> DepthBuffers;
+std::stack<LPDIRECT3DSURFACE9> RenderTargets[MaxRenderTargets];
+
 ShaderConstants::~ShaderConstants() {
 	if (constants != 0)
 		constants->Release();
@@ -85,62 +90,76 @@ bool Shader::compileasm(std::string vert, std::string pixel) {
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER err;
 
-	//Assemble Vertex Shader
+	HRESULT result;
+
+	/**
+	 * Assemble Vertex Shader
+	 */
+
+	result = D3DXAssembleShader(vert.c_str(), vert.length(), NULL, NULL, 0, &code, &err);
+		
+	if (FAILED(result))
 	{
-		HRESULT result = D3DXAssembleShader(vert.c_str(), vert.length(), NULL, NULL, 0, &code, &err);
-		if (FAILED(result)) {
-			mamain->err.onError((char*)err->GetBufferPointer());
-			err->Release();
+		mamain->err.onError((char*)err->GetBufferPointer());
+		err->Release();
 
-			return 0;
-		}
-
-		result = mamain->d3ddev->CreateVertexShader((DWORD*)code->GetBufferPointer(), &VShader);
-		code->Release();
-
-		if (FAILED(result)) {
-			mamain->err.onErrorDX9("Failed to create vertex shader", result);
-
-			return 0;
-		}
+		return 0;
 	}
 
+	result = mamain->d3ddev->CreateVertexShader((DWORD*) code->GetBufferPointer(), &VShader);
+	code->Release();
 
-	//Assemble Pixel Shader
+	if (FAILED(result))
 	{
-		HRESULT result = D3DXAssembleShader(pixel.c_str(), pixel.length(), NULL, NULL, 0, &code, &err);
-		if (FAILED(result)) {
-			mamain->err.onError((char*)err->GetBufferPointer());
-			err->Release();
+		mamain->err.onErrorDX9("Failed to create vertex shader", result);
 
-			VShader->Release();
-			VShader = 0;
-
-			return 0;
-		}
-
-		result = mamain->d3ddev->CreatePixelShader((DWORD*)code->GetBufferPointer(), &PShader);
-		code->Release();
-
-		if (FAILED(result)) {
-			mamain->err.onErrorDX9("Failed to create pixel shader", result);
-
-			VShader->Release();
-			VShader = 0;
-
-			return 0;
-		}
+		return 0;
 	}
+
+	/**
+	* Assemble Pixel Shader
+	*/
+
+	result = D3DXAssembleShader(pixel.c_str(), pixel.length(), NULL, NULL, 0, &code, &err);
+
+	if (FAILED(result))
+	{
+		mamain->err.onError((char*)err->GetBufferPointer());
+		err->Release();
+
+		VShader->Release();
+		VShader = 0;
+
+		return 0;
+	}
+
+	result = mamain->d3ddev->CreatePixelShader((DWORD*)code->GetBufferPointer(), &PShader);
+	code->Release();
+
+	if (FAILED(result))
+	{
+		mamain->err.onErrorDX9("Failed to create pixel shader", result);
+
+		VShader->Release();
+		VShader = 0;
+
+		return 0;
+	}
+
 	return 1;
 }
 
-bool Shader::compile(std::string vert, std::string pixel) {
+bool Shader::compile(std::string vert, std::string pixel)
+{
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER err;
 
-	HRESULT result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(mamain->d3ddev), 0, &code, &err, &VConstants.constants);
+	HRESULT result;
 	
-	if (FAILED(result)) {
+	result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(mamain->d3ddev), 0, &code, &err, &VConstants.constants);
+	
+	if (FAILED(result))
+	{
 		mamain->err.onError((char*) err->GetBufferPointer());
 		
 		err->Release();
@@ -152,14 +171,16 @@ bool Shader::compile(std::string vert, std::string pixel) {
 
 	code->Release();
 
-	if (FAILED(result)) {
+	if (FAILED(result))
+	{
 		mamain->err.onErrorDX9("Failed to create vertex shader", result);
 		return 0;
 	}
 
 	result = D3DXCompileShader(pixel.c_str(), pixel.length(), NULL, NULL, "main", D3DXGetPixelShaderProfile(mamain->d3ddev), 0, &code, &err, &PConstants.constants);
 
-	if (FAILED(result)) {
+	if (FAILED(result))
+	{
 		mamain->err.onError((char*) err->GetBufferPointer());
 
 		err->Release();
@@ -174,7 +195,8 @@ bool Shader::compile(std::string vert, std::string pixel) {
 
 	code->Release();
 
-	if (FAILED(result)) {
+	if (FAILED(result))
+	{
 		mamain->err.onErrorDX9("Failed to create pixel shader", result);
 
 		VShader->Release();
@@ -186,16 +208,292 @@ bool Shader::compile(std::string vert, std::string pixel) {
 	return 1;
 }
 
-Texture::~Texture() {
+Texture::~Texture()
+{
 	if (tex != 0)
 		tex->Release();
 }
 
-bool Texture::loadFromFile(std::string file, MipMaps mipmaps) {
+bool Texture::create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool)
+{
+	if (tex != 0)
+	{
+		tex->Release();
+		tex = 0;
+	}
+
+	flags = 0;
+
+	HRESULT res = mamain->d3ddev->CreateTexture(width, height, levels, usage, format, pool, &tex, 0);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("CreateTexture failed", res);
+		return 0;
+	}
+
+	if (usage & D3DUSAGE_AUTOGENMIPMAP)
+		flags |= FlagMipMaps;
+
+	return 1;
+}
+
+bool Texture::generateMipMaps()
+{
+	if ((flags & FlagMipMaps) == 0)
+		return 0;
+
+	tex->GenerateMipSubLevels();
+
+	return 1;
+}
+
+bool Texture::getSurface(uint level, Surface& surf)
+{
+	LPDIRECT3DSURFACE9 s;
+
+	HRESULT res = tex->GetSurfaceLevel(level, &s);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("GetSurfaceLevel failed", res);
+		return 0;
+	}
+
+	bool ret = surf.createFromPointer(s);
+
+	s->Release();
+
+	return ret;
+}
+
+uint Texture::getSurfaceCount()
+{
+	return tex->GetLevelCount();
+}
+
+bool Texture::loadFromFile(std::string file, MipMaps mipmaps)
+{
+	if (tex != 0)
+	{
+		tex->Release();
+		tex = 0;
+	}
+
+	flags = 0;
+
 	HRESULT res = D3DXCreateTextureFromFileEx(mamain->d3ddev, file.c_str(), 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex);
 
-	if (FAILED(res)) {
+	if (FAILED(res))
+	{
 		mamain->err.onErrorDX9("Couldn't load texture", res);
+		return 0;
+	}
+
+	return 1;
+}
+
+bool Texture::loadFromFileInMemory(const void* data, uint length, MipMaps mipmaps)
+{
+	if (tex != 0)
+	{
+		tex->Release();
+		tex = 0;
+	}
+
+	flags = 0;
+
+	HRESULT res = D3DXCreateTextureFromFileInMemoryEx(mamain->d3ddev, data, length, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("Couldn't load texture", res);
+		return 0;
+	}
+
+	return 1;
+}
+
+bool Texture::setMipMapFilter(D3DTEXTUREFILTERTYPE filter)
+{
+	if ((flags & FlagMipMaps) == 0)
+		return 0;
+
+	tex->SetAutoGenFilterType(filter);
+
+	return 1;
+}
+
+bool Texture::update(Texture& src)
+{
+	return SUCCEEDED(mamain->d3ddev->UpdateTexture(src.tex, tex));
+}
+
+Surface::~Surface()
+{
+	if (surf != 0)
+		surf->Release();
+}
+
+bool Surface::createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard)
+{
+	if (surf != 0)
+	{
+		surf->Release();
+		surf = 0;
+	}
+
+	flags = 0;
+
+	HRESULT res = mamain->d3ddev->CreateDepthStencilSurface(width, height, format, ms, msquality, discard, &surf, 0);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("CreateDepthStencilSurface", res);
+		return 0;
+	}
+
+	flags |= FlagDepthStencil;
+
+	return 1;
+}
+
+bool Surface::createFromPointer(LPDIRECT3DSURFACE9 surf)
+{
+	if (this->surf != 0)
+	{
+		this->surf->Release();
+		this->surf = 0;
+	}
+
+	flags = 0;
+
+	if (surf == 0)
+		return 0;
+
+	D3DSURFACE_DESC desc;
+
+	HRESULT res = surf->GetDesc(&desc);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("GetDesc failed", res);
+		return 0;
+	}
+
+	flags = (desc.Usage & D3DUSAGE_RENDERTARGET ? FlagRenderTarget : 0) |
+	        (desc.Usage & D3DUSAGE_DEPTHSTENCIL ? FlagDepthStencil : 0);
+
+	this->surf = surf;
+	surf->AddRef();
+
+	return 1;
+}
+
+bool Surface::createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable)
+{
+	if (surf != 0)
+	{
+		surf->Release();
+		surf = 0;
+	}
+
+	flags = 0;
+
+	HRESULT res = mamain->d3ddev->CreateRenderTarget(width, height, format, ms, msquality, lockable, &surf, 0);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("CreateRenderTarget", res);
+		return 0;
+	}
+
+	flags |= FlagRenderTarget;
+
+	return 1;
+}
+
+bool Surface::set(uint level)
+{
+	if (flags & FlagDepthStencil)
+	{
+		if (level > 0)
+			return 0;
+
+		LPDIRECT3DSURFACE9 surf;
+
+		HRESULT res = mamain->d3ddev->GetDepthStencilSurface(&surf);
+
+		if (FAILED(res))
+			return 0;
+
+		DepthBuffers.push(surf);
+
+		return SUCCEEDED(mamain->d3ddev->SetDepthStencilSurface(surf));
+	}
+	else if (flags & FlagRenderTarget)
+	{
+		if (level > MaxRenderTargets)
+			return 0;
+
+		LPDIRECT3DSURFACE9 surf;
+
+		HRESULT res = mamain->d3ddev->GetRenderTarget(level, &surf);
+
+		if (FAILED(res))
+			return 0;
+
+		RenderTargets[level].push(surf);
+
+		return SUCCEEDED(mamain->d3ddev->SetRenderTarget(level, surf));
+	}
+
+	return  0;
+}
+
+bool Surface::reset(uint level)
+{
+	if (flags & FlagDepthStencil)
+	{
+		if (level > 0)
+			return 0;
+
+		LPDIRECT3DSURFACE9 surf = DepthBuffers.top();
+
+		DepthBuffers.pop();
+
+		return SUCCEEDED(mamain->d3ddev->SetDepthStencilSurface(surf));
+	}
+	else if (flags & FlagRenderTarget)
+	{
+		if (level > MaxRenderTargets)
+			return 0;
+
+		LPDIRECT3DSURFACE9 surf = RenderTargets[level].top();
+
+		RenderTargets[level].pop();
+
+		return SUCCEEDED(mamain->d3ddev->SetRenderTarget(level, surf));
+	}
+
+	return 0;
+}
+
+bool Surface::update(Surface& surf)
+{
+	if (flags & FlagRenderTarget && surf.flags & FlagRenderTarget)
+		return 0;
+
+	HRESULT res;
+
+	if (flags & FlagRenderTarget)
+		res = mamain->d3ddev->UpdateSurface(surf.surf, 0, this->surf, 0);
+	else
+		res = mamain->d3ddev->GetRenderTargetData(surf.surf, this->surf);
+
+	if (FAILED(res))
+	{
+		mamain->err.onErrorDX9("Failed to update surface", res);
 		return 0;
 	}
 

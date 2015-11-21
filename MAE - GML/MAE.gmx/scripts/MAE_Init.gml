@@ -70,10 +70,17 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_ErrorPop      = external_define(global.DLL_MADX9, "MADX9_ErrorPop", dll_cdecl, ty_string, 0);
     
     // Textures
-    global.MADX9_TextureCreateFromFile    = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromFile", dll_cdecl, ty_real, 2, ty_string, ty_real);
-    global.MADX9_TextureCreateFromPointer = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_TextureDestroy           = external_define(global.DLL_MADX9, "MADX9_TextureDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_TextureSet               = external_define(global.DLL_MADX9, "MADX9_TextureSet", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureCreateFromFile         = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromFile", dll_cdecl, ty_real, 2, ty_string, ty_real);
+    global.MADX9_TextureCreateFromPointer      = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureDestroy                = external_define(global.DLL_MADX9, "MADX9_TextureDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureSet                    = external_define(global.DLL_MADX9, "MADX9_TextureSet", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureCreateFromFileInMemory = external_define(global.DLL_MADX9, "MADX9_TextureCreateFromFileInMemory", dll_cdecl, ty_real, 3, ty_string, ty_real, ty_real);
+    global.MADX9_TextureCreate                 = external_define(global.DLL_MADX9, "MADX9_TextureCreate", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_TextureGenerateMipMaps        = external_define(global.DLL_MADX9, "MADX9_TextureGenerateMipMaps", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureGetPointer             = external_define(global.DLL_MADX9, "MADX9_TextureGetPointer", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureGetSurfaceCount        = external_define(global.DLL_MADX9, "MADX9_TextureGetSurfaceCount", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_TextureSetMipMapFilter        = external_define(global.DLL_MADX9, "MADX9_TextureSetMipMapFilter", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_TextureUpdate                 = external_define(global.DLL_MADX9, "MADX9_TextureUpdate", dll_cdecl, ty_real, 2, ty_real, ty_real);
     
     // Misc
     global.MADX9_SamplerSetState = external_define(global.DLL_MADX9, "MADX9_SamplerSetState", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
@@ -84,11 +91,8 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_MatStackFloat8 = external_define(global.DLL_MADX9, "MADX9_MatStackFloat8", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MatStackFloat9 = external_define(global.DLL_MADX9, "MADX9_MatStackFloat9", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MatStackClear  = external_define(global.DLL_MADX9, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
-}
-
-if (argument[0] & INIT_HOOK)
-{
-    //Hooks
+    
+    // Hook
     global.MADX9_HookEnable             = external_define(global.DLL_MADX9, "MADX9_HookEnable", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_HookDisable            = external_define(global.DLL_MADX9, "MADX9_HookDisable", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_HookStackPopPointer    = external_define(global.DLL_MADX9, "MADX9_HookStackPopPointer", dll_cdecl, ty_real, 0);
@@ -97,27 +101,64 @@ if (argument[0] & INIT_HOOK)
     global.MADX9_HookSetPropertyNull    = external_define(global.DLL_MADX9, "MADX9_HookSetPropertyNull", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_HookSetPropertyInt     = external_define(global.DLL_MADX9, "MADX9_HookSetPropertyInt", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_HookSetPropertyPointer = external_define(global.DLL_MADX9, "MADX9_HookSetPropertyPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    
+    // Surfaces
+    global.MADX9_SurfaceCreateDepthStencil = external_define(global.DLL_MADX9, "MADX9_SurfaceCreateDepthStencil", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_SurfaceCreateFromPointer  = external_define(global.DLL_MADX9, "MADX9_SurfaceCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_SurfaceCreateFromTexture  = external_define(global.DLL_MADX9, "MADX9_SurfaceCreateFromTexture", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_SurfaceCreateRenderTarget = external_define(global.DLL_MADX9, "MADX9_SurfaceCreateRenderTarget", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_SurfaceDestroy            = external_define(global.DLL_MADX9, "MADX9_SurfaceDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_SurfaceSet                = external_define(global.DLL_MADX9, "MADX9_SurfaceSet", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_SurfaceReset              = external_define(global.DLL_MADX9, "MADX9_SurfaceReset", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_SurfaceUpdate             = external_define(global.DLL_MADX9, "MADX9_SurfaceUpdate", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_SurfaceGetPointer         = external_define(global.DLL_MADX9, "MADX9_SurfaceGetPointer", dll_cdecl, ty_real, 1, ty_real);
 }
 
 if (argument[0] & INIT_FLUSH)
 {
-    global.MADX9_FlushBegin = external_define(global.DLL_MADX9, "MADX9_FlushBegin", dll_cdecl, ty_real, 0);
-    global.MADX9_FlushEnd   = external_define(global.DLL_MADX9, "MADX9_FlushEnd", dll_cdecl, ty_real, 0);
-    
-    external_call(global.MADX9_FlushBegin);
+    /**
+     * Create format for flush buffer.
+     */
     
     vertex_format_begin();
     vertex_format_add_colour();
     var f = vertex_format_end();
+    
+    /**
+     * Write one value to the buffer
+     */
     
     var vb = vertex_create_buffer_ext(4);
     vertex_begin(vb, f);
     vertex_colour(vb, 0, 0);
     vertex_end(vb);
     
-    vertex_submit(vb, pr_pointlist, -1);
+    vertex_freeze(vb);
     
-    external_call(global.MADX9_FlushEnd);
+    /**
+     * Force Game Maker to create a new buffer by submiting it, force it to place it in system memory and get the pointer
+     */
+    
+    MAE_HookSetPropertyInt(HOOK_PROPERTYFORCEVBPOOL, POOL_SYSTEMMEM);
+    MAE_HookEnable(HOOK_ACTIONFORCEVBPOOL);
+    
+    MAE_HookEnable(HOOK_ACTIONFETCHVBCREATE);
+    vertex_submit(vb, pr_pointlist, -1);
+    MAE_HookDisable(HOOK_ACTIONFETCHVBCREATE);
+    
+    MAE_HookDisable(HOOK_ACTIONFORCEVBPOOL);
+    
+    var p = MAE_HookStackPopPointer();
+    
+    /**
+     * Disable drawing when vertex buffer gets set
+     */
+    
+    MAE_HookSetPropertyPointer(HOOK_PROPERTYREDIRECTVBFROM, 0);
+    MAE_HookSetPropertyPointer(HOOK_PROPERTYREDIRECTVBFROM, p);
+    MAE_HookEnable(HOOK_ACTIONREDIRECTVERTEXBUFFER);
+    
+    MAE_FreePointer(p);
     
     global.MAE_FlushBuffer = vb;
 }

@@ -114,26 +114,13 @@ DLLEXPORT double MADX9_RenderSetState(double state, double value)
 }
 
 /**
- * Flush
- */
-
-DLLEXPORT double MADX9_FlushBegin()
-{
-	mamain->flush->beginFetch();
-	return 1;
-}
-
-DLLEXPORT double MADX9_FlushEnd()
-{
-	mamain->flush->endFetch();
-	return 1;
-}
-
-/**
  * Misc :D
  */
 
 DLLEXPORT double MADX9_FreePointer(double p)
 {
+	if (*(LPUNKNOWN*) &p == 0)
+		return 0;
+
 	return SUCCEEDED((*(LPUNKNOWN*) &p)->Release());
 }

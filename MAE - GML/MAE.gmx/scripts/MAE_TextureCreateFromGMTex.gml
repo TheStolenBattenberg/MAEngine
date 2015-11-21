@@ -3,7 +3,7 @@
 /**
  * Description:
  *   Creates a texture from a game maker texture pointer.
- *   Requires INIT_HOOKS and INIT_FLUSH
+ *   Requires INIT_FLUSH
  *
  * Arguments:
  *   [1] - Game Maker texture
