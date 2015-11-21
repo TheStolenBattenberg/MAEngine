@@ -16,8 +16,7 @@ MA_Bullet/Debug/
 *.opensdf
 
 # =============================
-# Keep Bullet libs
+# Ignore Bullet library
 # =============================
 
-!bullet/lib/Debug/*.lib
-!bullet/lib/Release/*.lib
+bullet
