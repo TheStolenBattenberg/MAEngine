@@ -5,6 +5,7 @@ const uint MaxRenderTargets = 16;
 
 std::stack<LPDIRECT3DSURFACE9> DepthBuffers;
 std::stack<LPDIRECT3DSURFACE9> RenderTargets[MaxRenderTargets];
+std::stack<D3DVIEWPORT9>       Viewports[MaxRenderTargets];
 
 ShaderConstants::~ShaderConstants() {
 	if (constants != 0)
@@ -343,8 +344,6 @@ bool Surface::createDepthStencil(uint width, uint height, D3DFORMAT format, D3DM
 		surf = 0;
 	}
 
-	flags = 0;
-
 	HRESULT res = mamain->d3ddev->CreateDepthStencilSurface(width, height, format, ms, msquality, discard, &surf, 0);
 
 	if (FAILED(res))
@@ -353,7 +352,10 @@ bool Surface::createDepthStencil(uint width, uint height, D3DFORMAT format, D3DM
 		return 0;
 	}
 
-	flags |= FlagDepthStencil;
+	surfUsage  = D3DUSAGE_DEPTHSTENCIL;
+	surfPool   = D3DPOOL_DEFAULT;
+	surfWidth  = width;
+	surfHeight = height;
 
 	return 1;
 }
@@ -365,8 +367,6 @@ bool Surface::createFromPointer(LPDIRECT3DSURFACE9 surf)
 		this->surf->Release();
 		this->surf = 0;
 	}
-
-	flags = 0;
 
 	if (surf == 0)
 		return 0;
@@ -381,8 +381,10 @@ bool Surface::createFromPointer(LPDIRECT3DSURFACE9 surf)
 		return 0;
 	}
 
-	flags = (desc.Usage & D3DUSAGE_RENDERTARGET ? FlagRenderTarget : 0) |
-	        (desc.Usage & D3DUSAGE_DEPTHSTENCIL ? FlagDepthStencil : 0);
+	surfUsage  = desc.Usage;
+	surfPool   = desc.Pool;
+	surfWidth  = desc.Width;
+	surfHeight = desc.Height;
 
 	this->surf = surf;
 	surf->AddRef();
@@ -398,8 +400,6 @@ bool Surface::createRenderTarget(uint width, uint height, D3DFORMAT format, D3DM
 		surf = 0;
 	}
 
-	flags = 0;
-
 	HRESULT res = mamain->d3ddev->CreateRenderTarget(width, height, format, ms, msquality, lockable, &surf, 0);
 
 	if (FAILED(res))
@@ -408,85 +408,113 @@ bool Surface::createRenderTarget(uint width, uint height, D3DFORMAT format, D3DM
 		return 0;
 	}
 
-	flags |= FlagRenderTarget;
+	surfUsage  = D3DUSAGE_RENDERTARGET;
+	surfPool   = D3DPOOL_DEFAULT;
+	surfWidth  = width;
+	surfHeight = height;
 
 	return 1;
 }
 
-bool Surface::set(uint level)
+bool Surface::setRenderTarget(uint level)
 {
-	if (flags & FlagDepthStencil)
+	if ((surfUsage & D3DUSAGE_RENDERTARGET) == 0)
+		return 0;
+
+	if (level > MaxRenderTargets)
+		return 0;
+
+	D3DVIEWPORT9 vp;
+
+	mamain->d3ddev->GetViewport(&vp);
+
+	Viewports[level].push(vp);
+
+	LPDIRECT3DSURFACE9 surf;
+
+	if (FAILED(mamain->d3ddev->GetRenderTarget(level, &surf)))
 	{
-		if (level > 0)
-			return 0;
-
-		LPDIRECT3DSURFACE9 surf;
-
-		HRESULT res = mamain->d3ddev->GetDepthStencilSurface(&surf);
-
-		if (FAILED(res))
-			return 0;
-
-		DepthBuffers.push(surf);
-
-		return SUCCEEDED(mamain->d3ddev->SetDepthStencilSurface(surf));
-	}
-	else if (flags & FlagRenderTarget)
-	{
-		if (level > MaxRenderTargets)
-			return 0;
-
-		LPDIRECT3DSURFACE9 surf;
-
-		HRESULT res = mamain->d3ddev->GetRenderTarget(level, &surf);
-
-		if (FAILED(res))
-			return 0;
-
-		RenderTargets[level].push(surf);
-
-		return SUCCEEDED(mamain->d3ddev->SetRenderTarget(level, surf));
+		Viewports[level].pop();
+		return 0;
 	}
 
-	return  0;
+	RenderTargets[level].push(surf);
+
+	vp.X      = 0;
+	vp.Y      = 0;
+	vp.Width  = surfWidth;
+	vp.Height = surfHeight;
+	vp.MinZ   = 0;
+	vp.MaxZ   = 1;
+
+	bool res = SUCCEEDED(mamain->d3ddev->SetRenderTarget(level, this->surf));
+
+	mamain->d3ddev->SetViewport(&vp);
+
+	return res;
 }
 
-bool Surface::reset(uint level)
+bool Surface::resetRenderTarget(uint level)
 {
-	if (flags & FlagDepthStencil)
-	{
-		if (level > 0)
-			return 0;
+	if (level > MaxRenderTargets)
+		return 0;
 
-		LPDIRECT3DSURFACE9 surf = DepthBuffers.top();
+	if (RenderTargets[level].empty())
+		return 0;
 
-		DepthBuffers.pop();
+	LPDIRECT3DSURFACE9 surf = RenderTargets[level].top();
 
-		return SUCCEEDED(mamain->d3ddev->SetDepthStencilSurface(surf));
-	}
-	else if (flags & FlagRenderTarget)
-	{
-		if (level > MaxRenderTargets)
-			return 0;
+	RenderTargets[level].pop();
 
-		LPDIRECT3DSURFACE9 surf = RenderTargets[level].top();
+	surf->Release();
 
-		RenderTargets[level].pop();
+	bool res = SUCCEEDED(mamain->d3ddev->SetRenderTarget(level, surf));
 
-		return SUCCEEDED(mamain->d3ddev->SetRenderTarget(level, surf));
-	}
+	mamain->d3ddev->SetViewport(&Viewports[level].top());
+	Viewports[level].pop();
 
-	return 0;
+	return res;
+}
+
+bool Surface::setDepthBuffer()
+{
+	if ((surfUsage & D3DUSAGE_DEPTHSTENCIL) == 0)
+		return 0;
+
+	LPDIRECT3DSURFACE9 surf;
+
+	HRESULT res = mamain->d3ddev->GetDepthStencilSurface(&surf);
+
+	if (FAILED(res))
+		return 0;
+
+	DepthBuffers.push(surf);
+
+	return SUCCEEDED(mamain->d3ddev->SetDepthStencilSurface(this->surf));
+}
+
+bool Surface::resetDepthBuffer()
+{
+	if (DepthBuffers.empty())
+		return 0;
+
+	LPDIRECT3DSURFACE9 surf = DepthBuffers.top();
+
+	DepthBuffers.pop();
+
+	surf->Release();
+
+	return SUCCEEDED(mamain->d3ddev->SetDepthStencilSurface(surf));
 }
 
 bool Surface::update(Surface& surf)
 {
-	if (flags & FlagRenderTarget && surf.flags & FlagRenderTarget)
+	if (surfPool == D3DPOOL_DEFAULT && surf.surfPool == D3DPOOL_DEFAULT)
 		return 0;
 
 	HRESULT res;
 
-	if (flags & FlagRenderTarget)
+	if (surfPool == D3DPOOL_DEFAULT)
 		res = mamain->d3ddev->UpdateSurface(surf.surf, 0, this->surf, 0);
 	else
 		res = mamain->d3ddev->GetRenderTargetData(surf.surf, this->surf);

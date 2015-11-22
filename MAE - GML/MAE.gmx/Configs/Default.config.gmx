@@ -640,7 +640,7 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="350">
+    <constants number="353">
       <constant name="BLEND_BLENDFACTOR">14</constant>
       <constant name="BLEND_BOTHINVSRCALPHA">13</constant>
       <constant name="BLEND_BOTHSRCALPHA">12</constant>
@@ -663,6 +663,9 @@
       <constant name="BLENDOP_MIN">4</constant>
       <constant name="BLENDOP_REVSUBTRACT">3</constant>
       <constant name="BLENDOP_SUBTRACT">2</constant>
+      <constant name="CLEAR_STENCIL">4</constant>
+      <constant name="CLEAR_TARGET">1</constant>
+      <constant name="CLEAR_ZBUFFER">2</constant>
       <constant name="CMP_ALWAYS">8</constant>
       <constant name="CMP_EQUAL">3</constant>
       <constant name="CMP_GREATER">5</constant>
