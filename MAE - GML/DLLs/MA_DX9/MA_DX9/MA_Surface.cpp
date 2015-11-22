@@ -67,20 +67,30 @@ DLLEXPORT double MADX9_SurfaceDestroy(double ind)
 	return 1;
 }
 
-DLLEXPORT double MADX9_SurfaceSet(double ind, double level)
+DLLEXPORT double MADX9_SurfaceSetRenderTarget(double ind, double level)
 {
 	if (!isValidIndex((uint) ind, mamain->Surfaces))
 		return 0;
 
-	return mamain->Surfaces[(uint) ind]->set((uint) level);
+	return mamain->Surfaces[(uint) ind]->setRenderTarget((uint) level);
 }
 
-DLLEXPORT double MADX9_SurfaceReset(double ind, double level)
+DLLEXPORT double MADX9_SurfaceResetRenderTarget(double level)
+{
+	return Surface::resetRenderTarget((uint) level);
+}
+
+DLLEXPORT double MADX9_SurfaceSetDepthBuffer(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Surfaces))
 		return 0;
 
-	return mamain->Surfaces[(uint) ind]->reset((uint) level);
+	return mamain->Surfaces[(uint) ind]->setDepthBuffer();
+}
+
+DLLEXPORT double MADX9_SurfaceResetDepthBuffer()
+{
+	return Surface::resetDepthBuffer();
 }
 
 DLLEXPORT double MADX9_SurfaceUpdate(double dest, double src)

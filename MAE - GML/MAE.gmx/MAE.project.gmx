@@ -141,6 +141,7 @@
           <script>scripts\MAE_FreePointer.gml</script>
           <script>scripts\MAE_RenderSetState.gml</script>
           <script>scripts\MAE_SamplerSetState.gml</script>
+          <script>scripts\MAE_Clear.gml</script>
         </scripts>
         <scripts name="Model">
           <scripts name="MD2">
@@ -188,11 +189,13 @@
           <script>scripts\MAE_SurfaceCreateFromPointer.gml</script>
           <script>scripts\MAE_SurfaceCreateFromTexture.gml</script>
           <script>scripts\MAE_SurfaceCreateRenderTarget.gml</script>
-          <script>scripts\MAE_SurfaceGetPointer.gml</script>
-          <script>scripts\MAE_SurfaceReset.gml</script>
-          <script>scripts\MAE_SurfaceSet.gml</script>
-          <script>scripts\MAE_SurfaceUpdate.gml</script>
           <script>scripts\MAE_SurfaceDestroy.gml</script>
+          <script>scripts\MAE_SurfaceGetPointer.gml</script>
+          <script>scripts\MAE_SurfaceResetDepthBuffer.gml</script>
+          <script>scripts\MAE_SurfaceResetRenderTarget.gml</script>
+          <script>scripts\MAE_SurfaceSetDepthBuffer.gml</script>
+          <script>scripts\MAE_SurfaceSetRenderTarget.gml</script>
+          <script>scripts\MAE_SurfaceUpdate.gml</script>
         </scripts>
         <scripts name="Textures">
           <script>scripts\MAE_TextureCreate.gml</script>

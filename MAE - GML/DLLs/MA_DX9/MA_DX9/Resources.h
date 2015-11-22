@@ -58,21 +58,21 @@ public:
 	bool createFromPointer(LPDIRECT3DSURFACE9 surf);
 	bool createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable);
 
-	bool set(uint level);
-	bool reset(uint level);
+	bool setRenderTarget(uint level);
+	static bool resetRenderTarget(uint level);
+
+	bool setDepthBuffer();
+	static bool resetDepthBuffer();
 
 	bool update(Surface& surf);
 
 	LPDIRECT3DSURFACE9 surf;
 
 protected:
-	enum
-	{
-		FlagRenderTarget = 0x01,
-		FlagDepthStencil = 0x02
-	};
-
-	uint flags;
+	uint surfUsage;
+	uint surfPool;
+	uint surfWidth;
+	uint surfHeight;
 };
 
 class Texture

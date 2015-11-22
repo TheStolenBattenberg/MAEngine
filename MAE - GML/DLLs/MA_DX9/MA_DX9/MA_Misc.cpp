@@ -124,3 +124,10 @@ DLLEXPORT double MADX9_FreePointer(double p)
 
 	return SUCCEEDED((*(LPUNKNOWN*) &p)->Release());
 }
+
+DLLEXPORT double MADX9_Clear(double colour, double alpha, double z, double stencil, double flags)
+{
+	uint c = (uint) colour;
+
+	return SUCCEEDED(mamain->d3ddev->Clear(0, 0, (uint) flags, D3DCOLOR_ARGB((uint) (alpha * 255.0), c, c >> 8, c >> 16), (float) z, (DWORD) stencil));
+}
