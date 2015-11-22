@@ -137,10 +137,10 @@
           <script>scripts\MAE_MaterialSet.gml</script>
         </scripts>
         <scripts name="Misc">
-          <script>scripts\MAE_SamplerSetState.gml</script>
-          <script>scripts\MAE_RenderSetState.gml</script>
           <script>scripts\MAE_Flush.gml</script>
           <script>scripts\MAE_FreePointer.gml</script>
+          <script>scripts\MAE_RenderSetState.gml</script>
+          <script>scripts\MAE_SamplerSetState.gml</script>
         </scripts>
         <scripts name="Model">
           <scripts name="MD2">

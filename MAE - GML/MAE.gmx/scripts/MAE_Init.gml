@@ -116,51 +116,25 @@ if (argument[0] & INIT_RENDER)
 
 if (argument[0] & INIT_FLUSH)
 {
-    /**
-     * Create format for flush buffer.
-     */
+    MAE_HookEnable(HOOK_ACTIONFETCHVERTDECL);
     
     vertex_format_begin();
     vertex_format_add_colour();
     var f = vertex_format_end();
     
-    /**
-     * Write one value to the buffer
-     */
-    
-    var vb = vertex_create_buffer_ext(4);
-    vertex_begin(vb, f);
-    vertex_colour(vb, 0, 0);
-    vertex_end(vb);
-    
-    vertex_freeze(vb);
-    
-    /**
-     * Force Game Maker to create a new buffer by submiting it, force it to place it in system memory and get the pointer
-     */
-    
-    MAE_HookSetPropertyInt(HOOK_PROPERTYFORCEVBPOOL, POOL_SYSTEMMEM);
-    MAE_HookEnable(HOOK_ACTIONFORCEVBPOOL);
-    
-    MAE_HookEnable(HOOK_ACTIONFETCHVBCREATE);
-    vertex_submit(vb, pr_pointlist, -1);
-    MAE_HookDisable(HOOK_ACTIONFETCHVBCREATE);
-    
-    MAE_HookDisable(HOOK_ACTIONFORCEVBPOOL);
+    MAE_HookDisable(HOOK_ACTIONFETCHVERTDECL);
     
     var p = MAE_HookStackPopPointer();
     
-    /**
-     * Disable drawing when vertex buffer gets set
-     */
-    
-    MAE_HookSetPropertyPointer(HOOK_PROPERTYREDIRECTVBFROM, 0);
-    MAE_HookSetPropertyPointer(HOOK_PROPERTYREDIRECTVBFROM, p);
-    MAE_HookEnable(HOOK_ACTIONREDIRECTVERTEXBUFFER);
+    MAE_HookSetPropertyPointer(HOOK_PROPERTYDISABLEVERTDECL, p);
+    MAE_HookEnable(HOOK_ACTIONIGNOREVERTDECL);
     
     MAE_FreePointer(p);
     
-    global.MAE_FlushBuffer = vb;
+    global.MAE_FlushBuffer = vertex_create_buffer_ext(4);
+    vertex_begin(global.MAE_FlushBuffer, f);
+    vertex_colour(global.MAE_FlushBuffer, 0, 0);
+    vertex_end(global.MAE_FlushBuffer);
 }
 
 if (argument[0] & INIT_PHYSICS)
