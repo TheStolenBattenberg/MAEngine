@@ -1,5 +1,5 @@
 # Mentis Animae Engine
-MAE is a combind effort from users of the GMC, to add proper 3D capability to Game Maker Studio. If you're wondering what Mentis Animae means, it's Mind and Soul in latin. Makes a cool name, huh?
+MAE is a combined effort from users of the GMC, to add proper 3D capability to Game Maker Studio. If you're wondering what Mentis Animae means, it's Mind and Soul in latin. Makes a cool name, huh?
 
 # Current Features
 - Advanced Vector, Quatrion and Matrix math scripts.
@@ -23,4 +23,4 @@ MAE is a combind effort from users of the GMC, to add proper 3D capability to Ga
 
 # Used Libraries:
 - DirectX9 in MA_DX9, DirectX9 belongs to Microsoft Obviously.
-- Bullet Physics in MA_Bullet, 
+- Bullet Physics in MA_Bullet.
