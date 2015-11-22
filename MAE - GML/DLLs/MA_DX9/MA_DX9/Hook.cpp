@@ -9,10 +9,11 @@ Hook* hookObj = 0;
 struct
 {
 	HRESULT(_stdcall *CreateTexture)(LPDIRECT3DDEVICE9 This, UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, LPDIRECT3DTEXTURE9* ppTexture, HANDLE* pSharedHandle);
-	HRESULT(_stdcall *CreateVertexBuffer)(LPDIRECT3DDEVICE9 This, UINT Length, DWORD Usage, DWORD FVF, D3DPOOL Pool, LPDIRECT3DVERTEXBUFFER9* ppVertexBuffer, HANDLE* pSharedHandle);
+	HRESULT(_stdcall *CreateVertexDeclaration)(LPDIRECT3DDEVICE9 This, CONST D3DVERTEXELEMENT9* pVertexElements, LPDIRECT3DVERTEXDECLARATION9* ppDecl);
 	HRESULT(_stdcall *DrawPrimitive)(LPDIRECT3DDEVICE9 This, D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount);
 	HRESULT(_stdcall *SetTexture)(LPDIRECT3DDEVICE9 This, DWORD Sampler, LPDIRECT3DBASETEXTURE9 pTexture);
-	HRESULT(_stdcall *SetStreamSource)(LPDIRECT3DDEVICE9 This, UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT OffsetInBytes, UINT Stride);
+	HRESULT(_stdcall *SetVertexDeclaration)(LPDIRECT3DDEVICE9 This, LPDIRECT3DVERTEXDECLARATION9 pDecl);
+	HRESULT(_stdcall *SetFVF)(LPDIRECT3DDEVICE9 This, DWORD FVF);
 } originalFunctions;
 
 Hook::Hook(LPDIRECT3DDEVICE9 dev)
@@ -28,25 +29,26 @@ Hook::~Hook()
 	if (hookedFuncs & HookedFuncCreateTex)
 		dev->lpVtbl->CreateTexture = originalFunctions.CreateTexture;
 
-	if (hookedFuncs & HookedFuncCreateVB)
-		dev->lpVtbl->CreateVertexBuffer = originalFunctions.CreateVertexBuffer;
+	if (hookedFuncs & HookedFuncCreateVertDecl)
+		dev->lpVtbl->CreateVertexDeclaration = originalFunctions.CreateVertexDeclaration;
 
 	if (hookedFuncs & HookedFuncDrawPrim)
 		dev->lpVtbl->DrawPrimitive = originalFunctions.DrawPrimitive;
 
-	if (hookedFuncs & HookedFuncSetStreamSrc)
-		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
+	if (hookedFuncs & HookedFuncSetFVF)
+		dev->lpVtbl->SetFVF = originalFunctions.SetFVF;
 
 	if (hookedFuncs & HookedFuncSetTex)
 		dev->lpVtbl->SetTexture = originalFunctions.SetTexture;
 
+	if (hookedFuncs & HookedFuncSetVertDecl)
+		dev->lpVtbl->SetVertexDeclaration = originalFunctions.SetVertexDeclaration;
+
 	hookedFuncs = 0;
 
 	for (auto i: redirectTex)
-		i.second->lpVtbl->Release(i.second);
-
-	for (auto i: redirectVB)
-		i.second->lpVtbl->Release(i.second);
+		if (i.second != 0)
+			i.second->lpVtbl->Release(i.second);
 
 	dev->lpVtbl->Release(dev);
 
@@ -58,14 +60,11 @@ bool Hook::enable(Actions a)
 	if ((a & ActionForceTexPool) && propertys.find(PropertyForceTexPool) == propertys.end())
 		return 0;
 
-	if ((a & ActionForceVBPool) && propertys.find(PropertyForceVBPool) == propertys.end())
-		return 0;
-
 	if ((a & ActionRedirectTexture))
 		invalidTex = 0;
 
-	if ((a & ActionRedirectVertexBuffer))
-		invalidVB = 0;
+	if ((a & ActionIgnoreVertDecl))
+		isInvalidDecl = 0;
 
 	actions |= a;
 	hook();
@@ -81,43 +80,10 @@ void Hook::disable(Actions a)
 
 bool Hook::set(Propertys prop, Variant& v)
 {
-	LPDIRECT3DVERTEXBUFFER9 pVB  = 0;
 	LPDIRECT3DBASETEXTURE9  pTex = 0;
 
 	switch (prop)
 	{
-	case PropertyRedirectVBFrom:
-		if (v.getType() != Variant::TypePointer)
-			return 0;
-
-		curVB = (LPDIRECT3DVERTEXBUFFER9) v.getPointer();
-		redirectVB[curVB] = 0;
-
-		return 1;
-	case PropertyRedirectVBTo:
-		if (curVB == 0 || v.getType() != Variant::TypePointer)
-			return 0;
-
-		pVB = (LPDIRECT3DVERTEXBUFFER9) v.getPointer();
-
-		pVB->lpVtbl->AddRef(pVB);
-
-		redirectVB[curVB] = pVB;
-
-		return 1;
-	case PropertyRedirectVBRemove:
-		if (v.getType() != Variant::TypePointer)
-			return 0;
-
-		if (redirectVB.find((LPDIRECT3DVERTEXBUFFER9) v.getPointer()) == redirectVB.end())
-			return 0;
-
-		pVB = redirectVB[(LPDIRECT3DVERTEXBUFFER9) v.getPointer()];
-
-		pVB->lpVtbl->Release(pVB);
-		redirectVB.erase((LPDIRECT3DVERTEXBUFFER9) v.getPointer());
-
-		return 1;
 	case PropertyRedirectTexFrom:
 		if (v.getType() != Variant::TypePointer)
 			return 0;
@@ -157,13 +123,31 @@ bool Hook::set(Propertys prop, Variant& v)
 		propertys[PropertyForceTexPool] = v;
 
 		return 1;
-	case PropertyForceVBPool:
-		if (v.getType() != Variant::TypeInteger)
+	case PropertyDisableVertDecl:
+		if (v.getType() != Variant::TypePointer)
 			return 0;
 
-		propertys[PropertyForceVBPool] = v;
+		for (auto i: invalidDecl)
+			if (i == v.getPointer())
+				return 1;
+
+		invalidDecl.push_back((LPDIRECT3DVERTEXDECLARATION9) v.getPointer());
 
 		return 1;
+	case PropertyEnableVertDecl:
+		if (v.getType() != Variant::TypePointer)
+			return 0;
+
+		for (auto i = invalidDecl.begin(); i != invalidDecl.end(); ++i)
+		{
+			if (*i == v.getPointer())
+			{
+				invalidDecl.erase(i);
+				return 1;
+			}
+		}
+
+		return 0;
 	}
 
 	return 0;
@@ -171,42 +155,6 @@ bool Hook::set(Propertys prop, Variant& v)
 
 void Hook::hook() {
 	
-	/**
-	 * CreateVertexBuffer Hook
-	 */
-
-	if ((actions & ActionFetchVBCreate || actions & ActionForceVBPool) && !(hookedFuncs & HookedFuncCreateVB))
-	{
-		originalFunctions.CreateVertexBuffer = dev->lpVtbl->CreateVertexBuffer;
-
-		dev->lpVtbl->CreateVertexBuffer = [](LPDIRECT3DDEVICE9 This, UINT Length, DWORD Usage, DWORD FVF, D3DPOOL Pool, LPDIRECT3DVERTEXBUFFER9* ppVertexBuffer, HANDLE* pSharedHandle) -> HRESULT
-		{
-			if (hookObj->actions & ActionForceVBPool)
-				Pool = (D3DPOOL) hookObj->propertys[PropertyForceVBPool].getInteger();
-
-			HRESULT res = originalFunctions.CreateVertexBuffer(This, Length, Usage, FVF, Pool, ppVertexBuffer, pSharedHandle);
-
-			if (hookObj->actions & ActionFetchVBCreate)
-			{
-				if (SUCCEEDED(res))
-				{
-					(*ppVertexBuffer)->lpVtbl->AddRef(*ppVertexBuffer);
-					hookObj->values.push((void*) *ppVertexBuffer);
-				}
-			}
-
-			return res;
-		};
-
-		hookedFuncs |= HookedFuncCreateVB;
-	}
-
-	if (!(actions & ActionFetchVBCreate) && !(actions & ActionForceVBPool) && (hookedFuncs & HookedFuncCreateVB))
-	{
-		dev->lpVtbl->CreateVertexBuffer = originalFunctions.CreateVertexBuffer;
-		hookedFuncs &= ~HookedFuncCreateVB;
-	}
-
 	/**
 	 * SetTexture Hook
 	 */
@@ -217,6 +165,9 @@ void Hook::hook() {
 
 		dev->lpVtbl->SetTexture = [](LPDIRECT3DDEVICE9 This, DWORD Sampler, LPDIRECT3DBASETEXTURE9 pTexture) -> HRESULT
 		{
+			if (pTexture == 0)
+				return originalFunctions.SetTexture(This, Sampler, pTexture);
+
 			if (hookObj->actions & ActionFetchTexSet)
 			{
 				pTexture->lpVtbl->AddRef(pTexture);
@@ -254,54 +205,17 @@ void Hook::hook() {
 	}
 
 	/**
-	 * SetStreamSource Hook
-	 */
-
-	if ((actions & ActionRedirectVertexBuffer) && !(hookedFuncs & HookedFuncSetStreamSrc))
-	{
-		originalFunctions.SetStreamSource = dev->lpVtbl->SetStreamSource;
-
-		dev->lpVtbl->SetStreamSource = [](LPDIRECT3DDEVICE9 This, UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT OffsetInBytes, UINT Stride) -> HRESULT
-		{
-			hookObj->invalidVB &= ~(1 << StreamNumber);
-
-			if (hookObj->redirectVB.find(pStreamData) != hookObj->redirectVB.end())
-			{
-				LPDIRECT3DVERTEXBUFFER9 vb = hookObj->redirectVB[pStreamData];
-
-				if (vb == 0)
-				{
-					hookObj->invalidVB |= 1 << StreamNumber;
-					return D3D_OK;
-				}
-				else
-					return originalFunctions.SetStreamSource(This, StreamNumber, vb, OffsetInBytes, Stride);
-			}
-
-			return originalFunctions.SetStreamSource(This, StreamNumber, pStreamData, OffsetInBytes, Stride);
-		};
-
-		hookedFuncs |= HookedFuncSetStreamSrc;
-	}
-
-	if (!(actions & ActionRedirectVertexBuffer) && (hookedFuncs & HookedFuncSetStreamSrc))
-	{
-		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
-		hookedFuncs &= ~HookedFuncSetStreamSrc;
-	}
-
-	/**
 	 * DrawPrimitive Hook
 	 */
 
-	if ((actions & ActionRedirectTexture || actions & ActionRedirectVertexBuffer) && !(hookedFuncs & HookedFuncDrawPrim))
+	if ((actions & ActionRedirectTexture || actions & ActionIgnoreVertDecl) && !(hookedFuncs & HookedFuncDrawPrim))
 	{
 		originalFunctions.DrawPrimitive = dev->lpVtbl->DrawPrimitive;
 
 		dev->lpVtbl->DrawPrimitive = [](LPDIRECT3DDEVICE9 This, D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount)->HRESULT
 		{
 			if (((hookObj->actions & ActionRedirectTexture) && hookObj->invalidTex != 0) ||
-				(hookObj->actions & ActionRedirectVertexBuffer) && hookObj->invalidVB != 0) {
+				(hookObj->actions & ActionIgnoreVertDecl) && hookObj->isInvalidDecl) {
 				
 				return D3D_OK;
 			}
@@ -312,9 +226,9 @@ void Hook::hook() {
 		hookedFuncs |= HookedFuncDrawPrim;
 	}
 
-	if (!(actions & ActionRedirectTexture) && !(actions & ActionRedirectVertexBuffer) && (hookedFuncs & HookedFuncDrawPrim))
+	if (!(actions & ActionRedirectTexture) && !(actions & ActionIgnoreVertDecl) && (hookedFuncs & HookedFuncDrawPrim))
 	{
-		dev->lpVtbl->SetStreamSource = originalFunctions.SetStreamSource;
+		dev->lpVtbl->DrawPrimitive = originalFunctions.DrawPrimitive;
 		hookedFuncs &= ~HookedFuncDrawPrim;
 	}
 
@@ -350,7 +264,94 @@ void Hook::hook() {
 
 	if (!(actions & ActionFetchTexCreate) && !(actions & ActionForceTexPool) && (hookedFuncs & HookedFuncCreateTex))
 	{
-		dev->lpVtbl->CreateVertexBuffer = originalFunctions.CreateVertexBuffer;
+		dev->lpVtbl->CreateTexture = originalFunctions.CreateTexture;
 		hookedFuncs &= ~HookedFuncCreateTex;
+	}
+
+	/**
+	 * CreateVertexDeclaration
+	 */
+
+	if (actions & ActionFetchVertDecl && !(hookedFuncs & HookedFuncCreateVertDecl))
+	{
+		originalFunctions.CreateVertexDeclaration = dev->lpVtbl->CreateVertexDeclaration;
+
+		dev->lpVtbl->CreateVertexDeclaration = [](LPDIRECT3DDEVICE9 This, CONST D3DVERTEXELEMENT9* pVertexElements, LPDIRECT3DVERTEXDECLARATION9* ppDecl) -> HRESULT
+		{
+			HRESULT res = originalFunctions.CreateVertexDeclaration(This, pVertexElements, ppDecl);
+
+			if (SUCCEEDED(res))
+			{
+				(*ppDecl)->lpVtbl->AddRef(*ppDecl);
+				hookObj->values.push(*ppDecl);
+			}
+
+			return res;
+		};
+
+		hookedFuncs |= HookedFuncCreateVertDecl;
+	}
+
+	if (!(actions & ActionFetchVertDecl) && (hookedFuncs & HookedFuncCreateVertDecl))
+	{
+		dev->lpVtbl->CreateVertexDeclaration = originalFunctions.CreateVertexDeclaration;
+		hookedFuncs &= ~HookedFuncCreateVertDecl;
+	}
+
+	/**
+	 * SetVertexDeclaration
+	 */
+
+	if (actions & ActionIgnoreVertDecl && !(hookedFuncs & HookedFuncSetVertDecl))
+	{
+		originalFunctions.SetVertexDeclaration = dev->lpVtbl->SetVertexDeclaration;
+
+		dev->lpVtbl->SetVertexDeclaration = [](LPDIRECT3DDEVICE9 This, LPDIRECT3DVERTEXDECLARATION9 pDecl) -> HRESULT
+		{
+			hookObj->isInvalidDecl = 0;
+
+			for (auto i : hookObj->invalidDecl)
+			{
+				if (i == pDecl)
+				{
+					hookObj->isInvalidDecl = 1;
+					break;
+				}
+			}
+
+			return originalFunctions.SetVertexDeclaration(This, pDecl);
+		};
+
+		hookedFuncs |= HookedFuncSetVertDecl;
+	}
+
+	if (!(actions & ActionIgnoreVertDecl) && (hookedFuncs & HookedFuncSetVertDecl))
+	{
+		dev->lpVtbl->SetVertexDeclaration = originalFunctions.SetVertexDeclaration;
+		hookedFuncs &= ~HookedFuncSetVertDecl;
+	}
+
+	/**
+	 * SetFVF
+	 */
+
+	if (actions & ActionIgnoreVertDecl && !(hookedFuncs & HookedFuncSetFVF))
+	{
+		originalFunctions.SetFVF = dev->lpVtbl->SetFVF;
+
+		dev->lpVtbl->SetFVF = [](LPDIRECT3DDEVICE9 This, DWORD FVF) -> HRESULT
+		{
+			hookObj->isInvalidDecl = 0;
+
+			return originalFunctions.SetFVF(This, FVF);
+		};
+
+		hookedFuncs |= HookedFuncSetFVF;
+	}
+
+	if (!(actions & ActionIgnoreVertDecl) && (hookedFuncs & HookedFuncSetFVF))
+	{
+		dev->lpVtbl->SetFVF = originalFunctions.SetFVF;
+		hookedFuncs &= ~HookedFuncSetFVF;
 	}
 }
