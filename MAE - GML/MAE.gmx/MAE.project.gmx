@@ -140,6 +140,7 @@
           <script>scripts\MAE_Clear.gml</script>
           <script>scripts\MAE_Flush.gml</script>
           <script>scripts\MAE_FreePointer.gml</script>
+          <script>scripts\MAE_GMTexCreateFromTexture.gml</script>
           <script>scripts\MAE_IsNullPointer.gml</script>
           <script>scripts\MAE_SetRenderState.gml</script>
           <script>scripts\MAE_SetSamplerState.gml</script>

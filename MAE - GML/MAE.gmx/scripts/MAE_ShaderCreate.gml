@@ -15,25 +15,14 @@
 
 switch(argument2)
 {
-    case SHADER_HLSL9:        
-        result = external_call(global.MADX9_ShaderCreateHLSL9, argument0, argument1);
-        show_debug_message(result);  
-        return result;
-    break;
-    
-    case SHADER_ASM:
-        result = external_call(global.MADX9_ShaderCreateASM, argument0, argument1);
-        show_debug_message(result);
-        return result;
-    break;
-    
-    case SHADER_FILE:
-        show_debug_message("Unimplemented.");
-        return 0;
-    break;
-    
-    default:
-        show_debug_message("Invalid Shader Type!");
-        return 0;
-    break;
+case SHADER_HLSL9:        
+    return external_call(global.MADX9_ShaderCreateHLSL9, argument0, argument1);
+case SHADER_ASM:
+    return external_call(global.MADX9_ShaderCreateASM, argument0, argument1);;
+case SHADER_FILE:
+    show_debug_message("Unimplemented.");
+    return 0;
+default:
+    show_debug_message("Invalid Shader Type!");
+    return 0;
 }
