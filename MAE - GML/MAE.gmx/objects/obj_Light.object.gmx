@@ -26,7 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>d3d_start();
-d3d_set_lighting(true);
 
 //Create a vertex buffer model. D3D draw sucks.
 vertex_format_begin(); //Format
@@ -167,8 +166,12 @@ d3d_set_lighting(false);
             <kind>1</kind>
             <string>d3d_set_projection(-16, 0, 16, 16, 16, 0, 0, 0, 1);
 
+d3d_set_lighting(true);
+
 MAE_MaterialSet(Mat_0);
 vertex_submit(v_buf, pr_trianglelist, -1);
+
+d3d_set_lighting(false);
 </string>
           </argument>
         </arguments>

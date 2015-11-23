@@ -37,15 +37,17 @@ DLLEXPORT double MADX9_HookDisable(double actions)
 
 DLLEXPORT double MADX9_HookStackPopPointer(double ind)
 {
-	double p = 0.0;
-
 	if (!mamain->hook->values.empty())
 	{
+		double p = 0.0;
+
 		*((void**) &p) = mamain->hook->values.top().getPointer();
 		mamain->hook->values.pop();
+
+		return p;
 	}
 
-	return p;
+	return -1;
 }
 
 DLLEXPORT double MADX9_HookStackEmpty(double ind)
@@ -80,12 +82,12 @@ DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
  * States
  */
 
-DLLEXPORT double MADX9_SamplerSetState(double stage, double type, double value)
+DLLEXPORT double MADX9_SetSamplerState(double stage, double type, double value)
 {
 	return SUCCEEDED(mamain->d3ddev->SetSamplerState((uint)stage, (D3DSAMPLERSTATETYPE)(uint)type, (uint)value));
 }
 
-DLLEXPORT double MADX9_RenderSetState(double state, double value)
+DLLEXPORT double MADX9_SetRenderState(double state, double value)
 {
 	uint v;
 
@@ -130,4 +132,9 @@ DLLEXPORT double MADX9_Clear(double colour, double alpha, double z, double stenc
 	uint c = (uint) colour;
 
 	return SUCCEEDED(mamain->d3ddev->Clear(0, 0, (uint) flags, D3DCOLOR_ARGB((uint) (alpha * 255.0), c, c >> 8, c >> 16), (float) z, (DWORD) stencil));
+}
+
+DLLEXPORT double MADX9_IsNullPointer(double p)
+{
+	return *(void**) &p == 0;
 }

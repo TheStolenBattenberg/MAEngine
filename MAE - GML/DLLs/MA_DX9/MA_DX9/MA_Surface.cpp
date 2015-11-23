@@ -104,12 +104,17 @@ DLLEXPORT double MADX9_SurfaceUpdate(double dest, double src)
 
 DLLEXPORT double MADX9_SurfaceGetPointer(double ind)
 {
-	if (!isValidIndex((uint) ind, mamain->Surfaces))
-		return -1;
+	void* ptr = 0;
+
+	if (isValidIndex((uint) ind, mamain->Surfaces))
+	{
+		mamain->Surfaces[(uint) ind]->surf->AddRef();
+		ptr = mamain->Surfaces[(uint) ind]->surf;
+	}
 
 	double ret = 0;
 
-	*(LPDIRECT3DSURFACE9*) &ret = mamain->Surfaces[(uint) ind]->surf;
+	*(void**) &ret = ptr;
 
 	return ret;
 }

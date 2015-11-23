@@ -640,7 +640,7 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="353">
+    <constants number="356">
       <constant name="BLEND_BLENDFACTOR">14</constant>
       <constant name="BLEND_BOTHINVSRCALPHA">13</constant>
       <constant name="BLEND_BOTHSRCALPHA">12</constant>
@@ -683,6 +683,9 @@
       <constant name="DEGREE_QUINTIC">5</constant>
       <constant name="DMT_DISABLE">1</constant>
       <constant name="DMT_ENABLE">0</constant>
+      <constant name="ERROR_PUSHTOSTACK">4</constant>
+      <constant name="ERROR_SHOWDEBUGMESSAGE">2</constant>
+      <constant name="ERROR_SHOWMESSAGE">1</constant>
       <constant name="EULER_XYZ">0</constant>
       <constant name="EULER_XZY">3</constant>
       <constant name="EULER_YXZ">5</constant>
