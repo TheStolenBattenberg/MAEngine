@@ -2,7 +2,7 @@
 
 /**
  * Description:
- *   Frees pointers to Direct3D resources.
+ *   Frees pointer to any Direct3D resource.
  *
  * Arguments:
  *   [1] - Pointer of the resource

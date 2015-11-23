@@ -1,10 +1,18 @@
 ///MAE_ShaderCreate(vertex_shader_code, pixel_shader_code, type);
 
 /**
- * To-do:
- *      Add Description.
+ * Description:
+ *   Creates a shader from strings.
  *
+ * Arguments:
+ *   [1] - Vertex shader code
+ *   [2] - Pixel shader code (same as fragment shader in GLSL ES)
+ *   [3] - Type (SHADER_*)
+ *
+ * Returns:
+ *   -1 on Error, shader index on success.
  */
+
 switch(argument2)
 {
     case SHADER_HLSL9:        

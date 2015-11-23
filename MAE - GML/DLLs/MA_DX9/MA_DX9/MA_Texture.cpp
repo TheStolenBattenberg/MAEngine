@@ -90,12 +90,17 @@ DLLEXPORT double MADX9_TextureGenerateMipMaps(double ind)
 
 DLLEXPORT double MADX9_TextureGetPointer(double ind)
 {
-	if (!isValidIndex((uint) ind, mamain->Textures))
-		return -1;
+	void* ptr = 0;
+
+	if (isValidIndex((uint) ind, mamain->Textures))
+	{
+		mamain->Textures[(uint) ind]->tex->AddRef();
+		ptr = mamain->Textures[(uint) ind]->tex;
+	}
 
 	double ret = 0;
 
-	*(LPDIRECT3DTEXTURE9*) &ret = mamain->Textures[(uint) ind]->tex;
+	*(void**) &ret = ptr;
 
 	return ret;
 }
