@@ -108,7 +108,7 @@ DLLEXPORT double MADX9_TextureGetPointer(double ind)
 DLLEXPORT double MADX9_TextureGetSurfaceCount(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return 0;
+		return -1;
 
 	return mamain->Textures[(uint) ind]->getSurfaceCount();
 }
