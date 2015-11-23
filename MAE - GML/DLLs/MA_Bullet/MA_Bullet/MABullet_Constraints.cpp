@@ -52,7 +52,9 @@ DLLEXPORT MAB_ConstraintSetEnabled(double ConstraintID, double enabled)
 DLLEXPORT MAB_ConstraintDestroy(double ConstraintID)
 {
 	if (!G.constraintExists(ConstraintID)) return 0;
-	G.World->removeConstraint(G.getConstraint(ConstraintID));
-	delete G.getConstraint(ConstraintID);
+	btTypedConstraint* constraint = G.getConstraint(ConstraintID);
+	G.World->removeConstraint(constraint);
+	G.Constraints.erase(constraint->getUserConstraintId());
+	delete constraint;
 	return 1;
 }
