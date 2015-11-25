@@ -79,8 +79,9 @@ if(room == rm_debug)
         2 - Particles
         3 - Shaders
         4 - Lights
-        5 - MD2 Animation
-        6 - Physics
+        5 - MD2 Model Animation
+        6 - X Model Static
+        7 - Physics
         
         Escape - Exit.
     ");
@@ -92,7 +93,8 @@ if(room == rm_debug)
         case ord("3"): { room_goto(rm_Shader); } break;
         case ord("4"): { room_goto(rm_Light); } break;
         case ord("5"): { room_goto(rm_MD2Animation); } break;
-        case ord("6"): { room_goto(rm_Physics); } break;
+        case ord("6"): { room_goto(rm_XStatic); } break;
+        case ord("7"): { room_goto(rm_Physics); } break;
     }
     
     if (keyboard_check_released(vk_escape))

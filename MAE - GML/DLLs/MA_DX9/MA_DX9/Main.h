@@ -21,6 +21,7 @@
 
 #include "Object.h"
 #include "ModelMD2.h"
+#include "ModelX.h"
 
 class MADX9Main
 {
@@ -38,9 +39,11 @@ public:
 	std::vector<Shader*>       Shader;
 	std::vector<D3DLIGHT9*>    Light;
 	std::vector<D3DMATERIAL9*> Material;
-	std::vector<MD2Model*>     MD2Models;
 	std::vector<Surface*>      Surfaces;
 	std::vector<Texture*>      Textures;
+
+	std::vector<MD2Model*>     MD2Models;
+	std::vector<XModel*>       XModels;
 
 	Hook* hook;
 

@@ -22,6 +22,7 @@
     <ClCompile Include="MA_Surface.cpp" />
     <ClCompile Include="MA_Texture.cpp" />
     <ClCompile Include="ModelMD2.cpp" />
+    <ClCompile Include="ModelX.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Variant.cpp" />
   </ItemGroup>
@@ -31,6 +32,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelMD2.h" />
     <ClInclude Include="ModelMPM.h" />
+    <ClInclude Include="ModelX.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Hook.h" />
     <ClInclude Include="Object.h" />

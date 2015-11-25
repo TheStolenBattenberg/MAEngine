@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "Types.h"
 
+//Id .MD2 mesh.
 DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd)
 {
 	if ((uint)texInd >= mamain->Textures.size())
@@ -99,5 +100,56 @@ DLLEXPORT double MADX9_MD2Destroy(double index)
 	delete mamain->MD2Models[(uint)index];
 	mamain->MD2Models[(uint)index] = 0;
 
+	return 1;
+}
+
+
+//Microsoft .X mesh.
+DLLEXPORT double MADX9_XLoad(const char* XModelFile, const char* TextureDirectory)
+{
+	XModel* x = new XModel();
+	if (!x->load(XModelFile, TextureDirectory)) {
+		delete x;
+		return -1;
+	}
+
+	for (size_t i = 0; i < mamain->XModels.size(); ++i)
+	{
+		if (mamain->XModels[i] == 0)
+		{
+			mamain->XModels[i] = x;
+			return i;
+		}
+	}
+
+	mamain->XModels.push_back(x);
+	return mamain->XModels.size() - 1;
+}
+
+DLLEXPORT double MADX9_XRender(double index)
+{
+	if ((uint)index > mamain->XModels.size()) {
+		return 0;
+	}
+
+	XModel* x = mamain->XModels[(uint)index];
+
+	for (uint i = 0; i < x->getMaterialCount(); ++i) {
+		mamain->d3ddev->SetMaterial(&x->getMaterial(i));
+		mamain->d3ddev->SetTexture(0, x->getTexture(i));
+		x->getMesh()->DrawSubset(i);
+	}
+
+	return 1;
+}
+
+DLLEXPORT double MADX9_XDestroy(double index) 
+{
+	if ((uint)index > mamain->XModels.size()) {
+		return 0;
+	}
+
+	delete mamain->XModels[(uint)index];
+	mamain->XModels[(uint)index] = 0;
 	return 1;
 }
