@@ -52,31 +52,10 @@ curY = 0;
 desX = 0;
 desY = 0;
 
-
 /*
- * Animation stuff.
+ * Load .X Model
  */
-MAE_AnimationCreate();
-hobgoblin_run = MAE_AnimationAdd(40, 45); //Running,
-MAE_AnimationSet(hobgoblin_run);
-
-
-/**
- * Load texture
- */
-var t = MAE_TextureCreateFromFile("COMMON/TEXTURE/hobgoblin.bmp", MIPMAPS_NONE);
-
-
-/**
- * Load .MD2 Model
- */
-global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", t);
-
-
-/**
- * Free texture because we don't need it anymore
- */
-MAE_TextureDestroy(t);
+global.m = MAE_ModelXLoad("COMMON/tiger.x");
 </string>
           </argument>
         </arguments>
@@ -134,12 +113,6 @@ curY += (desY - curY) * 0.2;
 
 matView = MAE_MatrixTranslate(MAE_MatrixCreateRotationQuaternion(4, quatView), MAE_VectorCreate(0, 0, 3));
 matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
-
-/**
- * Animation stuff.
- */
-MAE_AnimationUpdate(5);
-
 </string>
           </argument>
         </arguments>
@@ -162,32 +135,7 @@ MAE_AnimationUpdate(5);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ModelMD2Destroy(global.m);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="64">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>draw_set_colour(c_black);
-draw_text(room_width - 196, 0, "Time: " + string(MAE_AnimationGetTween()));
-draw_text(room_width - 196, 16, "Frame: " + string(MAE_AnimationGetFrame())+", "+string(MAE_AnimationGetFrameNext()));
+            <string>MAE_ModelXDestroy(global.m);
 </string>
           </argument>
         </arguments>
@@ -214,8 +162,8 @@ draw_text(room_width - 196, 16, "Frame: " + string(MAE_AnimationGetFrame())+", "
 matrix_set(matrix_view, matView);
 
 
-d3d_transform_add_scaling(0.06, 0.06, 0.06);
-    MAE_ModelMD2Render(global.m, MAE_AnimationGetFrame(), MAE_AnimationGetFrameNext(), MAE_AnimationGetTween());
+d3d_transform_add_rotation_x(-90);
+    MAE_ModelXRender(global.m);
 d3d_transform_set_identity();
 
 

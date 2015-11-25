@@ -3,9 +3,43 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="6" name="datafiles">
-    <datafiles number="6" name="COMMON">
-      <datafiles number="6" name="MODEL">
+  <datafiles number="8" name="datafiles">
+    <datafiles number="8" name="COMMON">
+      <datafiles number="8" name="MODEL">
+        <datafile>
+          <name>tiger.x</name>
+          <exists>-1</exists>
+          <size>30824</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>tiger.x</filename>
+        </datafile>
+        <datafile>
+          <name>tiger.bmp</name>
+          <exists>-1</exists>
+          <size>66614</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>tiger.bmp</filename>
+        </datafile>
         <datafile>
           <name>hobgoblin.md2</name>
           <exists>-1</exists>
@@ -24,7 +58,7 @@
           <filename>hobgoblin.md2</filename>
         </datafile>
       </datafiles>
-      <datafiles number="6" name="TEXTURE">
+      <datafiles number="8" name="TEXTURE">
         <datafile>
           <name>hobgoblin.bmp</name>
           <exists>-1</exists>
@@ -152,6 +186,11 @@
             <script>scripts\MAE_ModelMD2Render.gml</script>
             <script>scripts\MAE_ModelMD2Destroy.gml</script>
           </scripts>
+          <scripts name="X">
+            <script>scripts\MAE_ModelXLoad.gml</script>
+            <script>scripts\MAE_ModelXRender.gml</script>
+            <script>scripts\MAE_ModelXDestroy.gml</script>
+          </scripts>
         </scripts>
         <scripts name="Particles">
           <script>scripts\Particle_System_Note.gml</script>
@@ -220,6 +259,9 @@
           <script>scripts\MAE_RegionObjectRemove.gml</script>
           <script>scripts\MAE_RegionUpdate.gml</script>
           <script>scripts\MAE_RegionDestroy.gml</script>
+        </scripts>
+        <scripts name="Effect">
+          <script>scripts\MAE_EffectFXAACreate.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">
@@ -437,6 +479,7 @@
     <object>objects\obj_Shader</object>
     <object>objects\obj_Light</object>
     <object>objects\obj_MD2Animation</object>
+    <object>objects\obj_XStatic</object>
     <object>objects\obj_Physics</object>
   </objects>
   <rooms name="rooms">
@@ -446,6 +489,7 @@
     <room>rooms\rm_Shader</room>
     <room>rooms\rm_Light</room>
     <room>rooms\rm_MD2Animation</room>
+    <room>rooms\rm_XStatic</room>
     <room>rooms\rm_Physics</room>
   </rooms>
   <help>
