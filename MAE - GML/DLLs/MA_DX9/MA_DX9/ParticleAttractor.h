@@ -8,7 +8,15 @@
 
 class ParticleAttractor {
 public:
-	/* TO-DO */
+	void setDistance(float dist);
+	void setGravity(float grav);
+	void setPosition(Vector3D pos);
+
+	float getDistance();
+	float getGravity();
+	Vector3D  getPosition();
 private:
-	/* TO-DO */
+	float paDistance;
+	float paGravity;
+	Vector3D paPosition;
 };

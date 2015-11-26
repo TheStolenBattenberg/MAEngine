@@ -66,6 +66,15 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source Files\Particle System</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleRepulsor.cpp">
+      <Filter>Source Files\Particle System</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttractor.cpp">
+      <Filter>Source Files\Particle System</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>Source Files\Particle System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">

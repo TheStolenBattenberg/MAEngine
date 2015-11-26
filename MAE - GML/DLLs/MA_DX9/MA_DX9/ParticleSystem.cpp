@@ -34,10 +34,11 @@ void ParticleSystem::update(uint time) {
 
 	uint i = 0;
 	while (i < psBuffer.size()) {
-		if (psBuffer[i].pAge >= psBuffer[i].pLife)
+		if (psBuffer[i].pAge > psBuffer[i].pLife)
 		{
 			psBuffer[i] = psBuffer[psBuffer.size() - 1];
-			//psBuffer.erase(psBuffer.size() - 1); erase doesn't like particles. Not sure what to do here.
+			//psBuffer.erase(psBuffer.size() - 1); erase doesn't like particles? Not sure what to do here, I'm guessing it's simple, I'm just
+			//not too experienced with C++.
 		}
 		else {
 			if (psAttractor != NULL) {
@@ -45,13 +46,14 @@ void ParticleSystem::update(uint time) {
 			}
 
 			if (psRepulsor != NULL) {
-				//Move toe particles away if in range.
+				//Move the particles away if in range.
 			}
 
 			//Normal movement, via velocity.
 
 			//Velocity increase math: POS.X + VEL.X * ACCELERATION.
 
+			//Also do the other particle effects here, such as interp between colours, based on life. Probably a lot more too
 			psBuffer[i].pAge++;
 			++i;
 		}
