@@ -110,5 +110,14 @@
     <ClInclude Include="ParticleSystem.h">
       <Filter>Header Files\Particle System</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>Header Files\Particle System</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAttractor.h">
+      <Filter>Header Files\Particle System</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleRepulsor.h">
+      <Filter>Header Files\Particle System</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
