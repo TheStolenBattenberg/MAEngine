@@ -260,9 +260,6 @@
           <script>scripts\MAE_RegionUpdate.gml</script>
           <script>scripts\MAE_RegionDestroy.gml</script>
         </scripts>
-        <scripts name="Effect">
-          <script>scripts\MAE_EffectFXAACreate.gml</script>
-        </scripts>
       </scripts>
       <scripts name="Physics">
         <scripts name="World">

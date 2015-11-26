@@ -23,6 +23,8 @@
 #include "ModelMD2.h"
 #include "ModelX.h"
 
+#include "ParticleSystem.h"
+
 class MADX9Main
 {
 public:

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Particle System">
+      <UniqueIdentifier>{ab46e417-a629-4127-a6a2-79c5829e577e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particle System">
+      <UniqueIdentifier>{bbcc484e-1d84-4db8-a9b7-77a7215bf307}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variant.cpp">
@@ -57,6 +63,9 @@
     <ClCompile Include="ModelX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files\Particle System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -94,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="ModelX.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Particle System</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files\Particle System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

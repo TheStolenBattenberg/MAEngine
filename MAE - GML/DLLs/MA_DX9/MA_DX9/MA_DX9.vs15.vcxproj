@@ -23,6 +23,7 @@
     <ClCompile Include="MA_Texture.cpp" />
     <ClCompile Include="ModelMD2.cpp" />
     <ClCompile Include="ModelX.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Variant.cpp" />
   </ItemGroup>
@@ -33,6 +34,8 @@
     <ClInclude Include="ModelMD2.h" />
     <ClInclude Include="ModelMPM.h" />
     <ClInclude Include="ModelX.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Hook.h" />
     <ClInclude Include="Object.h" />
