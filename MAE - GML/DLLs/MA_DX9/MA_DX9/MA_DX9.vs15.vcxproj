@@ -35,6 +35,9 @@
     <ClInclude Include="ModelMPM.h" />
     <ClInclude Include="ModelX.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleAttractor.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="ParticleRepulsor.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Hook.h" />

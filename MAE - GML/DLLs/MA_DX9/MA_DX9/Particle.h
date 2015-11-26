@@ -7,10 +7,11 @@
 #include "Types.h"
 
 struct Particle {
-	vec3 pPosition; //The position of the particle.
-	vec3 pVelocity; //The velocity of the particle.
-	vec4 pDiffuse;  //The colour of the particle.
-	float pAge;     //The age of the particle since creation.
-	float pLife;    //The life of the partice. if age is greater than life, destroy the particle.
-	float pSize;    //The size of the particle.
+	vec3 pPosition; //Position of the particle
+	vec3 pDirection; //Direction of the particle. X, Y & Z should be between -1 and +1.
+	vec4 pColour; //Colour of the particle.
+	float pAcceleration; //The speed of the particle
+	float pSize; //The size of the particle.
+	uint pAge; //The current age of the particle.
+	uint pLife; //The age at which the particle dies.
 };
