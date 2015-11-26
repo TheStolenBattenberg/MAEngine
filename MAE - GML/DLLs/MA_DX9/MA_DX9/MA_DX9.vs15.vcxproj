@@ -23,6 +23,9 @@
     <ClCompile Include="MA_Texture.cpp" />
     <ClCompile Include="ModelMD2.cpp" />
     <ClCompile Include="ModelX.cpp" />
+    <ClCompile Include="ParticleAttractor.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleRepulsor.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Variant.cpp" />
