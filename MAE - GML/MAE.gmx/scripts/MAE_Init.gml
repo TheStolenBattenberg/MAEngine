@@ -241,10 +241,27 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_BodyApplyTorqueImpulse     = external_define(global.DLL_MABullet, "MAB_BodyApplyTorqueImpulse", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
     
     //Constraints
-    global.MAB_ConstraintCreateP2P         = external_define(global.DLL_MABullet, "MAB_ConstraintCreateP2P", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreateP2P         = external_define(global.DLL_MABullet, "MAB_ConstraintCreateP2P", dll_cdecl, ty_real, 11, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_ConstraintCreateFixed       = external_define(global.DLL_MABullet, "MAB_ConstraintCreateFixed", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MAB_ConstraintSetPivot          = external_define(global.DLL_MABullet, "MAB_ConstraintSetPivot", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MAB_ConstraintSetBreakThreshold = external_define(global.DLL_MABullet, "MAB_ConstraintSetBreakThreshold", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MAB_ConstraintCreateSlider      = external_define(global.DLL_MABullet, "MAB_ConstraintCreateSlider", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreateGear        = external_define(global.DLL_MABullet, "MAB_ConstraintCreateGear", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreateHinge       = external_define(global.DLL_MABullet, "MAB_ConstraintCreateHinge", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreate6DOF        = external_define(global.DLL_MABullet, "MAB_ConstraintCreate6DOF", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreateSpring6DOF  = external_define(global.DLL_MABullet, "MAB_ConstraintCreateSpring6DOF", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintCreateConeTwist   = external_define(global.DLL_MABullet, "MAB_ConstraintCreateConeTwist", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MAB_ConstraintParamTransform    = external_define(global.DLL_MABullet, "MAB_ConstraintParamTransform", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MAB_ConstraintSetEnabled        = external_define(global.DLL_MABullet, "MAB_ConstraintSetEnabled", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MAB_ConstraintDestroy           = external_define(global.DLL_MABullet, "MAB_ConstraintDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_ConstraintGetAppliedImpulse = external_define(global.DLL_MABullet, "MAB_ConstraintGetAppliedImpulse", dll_cdecl, ty_real, 1, ty_real);
+    global.MAB_ConstraintSetParam          = external_define(global.DLL_MABullet, "MAB_ConstraintSetParam", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    
+    //Constraint Params
+    enum PARAM {
+        IMPULSE_CLAMP,
+        DAMPING,
+        TAU,
+        PIVOTA,
+        PIVOTB,
+        BREAK_THRESHOLD,
+    };
 }
