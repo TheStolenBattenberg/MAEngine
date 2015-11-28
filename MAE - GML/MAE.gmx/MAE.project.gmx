@@ -359,10 +359,16 @@
         <scripts name="Constraint">
           <script>scripts\MAE_PhysConstraintCreateP2P.gml</script>
           <script>scripts\MAE_PhysConstraintCreateFixed.gml</script>
-          <script>scripts\MAE_PhysConstraintSetPivot.gml</script>
-          <script>scripts\MAE_PhysConstraintSetBreakThreshold.gml</script>
-          <script>scripts\MAE_PhysConstraintSetEnabled.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateSlider.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateGear.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateHinge.gml</script>
+          <script>scripts\MAE_PhysConstraintCreate6DOF.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateSpring6DOF.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateConeTwist.gml</script>
           <script>scripts\MAE_PhysConstraintDestroy.gml</script>
+          <script>scripts\MAE_PhysConstraintSetParam.gml</script>
+          <script>scripts\MAE_PhysConstraintSetEnabled.gml</script>
+          <script>scripts\MAE_PhysConstraintGetAppliedImpulse.gml</script>
         </scripts>
       </scripts>
       <scripts name="Utilities">

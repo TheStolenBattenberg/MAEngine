@@ -69,7 +69,7 @@ struct MABullet {
 extern MABullet G;
 
 struct MAOverlapCallback : public btCollisionWorld::ContactResultCallback {
-	MAOverlapCallback(btCollisionObject* tgtBody) : btCollisionWorld::ContactResultCallback(), body(tgtBody) {}
+	MAOverlapCallback(btCollisionObject* tgtBody) : btCollisionWorld::ContactResultCallback(), body(tgtBody) {};
 	btCollisionObject* body;
 	bool hasHit = false;
 	virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0, int partId0, int index0, const btCollisionObjectWrapper* colObj1, int partId1, int index1) {

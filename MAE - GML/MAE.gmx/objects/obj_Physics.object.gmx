@@ -72,6 +72,7 @@ for(var i=0; i&lt;array_length_1d(shape); i++){
     body[i] = MAE_PhysBodyCreate(shape[i], 1, random(pi*2), random(pi*2), random(pi*2), 0, 0, 10+i*3);
 }
 
+//uncomment the following block to test fixed constraints
 /*
 MAE_PhysConstraintCreateFixed(body[0], body[1]);
 MAE_PhysConstraintCreateFixed(body[1], body[2]);
@@ -126,14 +127,15 @@ if(mouse_check_button_pressed(mb_left)){
         else{
             dragging_distance = MAE_PhysWorldHitFraction() * ray_dist;
             MAE_PhysBodyActivate(dragging_body);
-            dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true);
+            dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true, false);
+            MAE_PhysConstraintSetParam(dragging_constraint, PARAM.IMPULSE_CLAMP, 5);
         }
     }
 }
 else if(mouse_check_button(mb_left)){
     if(dragging_body != -1){
         var target_pos = MAE_VectorAdd(camera_pos, MAE_VectorMultiply(mouse_vector, dragging_distance));
-        MAE_PhysConstraintSetPivot(dragging_constraint, 1, target_pos);
+        MAE_PhysConstraintSetParam(dragging_constraint, PARAM.PIVOTB, target_pos);
     }
 }
 if(mouse_check_button_released(mb_left)){
