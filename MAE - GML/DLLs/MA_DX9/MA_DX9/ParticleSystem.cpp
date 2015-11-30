@@ -4,7 +4,7 @@ void ParticleSystem::createEmitter() {
 	/**
 	 * This needs to be changed. We should have multiple emitter shapes, like sphere, box, cylinder etc.
 	 */
-	psEmitter = new ParticleEmitter();
+	psEmitter = new ParticleEmitter(PE_BOX);
 }
 
 void ParticleSystem::createAttractor() {
@@ -37,7 +37,7 @@ void ParticleSystem::update(uint time) {
 		if (psBuffer[i].pAge > psBuffer[i].pLife)
 		{
 			psBuffer[i] = psBuffer[psBuffer.size() - 1];
-			//psBuffer.erase(psBuffer.size() - 1); erase doesn't like particles? Not sure what to do here, I'm guessing it's simple, I'm just
+			//psBuffer.erase(psBuffer.size() - 1); //erase doesn't like particles? Not sure what to do here, I'm guessing it's simple, I'm just
 			//not too experienced with C++.
 		}
 		else {
