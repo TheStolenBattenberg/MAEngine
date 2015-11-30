@@ -26,7 +26,7 @@ ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
  */
 uint ParticleEmitter::emitt(uint time, Particle*& parts) {
 	if (peTimer == time) {
-
+		//Emitt particles inside this if statement.
 		peTimer = 0;
 	}
 	
