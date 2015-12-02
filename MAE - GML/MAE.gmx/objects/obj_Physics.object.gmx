@@ -128,14 +128,14 @@ if(mouse_check_button_pressed(mb_left)){
             dragging_distance = MAE_PhysWorldHitFraction() * ray_dist;
             MAE_PhysBodyActivate(dragging_body);
             dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true, false);
-            MAE_PhysConstraintSetParam(dragging_constraint, PARAM.IMPULSE_CLAMP, 5);
+            MAE_PhysConstraintSetParam(dragging_constraint, PARAM.P2P_IMPULSE_CLAMP, 5);
         }
     }
 }
 else if(mouse_check_button(mb_left)){
     if(dragging_body != -1){
         var target_pos = MAE_VectorAdd(camera_pos, MAE_VectorMultiply(mouse_vector, dragging_distance));
-        MAE_PhysConstraintSetParam(dragging_constraint, PARAM.PIVOTB, target_pos);
+        MAE_PhysConstraintSetParam(dragging_constraint, PARAM.P2P_PIVOTB, target_pos);
     }
 }
 if(mouse_check_button_released(mb_left)){
