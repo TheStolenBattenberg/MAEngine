@@ -16,17 +16,21 @@ class ParticleEmitter {
 public:
 	ParticleEmitter(EMITTER_TYPE type);
 
-	uint emitt(uint time, Particle*& parts);
+	uint emitt(uint time, uint count, Particle *parts);
 	
 	void setColour(ColourRGBA colourStart, ColourRGBA colourEnd);
 	void setSize(float sizeMin, float sizeMax);
-	void setSpawn(uint secondsMin, uint secondsMax);
+	void setSpawn(uint spawnMin, uint spawnMax);
+
+	uint RandU(uint nMin, uint nMax);
+
+	uint getSpawnThisTick();
 
 private:
 	ColourRGBA pColourStart, pColourEnd;
 	float pSizeMin, pSizeMax;
 
-	uint pMinPerSecond, pMaxPerSecond;
+	uint pMinPerEmitt, pMaxPerEmitt;
 
 	uint peTimer = 0;
 };

@@ -3,7 +3,6 @@
 /**
 * Includes
 */
-
 #include "Types.h"
 
 struct Particle {

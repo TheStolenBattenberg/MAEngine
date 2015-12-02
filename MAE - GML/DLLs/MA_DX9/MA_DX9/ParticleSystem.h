@@ -23,10 +23,14 @@ public:
 	void destroyEmitter(); //Stub
 	void destroyRepulsor(); //Stub
 
+	ParticleEmitter* getEmitter();
+
 	void update(uint time);
 	void render(); //Stub
 
 	void setBlendMode(); //Stub
+
+	uint getParticleCount();
 private:
 	ParticleEmitter*   psEmitter = NULL;
 	ParticleAttractor* psAttractor = NULL;
