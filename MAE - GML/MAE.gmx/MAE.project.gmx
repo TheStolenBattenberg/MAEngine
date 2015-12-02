@@ -193,22 +193,14 @@
           </scripts>
         </scripts>
         <scripts name="Particles">
-          <script>scripts\Particle_System_Note.gml</script>
           <scripts name="System">
             <script>scripts\MAE_ParticleSystemCreate.gml</script>
-            <script>scripts\MAE_ParticleSystemDestroy.gml</script>
-            <script>scripts\MAE_ParticleSystemDraw.gml</script>
-            <script>scripts\MAE_ParticleSystemArea.gml</script>
             <script>scripts\MAE_ParticleSystemUpdate.gml</script>
+            <script>scripts\MAE_ParticleSystemGetParticleCount.gml</script>
           </scripts>
-          <scripts name="Particle">
-            <script>scripts\MAE_ParticleCreate.gml</script>
-            <script>scripts\MAE_ParticleDestroy.gml</script>
-            <script>scripts\MAE_ParticleSetTexture.gml</script>
-            <script>scripts\MAE_ParticleSetSize.gml</script>
-            <script>scripts\MAE_ParticleSetColour.gml</script>
-            <script>scripts\MAE_ParticleSetAlpha.gml</script>
-            <script>scripts\MAE_ParticleSetBlendmode.gml</script>
+          <scripts name="Emitter">
+            <script>scripts\MAE_ParticleEmitterCreate.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleCount.gml</script>
           </scripts>
         </scripts>
         <scripts name="Shader">

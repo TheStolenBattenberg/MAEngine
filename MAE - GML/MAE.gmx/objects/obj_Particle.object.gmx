@@ -33,20 +33,10 @@ d3d_start();
 
 /**
  * Particles
- */ 
-part_texture = background_get_texture(tex_particle); //We must make a texture for the particle.
-part = MAE_ParticleCreate(PARTICLE_STANDARD); //Create the Particle.
-MAE_ParticleSetTexture(part, part_texture); //
-MAE_ParticleSetSize(part, 0.3, 0.7);
-MAE_ParticleSetColour(part, 127, 127, 127, 255, 255, 255);
-MAE_ParticleSetAlpha(part, 0.5, 1);
-MAE_ParticleSetBlendmode(part, bm_add);
-
-part_area = MAE_ParticleSystemArea(8, 8, 8);
-part_test = MAE_ParticleSystemCreate(part, part_area, 32000, PARTICLE_DISTRIBUTION_RANDOM);
-MAE_ParticleSystemUpdate(part_test, part, 4, 0, 0, 0);
-update = 0;
-steps = 0;
+ */
+MAE_ParticleSystemCreate();
+MAE_ParticleEmitterCreate();
+MAE_ParticleEmitterSetParticleCount(30, 60);
 </string>
           </argument>
         </arguments>
@@ -69,18 +59,31 @@ steps = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>update++
-if(update &gt;= 4)
-{ MAE_ParticleSystemUpdate(part_test, part,  4, 0, 0, 0); update = 0; }
-
-
-if(keyboard_check_pressed(vk_escape))
-{
-    MAE_ParticleSystemDestroy(part_test);
-    MAE_ParticleDestroy(part);
-    d3d_end();
-    room_goto(rm_debug);
-}
+            <string>MAE_ParticleSystemUpdate(30); //Spawn new particles every 30 steps.
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_colour(c_black);
+draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParticleCount()));
 </string>
           </argument>
         </arguments>
@@ -104,8 +107,6 @@ if(keyboard_check_pressed(vk_escape))
           <argument>
             <kind>1</kind>
             <string>d3d_set_projection(32, 0, 32, 0, 0, 0, 0, 0, 1);
-
-MAE_ParticleSystemDraw(part_test, part);
 </string>
           </argument>
         </arguments>

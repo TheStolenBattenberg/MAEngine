@@ -75,6 +75,9 @@
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Source Files\Particle System</Filter>
     </ClCompile>
+    <ClCompile Include="MA_Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">

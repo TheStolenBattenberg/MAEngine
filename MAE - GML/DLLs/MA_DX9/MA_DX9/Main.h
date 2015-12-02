@@ -46,6 +46,7 @@ public:
 
 	std::vector<MD2Model*>     MD2Models;
 	std::vector<XModel*>       XModels;
+	ParticleSystem* ParticleSys;
 
 	Hook* hook;
 
