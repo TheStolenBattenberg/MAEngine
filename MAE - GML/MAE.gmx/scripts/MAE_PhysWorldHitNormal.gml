@@ -1,7 +1,15 @@
 //MAE_PhysWorldHitNormal()
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Returns the surface normal at the hit point of a sweep or raycast.
+ *
+ * Arguments:
+ *   [N/A]
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_HitResult, 1);
 var vec;

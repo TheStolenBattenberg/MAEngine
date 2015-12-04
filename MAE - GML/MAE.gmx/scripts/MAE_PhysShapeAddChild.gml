@@ -1,10 +1,19 @@
 ///MAE_PhysShapeAddChild(parent_shape, child_shape, position, rotation)
-/*
-Position can be a vector or 3 reals.
-Rotation is a quaternion.
+///MAE_PhysShapeAddChild(parent_shape, child_shape, x, y, z, rotation)
 
-Returns child index.
-*/
+/**
+ * Description:
+ *   Adds a child shape to a compound shape with an offset and rotation.
+ *
+ * Arguments:
+ *   [0] - Parent shape
+ *   [1] - Child shape
+ *   [2] - Position as vector
+ *   [3] - Rotation as quaternion
+ *
+ * Returns:
+ *   Child index
+ */
 
 var rot = argument[3];
 if(argument_count == 4){

@@ -1,7 +1,16 @@
 ///MAE_PhysWorldSetGravity(x, y, z)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+///MAE_PhysWorldSetGravity(vec)
+
+/**
+ * Description:
+ *   Sets the gravity of the physics world. Pass in 3 reals or a vector.
+ *
+ * Arguments:
+ *   [0-3] - Gravity vector.
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 1){
     var vec = argument[0];

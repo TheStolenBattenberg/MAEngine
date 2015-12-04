@@ -1,8 +1,19 @@
 ///MAE_PhysShapeUpdateChildTransform(parent_shape, index, position, rotation)
-/*
-Position can be a vector or 3 reals.
-Rotation is a quaternion.
-*/
+///MAE_PhysShapeUpdateChildTransform(parent_shape, index, x, y, z, rotation)
+
+/**
+ * Description:
+ *   Changes the transform of a child of a compound shape.
+ *
+ * Arguments:
+ *   [0] - Parent shape
+ *   [1] - Child index
+ *   [2] - Position as vector
+ *   [3] - Rotation as quaternion
+ *
+ * Returns:
+ *   Success
+ */
 
 var rot = argument[3];
 if(argument_count == 4){

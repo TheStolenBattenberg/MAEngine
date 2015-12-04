@@ -1,9 +1,20 @@
-///MAE_PhysWorldOverlap(shape, x, y, z, quaternion, [group, mask])
 ///MAE_PhysWorldOverlap(shape, vec, quaternion, [group, mask])
-/*
-Returns the number of bodies that the shape overlaps.
-Call MAE_PhysWorldHitBody(n) to get the bodies.
-*/
+///MAE_PhysWorldOverlap(shape, x, y, z, quaternion, [group, mask])
+
+/**
+ * Description:
+ *   Checks for overlaps in the world with a shape, with an optional collision mask.
+ *   Use the MAE_PhysWorldHitBody(n) to get the ID's of all the bodies in the world that overlapped.
+ *
+ * Arguments:
+ *   [0]   - Shape
+ *   [1]   - Position as a vector
+ *   [2]   - Rotation as a quaternion.
+ *   [3-4] - Optional group and mask to filter collisions.
+ *
+ * Returns:
+ *   The number of overlaps.
+ */
 
 if(is_array(argument[1])){
     var vec = argument[1];
