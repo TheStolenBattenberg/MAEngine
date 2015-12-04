@@ -1,7 +1,15 @@
 //MAE_PhysWorldHitPosition()
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Returns the hit point of a sweep or raycast.
+ *
+ * Arguments:
+ *   [N/A]
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_HitResult, 0);
 var vec;

@@ -1,7 +1,17 @@
 ///MAE_PhysShapeSetScaling(shape, x, y, z)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+///MAE_PhysShapeSetScaling(shape, vec)
+
+/**
+ * Description:
+ *   Sets the scaling of a shape. Please note that not all shapes support non-uniform scaling.
+ *
+ * Arguments:
+ *   [0]   - Shape
+ *   [1-3] - Scaling
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 2){
     var vec = argument[1];
