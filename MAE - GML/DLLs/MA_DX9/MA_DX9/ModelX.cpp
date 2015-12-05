@@ -1,6 +1,9 @@
 #include "Main.h"
 #include "ModelX.h"
 
+//TODO: Remove
+#include "Utils.h"
+
 XModel::~XModel()
 {
 	for (uint i = 0; i < materialCount; ++i) {
@@ -16,7 +19,7 @@ XModel::~XModel()
 
 	if (mesh != NULL) {
 		mesh->Release();
-		delete mesh;
+		mesh = 0;
 	}
 }
 
@@ -31,12 +34,18 @@ bool XModel::load(std::string filename, std::string texturedir) {
 	}
 
 	D3DXMATERIAL* xMaterials = (D3DXMATERIAL* )materialBuffer->GetBufferPointer();
+
 	materials = new D3DMATERIAL9[materialCount];
-	textures = new LPDIRECT3DTEXTURE9[materialCount];
+	textures  = new LPDIRECT3DTEXTURE9[materialCount];
+
 	if (materials == NULL || textures == NULL) {
-		mamain->err.onError("Out of memory!");
+		mamain->err.onError("Failed to allocate memory");
+		materialBuffer->Release();
 		return false;
 	}
+
+	memset(materials, 0, materialCount * sizeof(D3DMATERIAL9));
+	memset(textures, 0, materialCount * sizeof(LPDIRECT3DTEXTURE9));
 
 	for (uint i = 0; i < materialCount; ++i) {
 		materials[i] = xMaterials[i].MatD3D;
@@ -44,7 +53,7 @@ bool XModel::load(std::string filename, std::string texturedir) {
 
 		textures[i] = NULL;
 		if (xMaterials[i].pTextureFilename != NULL && lstrlen(xMaterials[i].pTextureFilename) > 0) {
-			res = D3DXCreateTextureFromFile(mamain->d3ddev, xMaterials[i].pTextureFilename, &textures[i]);
+			res = D3DXCreateTextureFromFile(mamain->d3ddev, (texturedir + '/' + xMaterials[i].pTextureFilename).c_str(), &textures[i]);
 			if (FAILED(res)) {
 				mamain->err.onErrorDX9("Couldn't load .X texture.", res);
 			}
