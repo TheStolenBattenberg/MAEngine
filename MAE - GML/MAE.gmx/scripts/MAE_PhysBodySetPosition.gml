@@ -1,7 +1,17 @@
+///MAE_PhysBodySetPosition(body, position)
 ///MAE_PhysBodySetPosition(body, x, y, z)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+
+/**
+ * Description:
+ *   Sets the position of the physics body in the world.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Position as a vector
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 2){
     var vec = argument[1];

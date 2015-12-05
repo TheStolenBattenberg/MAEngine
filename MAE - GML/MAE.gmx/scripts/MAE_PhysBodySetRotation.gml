@@ -1,7 +1,17 @@
 ///MAE_PhysBodySetRotation(body, rotation)
-/*
-Accepts a 3-component vector of euler angles, a quaternion, or 3 seperate euler angles.
-*/
+///MAE_PhysBodySetRotation(body, xrot, yrot, zrot)
+
+/**
+ * Description:
+ *   Sets the rotation of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Rotation. Can be a vector of euler angles or a quaternion.
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 2){
     var rot = argument[1];

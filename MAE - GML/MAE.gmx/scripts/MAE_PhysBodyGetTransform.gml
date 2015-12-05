@@ -1,7 +1,16 @@
 ///MAE_PhysBodyGetTransform(body)
-/*
-Returns a matrix.
-*/
+
+/**
+ * Description:
+ *   Gets the transformation of a physics body as a matrix. This matrix holds both the position and rotation.
+ *   This is the easiest way to get the transformation of a body for rendering.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   4x4 Matrix
+ */
 
 var _pos = MAE_PhysBodyGetPosition(argument0);
 var _rot = MAE_PhysBodyGetRotationQuat(argument0);

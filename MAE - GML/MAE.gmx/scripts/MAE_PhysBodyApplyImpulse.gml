@@ -1,7 +1,18 @@
+///MAE_PhysBodyApplyImpulse(body, position, impulse)
 ///MAE_PhysBodyApplyImpulse(body, x, y, z, xvel, yvel, zvel)
-/*
-Accepts 2 vectors or 6 seperate reals.
-*/
+
+/**
+ * Description:
+ *   Applies an impulse to a physics body at the specified point in local space.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Position as a vector
+ *   [2] - Force as a vector
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 3){
     var vec = argument[1];

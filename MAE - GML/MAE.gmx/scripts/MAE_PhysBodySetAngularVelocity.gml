@@ -1,7 +1,17 @@
+///MAE_PhysBodySetAngularVelocity(body, velocity)
 ///MAE_PhysBodySetAngularVelocity(body, x, y, z)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+
+/**
+ * Description:
+ *   Sets the angular velocity of the physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Velocity vector
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 2){
     var vec = argument[1];

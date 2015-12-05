@@ -1,7 +1,19 @@
 ///MAE_PhysBodySetAngularFactor(body, x, y, z)
-/*
-Accepts a vector, a single real that applies to each axis, or 3 seperate reals.
-*/
+///MAE_PhysBodySetAngularFactor(body, factor)
+///MAE_PhysBodySetAngularFactor(body, vec)
+
+/**
+ * Description:
+ *   Sets the angular factor of a physics body. This can be used to restrict movement per axis.
+ *   You could limit the physics engine to a 2D plane, for example.
+ *
+ * Arguments:
+ *   [0]   - Body
+ *   [1-3] - X, Y, Z, factors
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 2){
     var vec = argument[1];

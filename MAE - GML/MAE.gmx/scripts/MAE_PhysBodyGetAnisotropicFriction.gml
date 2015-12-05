@@ -1,7 +1,15 @@
 ///MAE_PhysBodyGetAnisotropicFriction(body)
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Gets the anisotropic friction of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_BodyGetAnisotropicFriction, argument0);
 var vec;

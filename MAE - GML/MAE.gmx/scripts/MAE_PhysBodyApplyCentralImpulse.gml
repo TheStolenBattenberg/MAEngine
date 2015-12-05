@@ -1,7 +1,18 @@
+///MAE_PhysBodyApplyCentralImpulse(body, relative, impulse)
 ///MAE_PhysBodyApplyCentralImpulse(body, relative, xvel, yvel, zvel)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+
+/**
+ * Description:
+ *   Applies an impulse to the center of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Local space(true), or world space(false)
+ *   [2] - Impulse as a vector
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 3){
     var vec = argument[2];

@@ -1,7 +1,15 @@
 ///MAE_PhysBodyGetRotationQuat(body)
-/*
-Returns a quaternion.
-*/
+
+/**
+ * Description:
+ *   Gets the rotation of the physics body as a quaternion.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Quaternion.
+ */
 
 external_call(global.MAB_BodyGetRotationQuat, argument0);
 var _x = external_call(global.MAB_Quat, 0);

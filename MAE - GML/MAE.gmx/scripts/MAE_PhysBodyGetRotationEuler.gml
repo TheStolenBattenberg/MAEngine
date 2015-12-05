@@ -1,7 +1,15 @@
 ///MAE_PhysBodyGetRotationEuler(body)
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Gets the rotation of the physics body in euler angles. Rotation order is XYZ.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_BodyGetRotationEuler, argument0);
 var vec;
