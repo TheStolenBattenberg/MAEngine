@@ -13,7 +13,8 @@ ParticleSystem::ParticleSystem() {
 		mamain->d3ddev->CreateVertexDeclaration(part_decl_ve, &mamain->VertexDeclarationParticle);
 	}
 
-	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(vec3), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
+	//TODO: Make vertex buffer more flexible.
+	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(vec3) * 100, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 	if (FAILED(res)) {
 		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
 	}
@@ -97,15 +98,27 @@ void ParticleSystem::update(uint time) {
 }
 
 void ParticleSystem::render() {
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, (DWORD)psEmitter->getMinSize());
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, (DWORD)psEmitter->getMaxSize());
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, true); //Not sure we need to do this every time.
+	float v;
+
+	v = psEmitter->getMinSize();
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
+	
+	v = psEmitter->getMaxSize();
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
+
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, true);
 	mamain->d3ddev->SetVertexDeclaration(mamain->VertexDeclarationParticle);
 	mamain->d3ddev->SetTexture(0, psTexture);
 	mamain->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(Particle::pPosition));
 	mamain->d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
 	mamain->d3ddev->SetVertexDeclaration(NULL);
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, false); //This neither.
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, false);
+
+	v = 1.0f;
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
 }
 
 uint ParticleSystem::getParticleCount() {
