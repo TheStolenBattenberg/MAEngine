@@ -70,7 +70,7 @@ var t = MAE_TextureCreateFromFile("COMMON/TEXTURE/hobgoblin.bmp", MIPMAPS_NONE);
 /**
  * Load .MD2 Model
  */
-global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", t);
+global.m = MAE_ModelMD2Load("COMMON/MODEL/hobgoblin.md2", t, 0);
 
 
 /**

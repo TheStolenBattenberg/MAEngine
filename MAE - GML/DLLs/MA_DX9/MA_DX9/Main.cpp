@@ -53,12 +53,6 @@ MADX9Main::~MADX9Main()
 
 	Material.clear();
 
-	if (VertexDeclarationMD2 != 0)
-	{
-		VertexDeclarationMD2->Release();
-		VertexDeclarationMD2 = 0;
-	}
-
 	if (VertexDeclarationMPM != 0)
 	{
 		VertexDeclarationMPM->Release();

@@ -4,6 +4,10 @@
 
 #include "Types.h"
 
+template<typename T> inline T clamp(T value, T min, T max) {
+	return min(max(value, min), max);
+}
+
 template<typename T> inline bool isValidIndex(uint ind, std::vector<T*>& vec)
 {
 	if (ind >= vec.size())

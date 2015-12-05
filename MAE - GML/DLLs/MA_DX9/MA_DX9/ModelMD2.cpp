@@ -1,4 +1,231 @@
 #include "Main.h"
+#include "Utils.h"
+
+namespace MD2Type
+{
+	enum
+	{
+		Version     = 0x00000008ul,
+		MagicNumber = 0x32504449ul
+	};
+
+	struct Header
+	{
+		uint magicNumber;
+		uint version;
+
+		uint skinWidth;
+		uint skinHeight;
+		uint frameSize;
+
+		uint numSkin;
+		uint numVert;
+		uint numST;
+		uint numTris;
+		uint numGLCmds;
+		uint numFrames;
+
+		uint ofsSkins;
+		uint ofsST;
+		uint ofsTris;
+		uint ofsFrames;
+		uint ofsGLCmds;
+		uint ofsEnd;
+	};
+
+	struct Vertex
+	{
+		ubyte vertex[3];
+		ubyte normInd;
+	};
+
+	struct Frame
+	{
+		float  scale[3];
+		float  translate[3];
+		char   name[16];
+		Vertex verticies[1];
+	};
+
+	struct Triangle
+	{
+		short vertInd[3];
+		short texInd[3];
+	};
+
+	typedef short IndexBuffer[3];
+
+	struct Texcoord
+	{
+		short s, t;
+	};
+};
+
+Normal MD2Normals[] =
+{
+	{-0.525731f,  0.000000f,  0.850651f},
+	{-0.442863f,  0.238856f,  0.864188f},
+	{-0.295242f,  0.000000f,  0.955423f},
+	{-0.309017f,  0.500000f,  0.809017f},
+	{-0.162460f,  0.262866f,  0.951056f},
+	{ 0.000000f,  0.000000f,  1.000000f},
+	{ 0.000000f,  0.850651f,  0.525731f},
+	{-0.147621f,  0.716567f,  0.681718f},
+	{ 0.147621f,  0.716567f,  0.681718f},
+	{ 0.000000f,  0.525731f,  0.850651f},
+	{ 0.309017f,  0.500000f,  0.809017f},
+	{ 0.525731f,  0.000000f,  0.850651f},
+	{ 0.295242f,  0.000000f,  0.955423f},
+	{ 0.442863f,  0.238856f,  0.864188f},
+	{ 0.162460f,  0.262866f,  0.951056f},
+	{-0.681718f,  0.147621f,  0.716567f},
+	{-0.809017f,  0.309017f,  0.500000f},
+	{-0.587785f,  0.425325f,  0.688191f},
+	{-0.850651f,  0.525731f,  0.000000f},
+	{-0.864188f,  0.442863f,  0.238856f},
+	{-0.716567f,  0.681718f,  0.147621f},
+	{-0.688191f,  0.587785f,  0.425325f},
+	{-0.500000f,  0.809017f,  0.309017f},
+	{-0.238856f,  0.864188f,  0.442863f},
+	{-0.425325f,  0.688191f,  0.587785f},
+	{-0.716567f,  0.681718f, -0.147621f},
+	{-0.500000f,  0.809017f, -0.309017f},
+	{-0.525731f,  0.850651f,  0.000000f},
+	{ 0.000000f,  0.850651f, -0.525731f},
+	{-0.238856f,  0.864188f, -0.442863f},
+	{ 0.000000f,  0.955423f, -0.295242f},
+	{-0.262866f,  0.951056f, -0.162460f},
+	{ 0.000000f,  1.000000f,  0.000000f},
+	{ 0.000000f,  0.955423f,  0.295242f},
+	{-0.262866f,  0.951056f,  0.162460f},
+	{ 0.238856f,  0.864188f,  0.442863f},
+	{ 0.262866f,  0.951056f,  0.162460f},
+	{ 0.500000f,  0.809017f,  0.309017f},
+	{ 0.238856f,  0.864188f, -0.442863f},
+	{ 0.262866f,  0.951056f, -0.162460f},
+	{ 0.500000f,  0.809017f, -0.309017f},
+	{ 0.850651f,  0.525731f,  0.000000f},
+	{ 0.716567f,  0.681718f,  0.147621f},
+	{ 0.716567f,  0.681718f, -0.147621f},
+	{ 0.525731f,  0.850651f,  0.000000f},
+	{ 0.425325f,  0.688191f,  0.587785f},
+	{ 0.864188f,  0.442863f,  0.238856f},
+	{ 0.688191f,  0.587785f,  0.425325f},
+	{ 0.809017f,  0.309017f,  0.500000f},
+	{ 0.681718f,  0.147621f,  0.716567f},
+	{ 0.587785f,  0.425325f,  0.688191f},
+	{ 0.955423f,  0.295242f,  0.000000f},
+	{ 1.000000f,  0.000000f,  0.000000f},
+	{ 0.951056f,  0.162460f,  0.262866f},
+	{ 0.850651f, -0.525731f,  0.000000f},
+	{ 0.955423f, -0.295242f,  0.000000f},
+	{ 0.864188f, -0.442863f,  0.238856f},
+	{ 0.951056f, -0.162460f,  0.262866f},
+	{ 0.809017f, -0.309017f,  0.500000f},
+	{ 0.681718f, -0.147621f,  0.716567f},
+	{ 0.850651f,  0.000000f,  0.525731f},
+	{ 0.864188f,  0.442863f, -0.238856f},
+	{ 0.809017f,  0.309017f, -0.500000f},
+	{ 0.951056f,  0.162460f, -0.262866f},
+	{ 0.525731f,  0.000000f, -0.850651f},
+	{ 0.681718f,  0.147621f, -0.716567f},
+	{ 0.681718f, -0.147621f, -0.716567f},
+	{ 0.850651f,  0.000000f, -0.525731f},
+	{ 0.809017f, -0.309017f, -0.500000f},
+	{ 0.864188f, -0.442863f, -0.238856f},
+	{ 0.951056f, -0.162460f, -0.262866f},
+	{ 0.147621f,  0.716567f, -0.681718f},
+	{ 0.309017f,  0.500000f, -0.809017f},
+	{ 0.425325f,  0.688191f, -0.587785f},
+	{ 0.442863f,  0.238856f, -0.864188f},
+	{ 0.587785f,  0.425325f, -0.688191f},
+	{ 0.688191f,  0.587785f, -0.425325f},
+	{-0.147621f,  0.716567f, -0.681718f},
+	{-0.309017f,  0.500000f, -0.809017f},
+	{ 0.000000f,  0.525731f, -0.850651f},
+	{-0.525731f,  0.000000f, -0.850651f},
+	{-0.442863f,  0.238856f, -0.864188f},
+	{-0.295242f,  0.000000f, -0.955423f},
+	{-0.162460f,  0.262866f, -0.951056f},
+	{ 0.000000f,  0.000000f, -1.000000f},
+	{ 0.295242f,  0.000000f, -0.955423f},
+	{ 0.162460f,  0.262866f, -0.951056f},
+	{-0.442863f, -0.238856f, -0.864188f},
+	{-0.309017f, -0.500000f, -0.809017f},
+	{-0.162460f, -0.262866f, -0.951056f},
+	{ 0.000000f, -0.850651f, -0.525731f},
+	{-0.147621f, -0.716567f, -0.681718f},
+	{ 0.147621f, -0.716567f, -0.681718f},
+	{ 0.000000f, -0.525731f, -0.850651f},
+	{ 0.309017f, -0.500000f, -0.809017f},
+	{ 0.442863f, -0.238856f, -0.864188f},
+	{ 0.162460f, -0.262866f, -0.951056f},
+	{ 0.238856f, -0.864188f, -0.442863f},
+	{ 0.500000f, -0.809017f, -0.309017f},
+	{ 0.425325f, -0.688191f, -0.587785f},
+	{ 0.716567f, -0.681718f, -0.147621f},
+	{ 0.688191f, -0.587785f, -0.425325f},
+	{ 0.587785f, -0.425325f, -0.688191f},
+	{ 0.000000f, -0.955423f, -0.295242f},
+	{ 0.000000f, -1.000000f,  0.000000f},
+	{ 0.262866f, -0.951056f, -0.162460f},
+	{ 0.000000f, -0.850651f,  0.525731f},
+	{ 0.000000f, -0.955423f,  0.295242f},
+	{ 0.238856f, -0.864188f,  0.442863f},
+	{ 0.262866f, -0.951056f,  0.162460f},
+	{ 0.500000f, -0.809017f,  0.309017f},
+	{ 0.716567f, -0.681718f,  0.147621f},
+	{ 0.525731f, -0.850651f,  0.000000f},
+	{-0.238856f, -0.864188f, -0.442863f},
+	{-0.500000f, -0.809017f, -0.309017f},
+	{-0.262866f, -0.951056f, -0.162460f},
+	{-0.850651f, -0.525731f,  0.000000f},
+	{-0.716567f, -0.681718f, -0.147621f},
+	{-0.716567f, -0.681718f,  0.147621f},
+	{-0.525731f, -0.850651f,  0.000000f},
+	{-0.500000f, -0.809017f,  0.309017f},
+	{-0.238856f, -0.864188f,  0.442863f},
+	{-0.262866f, -0.951056f,  0.162460f},
+	{-0.864188f, -0.442863f,  0.238856f},
+	{-0.809017f, -0.309017f,  0.500000f},
+	{-0.688191f, -0.587785f,  0.425325f},
+	{-0.681718f, -0.147621f,  0.716567f},
+	{-0.442863f, -0.238856f,  0.864188f},
+	{-0.587785f, -0.425325f,  0.688191f},
+	{-0.309017f, -0.500000f,  0.809017f},
+	{-0.147621f, -0.716567f,  0.681718f},
+	{-0.425325f, -0.688191f,  0.587785f},
+	{-0.162460f, -0.262866f,  0.951056f},
+	{ 0.442863f, -0.238856f,  0.864188f},
+	{ 0.162460f, -0.262866f,  0.951056f},
+	{ 0.309017f, -0.500000f,  0.809017f},
+	{ 0.147621f, -0.716567f,  0.681718f},
+	{ 0.000000f, -0.525731f,  0.850651f},
+	{ 0.425325f, -0.688191f,  0.587785f},
+	{ 0.587785f, -0.425325f,  0.688191f},
+	{ 0.688191f, -0.587785f,  0.425325f},
+	{-0.955423f,  0.295242f,  0.000000f},
+	{-0.951056f,  0.162460f,  0.262866f},
+	{-1.000000f,  0.000000f,  0.000000f},
+	{-0.850651f,  0.000000f,  0.525731f},
+	{-0.955423f, -0.295242f,  0.000000f},
+	{-0.951056f, -0.162460f,  0.262866f},
+	{-0.864188f,  0.442863f, -0.238856f},
+	{-0.951056f,  0.162460f, -0.262866f},
+	{-0.809017f,  0.309017f, -0.500000f},
+	{-0.864188f, -0.442863f, -0.238856f},
+	{-0.951056f, -0.162460f, -0.262866f},
+	{-0.809017f, -0.309017f, -0.500000f},
+	{-0.681718f,  0.147621f, -0.716567f},
+	{-0.681718f, -0.147621f, -0.716567f},
+	{-0.850651f,  0.000000f, -0.525731f},
+	{-0.688191f,  0.587785f, -0.425325f},
+	{-0.587785f,  0.425325f, -0.688191f},
+	{-0.425325f,  0.688191f, -0.587785f},
+	{-0.425325f, -0.688191f, -0.587785f},
+	{-0.587785f, -0.425325f, -0.688191f},
+	{-0.688191f, -0.587785f, -0.425325f}
+};
 
 MD2Model::~MD2Model()
 {
@@ -14,10 +241,15 @@ MD2Model::~MD2Model()
 
 	if (tex != 0)
 		tex->Release();
+
+	if (decl != 0)
+		decl->Release();
 }
 
-bool MD2Model::load(std::string model)
+bool MD2Model::load(std::string model, bool normals)
 {
+	this->normals = normals;
+
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
 	if (!f.is_open())
@@ -40,7 +272,7 @@ bool MD2Model::load(std::string model)
 		return 0;
 	}
 
-	triCount = h.numTris;
+	triCount  = h.numTris;
 	vertCount = h.numVert;
 
 	/**
@@ -62,7 +294,7 @@ bool MD2Model::load(std::string model)
 
 		LPDIRECT3DVERTEXBUFFER9 vb;
 
-		HRESULT result = mamain->d3ddev->CreateVertexBuffer(h.numVert * sizeof(Vertex), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
+		HRESULT result = mamain->d3ddev->CreateVertexBuffer(h.numVert * (normals ? sizeof(VertNorm) : sizeof(Vertex)), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 		if (FAILED(result))
 		{
@@ -73,14 +305,31 @@ bool MD2Model::load(std::string model)
 			return 0;
 		}
 
-		Vertex* Vertices;
-		vb->Lock(0, 0, (void**)&Vertices, 0);
+		if (normals)
+		{
+			VertNorm* Vertices;
+			vb->Lock(0, 0, (void**) &Vertices, 0);
 
-		for (uint vert = 0; vert < h.numVert; ++vert)
-			for (uint i = 0; i < 3; i++)
-				(&Vertices[vert].x)[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
+			for (uint vert = 0; vert < h.numVert; ++vert) {
+				for (uint i = 0; i < 3; i++)
+					(&Vertices[vert].v.x)[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
 
-		vb->Unlock();
+				Vertices[vert].n = MD2Normals[CurrentFrame->verticies[vert].normInd];
+			}
+
+			vb->Unlock();
+		}
+		else
+		{
+			Vertex* Vertices;
+			vb->Lock(0, 0, (void**) &Vertices, 0);
+
+			for (uint vert = 0; vert < h.numVert; ++vert)
+				for (uint i = 0; i < 3; i++)
+					(&Vertices[vert].x)[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
+
+			vb->Unlock();
+		}
 
 		vertBufs.push_back(vb);
 	}
@@ -163,6 +412,45 @@ bool MD2Model::load(std::string model)
 
 	f.close();
 
+	if (normals)
+	{
+		D3DVERTEXELEMENT9 elem[] =
+		{
+			{0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
+			{0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0},
+			{1, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
+			{1, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   1},
+			{2, 0,  D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+			D3DDECL_END()
+		};
+
+		HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elem, &decl);
+
+		if (FAILED(res))
+		{
+			mamain->err.onErrorDX9("Failed to create vertex declaration", res);
+			return 0;
+		}
+	}
+	else
+	{
+		D3DVERTEXELEMENT9 elem[] =
+		{
+			{0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
+			{1, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
+			{2, 0, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+			D3DDECL_END()
+		};
+
+		HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elem, &decl);
+
+		if (FAILED(res))
+		{
+			mamain->err.onErrorDX9("Failed to create vertex declaration", res);
+			return 0;
+		}
+	}
+
 	return 1;
 }
 
@@ -175,37 +463,26 @@ void MD2Model::setTexture(LPDIRECT3DTEXTURE9 tex)
 	this->tex = tex;
 }
 
-LPDIRECT3DVERTEXBUFFER9 MD2Model::getVB(uint frame)
-{
-	return vertBufs[frame];
-}
-
-LPDIRECT3DVERTEXBUFFER9 MD2Model::getTB()
-{
-	return texBuf;
-}
-
-LPDIRECT3DINDEXBUFFER9 MD2Model::getIB()
-{
-	return indBuf;
-}
-
-IDirect3DTexture9* MD2Model::getTex()
-{
-	return tex;
-}
-
-uint MD2Model::getVertCount()
-{
-	return vertCount;
-}
-
-uint MD2Model::getTriCount()
-{
-	return triCount;
-}
-
 uint MD2Model::getFrameCount()
 {
 	return vertBufs.size();
+}
+
+void MD2Model::render(uint frame1, uint frame2, float tween)
+{
+	mamain->d3ddev->SetTexture(0, tex);
+
+	mamain->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);
+	mamain->d3ddev->SetRenderState(D3DRS_TWEENFACTOR, *(DWORD*) &tween);
+	mamain->d3ddev->SetVertexDeclaration(decl);
+
+	mamain->d3ddev->SetIndices(indBuf);
+	mamain->d3ddev->SetStreamSource(0, vertBufs[clamp(frame1, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
+	mamain->d3ddev->SetStreamSource(1, vertBufs[clamp(frame2, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
+	mamain->d3ddev->SetStreamSource(2, texBuf, 0, sizeof(TexCoord));
+
+	mamain->d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertCount, 0, triCount);
+
+	mamain->d3ddev->SetVertexDeclaration(NULL);
+	mamain->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);
 }
