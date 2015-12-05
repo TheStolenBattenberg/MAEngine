@@ -1,7 +1,15 @@
 ///MAE_PhysBodyGetGravity(body)
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Gets the gravity force of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_BodyGetGravity, argument0);
 var vec;

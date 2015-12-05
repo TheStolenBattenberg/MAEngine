@@ -1,7 +1,15 @@
 ///MAE_PhysBodyGetLinearVelocity(body)
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Gets the linear velocity of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_BodyGetLinearVelocity, argument0);
 var vec;

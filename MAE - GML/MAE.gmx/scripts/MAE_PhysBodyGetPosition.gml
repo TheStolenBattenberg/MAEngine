@@ -1,7 +1,14 @@
 ///MAE_PhysBodyGetPosition(body)
-/*
-Returns a vector.
-*/
+/**
+ * Description:
+ *   Gets the position of the body in the world.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_BodyGetPosition, argument0);
 var vec;

@@ -127,7 +127,7 @@ if(mouse_check_button_pressed(mb_left)){
         else{
             dragging_distance = MAE_PhysWorldHitFraction() * ray_dist;
             MAE_PhysBodyActivate(dragging_body);
-            dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true, false);
+            dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true);
             MAE_PhysConstraintSetParam(dragging_constraint, PARAM.P2P_IMPULSE_CLAMP, 5);
         }
     }

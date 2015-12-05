@@ -1,7 +1,15 @@
 ///MAE_PhysBodyGetAngularVelocity(body)
-/*
-Returns a vector.
-*/
+
+/**
+ * Description:
+ *   Gets the angular velocity of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *
+ * Returns:
+ *   Vector
+ */
 
 external_call(global.MAB_BodyGetAngularVelocity, argument0);
 var vec;

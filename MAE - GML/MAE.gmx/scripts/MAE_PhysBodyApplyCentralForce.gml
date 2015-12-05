@@ -1,7 +1,18 @@
+///MAE_PhysBodyApplyCentralForce(body, relative, force)
 ///MAE_PhysBodyApplyCentralForce(body, relative, xvel, yvel, zvel)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+
+/**
+ * Description:
+ *   Applies a force to the center of a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Local space(true), or world space(false)
+ *   [2] - Force as a vector
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 3){
     var vec = argument[2];

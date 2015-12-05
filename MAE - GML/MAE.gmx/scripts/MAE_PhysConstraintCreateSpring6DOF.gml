@@ -1,9 +1,21 @@
 ///MAE_PhysConstraintCreateSpring6DOF(bodyA, transformA, bodyB, transformB, use_reference_frameA, disable_collision)
 ///MAE_PhysConstraintCreateSpring6DOF(bodyA, transformA, use_reference_frameA, disable_collision)
-/*
-Creates a generic 6DOF spring constraint. The second body is optional, and if left out the constraint will attach to the world instead.
-transformA and transformB are matrices.
-*/
+
+/**
+ * Description:
+ *   Creates a generic, 6 degrees of freedom spring constraint between two bodies or between a body and the world.
+ *
+ * Arguments:
+ *   [0] - BodyA
+ *   [1] - TransformA matrix
+ *   [2] - BodyB
+ *   [3] - TransformB matrix
+ *   [4] - Use linear reference frame A?
+ *   [5] - Disable collisions between the 2 bodies?
+ *
+ * Returns:
+ *   Constraint ID
+ */
 
 var trans1 = argument[1];
 var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);

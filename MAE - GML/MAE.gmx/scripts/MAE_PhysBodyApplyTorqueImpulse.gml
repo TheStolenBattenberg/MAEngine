@@ -1,7 +1,18 @@
+///MAE_PhysBodyApplyTorqueImpulse(body, relative, impulse)
 ///MAE_PhysBodyApplyTorqueImpulse(body, relative, xvel, yvel, zvel)
-/*
-Accepts a vector or 3 seperate reals.
-*/
+
+/**
+ * Description:
+ *   Applies torque impulse to a physics body.
+ *
+ * Arguments:
+ *   [0] - Body
+ *   [1] - Local space(true), or world space(false)
+ *   [2] - Torque vector
+ *
+ * Returns:
+ *   Success
+ */
 
 if(argument_count == 3){
     var vec = argument[2];

@@ -1,5 +1,6 @@
 ///MAE_PhysConstraintSetParam(constraint, param, values...)
-/*
+
+/**
 Sets a constraint parameter. All available params are listed below. Pass in a single real as the value unless otherwise specified.
 Not all of them are tested. Param names match Bullet library function names. Please see the Bullet documentation for more information.
 
