@@ -42,9 +42,9 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 			part.pDirection.x = 0;
 			part.pDirection.y = 0;
 			part.pDirection.z = 0;
-			part.pPosition.x = 0;
-			part.pPosition.y = 0;
-			part.pPosition.z = 0;
+			part.pPosition.x = (float)Rand(0, 8);
+			part.pPosition.y = (float)Rand(0, 8);
+			part.pPosition.z = (float)Rand(0, 8);
 			part.pSize = 0;
 
 			parts[i] = part;
@@ -76,7 +76,6 @@ uint ParticleEmitter::getSpawnThisTick() {
 }
 
 uint ParticleEmitter::Rand(uint min, uint max) {
-	//return min + (uint) ((double) rand() / ((RAND_MAX + 1) * (max - min + 1)));
 	return rand() % ((max - min) + (min+1));
 }
 

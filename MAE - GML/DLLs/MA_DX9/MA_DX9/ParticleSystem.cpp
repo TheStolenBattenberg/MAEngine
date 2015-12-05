@@ -13,7 +13,6 @@ ParticleSystem::ParticleSystem() {
 		mamain->d3ddev->CreateVertexDeclaration(part_decl_ve, &mamain->VertexDeclarationParticle);
 	}
 
-	//TODO: Make vertex buffer more flexible.
 	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(vec3) * 100, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 	if (FAILED(res)) {
 		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
@@ -127,6 +126,13 @@ uint ParticleSystem::getParticleCount() {
 
 void ParticleSystem::setMaxParticleCount(uint max) {
 	psMaxParticleCount = max;
+	if (psVertexBuffer != 0) {
+		psVertexBuffer->Release();
+	}
+	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(vec3) * max, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
+	if (FAILED(res)) {
+		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
+	}
 }
 
 void ParticleSystem::setTexture(LPDIRECT3DTEXTURE9 tex) {
