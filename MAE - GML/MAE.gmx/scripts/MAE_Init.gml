@@ -125,9 +125,13 @@ if (argument[0] & INIT_RENDER)
     // Particles
     global.MADX9_ParticleSystemCreate            = external_define(global.DLL_MADX9, "MADX9_ParticleSystemCreate", dll_cdecl, ty_real, 0);
     global.MADX9_ParticleSystemUpdate            = external_define(global.DLL_MADX9, "MADX9_ParticleSystemUpdate", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ParticleSystemRender            = external_define(global.DLL_MADX9, "MADX9_ParticleSystemRender", dll_cdecl, ty_real, 0);
     global.MADX9_ParticleSystemGetParticleCount  = external_define(global.DLL_MADX9, "MADX9_ParticleSystemGetParticleCount", dll_cdecl, ty_real, 0);
+    global.MADX9_ParticleSystemSetParticleCount  = external_define(global.DLL_MADX9, "MADX9_ParticleSystemSetParticleCount", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_ParticleSystemSetTexture        = external_define(global.DLL_MADX9, "MADX9_ParticleSystemSetTexture", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_ParticleEmitterCreate           = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterCreate", dll_cdecl, ty_real, 0);
     global.MADX9_ParticleEmitterSetParticleCount = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleCount", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_ParticleEmitterSetParticleLife  = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleLife", dll_cdecl, ty_real, 2, ty_real, ty_real);
 }
 
 if (argument[0] & INIT_FLUSH)

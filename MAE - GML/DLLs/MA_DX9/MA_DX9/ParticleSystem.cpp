@@ -1,6 +1,22 @@
 #include "Main.h"
 #include <iostream>
 
+ParticleSystem::ParticleSystem() {
+	if (mamain->VertexDeclarationParticle == 0) {
+		D3DVERTEXELEMENT9 part_decl_ve[] = {
+			{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+			D3DDECL_END()
+		};
+
+		mamain->d3ddev->CreateVertexDeclaration(part_decl_ve, &mamain->VertexDeclarationParticle);
+	}
+
+	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(Vector3D), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
+	if (FAILED(res)) {
+		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
+	}
+}
+
 void ParticleSystem::createEmitter() {
 	/**
 	 * This needs to be changed. We should have multiple emitter shapes, like sphere, box, cylinder etc.
@@ -22,19 +38,20 @@ ParticleEmitter* ParticleSystem::getEmitter() {
 
 void ParticleSystem::update(uint time) {
 	if (psEmitter != NULL) {
+		if (psBuffer.size() < (psMaxParticleCount - psEmitter->getMinEmitt())) {
+			uint pC = psEmitter->getSpawnThisTick();
 
-		uint pC = psEmitter->getSpawnThisTick();
+			Particle* parts = new Particle[pC];
 
-		Particle* parts = new Particle[pC];
+			uint partCount = psEmitter->emitt(time, pC, parts);
 
-		uint partCount = psEmitter->emitt(time, pC, parts);
-
-		if (partCount > 0) {
-			for (uint i = 0; i < partCount; ++i) {
-				psBuffer.push_back(parts[i]);
+			if (partCount > 0) {
+				for (uint i = 0; i < partCount; ++i) {
+					psBuffer.push_back(parts[i]);
+				}
 			}
+			delete[] parts;
 		}
-		delete[] parts;
 	}
 
 	uint i = 0;
@@ -62,8 +79,45 @@ void ParticleSystem::update(uint time) {
 			++i;
 		}
 	}
+
+	if (psBuffer.size() > 0) {
+		Vector3D* parts;
+		psVertexBuffer->Lock(0, 0, (void**)&parts, 0);
+
+		uint i = 0;
+		while (i < psBuffer.size()) {
+			parts[i] = psBuffer[i].pPosition;
+			++i;
+		}
+
+		psVertexBuffer->Unlock();
+	}
+}
+
+void ParticleSystem::render() {
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, (DWORD)psEmitter->getMinSize());
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, (DWORD)psEmitter->getMaxSize());
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, true); //Not sure we need to do this every time.
+	mamain->d3ddev->SetVertexDeclaration(mamain->VertexDeclarationParticle);
+	mamain->d3ddev->SetTexture(0, psTexture);
+	mamain->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(Particle::pPosition));
+	mamain->d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
+	mamain->d3ddev->SetVertexDeclaration(NULL);
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, false); //This neither.
 }
 
 uint ParticleSystem::getParticleCount() {
 	return psBuffer.size();
+}
+
+void ParticleSystem::setMaxParticleCount(uint max) {
+	psMaxParticleCount = max;
+}
+
+void ParticleSystem::setTexture(LPDIRECT3DTEXTURE9 tex) {
+	if (this->psTexture != 0)
+		this->psTexture->Release();
+
+	tex->AddRef();
+	this->psTexture = tex;
 }

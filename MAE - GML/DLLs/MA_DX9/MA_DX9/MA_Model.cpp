@@ -27,7 +27,7 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd)
 			{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
 			{ 1, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1 },
 			{ 2, 0, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
-			D3DDECL_END() // this macro is always needed as the last item! DON'T FORGET ;)
+			D3DDECL_END()
 		};
 
 		mamain->d3ddev->CreateVertexDeclaration(tween_decl_ve, &mamain->VertexDeclarationMD2);

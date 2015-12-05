@@ -55,7 +55,7 @@ desY = 0;
 /*
  * Load .X Model
  */
-global.m = MAE_ModelXLoad("COMMON/tiger.x");
+global.m = MAE_ModelXLoad("COMMON/MODEL/tiger.x");
 </string>
           </argument>
         </arguments>
