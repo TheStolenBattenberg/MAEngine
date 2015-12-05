@@ -1,5 +1,7 @@
 #include "Main.h"
 #include "Types.h"
+#include "ParticleSystem.h"
+#include "Resources.h"
 
 /**
  * Temporary API, just for debugging. Will need to add particle system index's and such.

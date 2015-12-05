@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "ParticleRepulsor.h"
 
 void ParticleRepulsor::setDistance(float dist) {
 	prDistance = dist;
@@ -8,7 +9,7 @@ void ParticleRepulsor::setGravity(float grav) {
 	prGravity = grav;
 }
 
-void ParticleRepulsor::setPosition(Vector3D pos) {
+void ParticleRepulsor::setPosition(vec3 pos) {
 	prPosition = pos;
 }
 
@@ -20,6 +21,6 @@ float ParticleRepulsor::getGravity() {
 	return prGravity;
 }
 
-Vector3D ParticleRepulsor::getPosition() {
+vec3 ParticleRepulsor::getPosition() {
 	return prPosition;
 }

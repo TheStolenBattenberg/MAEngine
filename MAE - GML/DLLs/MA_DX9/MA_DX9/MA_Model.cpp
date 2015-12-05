@@ -1,6 +1,9 @@
 #include "Main.h"
 #include "Types.h"
 #include "Utils.h"
+#include "ModelMD2.h"
+#include "ModelX.h"
+#include "Resources.h"
 
 /**
  * Id .MD2 mesh.

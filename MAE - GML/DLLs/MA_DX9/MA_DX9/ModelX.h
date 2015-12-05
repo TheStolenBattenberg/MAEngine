@@ -5,8 +5,9 @@
 */
 
 #include "Types.h"
+#include "Object.h"
 
-class XModel : public Object {
+class XModel: public Object {
 public:
 	~XModel();
 

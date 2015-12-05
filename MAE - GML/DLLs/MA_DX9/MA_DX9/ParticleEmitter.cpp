@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "ParticleEmitter.h"
 
 ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
 	switch (type) {

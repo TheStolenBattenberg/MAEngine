@@ -2,15 +2,8 @@
 
 #include "Types.h"
 
-struct Vertex
-{
-	float x, y, z;
-};
-
-struct Normal
-{
-	float x, y, z;
-};
+typedef vec3 Vertex;
+typedef vec3 Normal;
 
 struct TexCoord
 {

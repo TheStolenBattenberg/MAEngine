@@ -1,5 +1,7 @@
 #include "Main.h"
 #include "Utils.h"
+#include "Mesh.h"
+#include "ModelMD2.h"
 
 namespace MD2Type
 {
@@ -312,7 +314,7 @@ bool MD2Model::load(std::string model, bool normals)
 
 			for (uint vert = 0; vert < h.numVert; ++vert) {
 				for (uint i = 0; i < 3; i++)
-					(&Vertices[vert].v.x)[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
+					Vertices[vert].v.raw[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
 
 				Vertices[vert].n = MD2Normals[CurrentFrame->verticies[vert].normInd];
 			}
@@ -326,7 +328,7 @@ bool MD2Model::load(std::string model, bool normals)
 
 			for (uint vert = 0; vert < h.numVert; ++vert)
 				for (uint i = 0; i < 3; i++)
-					(&Vertices[vert].x)[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
+					Vertices[vert].raw[i] = (CurrentFrame->verticies[vert].vertex[i] * CurrentFrame->scale[i]) + CurrentFrame->translate[i];
 
 			vb->Unlock();
 		}

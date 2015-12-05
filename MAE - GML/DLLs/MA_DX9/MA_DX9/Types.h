@@ -4,27 +4,37 @@ typedef unsigned int   uint;
 typedef unsigned short ushort;
 typedef unsigned char  ubyte;
 
-typedef float vec2[2];
-typedef float vec3[3];
-typedef float vec4[4];
-
 typedef float mat3[9];
 typedef float mat4[16];
 
-struct Vector2D {
-	float x;
-	float y;
+struct vec2 {
+	union {
+		float raw[2];
+		float x, y;
+	};
 };
 
-struct Vector3D {
-	float x;
-	float y;
-	float z;
+struct vec3 {
+	union {
+		float raw[3];
+		float x, y, z;
+	};
 };
 
-struct ColourRGBA {
-	float r;
-	float g;
-	float b;
-	float a;
+struct vec4 {
+	union {
+		float raw[4];
+		float x, y, z, w;
+	};
+};
+
+struct colourARGB {
+	union {
+		uint colour;
+		ubyte a, r, g, b;
+	};
+};
+
+struct colourRGBAF {
+	float r, g, b, a;
 };

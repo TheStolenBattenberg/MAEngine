@@ -10,13 +10,13 @@ class ParticleAttractor {
 public:
 	void setDistance(float dist);
 	void setGravity(float grav);
-	void setPosition(Vector3D pos);
+	void setPosition(vec3 pos);
 
 	float getDistance();
 	float getGravity();
-	Vector3D  getPosition();
+	vec3  getPosition();
 private:
 	float paDistance;
 	float paGravity;
-	Vector3D paPosition;
+	vec3  paPosition;
 };
