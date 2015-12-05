@@ -9,21 +9,13 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
-#include <D3Dcompiler.h>
 #include <d3d9.h>
+#include <D3Dcompiler.h>
 #include <d3dx9.h>
-#include <vector>
 #include <fstream>
+#include <vector>
 
-#include "Hook.h"
 #include "Error.h"
-#include "Resources.h"
-
-#include "Object.h"
-#include "ModelMD2.h"
-#include "ModelX.h"
-
-#include "ParticleSystem.h"
 
 class MADX9Main
 {
@@ -38,17 +30,18 @@ public:
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
-	std::vector<Shader*>       Shader;
-	std::vector<D3DLIGHT9*>    Light;
-	std::vector<D3DMATERIAL9*> Material;
-	std::vector<Surface*>      Surfaces;
-	std::vector<Texture*>      Textures;
+	std::vector<class Shader*>  Shader;
+	std::vector<D3DLIGHT9*>     Light;
+	std::vector<D3DMATERIAL9*>  Material;
+	std::vector<class Surface*> Surfaces;
+	std::vector<class Texture*> Textures;
 
-	std::vector<MD2Model*>     MD2Models;
-	std::vector<XModel*>       XModels;
-	ParticleSystem* ParticleSys;
+	std::vector<class MD2Model*> MD2Models;
+	std::vector<class XModel*>   XModels;
 
-	Hook* hook;
+	class ParticleSystem* ParticleSys;
+
+	class Hook* hook;
 
 	DWORD stFVF;
 

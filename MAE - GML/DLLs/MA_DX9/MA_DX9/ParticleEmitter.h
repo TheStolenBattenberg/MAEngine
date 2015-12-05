@@ -18,7 +18,7 @@ public:
 
 	uint emitt(uint time, uint count, Particle *parts);
 	
-	void setColour(ColourRGBA colourStart, ColourRGBA colourEnd);
+	void setColour(colourRGBAF colourStart, colourRGBAF colourEnd);
 	void setSize(float sizeMin, float sizeMax);
 	void setSpawn(uint spawnMin, uint spawnMax);
 	void setLife(uint lifeMin, uint lifeMax);
@@ -31,7 +31,7 @@ public:
 	float getMaxSize();
 
 private:
-	ColourRGBA pColourStart, pColourEnd;
+	colourRGBAF pColourStart, pColourEnd;
 	uint pMinLife, pMaxLife;
 	float pMinSize, pMaxSize;
 

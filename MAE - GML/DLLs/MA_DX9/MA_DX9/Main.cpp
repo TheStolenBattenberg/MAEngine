@@ -1,4 +1,7 @@
 #include "Main.h"
+#include "Hook.h"
+#include "Resources.h"
+#include "ModelMD2.h"
 
 MADX9Main* mamain = 0;
 

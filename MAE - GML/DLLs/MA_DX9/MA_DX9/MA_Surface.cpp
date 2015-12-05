@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "Utils.h"
+#include "Resources.h"
 
 DLLEXPORT double MADX9_SurfaceCreateDepthStencil(double width, double height, double format, double ms, double msquality, double discard)
 {

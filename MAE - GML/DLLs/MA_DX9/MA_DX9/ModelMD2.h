@@ -5,6 +5,7 @@
  */
 
 #include "Types.h"
+#include "Object.h"
 
 class MD2Model: public Object
 {

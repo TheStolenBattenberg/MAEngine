@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "ModelX.h"
 
 XModel::~XModel()
 {

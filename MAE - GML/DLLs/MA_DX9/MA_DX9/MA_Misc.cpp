@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "Types.h"
+#include "Hook.h"
 
 /**
  * Errors

@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "Types.h"
+#include "Resources.h"
 
 DLLEXPORT double MADX9_ShaderCreateASM(const char* VSCode, const char* PSCode)
 {

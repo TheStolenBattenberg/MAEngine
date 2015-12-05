@@ -1,5 +1,7 @@
-#include "Main.h"
 #include <iostream>
+
+#include "Main.h"
+#include "ParticleSystem.h"
 
 ParticleSystem::ParticleSystem() {
 	if (mamain->VertexDeclarationParticle == 0) {
@@ -11,7 +13,7 @@ ParticleSystem::ParticleSystem() {
 		mamain->d3ddev->CreateVertexDeclaration(part_decl_ve, &mamain->VertexDeclarationParticle);
 	}
 
-	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(Vector3D), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
+	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(vec3), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 	if (FAILED(res)) {
 		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
 	}
@@ -81,7 +83,7 @@ void ParticleSystem::update(uint time) {
 	}
 
 	if (psBuffer.size() > 0) {
-		Vector3D* parts;
+		vec3* parts;
 		psVertexBuffer->Lock(0, 0, (void**)&parts, 0);
 
 		uint i = 0;
