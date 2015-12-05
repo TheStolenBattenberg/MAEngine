@@ -35,6 +35,7 @@ public:
 	std::vector<D3DMATERIAL9*>  Material;
 	std::vector<class Surface*> Surfaces;
 	std::vector<class Texture*> Textures;
+	std::vector<class Buffer*>  Buffers;
 
 	std::vector<class MD2Model*> MD2Models;
 	std::vector<class XModel*>   XModels;

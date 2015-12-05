@@ -2,6 +2,7 @@
 #include "Hook.h"
 #include "Resources.h"
 #include "ModelMD2.h"
+#include "Buffer.h"
 
 MADX9Main* mamain = 0;
 
@@ -55,6 +56,12 @@ MADX9Main::~MADX9Main()
 			delete i;
 
 	Material.clear();
+
+	for (auto i: Buffers)
+		if (i != 0)
+			delete i;
+
+	Buffers.clear();
 
 	if (VertexDeclarationMPM != 0)
 	{
