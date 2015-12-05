@@ -59,7 +59,7 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_LightDisable         = external_define(global.DLL_MADX9, "MADX9_LightDisable", dll_cdecl, ty_real, 1, ty_real);
     
     //MD2
-    global.MADX9_MD2Load      = external_define(global.DLL_MADX9, "MADX9_MD2Load", dll_cdecl, ty_real, 2, ty_string, ty_real);
+    global.MADX9_MD2Load      = external_define(global.DLL_MADX9, "MADX9_MD2Load", dll_cdecl, ty_real, 3, ty_string, ty_real, ty_real);
     global.MADX9_MD2Render    = external_define(global.DLL_MADX9, "MADX9_MD2Render", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MD2GetFrames = external_define(global.DLL_MADX9, "MADX9_MD2GetFrames", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_MD2Destroy   = external_define(global.DLL_MADX9, "MADX9_MD2Destroy", dll_cdecl, ty_real, 1, ty_real);
