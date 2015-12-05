@@ -53,7 +53,8 @@ public:
 	DWORD stFVF;
 
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMD2 = 0;
-	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMSM = 0;
+	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMPM = 0;
+	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationParticle = 0;
 
 	/**
 	 * This stack can be used to transfer matrices to the DLL using MADX9_MatStackFloat and MADX9_MatStackClear

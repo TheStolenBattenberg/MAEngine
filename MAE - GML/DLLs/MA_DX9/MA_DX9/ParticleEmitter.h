@@ -21,14 +21,19 @@ public:
 	void setColour(ColourRGBA colourStart, ColourRGBA colourEnd);
 	void setSize(float sizeMin, float sizeMax);
 	void setSpawn(uint spawnMin, uint spawnMax);
+	void setLife(uint lifeMin, uint lifeMax);
 
-	uint RandU(uint nMin, uint nMax);
+	uint Rand(uint nMin, uint nMax);
 
 	uint getSpawnThisTick();
+	uint getMinEmitt();
+	float getMinSize();
+	float getMaxSize();
 
 private:
 	ColourRGBA pColourStart, pColourEnd;
-	float pSizeMin, pSizeMax;
+	uint pMinLife, pMaxLife;
+	float pMinSize, pMaxSize;
 
 	uint pMinPerEmitt, pMaxPerEmitt;
 

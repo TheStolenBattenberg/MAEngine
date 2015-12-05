@@ -29,7 +29,7 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 		//Emitt particles inside this if statement.
 		Particle part;
 		for (uint i = 0; i < count; i++) {
-			part.pLife = RandU(30, 90);
+			part.pLife = Rand(pMinLife, pMaxLife);
 			part.pAge = 0;
 
 			//TEMP
@@ -60,10 +60,33 @@ void ParticleEmitter::setSpawn(uint spawnMin, uint spawnMax) {
 	pMaxPerEmitt = spawnMax;
 }
 
-uint ParticleEmitter::getSpawnThisTick() {
-	return pMaxPerEmitt + (int)((double)rand() / (RAND_MAX + 1) * (pMaxPerEmitt - pMinPerEmitt + 1));
+void ParticleEmitter::setSize(float sizeMin, float sizeMax) {
+	pMinSize = sizeMin;
+	pMaxSize = sizeMax;
 }
 
-uint ParticleEmitter::RandU(uint min, uint max) {
-	return min + (uint)((double)rand() / (RAND_MAX + 1) * (max - min + 1));
+void ParticleEmitter::setLife(uint lifeMin, uint lifeMax) {
+	pMinLife = lifeMin;
+	pMaxLife = lifeMax;
+}
+
+uint ParticleEmitter::getSpawnThisTick() {
+	return Rand(pMinPerEmitt, pMaxPerEmitt);
+}
+
+uint ParticleEmitter::Rand(uint min, uint max) {
+	//return min + (uint) ((double) rand() / ((RAND_MAX + 1) * (max - min + 1)));
+	return rand() % ((max - min) + (min+1));
+}
+
+uint ParticleEmitter::getMinEmitt() {
+	return pMinPerEmitt;
+}
+
+float ParticleEmitter::getMinSize() {
+	return pMinSize;
+}
+
+float ParticleEmitter::getMaxSize() {
+	return pMaxSize;
 }

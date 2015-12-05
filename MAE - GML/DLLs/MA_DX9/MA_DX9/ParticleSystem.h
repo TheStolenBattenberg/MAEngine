@@ -15,6 +15,8 @@
 
 class ParticleSystem {
 public:
+	ParticleSystem();
+
 	void createEmitter();
 	void createAttractor();
 	void createRepulsor();
@@ -29,8 +31,11 @@ public:
 	void render(); //Stub
 
 	void setBlendMode(); //Stub
+	void setTexture(LPDIRECT3DTEXTURE9 tex);
 
 	uint getParticleCount();
+
+	void setMaxParticleCount(uint max);
 private:
 	ParticleEmitter*   psEmitter = NULL;
 	ParticleAttractor* psAttractor = NULL;
@@ -38,8 +43,9 @@ private:
 
 	std::vector<Particle> psBuffer;
 
+	uint psMaxParticleCount;
+
 	//D3D...
-	LPDIRECT3DTEXTURE9 psTexture; //Might be better to just have a 'MAE_SetTexture' call in GML for this.
+	LPDIRECT3DTEXTURE9 psTexture = 0;
 	LPDIRECT3DVERTEXBUFFER9 psVertexBuffer;
-	//No index buffer, since we're using point sprites.
 };

@@ -59,10 +59,10 @@ MADX9Main::~MADX9Main()
 		VertexDeclarationMD2 = 0;
 	}
 
-	if (VertexDeclarationMSM != 0)
+	if (VertexDeclarationMPM != 0)
 	{
-		VertexDeclarationMSM->Release();
-		VertexDeclarationMSM = 0;
+		VertexDeclarationMPM->Release();
+		VertexDeclarationMPM = 0;
 	}
 
 	if (d3ddev != 0)
