@@ -18,24 +18,33 @@ public:
 
 	uint emitt(uint time, uint count, Particle *parts);
 	
-	void setColour(colourRGBAF colourStart, colourRGBAF colourEnd);
-	void setSize(float sizeMin, float sizeMax);
-	void setSpawn(uint spawnMin, uint spawnMax);
+	void setPosition(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
+	void setVelocity(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
+	void setColour(float rMin, float gMin, float bMin, float aMin, float rMax, float gMax, float bMax, float aMax);
 	void setLife(uint lifeMin, uint lifeMax);
+	void setSize(float sizeMin, float sizeMax);
 
-	uint Rand(uint nMin, uint nMax);
+	void setAcceleration(float x, float y, float z);
+	void setSpawn(uint spawnMin, uint spawnMax);
+
+	float Rand(float nMin, float nMax);
 
 	uint getSpawnThisTick();
 	uint getMinEmitt();
 	float getMinSize();
 	float getMaxSize();
+	vec3 getAcceleration();
 
 private:
+	vec3 pMinPosition, pMaxPosition;
+	vec3 pMinVelocity, pMaxVelocity;
 	colourRGBAF pColourStart, pColourEnd;
 	uint pMinLife, pMaxLife;
 	float pMinSize, pMaxSize;
 
-	uint pMinPerEmitt, pMaxPerEmitt;
 
+	//Just for the emitter.
+	vec3 pAcceleration;
+	uint pMinPerEmitt, pMaxPerEmitt;
 	uint peTimer = 0;
 };

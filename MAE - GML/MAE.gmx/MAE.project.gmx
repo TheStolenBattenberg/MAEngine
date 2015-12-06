@@ -205,6 +205,8 @@
             <script>scripts\MAE_ParticleEmitterCreate.gml</script>
             <script>scripts\MAE_ParticleEmitterSetParticleCount.gml</script>
             <script>scripts\MAE_ParticleEmitterSetParticleLife.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleSize.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticlePosition.gml</script>
           </scripts>
         </scripts>
         <scripts name="Shader">

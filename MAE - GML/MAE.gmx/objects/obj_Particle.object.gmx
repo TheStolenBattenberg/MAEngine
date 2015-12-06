@@ -36,7 +36,7 @@ rot = 0;
  * Particle System
  */
 MAE_ParticleSystemCreate();
-MAE_ParticleSystemSetParticleCount(2048);
+MAE_ParticleSystemSetParticleCount(100);
 
 var t = MAE_TextureCreateFromFile("COMMON\TEXTURE\tiger.bmp", MIPMAPS_NONE);
     MAE_ParticleSystemSetTexture(t);
@@ -46,8 +46,10 @@ MAE_TextureDestroy(t);
  * Particle Emitter
  */
 MAE_ParticleEmitterCreate();
-MAE_ParticleEmitterSetParticleCount(5, 17);
-MAE_ParticleEmitterSetParticleLife(4096, 4096);
+MAE_ParticleEmitterSetParticleCount(5, 7);
+MAE_ParticleEmitterSetParticleLife(30, 60);
+MAE_ParticleEmitterSetParticleSize(1, 4);
+MAE_ParticleEmitterSetParticlePosition(MAE_VectorCreate(-2, -4, -6), MAE_VectorCreate(2, 4, 6));
 </string>
           </argument>
         </arguments>
@@ -70,7 +72,7 @@ MAE_ParticleEmitterSetParticleLife(4096, 4096);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ParticleSystemUpdate(30); //Spawn new particles every 30 steps.
+            <string>MAE_ParticleSystemUpdate(10); //Spawn new particles every 30 steps.
 </string>
           </argument>
         </arguments>
@@ -117,13 +119,9 @@ draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParti
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_set_projection(32, 0, 32, 0, 0, 0, 0, 0, 1);
+            <string>d3d_set_projection(1, 0, 48, 0, 0, 0, 0, 0, 1);
 
-rot++;
-d3d_transform_add_translation(-4, -4, -4);
-d3d_transform_add_rotation_z(rot);
-    MAE_ParticleSystemRender();
-d3d_transform_set_identity();
+MAE_ParticleSystemRender();
 </string>
           </argument>
         </arguments>
