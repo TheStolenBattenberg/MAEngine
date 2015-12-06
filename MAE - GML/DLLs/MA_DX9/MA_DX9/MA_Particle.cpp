@@ -45,7 +45,13 @@ DLLEXPORT double MADX9_ParticleSystemSetTexture(double texInd) {
 
 DLLEXPORT double MADX9_ParticleEmitterCreate() {
 	mamain->ParticleSys->createEmitter();
-	mamain->ParticleSys->getEmitter()->setSize(2, 4);
+	mamain->ParticleSys->getEmitter()->setAcceleration((float)-0.005, (float)0, (float)0);
+	mamain->ParticleSys->getEmitter()->setVelocity(-1, 0, 0, -1, 0, 0);
+	return 1;
+}
+
+DLLEXPORT double MADX9_ParticleEmitterSetParticleSize(double min, double max) {
+	mamain->ParticleSys->getEmitter()->setSize((float) min, (float) max);
 	return 1;
 }
 
@@ -56,5 +62,10 @@ DLLEXPORT double MADX9_ParticleEmitterSetParticleCount(double min, double max) {
 
 DLLEXPORT double MADX9_ParticleEmitterSetParticleLife(double min, double max) {
 	mamain->ParticleSys->getEmitter()->setLife((uint) min, (uint) max);
+	return 1;
+}
+
+DLLEXPORT double MADX9_ParticleEmitterSetParticlePos(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	mamain->ParticleSys->getEmitter()->setPosition((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
 	return 1;
 }

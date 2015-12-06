@@ -27,25 +27,27 @@ ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
  */
 uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 	if (peTimer == time) {
-		//Emitt particles inside this if statement.
 		Particle part;
-		for (uint i = 0; i < count; i++) {
-			part.pLife = Rand(pMinLife, pMaxLife);
-			part.pAge = 0;
 
-			//TEMP
-			part.pAcceleration = 0;
-			part.pColour.r = 0;
-			part.pColour.g = 0;
-			part.pColour.b = 0;
-			part.pColour.a = 0;
-			part.pDirection.x = 0;
-			part.pDirection.y = 0;
-			part.pDirection.z = 0;
-			part.pPosition.x = (float)Rand(0, 8);
-			part.pPosition.y = (float)Rand(0, 8);
-			part.pPosition.z = (float)Rand(0, 8);
-			part.pSize = 0;
+		for (uint i = 0; i < count; i++) {
+			part.pPosition.x = Rand(pMinPosition.x, pMaxPosition.x); //Set Position.
+			part.pPosition.y = Rand(pMinPosition.y, pMaxPosition.y);
+			part.pPosition.z = Rand(pMinPosition.z, pMaxPosition.z);
+
+			part.pVelocity.x = Rand(pMinVelocity.x, pMaxVelocity.x); //Set Velocity.
+			part.pVelocity.x = Rand(pMinVelocity.y, pMaxVelocity.y);
+			part.pVelocity.x = Rand(pMinVelocity.z, pMaxVelocity.z);
+
+			part.pColour.r   = 255; //Set Colour
+			part.pColour.g   = 255;
+			part.pColour.b   = 255;
+			part.pColour.a   = 255;
+
+			part.pAge        = 0; //Set Age.
+
+			part.pLife       = (uint)Rand((float) pMinLife, (float)pMaxLife); //Set Life
+
+			part.pSize       = Rand(pMinSize, pMaxSize);
 
 			parts[i] = part;
 		}
@@ -62,7 +64,7 @@ void ParticleEmitter::setSpawn(uint spawnMin, uint spawnMax) {
 }
 
 void ParticleEmitter::setSize(float sizeMin, float sizeMax) {
-	pMinSize = sizeMin;
+	pMinSize = sizeMin; 
 	pMaxSize = sizeMax;
 }
 
@@ -71,12 +73,36 @@ void ParticleEmitter::setLife(uint lifeMin, uint lifeMax) {
 	pMaxLife = lifeMax;
 }
 
-uint ParticleEmitter::getSpawnThisTick() {
-	return Rand(pMinPerEmitt, pMaxPerEmitt);
+void ParticleEmitter::setPosition(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
+	pMinPosition.x = minX;
+	pMinPosition.y = minY;
+	pMinPosition.z = minZ;
+	pMaxPosition.x = maxX;
+	pMaxPosition.y = maxY;
+	pMaxPosition.z = maxZ;
 }
 
-uint ParticleEmitter::Rand(uint min, uint max) {
-	return rand() % ((max - min) + (min+1));
+void ParticleEmitter::setVelocity(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
+	pMinVelocity.x = minX;
+	pMinVelocity.y = minY;
+	pMinVelocity.z = minZ;
+	pMaxVelocity.x = maxX;
+	pMaxVelocity.y = maxY;
+	pMaxVelocity.z = maxZ;
+}
+
+void ParticleEmitter::setAcceleration(float x, float y, float z) {
+	pAcceleration.x = x;
+	pAcceleration.y = y;
+	pAcceleration.z = z;
+}
+
+uint ParticleEmitter::getSpawnThisTick() {
+	return (uint)Rand((float)pMinPerEmitt, (float)pMaxPerEmitt);
+}
+
+float ParticleEmitter::Rand(float min, float max) {
+	return (float)rand() / RAND_MAX * (max - min) + min;
 }
 
 uint ParticleEmitter::getMinEmitt() {
@@ -89,4 +115,8 @@ float ParticleEmitter::getMinSize() {
 
 float ParticleEmitter::getMaxSize() {
 	return pMaxSize;
+}
+
+vec3 ParticleEmitter::getAcceleration() {
+	return pAcceleration;
 }

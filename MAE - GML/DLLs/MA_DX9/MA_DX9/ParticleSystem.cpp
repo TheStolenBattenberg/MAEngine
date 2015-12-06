@@ -6,7 +6,9 @@
 ParticleSystem::ParticleSystem() {
 	if (mamain->VertexDeclarationParticle == 0) {
 		D3DVERTEXELEMENT9 part_decl_ve[] = {
-			{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+			{ 0, 0,  D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+			{ 0, 12, D3DDECLTYPE_FLOAT4,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,    0 },
+			{ 0, 28, D3DDECLTYPE_FLOAT1,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_PSIZE,    0 },
 			D3DDECL_END()
 		};
 
@@ -72,23 +74,29 @@ void ParticleSystem::update(uint time) {
 				//Move the particles away if in range.
 			}
 
-			//Normal movement, via velocity.
+			psBuffer[i].pPosition.x += psBuffer[i].pVelocity.x;
+			psBuffer[i].pPosition.y += psBuffer[i].pVelocity.y;
+			psBuffer[i].pPosition.z += psBuffer[i].pVelocity.z;
+			
+			vec3 acc = psEmitter->getAcceleration();
+			psBuffer[i].pVelocity.x += acc.x;
+			psBuffer[i].pVelocity.y += acc.y;
+			psBuffer[i].pVelocity.z += acc.z;
 
-			//Velocity increase math: POS.X + VEL.X * ACCELERATION.
-
-			//Also do the other particle effects here, such as interp between colours, based on life. Probably a lot more too
 			psBuffer[i].pAge++;
 			++i;
 		}
 	}
 
 	if (psBuffer.size() > 0) {
-		vec3* parts;
+		ParticlePoint* parts;
 		psVertexBuffer->Lock(0, 0, (void**)&parts, 0);
 
 		uint i = 0;
 		while (i < psBuffer.size()) {
-			parts[i] = psBuffer[i].pPosition;
+			parts[i].pPosition = psBuffer[i].pPosition;
+			parts[i].pColour   = psBuffer[i].pColour;
+			parts[i].pSize     = psBuffer[i].pSize;
 			++i;
 		}
 
@@ -97,13 +105,13 @@ void ParticleSystem::update(uint time) {
 }
 
 void ParticleSystem::render() {
-	float v;
+	//float v;
 
-	v = psEmitter->getMinSize();
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
+	//v = psEmitter->getMinSize();
+	//mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
 	
-	v = psEmitter->getMaxSize();
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
+	//v = psEmitter->getMaxSize();
+	//mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
 
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, true);
@@ -115,9 +123,9 @@ void ParticleSystem::render() {
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, false);
 
-	v = 1.0f;
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
+	//v = 1.0f;
+	//mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
+	//mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
 }
 
 uint ParticleSystem::getParticleCount() {

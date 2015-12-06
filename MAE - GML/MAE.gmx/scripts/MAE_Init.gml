@@ -132,6 +132,8 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_ParticleEmitterCreate           = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterCreate", dll_cdecl, ty_real, 0);
     global.MADX9_ParticleEmitterSetParticleCount = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleCount", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_ParticleEmitterSetParticleLife  = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleLife", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_ParticleEmitterSetParticleSize  = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleSize", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_ParticleEmitterSetParticlePos   = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticlePos", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
 }
 
 if (argument[0] & INIT_FLUSH)
