@@ -1,10 +1,8 @@
-///MAE_ParticleSystemDestroy(index);
+///MAE_ParticleSystemDestroy();
 
 /**
- * TO-DO:
- * - Add Error Handling
- * - Write Description
+ * To-do:
+ *  Add description.
  */
-buffer_delete(argument0[| 0]);
-vertex_delete_buffer(argument0[| 1]);
-ds_list_destroy(argument0);
+ 
+return external_call(global.MADX9_ParticleSystemDestroy);

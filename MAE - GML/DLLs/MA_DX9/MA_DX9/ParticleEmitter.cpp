@@ -2,6 +2,7 @@
 #include "ParticleEmitter.h"
 
 ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
+	//This does nothing. Surprise!
 	switch (type) {
 		case PE_BOX: {
 
@@ -9,9 +10,7 @@ ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
 		break;
 
 		case PE_SPHERE: {
-			/**
-			 * No idea how to do this shape.
-			 */
+
 		}
 		break;
 
@@ -22,9 +21,6 @@ ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
 	}
 }
 
-/**
- * TO-DO: make it actually emitt particles.
- */
 uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 	if (peTimer == time) {
 		Particle part;
@@ -35,13 +31,13 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 			part.pPosition.z = Rand(pMinPosition.z, pMaxPosition.z);
 
 			part.pVelocity.x = Rand(pMinVelocity.x, pMaxVelocity.x); //Set Velocity.
-			part.pVelocity.x = Rand(pMinVelocity.y, pMaxVelocity.y);
-			part.pVelocity.x = Rand(pMinVelocity.z, pMaxVelocity.z);
+			part.pVelocity.y = Rand(pMinVelocity.y, pMaxVelocity.y);
+			part.pVelocity.z = Rand(pMinVelocity.z, pMaxVelocity.z);
 
-			part.pColour.r   = 255; //Set Colour
-			part.pColour.g   = 255;
-			part.pColour.b   = 255;
-			part.pColour.a   = 255;
+			part.pColour.x   = pColourStart.x; //Colour
+			part.pColour.y   = pColourStart.y; //Colour
+			part.pColour.z   = pColourStart.z; //Colour
+			part.pColour.w   = pColourStart.w; //Colour
 
 			part.pAge        = 0; //Set Age.
 
@@ -91,6 +87,17 @@ void ParticleEmitter::setVelocity(float minX, float minY, float minZ, float maxX
 	pMaxVelocity.z = maxZ;
 }
 
+void ParticleEmitter::setColour(float rMin, float gMin, float bMin, float aMin, float rMax, float gMax, float bMax, float aMax) {
+	pColourStart.x = rMin;
+	pColourStart.y = gMin;
+	pColourStart.z = bMin;
+	pColourStart.w = aMin;
+	pColourEnd.x   = rMax;
+	pColourEnd.y   = gMax;
+	pColourEnd.z   = bMax;
+	pColourEnd.w   = aMax;
+}
+
 void ParticleEmitter::setAcceleration(float x, float y, float z) {
 	pAcceleration.x = x;
 	pAcceleration.y = y;
@@ -101,8 +108,28 @@ uint ParticleEmitter::getSpawnThisTick() {
 	return (uint)Rand((float)pMinPerEmitt, (float)pMaxPerEmitt);
 }
 
-float ParticleEmitter::Rand(float min, float max) {
+//Gotta move this to a math class.
+float ParticleEmitter::Rand(float min, float max) {     //Random Range
 	return (float)rand() / RAND_MAX * (max - min) + min;
+}
+
+//Same as above.
+float ParticleEmitter::Cerp(float x, float y, float s) { //Cosine Interpolation
+	float interp = (float)(1 - cos(s*3.14)) / 2;
+	return(x*(1 - interp) + y*interp);
+}
+
+//This probably should not automatically interpolate the colours
+vec4 ParticleEmitter::getColour(float interp) {
+	vec4 col = pColourStart;
+	if (interp > 2.0f) { //HACKY AS F***... Replace this ASAP.
+		float m = (1.0f / (interp));
+		col.x = Cerp(pColourStart.x, pColourEnd.x, 1.0f - m);
+		col.y = Cerp(pColourStart.y, pColourEnd.y, 1.0f - m);
+		col.z = Cerp(pColourStart.z, pColourEnd.z, 1.0f - m);
+		col.w = Cerp(pColourStart.w, pColourEnd.w, 1.0f - m);
+	}
+	return col;
 }
 
 uint ParticleEmitter::getMinEmitt() {

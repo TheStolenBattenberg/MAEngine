@@ -5,9 +5,9 @@
  */
 if(argument1 == true)
 {
-    for(var reg = 0; reg < ds_list_size(argument0[| 6]); i++)
+    for(var reg = 0; reg < ds_list_size(argument0[| 6]); reg++)
     {
-        with(ds_list_find_value(argument0[| 6], i))
+        with(ds_list_find_value(argument0[| 6], reg))
         {
             instance_destroy();
         }
