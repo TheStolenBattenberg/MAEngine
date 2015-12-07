@@ -4,7 +4,7 @@
 
 #include <vector>
 
-typedef void(*UnlockMemFunc)(void* obj);
+typedef void(*OnFreeFunc)(void*);
 
 class Memory
 {
@@ -26,7 +26,7 @@ public:
 		FlagWriteOnly = 0x02
 	};
 
-	FixedMemory(void* obj, UnlockMemFunc func, void* ptr, uint length, uint flags);
+	FixedMemory(void* ptr, uint length, uint flags);
 	~FixedMemory();
 	bool read(uint offset, uint length, void* dest);
 	bool write(uint offset, uint length, const void* src);
@@ -35,16 +35,19 @@ public:
 	const void* get();
 	uint size();
 
+	void onFree(OnFreeFunc func, void* obj);
+
 private:
-	void* obj;
 	void* ptr;
 	uint  length;
 	uint  flags;
 
-	UnlockMemFunc func;
+	OnFreeFunc func = 0;
+
+	void* obj;
 };
 
-class DynamicMemory
+class DynamicMemory: public Memory
 {
 public:
 	bool read(uint offset, uint length, void* dest);

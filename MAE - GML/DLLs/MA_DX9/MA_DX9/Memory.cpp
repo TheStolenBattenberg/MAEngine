@@ -2,10 +2,8 @@
 
 #include <string.h>
 
-FixedMemory::FixedMemory(void* obj, UnlockMemFunc func, void* ptr, uint length, uint flags)
+FixedMemory::FixedMemory(void* ptr, uint length, uint flags)
 {
-	this->obj    = obj;
-	this->func   = func;
 	this->ptr    = ptr;
 	this->length = length;
 	this->flags  = flags;
@@ -13,7 +11,8 @@ FixedMemory::FixedMemory(void* obj, UnlockMemFunc func, void* ptr, uint length, 
 
 FixedMemory::~FixedMemory()
 {
-	func(obj);
+	if (func != 0)
+		func(obj);
 }
 
 bool FixedMemory::read(uint offset, uint length, void* dest)
@@ -62,19 +61,26 @@ uint FixedMemory::size()
 	return length;
 }
 
+void FixedMemory::onFree(OnFreeFunc func, void* obj)
+{
+	this->func = func;
+	this->obj  = obj;
+}
+
+
 bool DynamicMemory::read(uint offset, uint length, void* dest)
 {
-	if (offset + length >= data.size())
+	if (offset + length > data.size())
 		return 0;
 
 	memcpy(dest, (ubyte*) data.data() + offset, length);
 
-	return 0;
+	return 1;
 }
 
 bool DynamicMemory::write(uint offset, uint length, const void* src)
 {
-	if (offset + length >= data.size())
+	if (offset + length > data.size())
 		data.resize(offset + length);
 
 	memcpy((ubyte*) data.data() + offset, src, length);

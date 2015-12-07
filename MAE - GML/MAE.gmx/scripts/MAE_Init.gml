@@ -138,6 +138,36 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_ParticleEmitterSetParticlePos   = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticlePos", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_ParticleEmitterSetParticleAcc   = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleAcc", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     global.MADX9_ParticleEmitterSetParticleVel   = external_define(global.DLL_MADX9, "MADX9_ParticleEmitterSetParticleVel", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    
+    // Buffers
+    global.MADX9_BufferCreate     = external_define(global.DLL_MADX9, "MADX9_BufferCreate", dll_cdecl, ty_real, 0);
+    global.MADX9_BufferDestroy    = external_define(global.DLL_MADX9, "MADX9_BufferDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_BufferReserve    = external_define(global.DLL_MADX9, "MADX9_BufferReserve", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_BufferRemove     = external_define(global.DLL_MADX9, "MADX9_BufferRemove", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MADX9_BufferSeek       = external_define(global.DLL_MADX9, "MADX9_BufferSeek", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_BufferTell       = external_define(global.DLL_MADX9, "MADX9_BufferTell", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_BufferSize       = external_define(global.DLL_MADX9, "MADX9_BufferSize", dll_cdecl, ty_real, 1, ty_real);
+    global.MADX9_BufferWrite      = external_define(global.DLL_MADX9, "MADX9_BufferWrite", dll_cdecl, ty_real, 4, ty_real, ty_string, ty_real, ty_real);
+    global.MADX9_BufferWriteValue = external_define(global.DLL_MADX9, "MADX9_BufferWriteValue", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MADX9_BufferRead       = external_define(global.DLL_MADX9, "MADX9_BufferRead", dll_cdecl, ty_real, 4, ty_real, ty_string, ty_real, ty_real);
+    global.MADX9_BufferReadValue  = external_define(global.DLL_MADX9, "MADX9_BufferWriteValue", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_BufferPoke       = external_define(global.DLL_MADX9, "MADX9_BufferPoke", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_BufferPokeValue  = external_define(global.DLL_MADX9, "MADX9_BufferPokeValue", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_BufferPeek       = external_define(global.DLL_MADX9, "MADX9_BufferPeek", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_BufferPeekValue  = external_define(global.DLL_MADX9, "MADX9_BufferPeekValue", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.MADX9_BufferSetPointer = external_define(global.DLL_MADX9, "MADX9_BufferSetPointer", dll_cdecl, ty_real, 1, ty_string);
+    
+    enum ValueType
+    {
+        U8  = 0,
+        U16 = 1,
+        U32 = 2,
+        S8  = 3,
+        S16 = 4,
+        S32 = 5,
+        F32 = 6,
+        F64 = 7
+    };
 }
 
 if (argument[0] & INIT_FLUSH)

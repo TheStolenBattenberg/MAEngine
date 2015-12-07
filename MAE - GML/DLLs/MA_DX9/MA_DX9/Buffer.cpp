@@ -12,19 +12,27 @@ Buffer::~Buffer()
 		delete data;
 }
 
-inline void Buffer::reserve(uint amount)
+void Buffer::reserve(uint amount)
 {
 	if (!data->reserve(amount))
 		mamain->err.onError("Failed to reserve memory");
 }
 
-inline void Buffer::remove(uint offset, uint length)
+void Buffer::remove(uint offset, uint length)
 {
 	if (!data->remove(offset, length))
 		mamain->err.onError("Failed to remove memory");
+
+	if (offset < pos)
+	{
+		if (offset + length > pos)
+			pos = offset;
+		else
+			pos -= length;
+	}
 }
 
-inline void Buffer::seek(uint pos)
+void Buffer::seek(uint pos)
 {
 	if (pos > data->size())
 	{
@@ -35,22 +43,22 @@ inline void Buffer::seek(uint pos)
 	this->pos = pos;
 }
 
-inline uint Buffer::tell()
+uint Buffer::tell()
 {
 	return pos;
 }
 
-inline uint Buffer::size()
+uint Buffer::size()
 {
 	return data->size();
 }
 
-inline const void* Buffer::get()
+const void* Buffer::get()
 {
 	return data->get();
 }
 
-inline void Buffer::write(const void* data, uint length)
+void Buffer::write(const void* data, uint length)
 {
 	if (!this->data->write(pos, length, data))
 	{
@@ -61,7 +69,7 @@ inline void Buffer::write(const void* data, uint length)
 	pos += length;
 }
 
-inline void Buffer::read(void* data, uint length)
+void Buffer::read(void* data, uint length)
 {
 	if (!this->data->read(pos, length, data))
 	{
@@ -72,13 +80,13 @@ inline void Buffer::read(void* data, uint length)
 	pos += length;
 }
 
-inline void Buffer::poke(uint offset, const void* data, uint length)
+void Buffer::poke(uint offset, const void* data, uint length)
 {
 	if (!this->data->write(offset, length, data))
 		mamain->err.onError("Failed to write to memory");
 }
 
-inline void Buffer::peek(uint offset, void* data, uint length)
+void Buffer::peek(uint offset, void* data, uint length)
 {
 	if (!this->data->read(offset, length, data))
 		mamain->err.onError("Failed to read from memory");

@@ -11,17 +11,17 @@ public:
 	Buffer(Memory* data);
 	~Buffer();
 
-	inline void reserve(uint amount);
-	inline void remove(uint offset, uint length);
-	inline void seek(uint pos);
-	inline uint tell();
-	inline uint size();
-	inline const void* get();
+	void reserve(uint amount);
+	void remove(uint offset, uint length);
+	void seek(uint pos);
+	uint tell();
+	uint size();
+	const void* get();
 
-	inline void write(const void* data, uint length);
-	inline void read(void* data, uint length);
-	inline void poke(uint offset, const void* data, uint length);
-	inline void peek(uint offset, void* data, uint length);
+	void write(const void* data, uint length);
+	void read(void* data, uint length);
+	void poke(uint offset, const void* data, uint length);
+	void peek(uint offset, void* data, uint length);
 
 	template<typename T> inline void write(T val)
 	{
@@ -37,7 +37,7 @@ public:
 
 	template<typename T> inline void poke(uint offset, T value)
 	{
-		poke(offset, &val, sizeof(val));
+		poke(offset, &value, sizeof(value));
 	}
 
 	template<typename T> inline T peek(uint offset)
