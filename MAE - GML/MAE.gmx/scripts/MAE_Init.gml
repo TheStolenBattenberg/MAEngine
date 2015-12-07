@@ -164,7 +164,7 @@ if (argument[0] & INIT_PHYSICS)
     global.MAB_Free = external_define(global.DLL_MABullet, "MAB_Free", dll_cdecl, ty_real, 0);
     
     //World
-    global.MAB_WorldCreate             = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 0);
+    global.MAB_WorldCreate             = external_define(global.DLL_MABullet, "MAB_WorldCreate", dll_cdecl, ty_real, 1, ty_real);
     global.MAB_WorldDestroy            = external_define(global.DLL_MABullet, "MAB_WorldDestroy", dll_cdecl, ty_real, 0);
     global.MAB_WorldStep               = external_define(global.DLL_MABullet, "MAB_WorldStep", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     global.MAB_WorldSetGravity         = external_define(global.DLL_MABullet, "MAB_WorldSetGravity", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);

@@ -1,9 +1,9 @@
 #include "MABullet.h"
 #include "MABullet_DebugDraw.h"
 
-DLLEXPORT MAB_WorldCreate()
+DLLEXPORT MAB_WorldCreate(double UseMotionState)
 {
-	if (G.worldExists()) return 0; //don't create world if it already exists
+	if (G.worldExists()) return 0;
 
 	G.CollisionConfiguration = new btDefaultCollisionConfiguration();
 	G.Dispatcher = new btCollisionDispatcher(G.CollisionConfiguration);
@@ -11,7 +11,10 @@ DLLEXPORT MAB_WorldCreate()
 	//G.Broadphase->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
 	G.Solver = new btSequentialImpulseConstraintSolver();
 	G.World = new btDiscreteDynamicsWorld(G.Dispatcher, G.Broadphase, G.Solver, G.CollisionConfiguration);
-	G.World->setGravity(btVector3(0, 0, -10));//default gravity
+	G.UseMotionState = (UseMotionState > 0.5);
+
+	//set the default gravity
+	G.World->setGravity(btVector3(0.f, 0.f, -10.f));
 
 	return 1;
 }

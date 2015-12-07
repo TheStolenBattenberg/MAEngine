@@ -42,8 +42,8 @@ DLLEXPORT MAB_BodyDestroy(double BodyID)
 DLLEXPORT MAB_BodyGetPosition(double BodyID)
 {
 	btTransform trans;
-	//G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
-	trans = G.getBody(BodyID)->getWorldTransform();
+	if(G.UseMotionState) G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
+	else trans = G.getBody(BodyID)->getWorldTransform();
 	G.ReturnVec = trans.getOrigin();
 	return 1;
 }
@@ -51,8 +51,8 @@ DLLEXPORT MAB_BodyGetPosition(double BodyID)
 DLLEXPORT MAB_BodyGetRotationQuat(double BodyID)
 {
 	btTransform trans;
-	//G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
-	trans = G.getBody(BodyID)->getWorldTransform();
+	if (G.UseMotionState) G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
+	else trans = G.getBody(BodyID)->getWorldTransform();
 	G.ReturnQuat = trans.getRotation().inverse();
 	return 1;
 }
@@ -60,8 +60,8 @@ DLLEXPORT MAB_BodyGetRotationQuat(double BodyID)
 DLLEXPORT MAB_BodyGetRotationEuler(double BodyID)
 {
 	btTransform trans;
-	//G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
-	trans = G.getBody(BodyID)->getWorldTransform();
+	if (G.UseMotionState) G.getBody(BodyID)->getMotionState()->getWorldTransform(trans);
+	else trans = G.getBody(BodyID)->getWorldTransform();
 	G.ReturnVec = G.toEuler(trans.getBasis());
 	return 1;
 }
@@ -93,11 +93,16 @@ DLLEXPORT MAB_BodySetPosition(double BodyID, double X, double Y, double Z)
 {
 	btTransform trans;
 	btRigidBody* body = G.getBody(BodyID);
-	//body->getMotionState()->getWorldTransform(trans);
-	trans = body->getWorldTransform();
-	trans.setOrigin(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
-	//body->getMotionState()->setWorldTransform(trans);
-	body->setWorldTransform(trans);
+	if (G.UseMotionState) {
+		body->getMotionState()->getWorldTransform(trans);
+		trans.setOrigin(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+		body->getMotionState()->setWorldTransform(trans);
+	}
+	else {
+		trans = body->getWorldTransform();
+		trans.setOrigin(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
+		body->setWorldTransform(trans);
+	}	
 	return 1;
 }
 
@@ -105,11 +110,16 @@ DLLEXPORT MAB_BodySetRotationQuat(double BodyID, double X, double Y, double Z, d
 {
 	btTransform trans;
 	btRigidBody* body = G.getBody(BodyID);
-	//body->getMotionState()->getWorldTransform(trans);
-	trans = body->getWorldTransform();
-	trans.setRotation(btQuaternion((btScalar)X, (btScalar)Y, (btScalar)Z, -(btScalar)W));
-	//body->getMotionState()->setWorldTransform(trans);
-	body->setWorldTransform(trans);
+	if (G.UseMotionState) {
+		body->getMotionState()->getWorldTransform(trans);
+		trans.setRotation(btQuaternion((btScalar)X, (btScalar)Y, (btScalar)Z, -(btScalar)W));
+		body->getMotionState()->setWorldTransform(trans);
+	}
+	else {
+		trans = body->getWorldTransform();
+		trans.setRotation(btQuaternion((btScalar)X, (btScalar)Y, (btScalar)Z, -(btScalar)W));
+		body->setWorldTransform(trans);
+	}
 	return 1;
 }
 
@@ -117,13 +127,18 @@ DLLEXPORT MAB_BodySetRotationEuler(double BodyID, double X, double Y, double Z)
 {
 	btTransform trans;
 	btRigidBody* body = G.getBody(BodyID);
-	//body->getMotionState()->getWorldTransform(trans);
-	trans = body->getWorldTransform();
 	btQuaternion quat;
 	quat.setEulerZYX((btScalar)Z, (btScalar)Y, (btScalar)Z);
-	trans.setRotation(quat);
-	//body->getMotionState()->setWorldTransform(trans);
-	body->setWorldTransform(trans);
+	if (G.UseMotionState) {
+		body->getMotionState()->getWorldTransform(trans);
+		trans.setRotation(quat);
+		body->getMotionState()->setWorldTransform(trans);
+	}
+	else {
+		trans = body->getWorldTransform();
+		trans.setRotation(quat);
+		body->setWorldTransform(trans);
+	}
 	return 1;
 }
 

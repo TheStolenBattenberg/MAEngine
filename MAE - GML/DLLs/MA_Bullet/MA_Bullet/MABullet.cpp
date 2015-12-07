@@ -2,6 +2,20 @@
 
 MABullet G;
 
+double MABullet::addShape(btCollisionShape* Shape) {
+	Shapes[ShapeCount] = Shape;
+	Shape->setUserIndex(ShapeCount);
+	ShapeCount++;
+	return ShapeCount - 1;
+}
+
+double MABullet::addConstraint(btTypedConstraint* Constraint) {
+	Constraints[ConstraintCount] = Constraint;
+	Constraint->setUserConstraintId(ConstraintCount);
+	ConstraintCount++;
+	return ConstraintCount - 1;
+}
+
 bool MABullet::destroyWorld()
 {
 	if (!G.worldExists()) return false;
