@@ -31,8 +31,10 @@ struct MABullet {
 	btDiscreteDynamicsWorld* World = nullptr;
 	btIDebugDraw* DebugDrawer = nullptr;
 
-	btVector3 ReturnVec = btVector3(0.f, 0.f, 0.f);
-	btQuaternion ReturnQuat = btQuaternion();
+	bool UseMotionState;
+
+	btVector3 ReturnVec;
+	btQuaternion ReturnQuat;
 	MAHitPoint HitResult;
 	std::vector<int> OverlapResults;
 
@@ -43,25 +45,15 @@ struct MABullet {
 	std::unordered_map<int, btTypedConstraint*> Constraints;
 	int ConstraintCount = 0;
 
-	inline bool worldExists() { return (World) ? true : false; };
-	inline bool shapeExists(double ShapeID) { return (Shapes.count((int)ShapeID) > 0); };
-	inline bool bodyExists(double BodyID) { return (Bodies.count((int)BodyID) > 0); };
+	inline bool worldExists() { return (World != nullptr); }
+	inline bool shapeExists(double ShapeID) { return (Shapes.count((int)ShapeID) > 0); }
+	inline bool bodyExists(double BodyID) { return (Bodies.count((int)BodyID) > 0); }
 	inline bool constraintExists(double ConstraintID) { return (Constraints.count((int)ConstraintID) > 0); }
-	inline btCollisionShape* getShape(double ShapeID) { return Shapes[(int)ShapeID]; };
-	inline btRigidBody* getBody(double BodyID) { return Bodies[(int)BodyID]->Body; };
+	inline btCollisionShape* getShape(double ShapeID) { return Shapes[(int)ShapeID]; }
+	inline btRigidBody* getBody(double BodyID) { return Bodies[(int)BodyID]->Body; }
 	inline btTypedConstraint* getConstraint(double ConstraintID) { return Constraints[(int)ConstraintID]; }
-	inline double addShape(btCollisionShape* Shape) {
-		Shapes[ShapeCount] = Shape;
-		Shape->setUserIndex(ShapeCount);
-		ShapeCount++;
-		return ShapeCount - 1;
-	}
-	inline double addConstraint(btTypedConstraint* Constraint) {
-		Constraints[ConstraintCount] = Constraint;
-		Constraint->setUserConstraintId(ConstraintCount);
-		ConstraintCount++;
-		return ConstraintCount - 1;
-	}
+	double addShape(btCollisionShape* Shape);
+	double addConstraint(btTypedConstraint* Constraint);
 	bool destroyWorld();
 	btVector3 toEuler(btMatrix3x3 &tm);
 };
