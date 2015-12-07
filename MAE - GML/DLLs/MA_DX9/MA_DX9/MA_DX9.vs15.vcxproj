@@ -33,6 +33,8 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Variant.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexDecl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
@@ -54,6 +56,8 @@
     <ClInclude Include="Types.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Variant.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexDecl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7D9E020-382F-4DA2-8FE4-7E4C4466448D}</ProjectGuid>
