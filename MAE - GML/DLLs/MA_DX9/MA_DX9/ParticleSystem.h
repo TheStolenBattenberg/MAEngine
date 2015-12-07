@@ -16,14 +16,11 @@
 class ParticleSystem {
 public:
 	ParticleSystem();
+	~ParticleSystem();
 
 	void createEmitter();
 	void createAttractor();
 	void createRepulsor();
-
-	void destroyAttractor(); //Stub
-	void destroyEmitter(); //Stub
-	void destroyRepulsor(); //Stub
 
 	ParticleEmitter* getEmitter();
 
@@ -47,5 +44,5 @@ private:
 
 	//D3D...
 	LPDIRECT3DTEXTURE9 psTexture = 0;
-	LPDIRECT3DVERTEXBUFFER9 psVertexBuffer;
+	LPDIRECT3DVERTEXBUFFER9 psVertexBuffer = 0;
 };

@@ -13,6 +13,12 @@ DLLEXPORT double MADX9_ParticleSystemCreate() {
 	return 1;
 }
 
+DLLEXPORT double MADX9_ParticleSystemDestroy() {
+	mamain->ParticleSys->~ParticleSystem();
+	delete mamain->ParticleSys;
+	return 1;
+}
+
 DLLEXPORT double MADX9_ParticleSystemUpdate(double step) {
 	mamain->ParticleSys->update((uint) step);
 	return 1;
@@ -45,8 +51,26 @@ DLLEXPORT double MADX9_ParticleSystemSetTexture(double texInd) {
 
 DLLEXPORT double MADX9_ParticleEmitterCreate() {
 	mamain->ParticleSys->createEmitter();
-	mamain->ParticleSys->getEmitter()->setAcceleration((float)-0.005, (float)0, (float)0);
-	mamain->ParticleSys->getEmitter()->setVelocity(-1, 0, 0, -1, 0, 0);
+	return 1;
+}
+
+DLLEXPORT double MADX9_ParticleEmitterSetParticlePos(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	mamain->ParticleSys->getEmitter()->setPosition((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
+	return 1;
+}
+
+DLLEXPORT double MADX9_ParticleEmitterSetParticleVel(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	mamain->ParticleSys->getEmitter()->setVelocity((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
+	return 1;
+}
+
+DLLEXPORT double MADX9_ParticleEmitterSetParticleCol(double startR, double startG, double startB, double startA, double endR, double endG, double endB, double endA) {
+	mamain->ParticleSys->getEmitter()->setColour(startR, startG, startB, startA, endR, endG, endB, endA);
+	return 1;
+}
+
+DLLEXPORT double MADX9_ParticleEmitterSetParticleAcc(double x, double y, double z) {
+	mamain->ParticleSys->getEmitter()->setAcceleration((float)x, (float)y, (float)z);
 	return 1;
 }
 
@@ -62,10 +86,5 @@ DLLEXPORT double MADX9_ParticleEmitterSetParticleCount(double min, double max) {
 
 DLLEXPORT double MADX9_ParticleEmitterSetParticleLife(double min, double max) {
 	mamain->ParticleSys->getEmitter()->setLife((uint) min, (uint) max);
-	return 1;
-}
-
-DLLEXPORT double MADX9_ParticleEmitterSetParticlePos(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-	mamain->ParticleSys->getEmitter()->setPosition((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
 	return 1;
 }

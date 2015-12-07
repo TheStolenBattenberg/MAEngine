@@ -20,7 +20,7 @@ public:
 	
 	void setPosition(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
 	void setVelocity(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
-	void setColour(float rMin, float gMin, float bMin, float aMin, float rMax, float gMax, float bMax, float aMax);
+	void setColour(float rMin, float gMin, float bMin, float aMin, float rMax, float gMax, float bMax, float aMax); //stub
 	void setLife(uint lifeMin, uint lifeMax);
 	void setSize(float sizeMin, float sizeMax);
 
@@ -28,6 +28,10 @@ public:
 	void setSpawn(uint spawnMin, uint spawnMax);
 
 	float Rand(float nMin, float nMax);
+	float Cerp(float x, float y, float s);
+
+
+	vec4 getColour(float interp);
 
 	uint getSpawnThisTick();
 	uint getMinEmitt();
@@ -38,7 +42,7 @@ public:
 private:
 	vec3 pMinPosition, pMaxPosition;
 	vec3 pMinVelocity, pMaxVelocity;
-	colourRGBAF pColourStart, pColourEnd;
+	vec4 pColourStart, pColourEnd;
 	uint pMinLife, pMaxLife;
 	float pMinSize, pMaxSize;
 
