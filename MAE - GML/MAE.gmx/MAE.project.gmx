@@ -169,6 +169,23 @@
           <script>scripts\MAE_AnimationGetFrameNext.gml</script>
           <script>scripts\MAE_AnimationGetTween.gml</script>
         </scripts>
+        <scripts name="Buffer">
+          <script>scripts\MAE_BufferCreate.gml</script>
+          <script>scripts\MAE_BufferDestroy.gml</script>
+          <script>scripts\MAE_BufferReserve.gml</script>
+          <script>scripts\MAE_BufferRemove.gml</script>
+          <script>scripts\MAE_BufferSeek.gml</script>
+          <script>scripts\MAE_BufferTell.gml</script>
+          <script>scripts\MAE_BufferSize.gml</script>
+          <script>scripts\MAE_BufferWrite.gml</script>
+          <script>scripts\MAE_BufferWriteValue.gml</script>
+          <script>scripts\MAE_BufferRead.gml</script>
+          <script>scripts\MAE_BufferReadValue.gml</script>
+          <script>scripts\MAE_BufferPoke.gml</script>
+          <script>scripts\MAE_BufferPokeValue.gml</script>
+          <script>scripts\MAE_BufferPeek.gml</script>
+          <script>scripts\MAE_BufferPeekValue.gml</script>
+        </scripts>
         <scripts name="Error">
           <script>scripts\MAE_ErrorSetFlags.gml</script>
           <script>scripts\MAE_ErrorEmpty.gml</script>
@@ -248,6 +265,14 @@
             <script>scripts\MAE_ParticleEmitterSetParticleColour.gml</script>
           </scripts>
         </scripts>
+        <scripts name="Region">
+          <script>scripts\MAE_RegionCreate.gml</script>
+          <script>scripts\MAE_RegionObjectIntersect.gml</script>
+          <script>scripts\MAE_RegionObjectAdd.gml</script>
+          <script>scripts\MAE_RegionObjectRemove.gml</script>
+          <script>scripts\MAE_RegionUpdate.gml</script>
+          <script>scripts\MAE_RegionDestroy.gml</script>
+        </scripts>
         <scripts name="Shader">
           <script>scripts\MAE_ShaderCreate.gml</script>
           <script>scripts\MAE_ShaderSet.gml</script>
@@ -288,14 +313,6 @@
           <script>scripts\MAE_TextureSet.gml</script>
           <script>scripts\MAE_TextureSetMipMapFilter.gml</script>
           <script>scripts\MAE_TextureUpdate.gml</script>
-        </scripts>
-        <scripts name="Region">
-          <script>scripts\MAE_RegionCreate.gml</script>
-          <script>scripts\MAE_RegionObjectIntersect.gml</script>
-          <script>scripts\MAE_RegionObjectAdd.gml</script>
-          <script>scripts\MAE_RegionObjectRemove.gml</script>
-          <script>scripts\MAE_RegionUpdate.gml</script>
-          <script>scripts\MAE_RegionDestroy.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">

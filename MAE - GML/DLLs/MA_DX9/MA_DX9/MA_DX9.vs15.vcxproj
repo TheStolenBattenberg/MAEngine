@@ -15,6 +15,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Hook.cpp" />
+    <ClCompile Include="MA_Buffer.cpp" />
     <ClCompile Include="MA_Light.cpp" />
     <ClCompile Include="MA_Material.cpp" />
     <ClCompile Include="MA_Misc.cpp" />
