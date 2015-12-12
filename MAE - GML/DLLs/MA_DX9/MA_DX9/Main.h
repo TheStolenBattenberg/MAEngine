@@ -30,12 +30,14 @@ public:
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
-	std::vector<class Shader*>  Shader;
-	std::vector<D3DLIGHT9*>     Light;
-	std::vector<D3DMATERIAL9*>  Material;
-	std::vector<class Surface*> Surfaces;
-	std::vector<class Texture*> Textures;
-	std::vector<class Buffer*>  Buffers;
+	std::vector<class Shader*>       Shader;
+	std::vector<D3DLIGHT9*>          Light;
+	std::vector<D3DMATERIAL9*>       Material;
+	std::vector<class Surface*>      Surfaces;
+	std::vector<class Texture*>      Textures;
+	std::vector<class Buffer*>       Buffers;
+	std::vector<class VertexDecl*>   VertexDeclarations;
+	std::vector<class VertexBuffer*> VertexBuffers;
 
 	std::vector<class MD2Model*> MD2Models;
 	std::vector<class XModel*>   XModels;
