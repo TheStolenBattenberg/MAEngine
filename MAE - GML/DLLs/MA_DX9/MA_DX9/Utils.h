@@ -36,3 +36,12 @@ template<typename T> uint putInto(T* value, std::vector<T*>& vec)
 
 	return ind;
 }
+
+template<typename T> inline void ClearVector(std::vector<T*>& vec)
+{
+	for (auto i: vec)
+		if (i != 0)
+			delete i;
+
+	vec.clear();
+}

@@ -20,7 +20,14 @@ void* bufferPtr = 0;
 
 DLLEXPORT double MADX9_BufferCreate()
 {
-	return putInto(new Buffer(new DynamicMemory()), mamain->Buffers);
+	try
+	{
+		return putInto(new Buffer(new DynamicMemory()), mamain->Buffers);
+	}
+	catch (std::exception)
+	{
+		return -1;
+	}
 }
 
 DLLEXPORT double MADX9_BufferDestroy(double ind)

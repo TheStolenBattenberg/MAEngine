@@ -93,6 +93,9 @@
     <ClCompile Include="VertexDecl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MA_VertexDecl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">

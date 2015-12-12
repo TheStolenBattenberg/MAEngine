@@ -3,6 +3,9 @@
 #include "Resources.h"
 #include "ModelMD2.h"
 #include "Buffer.h"
+#include "VertexBuffer.h"
+#include "VertexDecl.h"
+#include "Utils.h"
 
 MADX9Main* mamain = 0;
 
@@ -21,47 +24,15 @@ MADX9Main::MADX9Main(LPDIRECT3DDEVICE9 d3ddev)
 
 MADX9Main::~MADX9Main()
 {
-	for (auto i: Shader)
-		if (i != 0)
-			delete i;
-
-	Shader.clear();
-
-	for (auto i: MD2Models)
-		if (i != 0)
-			delete i;
-
-	MD2Models.clear();
-
-	for (auto i: Surfaces)
-		if (i != 0)
-			delete i;
-
-	Surfaces.clear();
-
-	for (auto i: Textures)
-		if (i != 0)
-			delete i;
-
-	Textures.clear();
-
-	for (auto i: Light)
-		if (i != 0)
-			delete i;
-
-	Light.clear();
-
-	for (auto i: Material)
-		if (i != 0)
-			delete i;
-
-	Material.clear();
-
-	for (auto i: Buffers)
-		if (i != 0)
-			delete i;
-
-	Buffers.clear();
+	ClearVector(Shader);
+	ClearVector(MD2Models);
+	ClearVector(Surfaces);
+	ClearVector(Textures);
+	ClearVector(Light);
+	ClearVector(Material);
+	ClearVector(Buffers);
+	ClearVector(VertexDeclarations);
+	ClearVector(VertexBuffers);
 
 	if (VertexDeclarationMPM != 0)
 	{
