@@ -24,6 +24,7 @@
     <ClCompile Include="MA_Shader.cpp" />
     <ClCompile Include="MA_Surface.cpp" />
     <ClCompile Include="MA_Texture.cpp" />
+    <ClCompile Include="MA_VertexBuffer.cpp" />
     <ClCompile Include="MA_VertexDecl.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="ModelMD2.cpp" />
