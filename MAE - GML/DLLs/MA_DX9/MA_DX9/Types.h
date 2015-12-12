@@ -41,7 +41,7 @@ struct vec4 {
 	};
 };
 
-struct colourARGB {
+struct col4u {
 	union {
 		uint colour;
 
@@ -55,3 +55,5 @@ struct colourARGB {
 struct colourRGBAF {
 	float r, g, b, a;
 };
+
+typedef vec4 quat;

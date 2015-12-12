@@ -10,147 +10,155 @@
  * MAE Packet Model
  * Version 1
  */
-#define MPM_MAGICNUMBER 0x664D504D //MPMf
-#define MPM_VERSION 0x01 //1
 
-namespace MPMModel 
+namespace MPMModel
 {
-	enum Packets {
-		Packet_PkSD = 0x44536B50, //Static Data Packet Identifier.
-		Packet_PkGD = 0x44476B50, //Geometry Data Packet Identifier.
-		Packet_PkAD = 0x44416B50, //Animated Data Packet Identifier.
-		Packet_PkCD = 0x44436B50, //Collision Data Packet Identifier.     
-		Packet_PkMD = 0x444D6B50, //Material Data Packet Identifier.
-		Packet_PkTD = 0x44546B50, //Texture Data Packet Identifier.
-		Packet_PkV0 = 0x30566B50, //Vertex Packet Identifier.
-		Packet_PkN0 = 0x304E6B50, //Normal Packet Identifier.
-		Packet_PkT0 = 0x30546B50, //Texcoord Packet Identifier.
-		Packet_PkF0 = 0x30466B50, //Face Packet Identifier.
+	const uint MagicNumber = 0x464D504D;
+	const uint Version = 0x00000001;
+
+	enum Packets
+	{
+		PacketMeshesID            = 0x4853454D,
+		PacketMaterialID          = 0x0054414D,
+		PacketVertexDescID        = 0x43534544,
+		PacketVertexDataID        = 0x54524556,
+		PacketVertexDataPerInstID = 0x54534E49,
+		PacketVertexIndexID       = 0x00444E49,
+		PacketBonesID             = 0x454E4F42,
+		PacketMorphTargetID       = 0x00534F50,
+		PacketFramesID            = 0x454d4954,
+		PacketCollisionsID        = 0x004C4F43
 	};
 
 	/**
-	 * Header.
+	 * Header
 	 */
-	struct Header {
+
+	struct Header
+	{
 		uint magicNumber;
 		uint version;
+		uint compVersion; // Min version supported
 		uint numPacket;
+		uint numMeshes;
+		uint numMaterials;
 	};
 
-	typedef uint PacketId; //The packetID.
-	typedef uint nextPacketOffset; //If the packetID was unrecognised, skip to the next packet using this.
-
-
-	/**
-	 * Used to contain static model data, with no animation.
-	 * The reason for this data type is because GeometryData doesn't support multitexturing, this does.
-	 */
-	struct PacketStaticData { //PkSD
-		uint numLoD;
-		uint numGroup;
-		uint numVertex;
-		uint numNormal;
-		uint numTexcoord;
-		uint numFace;
+	struct PacketHeader
+	{
+		uint id;
+		uint length;
 	};
 
-
-	/**
-	 * Used to contain simple direct to vertex buffer data.
-	 * If this is used, you will only find the possible other packet typess:
-	 * - Shader (This might not be here, it's only used for terrain splatting shaders).
-	 * - Material (The index is always 0, there is only one material on geometry).
-	 *
-	 * This should probably be done a different way, but it will do for now.
-	 */
-	struct PacketGeometryData { //PkGD
-		uint numFace;
-		float Vertex[3];
-		float Normal[3];
-		float Texcoord[2];
+	struct Mesh
+	{
+		uint meshInd;
+		uint matInd;
+		vec3 trans;
+		vec3 scal;
+		quat rot;
 	};
 
-
-	/**
-	 * Used to contain information on the animated data.
-	 * To-do. Should probably contain information on if the file is a skeletal animation or
-	 * morph target animation.
-	 */
-	struct PacketAnimationData { //PkAD
-		//Not implemented, I have no idea how to handle animation data.
+	struct Material
+	{
+		col4u ambient;
+		col4u diffuse;
+		col4u specular;
+		float reflectivity; // 0 or less when not reflecting
+		char  tex[128];     // empty if no texture is used
+		char  shader[128];  // empty if no shader is used
 	};
 
-
-	/**
-	 * Used to contain a simplified trimesh for sending to bullet.
-	 */
-	struct PacketCollisionData { //PkCD
-		uint numVertex;
-		float Vertex[3];
+	struct PacketVertexDescHeader
+	{
+		uint meshInd;
+		uint num; // Number of PacketVertexDesc structs
+		uint vertStride;
+		uint instStride;
+		uint morphTargetStride;
 	};
 
+	struct PacketVertexDesc
+	{
+		enum Flags
+		{
+			FlagPerInstance = 0x01,
+			FlagPerFrame    = 0x02
+		};
 
-	/**
-	 * Used to contain information on materials.
-	 * If this packet isn't in a model, it should generate materials * the number of groups.
-	 */
-	struct PacketMaterialData {
-		uint numMaterial;
+		enum Usage
+		{
+			UsagePosition   = 0x01, // Can be defined twice (for morph target animations)
+			UsageTexCoords  = 0x02,
+			UsageNormals    = 0x03,
+			UsageColor      = 0x04,
+			UsageBoneIndex  = 0x05, // Can be defined more than once
+			UsageBoneWeight = 0x06  // Same thing applies to this
+		};
+
+		enum Types
+		{
+			TypeFloat = 0x01,
+			TypeVec2  = 0x02,
+			TypeVec3  = 0x03,
+			TypeVec4  = 0x04,
+			TypeColor = 0x05,
+			TypeInt   = 0x06
+		};
+
+		ushort flags;
+		ubyte  usage;
+		ubyte  type;
+		ushort offset;
 	};
 
-	/**
-	 * Used to hold pure RGBA byte values for a texture.
-	 * I haven't implemented it because I'm unsure if it would actually be useful or not.
-	 */
-	struct PacketTextureData {
-		
+	struct PacketVertexIndex
+	{
+		enum Types
+		{
+			TypeU16 = 0x01,
+			TypeU32 = 0x02
+		};
+
+		uint meshInd;
+		uint num;
+		uint type;
 	};
 
-
-	/**
-	 * Used to contain Vertices.
-	 */
-	struct PacketVertex { //PkV0, 
-		float Vertex[3];
+	struct PacketBonesHeader
+	{
+		uint meshInd;
+		uint num;
+		uint frames;
 	};
 
-
-	/**
-	 * Used to contain Normals.
-	 */
-	struct PacketNormal { //PkN0
-		float Normal[3];
+	struct PacketBones
+	{
+		vec3 trans;
+		vec3 scal;
+		quat rot;
 	};
 
-
-	/**
-	 * Used to contain Texcoords.
-	 */
-	struct PacketTexcoord { //PkT0
-		float Texcoord[2];
+	struct PacketMorphTargetHeader
+	{
+		uint meshInd;
+		uint size;
+		uint frames;
 	};
 
-
-	/**
-	 * Used to contain Indicies & the material Index.
-	 */
-	struct PacketFace { //PkF0
-		uint VertexIndices[3];
-		uint NormalIndices[3];
-		uint TexcoordIndices[2];
-		uint MaterialIndex;
+	struct PacketFramesHeader
+	{
+		uint meshInd;
+		uint num;
 	};
 
+	struct PacketFrames
+	{
+		enum {
+			LastFrame = 0xFFFFFFFF
+		};
 
-	/**
-	 * Used to contain a material for D3D.
-	 * It's the same format as a D3DMATERIAL9 struct, so we should be able to make materials directly from this data.
-	 */
-	struct PacketMaterial {
-		float Diffuse[4];
-		float Ambient[4];
-		float Specular[4];
-		float Emmissive[4];
-		float SpecularPower;
+		uint next; // Next frame or LastFrame
+		uint time; // In ms
 	};
 }
