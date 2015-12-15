@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Particle System">
       <UniqueIdentifier>{bbcc484e-1d84-4db8-a9b7-77a7215bf307}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Bullet">
+      <UniqueIdentifier>{1fdafe5f-be7c-4b12-be1d-fbdb5e050090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bullet">
+      <UniqueIdentifier>{8ef2811f-276d-47ad-ba08-22443e887aa7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variant.cpp">
@@ -99,6 +105,27 @@
     <ClCompile Include="MA_VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MABullet_DebugDraw.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MABullet_Misc.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MABullet_Shapes.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MABullet_World.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MABullet.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MABullet_Bodies.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MABullet_Constraints.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -163,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="VertexDecl.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MABullet_DebugDraw.h">
+      <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MABullet.h">
+      <Filter>Header Files\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

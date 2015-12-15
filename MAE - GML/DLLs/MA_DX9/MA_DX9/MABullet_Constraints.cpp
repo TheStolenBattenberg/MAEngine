@@ -1,8 +1,9 @@
 #include "MABullet.h"
+#include "Main.h"
 
 btTransform ConstraintTransformA, ConstraintTransformB;
 
-DLLEXPORT MAB_ConstraintCreateP2P(double BodyA, double AX, double AY, double AZ, double WorldA, double BodyB, double BX, double BY, double BZ, double WorldB, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreateP2P(double BodyA, double AX, double AY, double AZ, double WorldA, double BodyB, double BX, double BY, double BZ, double WorldB, double DisableCollision)
 {
 	btPoint2PointConstraint* constraint;
 	btVector3 pointA = btVector3((btScalar)AX, (btScalar)AY, (btScalar)AZ);
@@ -15,7 +16,7 @@ DLLEXPORT MAB_ConstraintCreateP2P(double BodyA, double AX, double AY, double AZ,
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreateFixed(double BodyA, double BodyB)
+DLLEXPORT double MAB_ConstraintCreateFixed(double BodyA, double BodyB)
 {
 	btFixedConstraint* constraint;
 	btTransform trans = G.getBody(BodyA)->getWorldTransform().inverse() * G.getBody(BodyB)->getWorldTransform();
@@ -24,7 +25,7 @@ DLLEXPORT MAB_ConstraintCreateFixed(double BodyA, double BodyB)
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreateSlider(double BodyA, double BodyB, double LinearReferenceFrameA, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreateSlider(double BodyA, double BodyB, double LinearReferenceFrameA, double DisableCollision)
 {
 	btSliderConstraint* constraint;
 	btRigidBody* bodyA = G.getBody(BodyA);
@@ -39,7 +40,7 @@ DLLEXPORT MAB_ConstraintCreateSlider(double BodyA, double BodyB, double LinearRe
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreateGear(double BodyA, double BodyB, double AX, double AY, double AZ, double BX, double BY, double BZ, double Ratio, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreateGear(double BodyA, double BodyB, double AX, double AY, double AZ, double BX, double BY, double BZ, double Ratio, double DisableCollision)
 {
 	btGearConstraint* constraint;
 	btRigidBody* bodyA = G.getBody(BodyA);
@@ -51,7 +52,7 @@ DLLEXPORT MAB_ConstraintCreateGear(double BodyA, double BodyB, double AX, double
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreateHinge(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreateHinge(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
 {
 	btHingeConstraint* constraint;
 	btRigidBody* bodyA = G.getBody(BodyA);
@@ -66,7 +67,7 @@ DLLEXPORT MAB_ConstraintCreateHinge(double BodyA, double BodyB, double UseRefere
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreate6DOF(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreate6DOF(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
 {
 	btGeneric6DofConstraint* constraint;
 	btRigidBody* bodyA = G.getBody(BodyA);
@@ -81,7 +82,7 @@ DLLEXPORT MAB_ConstraintCreate6DOF(double BodyA, double BodyB, double UseReferen
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreateSpring6DOF(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreateSpring6DOF(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
 {
 	btGeneric6DofSpringConstraint* constraint;
 	btRigidBody* bodyA = G.getBody(BodyA);
@@ -96,7 +97,7 @@ DLLEXPORT MAB_ConstraintCreateSpring6DOF(double BodyA, double BodyB, double UseR
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintCreateConeTwist(double BodyA, double BodyB, double DisableCollision)
+DLLEXPORT double MAB_ConstraintCreateConeTwist(double BodyA, double BodyB, double DisableCollision)
 {
 	btConeTwistConstraint* constraint;
 	btRigidBody* bodyA = G.getBody(BodyA);
@@ -111,7 +112,7 @@ DLLEXPORT MAB_ConstraintCreateConeTwist(double BodyA, double BodyB, double Disab
 	return G.addConstraint(constraint);
 }
 
-DLLEXPORT MAB_ConstraintParamTransform(double n, double X, double Y, double Z, double RX, double RY, double RZ, double RW)
+DLLEXPORT double MAB_ConstraintParamTransform(double n, double X, double Y, double Z, double RX, double RY, double RZ, double RW)
 {
 	btVector3 vec = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
 	btQuaternion quat = btQuaternion((btScalar)RX, (btScalar)RY, (btScalar)RZ, (btScalar)RW);	
@@ -187,7 +188,7 @@ enum PARAM {
 	CONE_MOTOR_ENABLED,
 };
 
-DLLEXPORT MAB_ConstraintSetParam(double ConstraintID, double Param, double Value, double Value2, double Value3, double Value4, double Value5, double Value6)
+DLLEXPORT double MAB_ConstraintSetParam(double ConstraintID, double Param, double Value, double Value2, double Value3, double Value4, double Value5, double Value6)
 {
 	if (!G.constraintExists(ConstraintID)) return 0;
 	btTypedConstraint* constraint = G.getConstraint(ConstraintID);
@@ -482,7 +483,7 @@ DLLEXPORT MAB_ConstraintSetParam(double ConstraintID, double Param, double Value
 	return 1;
 }
 
-DLLEXPORT MAB_ConstraintSetEnabled(double ConstraintID, double enabled)
+DLLEXPORT double MAB_ConstraintSetEnabled(double ConstraintID, double enabled)
 {
 	if (!G.constraintExists(ConstraintID)) return 0;
 	if(enabled) G.getConstraint(ConstraintID)->setEnabled(true);
@@ -490,13 +491,13 @@ DLLEXPORT MAB_ConstraintSetEnabled(double ConstraintID, double enabled)
 	return 1;
 }
 
-DLLEXPORT MAB_ConstraintGetAppliedImpulse(double ConstraintID)
+DLLEXPORT double MAB_ConstraintGetAppliedImpulse(double ConstraintID)
 {
 	if (!G.constraintExists(ConstraintID)) return 0;
 	return G.getConstraint(ConstraintID)->getAppliedImpulse();
 }
 
-DLLEXPORT MAB_ConstraintDestroy(double ConstraintID)
+DLLEXPORT double MAB_ConstraintDestroy(double ConstraintID)
 {
 	if (!G.constraintExists(ConstraintID)) return 0;
 	btTypedConstraint* constraint = G.getConstraint(ConstraintID);

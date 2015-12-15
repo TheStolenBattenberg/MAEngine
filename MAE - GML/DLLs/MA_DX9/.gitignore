@@ -8,9 +8,15 @@ Debug/
 .vs/
 
 # =============================
-# Ignore Visual Stuidio files
+# Ignore Visual Studio files
 # =============================
 
 *.sdf
 *.suo
 *.opensdf
+
+# =============================
+# Ignore Bullet library
+# =============================
+
+bullet

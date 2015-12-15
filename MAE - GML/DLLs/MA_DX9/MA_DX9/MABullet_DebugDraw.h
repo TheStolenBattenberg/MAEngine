@@ -14,19 +14,11 @@ struct Vertex
 
 class MABulletDebugDraw : public btIDebugDraw
 {
-	int m_debugMode;
-	LPDIRECT3DDEVICE9 d3ddev;
-
+	int m_debugMode = btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE | btIDebugDraw::DBG_DrawContactPoints | btIDebugDraw::DBG_DrawConstraints;
 	std::vector<Vertex> Vertices;
 
 public:
 	bool update = false;
-
-	MABulletDebugDraw(LPDIRECT3DDEVICE9 device)
-	{
-		d3ddev = device; 
-		m_debugMode = btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE | btIDebugDraw::DBG_DrawContactPoints | btIDebugDraw::DBG_DrawConstraints;
-	};
 
 	virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor);
 	virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& color);
@@ -39,5 +31,4 @@ public:
 	virtual int  getDebugMode() const { return m_debugMode; }
 
 	void debugDraw();
-
 };

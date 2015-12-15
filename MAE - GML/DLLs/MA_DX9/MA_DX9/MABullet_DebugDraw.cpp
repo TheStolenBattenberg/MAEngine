@@ -1,4 +1,5 @@
 #include "MABullet_DebugDraw.h"
+#include "Main.h"
 
 void MABulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
 {
@@ -30,7 +31,7 @@ void MABulletDebugDraw::debugDraw()
 	}
 	if (Vertices.size() > 1)
 	{
-		d3ddev->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
-		d3ddev->DrawPrimitiveUP(D3DPT_LINELIST, Vertices.size() / 2, &Vertices[0], sizeof(Vertex));
+		mamain->d3ddev->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+		mamain->d3ddev->DrawPrimitiveUP(D3DPT_LINELIST, Vertices.size() / 2, &Vertices[0], sizeof(Vertex));
 	}
 }
