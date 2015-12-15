@@ -1,18 +1,7 @@
 #include "MABullet.h"
-#include "MABullet_DebugDraw.h"
+#include "Main.h"
 
-DLLEXPORT MAB_Free()
-{
-	for (auto i : G.Shapes)
-	{
-		btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(i.second);
-		if (trimesh) delete trimesh->getMeshInterface();
-		delete i.second;
-	}
-	return G.destroyWorld();
-}
-
-DLLEXPORT MAB_Vec(double n)
+DLLEXPORT double MAB_Vec(double n)
 {
 	switch ((int)n)
 	{
@@ -26,7 +15,7 @@ DLLEXPORT MAB_Vec(double n)
 	return 0;
 }
 
-DLLEXPORT MAB_Quat(double n)
+DLLEXPORT double MAB_Quat(double n)
 {
 	switch ((int)n)
 	{
@@ -42,7 +31,7 @@ DLLEXPORT MAB_Quat(double n)
 	return 0;
 }
 
-DLLEXPORT MAB_HitResult(double n)
+DLLEXPORT double MAB_HitResult(double n)
 {
 	switch ((int)n)
 	{
@@ -62,7 +51,7 @@ DLLEXPORT MAB_HitResult(double n)
 	return 0;
 }
 
-DLLEXPORT MAB_OverlapResult(double n)
+DLLEXPORT double MAB_OverlapResult(double n)
 {
 	return G.OverlapResults[(int)n];
 }

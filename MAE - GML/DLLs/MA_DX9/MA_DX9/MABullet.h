@@ -4,8 +4,6 @@
 #include <iostream>
 #include <btBulletDynamicsCommon.h>
 
-#define DLLEXPORT extern "C" __declspec (dllexport) double
-
 struct MABody
 {
 	btRigidBody* Body;
@@ -55,6 +53,7 @@ struct MABullet {
 	double addShape(btCollisionShape* Shape);
 	double addConstraint(btTypedConstraint* Constraint);
 	bool destroyWorld();
+	bool free();
 	btVector3 toEuler(btMatrix3x3 &tm);
 };
 

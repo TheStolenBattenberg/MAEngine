@@ -76,3 +76,14 @@ btVector3 MABullet::toEuler(btMatrix3x3 &tm)
 
 	return btVector3(x*SIMD_DEGS_PER_RAD, y*SIMD_DEGS_PER_RAD, z*SIMD_DEGS_PER_RAD);
 }
+
+bool MABullet::free()
+{
+	for (auto i : Shapes)
+	{
+		btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(i.second);
+		if (trimesh) delete trimesh->getMeshInterface();
+		delete i.second;
+	}
+	return destroyWorld();
+}

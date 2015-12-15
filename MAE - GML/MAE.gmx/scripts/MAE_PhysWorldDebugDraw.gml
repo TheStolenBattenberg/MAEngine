@@ -12,4 +12,4 @@
  *   Success
  */
 
-return external_call(global.MAB_WorldDebugDraw, window_device());
+return external_call(global.MAB_WorldDebugDraw);

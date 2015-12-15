@@ -1,7 +1,8 @@
 #include "MABullet.h"
 #include "MABullet_DebugDraw.h"
+#include "Main.h"
 
-DLLEXPORT MAB_WorldCreate(double UseMotionState)
+DLLEXPORT double MAB_WorldCreate(double UseMotionState)
 {
 	if (G.worldExists()) return 0;
 
@@ -19,17 +20,17 @@ DLLEXPORT MAB_WorldCreate(double UseMotionState)
 	return 1;
 }
 
-DLLEXPORT MAB_WorldDestroy()
+DLLEXPORT double MAB_WorldDestroy()
 {
 	return G.destroyWorld();
 }
 
-DLLEXPORT MAB_WorldExists()
+DLLEXPORT double MAB_WorldExists()
 {
 	return (G.worldExists()) ? 1 : 0;
 }
 
-DLLEXPORT MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeStep)
+DLLEXPORT double MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeStep)
 {
 	if (!G.worldExists()) return 0;
 	G.World->stepSimulation((btScalar)TimeStep, (int)MaxSubSteps, (btScalar)FixedTimeStep);
@@ -37,37 +38,37 @@ DLLEXPORT MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeSte
 	return 1;
 }
 
-DLLEXPORT MAB_WorldSetGravity(double X, double Y, double Z)
+DLLEXPORT double MAB_WorldSetGravity(double X, double Y, double Z)
 {
 	if (!G.worldExists()) return 0;
 	G.World->setGravity(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
 	return 1;
 }
 
-DLLEXPORT MAB_WorldGetGravity()
+DLLEXPORT double MAB_WorldGetGravity()
 {
 	if (!G.worldExists()) return 0;
 	G.ReturnVec = G.World->getGravity();
 	return 1;
 }
 
-DLLEXPORT MAB_WorldGetBodyCount()
+DLLEXPORT double MAB_WorldGetBodyCount()
 {
 	if (!G.worldExists()) return 0;
 	return G.World->getNumCollisionObjects();
 }
 
-DLLEXPORT MAB_WorldGetConstraintCount()
+DLLEXPORT double MAB_WorldGetConstraintCount()
 {
 	if (!G.worldExists()) return 0;
 	return G.World->getNumConstraints();
 }
 
-DLLEXPORT MAB_WorldDebugDraw(LPDIRECT3DDEVICE9 pointer)
+DLLEXPORT double MAB_WorldDebugDraw()
 {
 	if (!G.worldExists()) return 0;
 	if (!G.DebugDrawer) {
-		MABulletDebugDraw* DebugDrawer = new MABulletDebugDraw((LPDIRECT3DDEVICE9)pointer);
+		MABulletDebugDraw* DebugDrawer = new MABulletDebugDraw;
 		G.DebugDrawer = DebugDrawer;
 		G.World->setDebugDrawer(DebugDrawer);
 	}
@@ -76,7 +77,7 @@ DLLEXPORT MAB_WorldDebugDraw(LPDIRECT3DDEVICE9 pointer)
 	return 1;
 }
 
-DLLEXPORT MAB_WorldRaycast(double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
+DLLEXPORT double MAB_WorldRaycast(double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
 {
 	if (!G.worldExists()) return -1;
 	btVector3 start = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
@@ -97,7 +98,7 @@ DLLEXPORT MAB_WorldRaycast(double X, double Y, double Z, double XT, double YT, d
 	return 0;
 }
 /*
-DLLEXPORT MAB_WorldRaycastSingle(double BodyID, double X, double Y, double Z, double XT, double YT, double ZT)
+DLLEXPORT double MAB_WorldRaycastSingle(double BodyID, double X, double Y, double Z, double XT, double YT, double ZT)
 {
 	if (!G.worldExists()) return -1;
 	btVector3 startvec = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
@@ -121,7 +122,7 @@ DLLEXPORT MAB_WorldRaycastSingle(double BodyID, double X, double Y, double Z, do
 }
 */
 
-DLLEXPORT MAB_WorldSweep(double ShapeID, double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
+DLLEXPORT double MAB_WorldSweep(double ShapeID, double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
 {
 	if (!G.worldExists()) return -1;
 	if (!G.shapeExists(ShapeID)) return -2;
@@ -146,7 +147,7 @@ DLLEXPORT MAB_WorldSweep(double ShapeID, double X, double Y, double Z, double XT
 	return 0;
 }
 
-DLLEXPORT MAB_WorldOverlap(double ShapeID, double X, double Y, double Z, double RX, double RY, double RZ, double RW, double Group, double Mask)
+DLLEXPORT double MAB_WorldOverlap(double ShapeID, double X, double Y, double Z, double RX, double RY, double RZ, double RW, double Group, double Mask)
 {
 	if (!G.worldExists()) return -1;
 	if (!G.shapeExists(ShapeID)) return -2;
