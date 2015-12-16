@@ -18,16 +18,16 @@ namespace MPMModel
 
 	enum Packets
 	{
-		PacketMeshesID            = 0x4853454D,
-		PacketMaterialID          = 0x0054414D,
-		PacketVertexDescID        = 0x43534544,
-		PacketVertexDataID        = 0x54524556,
-		PacketVertexDataPerInstID = 0x54534E49,
-		PacketVertexIndexID       = 0x00444E49,
-		PacketBonesID             = 0x454E4F42,
-		PacketMorphTargetID       = 0x00534F50,
-		PacketFramesID            = 0x454d4954,
-		PacketCollisionsID        = 0x004C4F43
+		PacketMeshesID             = 0x4853454D,
+		PacketMaterialID           = 0x0054414D,
+		PacketVertexDescID         = 0x43534544,
+		PacketVertexDataID         = 0x54524556,
+		PacketVertexDataPerIndexID = 0x44444E49,
+		PacketVertexIndexID        = 0x00444E49,
+		PacketBonesID              = 0x454E4F42,
+		PacketMorphTargetID        = 0x00534F50,
+		PacketCollisionsID         = 0x004C4F43,
+		PacketAnimationID          = 0x4D494E41
 	};
 
 	/**
@@ -36,12 +36,12 @@ namespace MPMModel
 
 	struct Header
 	{
-		uint magicNumber;
-		uint version;
-		uint compVersion; // Min version supported
-		uint numPacket;
-		uint numMeshes;
-		uint numMaterials;
+		uint   magicNumber;
+		ushort version;
+		ushort compVersion; // Min version supported
+		uint   numPackets;
+		uint   numMeshes;
+		uint   numMaterials;
 	};
 
 	struct PacketHeader
@@ -64,9 +64,10 @@ namespace MPMModel
 		col4u ambient;
 		col4u diffuse;
 		col4u specular;
-		float reflectivity; // 0 or less when not reflecting
-		char  tex[128];     // empty if no texture is used
-		char  shader[128];  // empty if no shader is used
+		float reflectivity;     // 0 or less when not reflecting
+		char  tex[128];         // empty if no texture is used
+		char  shader[128];      // empty if no shader is used
+		char  environment[128]; // empty if no enivornment map is used
 	};
 
 	struct PacketVertexDescHeader
@@ -82,13 +83,13 @@ namespace MPMModel
 	{
 		enum Flags
 		{
-			FlagPerInstance = 0x01,
-			FlagPerFrame    = 0x02
+			FlagPerIndex = 0x01, // Data is stored per index
+			FlagPerFrame = 0x02  // Data is stored per frame. Only valid when used with UsagePosition and UsageNormal
 		};
 
 		enum Usage
 		{
-			UsagePosition   = 0x01, // Can be defined twice (for morph target animations)
+			UsagePosition   = 0x01,
 			UsageTexCoords  = 0x02,
 			UsageNormals    = 0x03,
 			UsageColor      = 0x04,
@@ -132,6 +133,11 @@ namespace MPMModel
 		uint frames;
 	};
 
+	struct PacketBonesFrameHeader
+	{
+		uint time; // In ms. Indicates when the frame begins
+	};
+
 	struct PacketBones
 	{
 		vec3 trans;
@@ -146,19 +152,21 @@ namespace MPMModel
 		uint frames;
 	};
 
-	struct PacketFramesHeader
+	struct PacketMorphTargetFrameHeader
+	{
+		uint time; // In ms. Indicates when the frame begins
+	};
+
+	struct PacketAnimationHeader
 	{
 		uint meshInd;
 		uint num;
 	};
 
-	struct PacketFrames
+	struct PacketAnimation
 	{
-		enum {
-			LastFrame = 0xFFFFFFFF
-		};
-
-		uint next; // Next frame or LastFrame
-		uint time; // In ms
+		char name[64];
+		uint start;
+		uint end;
 	};
 }
