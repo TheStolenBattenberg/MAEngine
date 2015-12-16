@@ -1,4 +1,4 @@
-#include "MABullet_DebugDraw.h"
+#include "BulletDebugDraw.h"
 #include "Main.h"
 
 void MABulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
@@ -26,7 +26,7 @@ void MABulletDebugDraw::debugDraw()
 	if (update)
 	{
 		Vertices.clear();
-		G.World->debugDrawWorld();
+		mabullet->World->debugDrawWorld();
 		update = false;
 	}
 	if (Vertices.size() > 1)

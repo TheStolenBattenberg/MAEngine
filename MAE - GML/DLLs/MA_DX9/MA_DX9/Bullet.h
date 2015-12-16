@@ -1,7 +1,6 @@
 #pragma once
 
 #include <unordered_map>
-#include <iostream>
 #include <btBulletDynamicsCommon.h>
 
 struct MABody
@@ -21,7 +20,10 @@ struct MAHitPoint
 	int UserIndex;
 };
 
-struct MABullet {
+ATTRIBUTE_ALIGNED16(struct) MABullet {
+
+	BT_DECLARE_ALIGNED_ALLOCATOR();
+
 	btBroadphaseInterface* Broadphase = nullptr;
 	btDefaultCollisionConfiguration* CollisionConfiguration = nullptr;
 	btCollisionDispatcher* Dispatcher = nullptr;
@@ -43,21 +45,22 @@ struct MABullet {
 	std::unordered_map<int, btTypedConstraint*> Constraints;
 	int ConstraintCount = 0;
 
-	inline bool worldExists() { return (World != nullptr); }
-	inline bool shapeExists(double ShapeID) { return (Shapes.count((int)ShapeID) > 0); }
-	inline bool bodyExists(double BodyID) { return (Bodies.count((int)BodyID) > 0); }
-	inline bool constraintExists(double ConstraintID) { return (Constraints.count((int)ConstraintID) > 0); }
+	inline bool worldExists() const { return (World != nullptr); }
+	inline bool shapeExists(double ShapeID) const { return (Shapes.count((int)ShapeID) > 0); }
+	inline bool bodyExists(double BodyID) const { return (Bodies.count((int)BodyID) > 0); }
+	inline bool constraintExists(double ConstraintID) const { return (Constraints.count((int)ConstraintID) > 0); }
 	inline btCollisionShape* getShape(double ShapeID) { return Shapes[(int)ShapeID]; }
 	inline btRigidBody* getBody(double BodyID) { return Bodies[(int)BodyID]->Body; }
 	inline btTypedConstraint* getConstraint(double ConstraintID) { return Constraints[(int)ConstraintID]; }
 	double addShape(btCollisionShape* Shape);
 	double addConstraint(btTypedConstraint* Constraint);
 	bool destroyWorld();
-	bool free();
-	btVector3 toEuler(btMatrix3x3 &tm);
+	static btVector3 toEuler(btMatrix3x3 &tm);
+
+	~MABullet();
 };
 
-extern MABullet G;
+extern MABullet* mabullet;
 
 struct MAOverlapCallback : public btCollisionWorld::ContactResultCallback {
 	MAOverlapCallback(btCollisionObject* tgtBody) : btCollisionWorld::ContactResultCallback(), body(tgtBody) {};
@@ -66,7 +69,7 @@ struct MAOverlapCallback : public btCollisionWorld::ContactResultCallback {
 	virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0, int partId0, int index0, const btCollisionObjectWrapper* colObj1, int partId1, int index1) {
 		if (colObj0->m_collisionObject == body) {
 			hasHit = true;
-			G.OverlapResults.push_back(colObj1->m_collisionObject->getUserIndex());
+			mabullet->OverlapResults.push_back(colObj1->m_collisionObject->getUserIndex());
 		}
 		return 0;
 	}

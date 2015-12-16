@@ -1,6 +1,7 @@
 #pragma once
 
-#include "MABullet.h"
+#include <iostream>
+#include "Bullet.h"
 #include "d3d9.h"
 #include "d3dx9.h"
 

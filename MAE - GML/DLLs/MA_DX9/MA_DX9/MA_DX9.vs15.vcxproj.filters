@@ -105,25 +105,25 @@
     <ClCompile Include="MA_VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet_DebugDraw.cpp">
+    <ClCompile Include="Bullet.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet_Misc.cpp">
+    <ClCompile Include="BulletDebugDraw.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet_Shapes.cpp">
+    <ClCompile Include="MA_BulletBody.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet_World.cpp">
+    <ClCompile Include="MA_BulletConstraint.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet.cpp">
+    <ClCompile Include="MA_BulletMisc.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet_Bodies.cpp">
+    <ClCompile Include="MA_BulletShape.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MABullet_Constraints.cpp">
+    <ClCompile Include="MA_BulletWorld.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,10 +191,10 @@
     <ClInclude Include="VertexDecl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MABullet_DebugDraw.h">
+    <ClInclude Include="Bullet.h">
       <Filter>Header Files\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="MABullet.h">
+    <ClInclude Include="BulletDebugDraw.h">
       <Filter>Header Files\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
