@@ -1,6 +1,6 @@
-#include "MABullet.h"
+#include "Bullet.h"
 
-MABullet G;
+MABullet* mabullet = nullptr;
 
 double MABullet::addShape(btCollisionShape* Shape) {
 	Shapes[ShapeCount] = Shape;
@@ -18,31 +18,31 @@ double MABullet::addConstraint(btTypedConstraint* Constraint) {
 
 bool MABullet::destroyWorld()
 {
-	if (!G.worldExists()) return false;
-	for (auto i : G.Constraints)
+	if (!worldExists()) return false;
+	for (auto i : Constraints)
 	{
-		G.World->removeConstraint(i.second);
+		World->removeConstraint(i.second);
 		delete i.second;
 	}
-	G.Constraints.clear();
-	for (auto i : G.Bodies)
+	Constraints.clear();
+	for (auto i : Bodies)
 	{
-		G.World->removeCollisionObject(i.second->Body);
+		World->removeCollisionObject(i.second->Body);
 		delete i.second->Body->getMotionState();
 		delete i.second->Body;
 		delete i.second;
 	}
-	G.Bodies.clear();
-	delete G.World;
-	delete G.Solver;
-	delete G.Dispatcher;
-	delete G.CollisionConfiguration;
-	delete G.Broadphase;
-	if (G.DebugDrawer) {
-		delete G.DebugDrawer;
-		G.DebugDrawer = nullptr;
+	Bodies.clear();
+	delete World;
+	delete Solver;
+	delete Dispatcher;
+	delete CollisionConfiguration;
+	delete Broadphase;
+	if (DebugDrawer) {
+		delete DebugDrawer;
+		DebugDrawer = nullptr;
 	}
-	G.World = nullptr;
+	World = nullptr;
 	return true;
 }
 
@@ -77,7 +77,7 @@ btVector3 MABullet::toEuler(btMatrix3x3 &tm)
 	return btVector3(x*SIMD_DEGS_PER_RAD, y*SIMD_DEGS_PER_RAD, z*SIMD_DEGS_PER_RAD);
 }
 
-bool MABullet::free()
+MABullet::~MABullet()
 {
 	for (auto i : Shapes)
 	{
@@ -85,5 +85,5 @@ bool MABullet::free()
 		if (trimesh) delete trimesh->getMeshInterface();
 		delete i.second;
 	}
-	return destroyWorld();
+	destroyWorld();
 }

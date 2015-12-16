@@ -6,6 +6,7 @@
 #include "VertexBuffer.h"
 #include "VertexDecl.h"
 #include "Utils.h"
+#include "Bullet.h"
 
 MADX9Main* mamain = 0;
 
@@ -63,6 +64,8 @@ DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer)
 {
 	mamain = new MADX9Main(pointer);
 
+	mabullet = new MABullet();
+
 	return 1;
 }
 
@@ -72,6 +75,11 @@ DLLEXPORT double MADX9_Free()
 		delete mamain;
 
 	mamain = 0;
+
+	if (mabullet)
+		delete mabullet;
+
+	mabullet = 0;
 
 	return 1;
 }
