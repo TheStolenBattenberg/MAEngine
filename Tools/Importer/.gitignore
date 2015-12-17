@@ -1,0 +1,25 @@
+# =============================
+# Ignore Visual Studio folders
+# =============================
+
+ipch/
+Release/
+Debug/
+.vs/
+
+# =============================
+# Ignore Visual Studio files
+# =============================
+
+*.sdf
+*.suo
+*.opensdf
+*.vc.opendb
+
+# =============================
+# Ignore ASSIMP
+# =============================
+
+code/
+include/
+library/
