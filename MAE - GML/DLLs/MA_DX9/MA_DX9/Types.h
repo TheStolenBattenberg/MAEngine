@@ -20,6 +20,17 @@ struct vec2 {
 };
 
 struct vec3 {
+	vec3(): vec3(0) { }
+
+	vec3(float val): vec3(val, val, val) { }
+
+	vec3(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
 	union {
 		float raw[3];
 
@@ -41,8 +52,24 @@ struct vec4 {
 	};
 };
 
-struct col4u {
-	union {
+struct col4u
+{
+	col4u(): col4u(0xFF) { }
+
+	col4u(ubyte val): col4u(val, val, val) { }
+
+	col4u(ubyte r, ubyte g, ubyte b): col4u(0xFF, r, g, b) { }
+
+	col4u(ubyte a, ubyte r, ubyte g, ubyte b)
+	{
+		this->a = a;
+		this->r = r;
+		this->g = g;
+		this->b = b;
+	}
+
+	union
+	{
 		uint colour;
 
 		struct
@@ -56,4 +83,23 @@ struct colourRGBAF {
 	float r, g, b, a;
 };
 
-typedef vec4 quat;
+struct quat {
+	quat(): quat(0, 0, 0, 0) { }
+
+	quat(float x, float y, float z, float w)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+		this->w = w;
+	}
+
+	union {
+		float raw[4];
+
+		struct
+		{
+			float x, y, z, w;
+		};
+	};
+};

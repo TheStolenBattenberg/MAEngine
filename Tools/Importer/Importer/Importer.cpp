@@ -1,5 +1,6 @@
 #include "D3DImporter.h"
 #include "D3DExporter.h"
+#include "MPMExporter.h"
 #include "Importer.h"
 
 #include "Utils.h"
@@ -9,6 +10,8 @@ GM3DImporter::GM3DImporter()
 {
 	D3DRegisterExporter(exp);
 	D3DRegisterImporter(imp);
+
+	MPMRegisterExporter(exp);
 }
 
 bool GM3DImporter::importModel(const std::string& file)
