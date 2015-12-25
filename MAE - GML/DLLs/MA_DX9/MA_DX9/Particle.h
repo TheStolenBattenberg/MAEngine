@@ -4,6 +4,7 @@
 * Includes
 */
 #include "Types.h"
+#include <Vec.h>
 
 struct Particle {
 	vec3 pPosition; //Position of the particle

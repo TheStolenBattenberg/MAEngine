@@ -65,7 +65,7 @@ DLLEXPORT double MADX9_ParticleEmitterSetParticleVel(double minX, double minY, d
 }
 
 DLLEXPORT double MADX9_ParticleEmitterSetParticleCol(double startR, double startG, double startB, double startA, double endR, double endG, double endB, double endA) {
-	mamain->ParticleSys->getEmitter()->setColour(startR, startG, startB, startA, endR, endG, endB, endA);
+	mamain->ParticleSys->getEmitter()->setColour((float) startR, (float) startG, (float) startB, (float) startA, (float) endR, (float) endG, (float) endB, (float) endA);
 	return 1;
 }
 

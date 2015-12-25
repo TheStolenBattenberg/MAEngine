@@ -41,14 +41,14 @@ struct Material
 
 	bool operator==(const Material& m)
 	{
-		return ambient.colour  == m.ambient.colour  &&
-		       diffuse.colour  == m.diffuse.colour  &&
-		       emissive.colour == m.emissive.colour &&
-		       specular.colour == m.specular.colour &&
-		       reflectivity    == m.reflectivity    &&
-		       tex             == m.tex             &&
-		       shader          == m.shader          &&
-		       environment     == m.environment;
+		return ambient      == m.ambient      &&
+		       diffuse      == m.diffuse      &&
+		       emissive     == m.emissive     &&
+		       specular     == m.specular     &&
+		       reflectivity == m.reflectivity &&
+		       tex          == m.tex          &&
+		       shader       == m.shader       &&
+		       environment  == m.environment;
 	}
 
 	static Material defaultMaterial()
@@ -96,16 +96,6 @@ inline void WriteToFileRaw(Assimp::IOStream* f, const void* data, uint length)
 template<typename T> inline void WriteToFile(Assimp::IOStream* f, const T& val)
 {
 	WriteToFileRaw(f, &val, sizeof(val));
-}
-
-template<typename T> inline T min(T x, T y)
-{
-	return x < y ? x : y;
-}
-
-template<typename T> inline T max(T x, T y)
-{
-	return x > y ? x : y;
 }
 
 inline bool IsVec3Invalid(aiVector3D vec) {
@@ -546,10 +536,13 @@ void WriteMeshes(Assimp::IOStream* f, const std::map<uint, std::tuple<uint, Mesh
 		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexDataID, mesh.numVert * size});
 		WriteToFileRaw(f, mesh.data, mesh.numVert * size);
 
-		if (mesh.indexData != 0)
+		if (mesh.numInd != 0)
 		{
-			WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexIndexDataID, sizeof(MPMModel::PacketVertexIndexHeader) + mesh.numInd * (mesh.numInd > 0xFFFF ? sizeof(uint) : sizeof(ushort))});
-			WriteToFileRaw(f, mesh.data, mesh.numVert * size);
+			uint indSize = mesh.numInd > 0xFFFF ? sizeof(uint) : sizeof(ushort);
+
+			WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexIndexDataID, sizeof(MPMModel::PacketVertexIndexHeader) + mesh.numInd * indSize});
+			WriteToFile<MPMModel::PacketVertexIndexHeader>(f, {ind, mesh.numInd, (uint) (mesh.numInd > 0xFFFF ? MPMModel::PacketVertexIndexHeader::TypeU32 : MPMModel::PacketVertexIndexHeader::TypeU16)});
+			WriteToFileRaw(f, mesh.indexData, mesh.numInd * indSize);
 		}
 	}
 }
@@ -619,9 +612,9 @@ void WriteMaterials(Assimp::IOStream* f, const std::vector<Material>& materials)
 		memset(mat.shader, 0, sizeof(mat.shader));
 		memset(mat.environment, 0, sizeof(mat.environment));
 
-		memcpy(mat.tex, i.tex.c_str(), min(sizeof(mat.tex), i.tex.size()));
-		memcpy(mat.shader, i.shader.c_str(), min(sizeof(mat.shader), i.shader.size()));
-		memcpy(mat.environment, i.environment.c_str(), min(sizeof(mat.environment), i.environment.size()));
+		memcpy(mat.tex, i.tex.c_str(), std::min(sizeof(mat.tex), i.tex.size()));
+		memcpy(mat.shader, i.shader.c_str(), std::min(sizeof(mat.shader), i.shader.size()));
+		memcpy(mat.environment, i.environment.c_str(), std::min(sizeof(mat.environment), i.environment.size()));
 
 		WriteToFile(f, mat);
 	}
@@ -630,7 +623,7 @@ void WriteMaterials(Assimp::IOStream* f, const std::vector<Material>& materials)
 uint GetNumComponents(uint usage)
 {
 	return (usage & UsageFlagPosition ? 1 : 0) +
-	       (usage & UsageFlagNormal ? 1 : 0)   +
+	       (usage & UsageFlagNormal   ? 1 : 0) +
 	       (usage & UsageFlagTexCoord ? 1 : 0) +
-	       (usage & UsageFlagNormal ? 1 : 0);
+	       (usage & UsageFlagNormal   ? 1 : 0);
 }

@@ -4,7 +4,11 @@
  * Includes
  */
 
-#include "Types.h" 
+#include "Types.h"
+#include "Object.h"
+
+#include <d3d9.h>
+#include <vector>
 
 /**
  * MAE Packet Model
@@ -189,3 +193,33 @@ namespace MPMModel
 		uint end;
 	};
 }
+
+class MPMModel: public Object
+{
+public:
+	~MPMModel();
+
+	bool load(const std::string& model);
+	void render();
+
+private:
+	struct Mesh
+	{
+		uint matInd;
+
+		uint stride;
+
+		LPDIRECT3DVERTEXDECLARATION9 decl;
+		LPDIRECT3DVERTEXBUFFER9      vb;
+		LPDIRECT3DINDEXBUFFER9       ib;
+	};
+
+	struct Inst
+	{
+		uint meshInd;
+		mat4 transform;
+	};
+
+	std::vector<Mesh> meshes;
+	std::vector<Inst> instances;
+};
