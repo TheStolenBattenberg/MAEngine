@@ -10,12 +10,17 @@
 #include <d3d9.h>
 #include <vector>
 
+#include <Vec.h>
+#include <Mat.h>
+#include <Color.h>
+#include <Quat.h>
+
 /**
  * MAE Packet Model
  * Version 1
  */
 
-namespace MPMModel
+namespace MPMTypes
 {
 	const uint MagicNumber = 0x464D504D;
 	const uint Version     = 0x00000001;
@@ -136,6 +141,12 @@ namespace MPMModel
 		ushort offset;
 	};
 
+	struct PacketVertexDataHeader
+	{
+		uint meshInd;
+		uint length;
+	};
+
 	struct PacketVertexIndexHeader
 	{
 		enum Types
@@ -203,9 +214,18 @@ public:
 	void render();
 
 private:
+	void readInstances(std::ifstream& f);
+	void readMesh(std::ifstream& f);
+	void readVertexDesc(std::ifstream& f);
+	void readVertexData(std::ifstream& f);
+	void readIndexData(std::ifstream& f);
+
 	struct Mesh
 	{
 		uint matInd;
+
+		uint numVertices;
+		uint numPrim;
 
 		uint stride;
 

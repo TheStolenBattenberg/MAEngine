@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <type_traits>
 
 struct _vecct_dummy { };
 
@@ -18,7 +19,7 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 			i = x;
 	}
 
-	template<typename... Args> vecct(typename std::conditional<sizeof...(Args) +1 == C, T, _vecct_dummy>::type head, Args... args)
+	template<typename... Args> vecct(typename std::conditional<sizeof...(Args) + 1 == C, T, _vecct_dummy>::type head, Args... args)
 	{
 		T arr[] = {head, T(args)...};
 

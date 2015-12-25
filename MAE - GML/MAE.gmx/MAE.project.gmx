@@ -3,9 +3,9 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="12" name="datafiles">
-    <datafiles number="12" name="COMMON">
-      <datafiles number="12" name="MODEL">
+  <datafiles number="13" name="datafiles">
+    <datafiles number="13" name="COMMON">
+      <datafiles number="13" name="MODEL">
         <datafile>
           <name>tiger.x</name>
           <exists>-1</exists>
@@ -40,8 +40,25 @@
           </ConfigOptions>
           <filename>hobgoblin.md2</filename>
         </datafile>
+        <datafile>
+          <name>tank.mpm</name>
+          <exists>-1</exists>
+          <size>8002</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>tank.mpm</filename>
+        </datafile>
       </datafiles>
-      <datafiles number="12" name="TEXTURE">
+      <datafiles number="13" name="TEXTURE">
         <datafile>
           <name>hobgoblin.bmp</name>
           <exists>-1</exists>
@@ -77,7 +94,7 @@
           <filename>tiger.bmp</filename>
         </datafile>
       </datafiles>
-      <datafiles number="12" name="PARTICLE">
+      <datafiles number="13" name="PARTICLE">
         <datafile>
           <name>fire.png</name>
           <exists>-1</exists>
@@ -225,6 +242,11 @@
             <script>scripts\MAE_ModelXLoad.gml</script>
             <script>scripts\MAE_ModelXRender.gml</script>
             <script>scripts\MAE_ModelXDestroy.gml</script>
+          </scripts>
+          <scripts name="MPM">
+            <script>scripts\MAE_ModelMPMLoad.gml</script>
+            <script>scripts\MAE_ModelMPMDestroy.gml</script>
+            <script>scripts\MAE_ModelMPMRender.gml</script>
           </scripts>
         </scripts>
         <scripts name="Particles">
@@ -519,6 +541,7 @@
     <object>objects\obj_Shader</object>
     <object>objects\obj_Light</object>
     <object>objects\obj_MD2Animation</object>
+    <object>objects\obj_MPM</object>
     <object>objects\obj_XStatic</object>
     <object>objects\obj_Physics</object>
   </objects>
@@ -531,6 +554,7 @@
     <room>rooms\rm_MD2Animation</room>
     <room>rooms\rm_XStatic</room>
     <room>rooms\rm_Physics</room>
+    <room>rooms\rm_MPM</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

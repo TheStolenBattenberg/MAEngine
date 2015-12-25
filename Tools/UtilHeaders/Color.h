@@ -27,7 +27,7 @@ template<typename T> struct col4t
 		};
 	};
 
-	T getLimit() const
+	static T getLimit()
 	{
 		return std::is_integral<T>::value ? std::numeric_limits<T>::max() : T(1);
 	}

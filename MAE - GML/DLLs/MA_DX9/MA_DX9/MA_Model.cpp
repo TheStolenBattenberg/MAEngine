@@ -4,6 +4,7 @@
 #include "ModelMD2.h"
 #include "ModelX.h"
 #include "Resources.h"
+#include "ModelMPM.h"
 
 /**
  * Id .MD2 mesh.
@@ -108,5 +109,39 @@ DLLEXPORT double MADX9_XDestroy(double index)
 
 	delete mamain->XModels[(uint)index];
 	mamain->XModels[(uint)index] = 0;
+	return 1;
+}
+
+DLLEXPORT double MAE_MPMLoad(const char* file)
+{
+	MPMModel* m = new MPMModel();
+
+	if (!m->load(file))
+	{
+		delete m;
+		return -1;
+	}
+
+	return putInto(m, mamain->MPMModels);
+}
+
+DLLEXPORT double MAE_MPMDestroy(double ind)
+{
+	if (!isValidIndex((uint) ind, mamain->MPMModels))
+		return 0;
+
+	delete mamain->MPMModels[(uint) ind];
+	mamain->MPMModels[(uint) ind] = 0;
+
+	return 1;
+}
+
+DLLEXPORT double MAE_MPMRender(double ind)
+{
+	if (!isValidIndex((uint) ind, mamain->MPMModels))
+		return 0;
+
+	mamain->MPMModels[(uint) ind]->render();
+
 	return 1;
 }

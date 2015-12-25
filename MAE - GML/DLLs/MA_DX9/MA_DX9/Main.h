@@ -41,6 +41,7 @@ public:
 
 	std::vector<class MD2Model*> MD2Models;
 	std::vector<class XModel*>   XModels;
+	std::vector<class MPMModel*> MPMModels;
 
 	class ParticleSystem* ParticleSys;
 
