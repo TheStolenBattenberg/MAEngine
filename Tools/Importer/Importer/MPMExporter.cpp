@@ -533,7 +533,8 @@ void WriteMeshes(Assimp::IOStream* f, const std::map<uint, std::tuple<uint, Mesh
 			ofs += 4;
 		}
 
-		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexDataID, mesh.numVert * size});
+		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexDataID, sizeof(MPMModel::PacketVertexDataHeader) + mesh.numVert * size});
+		WriteToFile<MPMModel::PacketVertexDataHeader>(f, {ind, mesh.numVert * size});
 		WriteToFileRaw(f, mesh.data, mesh.numVert * size);
 
 		if (mesh.numInd != 0)
@@ -625,5 +626,5 @@ uint GetNumComponents(uint usage)
 	return (usage & UsageFlagPosition ? 1 : 0) +
 	       (usage & UsageFlagNormal   ? 1 : 0) +
 	       (usage & UsageFlagTexCoord ? 1 : 0) +
-	       (usage & UsageFlagNormal   ? 1 : 0);
+	       (usage & UsageFlagColor    ? 1 : 0);
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Math.h>
+#include <type_traits>
 
 template<std::size_t C, typename T> struct vecct;
 template<typename T> union quatt;
@@ -22,7 +23,7 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 			data[i * (1 + S)] = T(1);
 	}
 
-	template<typename... Args> matst(typename std::conditional<sizeof...(Args) +1 == S * S, T, _matst_dummy>::type head, Args... args)
+	template<typename... Args> matst(typename std::conditional<sizeof...(Args) + 1 == S * S, T, _matst_dummy>::type head, Args... args)
 	{
 		T arr[] = {head, T(args)...};
 

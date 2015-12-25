@@ -136,6 +136,12 @@ namespace MPMModel
 		ushort offset;
 	};
 
+	struct PacketVertexDataHeader
+	{
+		uint meshInd;
+		uint length;
+	};
+
 	struct PacketVertexIndexHeader
 	{
 		enum Types

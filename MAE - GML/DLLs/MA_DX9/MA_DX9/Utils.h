@@ -1,11 +1,15 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
+#include <algorithm>
 
 #include "Types.h"
 
+
+
 template<typename T> inline T clamp(T value, T min, T max) {
-	return min(max(value, min), max);
+	return std::min(std::max(value, min), max);
 }
 
 template<typename T> inline bool isValidIndex(uint ind, std::vector<T*>& vec)
@@ -44,4 +48,28 @@ template<typename T> inline void ClearVector(std::vector<T*>& vec)
 			delete i;
 
 	vec.clear();
+}
+
+template<typename T> inline void ReadFromFile(std::ifstream& f, T& val)
+{
+	f.read((char*) &val, sizeof(val));
+
+	// TODO: Add error handling
+}
+
+template<typename T> inline T ReadFromFile(std::ifstream& f)
+{
+	T ret;
+
+	ReadFromFile(f, ret);
+
+	return ret;
+}
+
+template<typename T> inline void ReadVectorFromFile(std::ifstream& f, std::vector<T>& vec, uint items)
+{
+	vec.reserve(items);
+
+	for (uint i = 0; i < items; ++i)
+		vec.push_back(ReadFromFile<T>(f));
 }

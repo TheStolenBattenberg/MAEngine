@@ -11,5 +11,5 @@ public:
 	void SetTransformation(D3DXMATRIX trans);*/
 
 private:
-	D3DXMATRIX Transformation;
+	// D3DXMATRIX Transformation;
 };

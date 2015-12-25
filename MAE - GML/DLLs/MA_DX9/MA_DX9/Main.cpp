@@ -7,6 +7,8 @@
 #include "VertexDecl.h"
 #include "Utils.h"
 #include "Bullet.h"
+#include "ModelMPM.h"
+#include "ModelX.h"
 
 MADX9Main* mamain = 0;
 
@@ -27,6 +29,7 @@ MADX9Main::~MADX9Main()
 {
 	ClearVector(Shader);
 	ClearVector(MD2Models);
+	ClearVector(MPMModels);
 	ClearVector(Surfaces);
 	ClearVector(Textures);
 	ClearVector(Light);
@@ -34,6 +37,7 @@ MADX9Main::~MADX9Main()
 	ClearVector(Buffers);
 	ClearVector(VertexDeclarations);
 	ClearVector(VertexBuffers);
+	ClearVector(XModels);
 
 	if (VertexDeclarationMPM != 0)
 	{

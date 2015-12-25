@@ -65,6 +65,11 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_XRender  = external_define(global.DLL_MAE, "MADX9_XRender", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_XDestroy = external_define(global.DLL_MAE, "MADX9_XDestroy", dll_cdecl, ty_real, 1, ty_real);
     
+    //MPM
+    global._MAE_MPMLoad    = external_define(global.DLL_MAE, "MAE_MPMLoad", dll_cdecl, ty_real, 1, ty_string);
+    global._MAE_MPMDestroy = external_define(global.DLL_MAE, "MAE_MPMDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global._MAE_MPMRender  = external_define(global.DLL_MAE, "MAE_MPMRender", dll_cdecl, ty_real, 1, ty_real);
+    
     // Error
     global.MADX9_ErrorSetFlags = external_define(global.DLL_MAE, "MADX9_ErrorSetFlags", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_ErrorEmpty    = external_define(global.DLL_MAE, "MADX9_ErrorEmpty", dll_cdecl, ty_real, 0);
