@@ -44,7 +44,7 @@ bool ShaderConstants::setVec2(uint c, const vec2& v) {
 	if (c >= handles.size())
 		return 0;
 
-	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.raw, sizeof(v.raw) / sizeof(*v.raw)));
+	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.data, sizeof(v.data) / sizeof(*v.data)));
 }
 
 bool ShaderConstants::setVec3(uint c, const vec3& v)
@@ -52,7 +52,7 @@ bool ShaderConstants::setVec3(uint c, const vec3& v)
 	if (c >= handles.size())
 		return 0;
 
-	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.raw, sizeof(v.raw) / sizeof(*v.raw)));
+	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.data, sizeof(v.data) / sizeof(*v.data)));
 }
 
 bool ShaderConstants::setVec4(uint c, const vec4& v)
@@ -60,7 +60,7 @@ bool ShaderConstants::setVec4(uint c, const vec4& v)
 	if (c >= handles.size())
 		return 0;
 
-	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.raw, sizeof(v.raw) / sizeof(*v.raw)));
+	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.data, sizeof(v.data) / sizeof(*v.data)));
 }
 
 bool ShaderConstants::setMat3(uint c, const mat3& v)
@@ -68,7 +68,7 @@ bool ShaderConstants::setMat3(uint c, const mat3& v)
 	if (c >= handles.size())
 		return 0;
 
-	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
+	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.data, sizeof(v) / sizeof(float)));
 }
 
 bool ShaderConstants::setMat4(uint c, const mat4& v)
@@ -76,7 +76,7 @@ bool ShaderConstants::setMat4(uint c, const mat4& v)
 	if (c >= handles.size())
 		return 0;
 
-	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v, sizeof(v) / sizeof(*v)));
+	return SUCCEEDED(constants->SetFloatArray(mamain->d3ddev, handles[c], v.data, sizeof(v) / sizeof(float)));
 }
 
 Shader::~Shader() {

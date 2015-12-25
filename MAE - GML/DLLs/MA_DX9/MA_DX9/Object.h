@@ -2,6 +2,8 @@
 
 #include "Mesh.h"
 
+#include <d3d9.h>
+
 class Object
 {
 public:

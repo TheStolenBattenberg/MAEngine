@@ -1,11 +1,13 @@
 #pragma once
 
+#include "Types.h"
+
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <string>
 #include <vector>
-
-#include "Types.h"
+#include <Vec.h>
+#include <Mat.h>
 
 class ShaderConstants
 {

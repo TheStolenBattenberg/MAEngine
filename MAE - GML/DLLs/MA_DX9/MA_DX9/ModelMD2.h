@@ -7,6 +7,8 @@
 #include "Types.h"
 #include "Object.h"
 
+#include <vector>
+
 class MD2Model: public Object
 {
 public:

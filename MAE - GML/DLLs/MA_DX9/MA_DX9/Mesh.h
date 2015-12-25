@@ -2,6 +2,8 @@
 
 #include "Types.h"
 
+#include <Vec.h>
+
 typedef vec3 Vertex;
 typedef vec3 Normal;
 

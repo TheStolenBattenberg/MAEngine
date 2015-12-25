@@ -4,7 +4,11 @@
  * Includes
  */
 
-#include "Types.h" 
+#include "Types.h"
+
+#include <Vec.h>
+#include <Quat.h>
+#include <Color.h>
 
 /**
  * MAE Packet Model
