@@ -1,8 +1,8 @@
-///MAE_ParticleSystemDestroy();
+///MAE_ParticleSystemDestroy(index);
 
 /**
  * To-do:
  *  Add description.
  */
  
-return external_call(global.MADX9_ParticleSystemDestroy);
+return external_call(global.MADX9_ParticleSystemDestroy, argument0);

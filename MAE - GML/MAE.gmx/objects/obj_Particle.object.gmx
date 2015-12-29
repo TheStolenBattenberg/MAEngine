@@ -35,24 +35,24 @@ rot = 0;
 /**
  * Particle System
  */
-MAE_ParticleSystemCreate();
-MAE_ParticleSystemSetParticleCount(2048);
+index = MAE_ParticleSystemCreate();
+MAE_ParticleSystemSetParticleCount(index, 2048);
 
 var t = MAE_TextureCreateFromFile("COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
-    MAE_ParticleSystemSetTexture(t);
+    MAE_ParticleSystemSetTexture(index, t);
 MAE_TextureDestroy(t);
 
 /**
  * Particle Emitter
  */
-MAE_ParticleEmitterCreate();
-MAE_ParticleEmitterSetParticlePosition(MAE_VectorCreate(-4, -4, -4), MAE_VectorCreate(4, 4, 4));
-MAE_ParticleEmitterSetParticleVelocity(MAE_VectorCreate(0, 0, +0.025), MAE_VectorCreate(0, 0, +0.025));
-MAE_ParticleEmitterSetParticleAcceleration(MAE_VectorCreate(0, 0, +0.0005));
-MAE_ParticleEmitterSetParticleColour(255, 255, 255, 255, 255, 127, 255, 0);
-MAE_ParticleEmitterSetParticleCount(16, 32);
-MAE_ParticleEmitterSetParticleLife(128, 256);
-MAE_ParticleEmitterSetParticleSize(8, 12);
+MAE_ParticleEmitterCreate(index);
+MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-4, -4, -4), MAE_VectorCreate(4, 4, 4));
+MAE_ParticleEmitterSetParticleVelocity(index, MAE_VectorCreate(0, 0, +0.025), MAE_VectorCreate(0, 0, +0.025));
+MAE_ParticleEmitterSetParticleAcceleration(index, MAE_VectorCreate(0, 0, +0.0005));
+MAE_ParticleEmitterSetParticleColour(index, 255, 255, 255, 255, 255, 127, 255, 0);
+MAE_ParticleEmitterSetParticleCount(index, 16, 32);
+MAE_ParticleEmitterSetParticleLife(index, 128, 256);
+MAE_ParticleEmitterSetParticleSize(index, 8, 12);
 </string>
           </argument>
         </arguments>
@@ -75,7 +75,7 @@ MAE_ParticleEmitterSetParticleSize(8, 12);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ParticleSystemUpdate(1); //Spawn new particles every 30 steps.
+            <string>MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every 30 steps.
 </string>
           </argument>
         </arguments>
@@ -98,7 +98,7 @@ MAE_ParticleEmitterSetParticleSize(8, 12);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ParticleSystemDestroy();
+            <string>MAE_ParticleSystemDestroy(index);
 </string>
           </argument>
         </arguments>
@@ -122,7 +122,7 @@ MAE_ParticleEmitterSetParticleSize(8, 12);
           <argument>
             <kind>1</kind>
             <string>draw_set_colour(c_black);
-draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParticleCount()));
+draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParticleCount(index)));
 </string>
           </argument>
         </arguments>
@@ -147,7 +147,7 @@ draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParti
             <kind>1</kind>
             <string>d3d_set_projection(24, 24, 24, 0, 0, 0, 0, 0, 1);
 
-MAE_ParticleSystemRender();
+MAE_ParticleSystemRender(index);
 </string>
           </argument>
         </arguments>

@@ -38,6 +38,7 @@ MADX9Main::~MADX9Main()
 	ClearVector(VertexDeclarations);
 	ClearVector(VertexBuffers);
 	ClearVector(XModels);
+	ClearVector(ParticleSys);
 
 	if (VertexDeclarationMPM != 0)
 	{
