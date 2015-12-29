@@ -43,7 +43,7 @@ public:
 	std::vector<class XModel*>   XModels;
 	std::vector<class MPMModel*> MPMModels;
 
-	class ParticleSystem* ParticleSys;
+	std::vector<class ParticleSystem*> ParticleSys;
 
 	class Hook* hook;
 

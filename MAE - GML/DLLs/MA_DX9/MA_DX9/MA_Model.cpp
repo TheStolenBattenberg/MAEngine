@@ -1,10 +1,11 @@
 #include "Main.h"
 #include "Types.h"
 #include "Utils.h"
+#include "Resources.h"
+
+#include "ModelMPM.h"
 #include "ModelMD2.h"
 #include "ModelX.h"
-#include "Resources.h"
-#include "ModelMPM.h"
 
 /**
  * Id .MD2 mesh.
