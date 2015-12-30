@@ -36,7 +36,7 @@ rot = 0;
  * Particle System
  */
 index = MAE_ParticleSystemCreate();
-MAE_ParticleSystemSetParticleCount(index, 2048);
+MAE_ParticleSystemSetParticleCount(index, 512);
 
 var t = MAE_TextureCreateFromFile("COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
     MAE_ParticleSystemSetTexture(index, t);
@@ -49,10 +49,10 @@ MAE_ParticleEmitterCreate(index);
 MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-4, -4, -4), MAE_VectorCreate(4, 4, 4));
 MAE_ParticleEmitterSetParticleVelocity(index, MAE_VectorCreate(0, 0, +0.025), MAE_VectorCreate(0, 0, +0.025));
 MAE_ParticleEmitterSetParticleAcceleration(index, MAE_VectorCreate(0, 0, +0.0005));
-MAE_ParticleEmitterSetParticleColour(index, 255, 255, 255, 255, 255, 127, 255, 0);
-MAE_ParticleEmitterSetParticleCount(index, 16, 32);
-MAE_ParticleEmitterSetParticleLife(index, 128, 256);
-MAE_ParticleEmitterSetParticleSize(index, 8, 12);
+MAE_ParticleEmitterSetParticleColour(index, 255, 255, 255, 255, 255, 0, 255, 0);
+MAE_ParticleEmitterSetParticleCount(index, 2, 8);
+MAE_ParticleEmitterSetParticleLife(index, 256, 512);
+MAE_ParticleEmitterSetParticleSize(index, 2, 16);
 </string>
           </argument>
         </arguments>

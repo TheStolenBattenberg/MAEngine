@@ -126,39 +126,38 @@ void ParticleSystem::update(uint time) {
 }
 
 void ParticleSystem::render() {
-	//This is really bad for getting the alpha. something 100% needs to be done.
-	mamain->d3ddev->SetRenderState(D3DRS_ALPHATESTENABLE, true);
 	mamain->d3ddev->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	mamain->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, true);
-
-
-	float v;
-
-	v = psEmitter->getMinSize();
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
-	
-	v = psEmitter->getMaxSize();
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
+	mamain->d3ddev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	mamain->d3ddev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	mamain->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, false);
 
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, true);
 
+	float v;
+	v = psEmitter->getMinSize();
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*)&v);
+	v = psEmitter->getMaxSize();
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*)&v);
 	v = 0.0f;
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_A, *(DWORD*) &v); //This,
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_B, *(DWORD*) &v); //this
-
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_A, *(DWORD*)&v);
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_B, *(DWORD*)&v);
 	v = 1.0f;
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*) &v); //and this don't need to be called every time.
+	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*)&v);
+
 	mamain->d3ddev->SetVertexDeclaration(mamain->VertexDeclarationParticle);
 	mamain->d3ddev->SetTexture(0, psTexture);
 	mamain->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));
 	mamain->d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
 	mamain->d3ddev->SetVertexDeclaration(NULL);
+
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, false);
 
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*) &v);
-	mamain->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*) &v);
+	mamain->d3ddev->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+	mamain->d3ddev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	mamain->d3ddev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+	mamain->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, true);
 }
 
 uint ParticleSystem::getParticleCount() {

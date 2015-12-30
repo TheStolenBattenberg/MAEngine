@@ -26,6 +26,21 @@
           <argument>
             <kind>1</kind>
             <string>MAE_Init(INIT_ALL);
+
+/**
+ * TSB:&gt; I'm testing with this atm, please don't remove it. Remove the space between the slash if you
+ *       wanna test it yourself. No idea why you would.
+ * / 
+    var i;
+ 
+    for(i = 0.0; i&lt;=1.0; i+=0.01;) {
+        show_debug_message("Cosine Interp Test: " + string(external_call(global.MADX9_MathCosineInterp, 0, 256, i)));
+    }
+    
+    for(i = 0; i &lt;= 100; i++;) {
+        show_debug_message("Random Range Test: " + string(external_call(global.MADX9_MathRandomRange, -256, 256)));
+    }
+/* */
 </string>
           </argument>
         </arguments>
