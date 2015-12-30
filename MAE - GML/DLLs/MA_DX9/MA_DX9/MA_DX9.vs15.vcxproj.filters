@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Bullet">
       <UniqueIdentifier>{8ef2811f-276d-47ad-ba08-22443e887aa7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GML API">
+      <UniqueIdentifier>{1d80d1e7-dc3c-4c04-aa9c-9e0df3014ea1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variant.cpp">
@@ -39,31 +42,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MA_Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_Light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_Misc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ModelMD2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Hook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_Surface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ModelX.cpp">
@@ -81,28 +63,16 @@
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Source Files\Particle System</Filter>
     </ClCompile>
-    <ClCompile Include="MA_Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MA_Buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VertexDecl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_VertexDecl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
@@ -131,6 +101,39 @@
     </ClCompile>
     <ClCompile Include="Math.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Buffer.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Light.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Material.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Misc.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Model.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Particle.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Shader.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Surface.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Texture.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_VertexBuffer.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_VertexDecl.cpp">
+      <Filter>Source Files\GML API</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
