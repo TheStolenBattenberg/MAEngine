@@ -4,6 +4,7 @@
 * Includes
 */
 #include "Types.h"
+#include "Math.h"
 #include "Particle.h"
 
 enum EMITTER_TYPE {
@@ -26,10 +27,6 @@ public:
 
 	void setAcceleration(float x, float y, float z);
 	void setSpawn(uint spawnMin, uint spawnMax);
-
-	float Rand(float nMin, float nMax);
-	float Cerp(float x, float y, float s);
-
 
 	vec4 getColour(float interp);
 

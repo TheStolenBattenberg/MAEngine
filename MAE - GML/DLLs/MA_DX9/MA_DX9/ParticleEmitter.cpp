@@ -26,24 +26,24 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 		Particle part;
 
 		for (uint i = 0; i < count; i++) {
-			part.pPosition.x = Rand(pMinPosition.x, pMaxPosition.x); //Set Position.
-			part.pPosition.y = Rand(pMinPosition.y, pMaxPosition.y);
-			part.pPosition.z = Rand(pMinPosition.z, pMaxPosition.z);
+			part.pPosition.x = randomRangef(pMinPosition.x, pMaxPosition.x); //Set Position.
+			part.pPosition.y = randomRangef(pMinPosition.y, pMaxPosition.y);
+			part.pPosition.z = randomRangef(pMinPosition.z, pMaxPosition.z);
 
-			part.pVelocity.x = Rand(pMinVelocity.x, pMaxVelocity.x); //Set Velocity.
-			part.pVelocity.y = Rand(pMinVelocity.y, pMaxVelocity.y);
-			part.pVelocity.z = Rand(pMinVelocity.z, pMaxVelocity.z);
+			part.pVelocity.x = randomRangef(pMinVelocity.x, pMaxVelocity.x); //Set Velocity.
+			part.pVelocity.y = randomRangef(pMinVelocity.y, pMaxVelocity.y);
+			part.pVelocity.z = randomRangef(pMinVelocity.z, pMaxVelocity.z);
 
-			part.pColour.x   = pColourStart.x; //Colour
-			part.pColour.y   = pColourStart.y; //Colour
-			part.pColour.z   = pColourStart.z; //Colour
-			part.pColour.w   = pColourStart.w; //Colour
+			part.pColour.x   = pColourStart.x;
+			part.pColour.y   = pColourStart.y;
+			part.pColour.z   = pColourStart.z;
+			part.pColour.w   = pColourStart.w;
 
-			part.pAge        = 0; //Set Age.
+			part.pAge        = 0;
 
-			part.pLife       = (uint)Rand((float) pMinLife, (float)pMaxLife); //Set Life
+			part.pLife       = randomRange(pMinLife, pMaxLife);
 
-			part.pSize       = Rand(pMinSize, pMaxSize);
+			part.pSize       = randomRangef(pMinSize, pMaxSize);
 
 			parts[i] = part;
 		}
@@ -105,18 +105,7 @@ void ParticleEmitter::setAcceleration(float x, float y, float z) {
 }
 
 uint ParticleEmitter::getSpawnThisTick() {
-	return (uint)Rand((float)pMinPerEmitt, (float)pMaxPerEmitt);
-}
-
-//Gotta move this to a math class.
-float ParticleEmitter::Rand(float min, float max) {     //Random Range
-	return (float)rand() / RAND_MAX * (max - min) + min;
-}
-
-//Same as above.
-float ParticleEmitter::Cerp(float x, float y, float s) { //Cosine Interpolation
-	float interp = (float)(1 - cos(s*3.14)) / 2;
-	return(x*(1 - interp) + y*interp);
+	return randomRange(pMinPerEmitt, pMaxPerEmitt);
 }
 
 //This probably should not automatically interpolate the colours
@@ -124,10 +113,10 @@ vec4 ParticleEmitter::getColour(float interp) {
 	vec4 col = pColourStart;
 	if (interp > 2.0f) { //HACKY AS F***... Replace this ASAP.
 		float m = (1.0f / (interp));
-		col.x = Cerp(pColourStart.x, pColourEnd.x, 1.0f - m);
-		col.y = Cerp(pColourStart.y, pColourEnd.y, 1.0f - m);
-		col.z = Cerp(pColourStart.z, pColourEnd.z, 1.0f - m);
-		col.w = Cerp(pColourStart.w, pColourEnd.w, 1.0f - m);
+		col.x = interpCosine(pColourStart.x, pColourEnd.x, 1.0f - m);
+		col.y = interpCosine(pColourStart.y, pColourEnd.y, 1.0f - m);
+		col.z = interpCosine(pColourStart.z, pColourEnd.z, 1.0f - m);
+		col.w = interpCosine(pColourStart.w, pColourEnd.w, 1.0f - m);
 	}
 	return col;
 }

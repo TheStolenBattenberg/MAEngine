@@ -1,13 +1,10 @@
 #pragma once
 
 /**
- * Note to self: Particle hard limit should be 32767 per system.
- */
-
-/**
 * Includes
 */
 #include "Types.h"
+#include "Math.h"
 #include "Particle.h"
 #include "ParticleEmitter.h"
 #include "ParticleAttractor.h"
@@ -25,9 +22,8 @@ public:
 	ParticleEmitter* getEmitter();
 
 	void update(uint time);
-	void render(); //Stub
+	void render();
 
-	void setBlendMode(); //Stub
 	void setTexture(LPDIRECT3DTEXTURE9 tex);
 
 	uint getParticleCount();

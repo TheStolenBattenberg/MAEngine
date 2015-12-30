@@ -1,6 +1,18 @@
 #include "Main.h"
 #include "Types.h"
 #include "Hook.h"
+#include "Math.h"
+
+/**
+ * Math. (Remove, just for debugging)
+ */
+DLLEXPORT double MADX9_MathCosineInterp(double x, double y, double s) {
+	return (double)interpCosine((float)x, (float)y, (float)s);
+}
+
+DLLEXPORT double MADX9_MathRandomRange(double min, double max) {
+	return (double)randomRangef((float)min, (float)max);
+}
 
 /**
  * Errors
