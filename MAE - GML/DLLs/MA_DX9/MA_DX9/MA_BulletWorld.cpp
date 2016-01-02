@@ -27,7 +27,7 @@ DLLEXPORT double MAB_WorldDestroy()
 
 DLLEXPORT double MAB_WorldExists()
 {
-	return (mabullet->worldExists()) ? 1 : 0;
+	return mabullet->worldExists();
 }
 
 DLLEXPORT double MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeStep)

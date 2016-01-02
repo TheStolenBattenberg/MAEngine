@@ -16,8 +16,3 @@ Debug/
 *.opensdf
 *.vc.opendb
 
-# =============================
-# Ignore Bullet library
-# =============================
-
-bullet
