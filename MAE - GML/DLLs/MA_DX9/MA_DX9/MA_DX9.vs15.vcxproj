@@ -25,6 +25,7 @@
     <ClCompile Include="Hook.cpp" />
     <ClCompile Include="MA_Buffer.cpp" />
     <ClCompile Include="MA_Light.cpp" />
+    <ClCompile Include="MA_Main.cpp" />
     <ClCompile Include="MA_Material.cpp" />
     <ClCompile Include="MA_Misc.cpp" />
     <ClCompile Include="MA_Model.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="ModelMD2.cpp" />
     <ClCompile Include="ModelMPM.cpp" />
     <ClCompile Include="ModelX.cpp" />
+    <ClCompile Include="Navigation.cpp" />
     <ClCompile Include="ParticleAttractor.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleRepulsor.cpp" />
@@ -59,6 +61,7 @@
     <ClInclude Include="ModelMD2.h" />
     <ClInclude Include="ModelMPM.h" />
     <ClInclude Include="ModelX.h" />
+    <ClInclude Include="Navigation.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleAttractor.h" />
     <ClInclude Include="ParticleEmitter.h" />
@@ -105,14 +108,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(SolutionDir)..\..\..\Tools\UtilHeaders;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(SolutionDir)..\..\..\Tools\UtilHeaders;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\recast\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>MAE</TargetName>
     <OutDir>$(SolutionDir)\..\..\MAE.gmx\datafiles\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(SolutionDir)..\..\..\Tools\UtilHeaders;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(SolutionDir)..\..\..\Tools\UtilHeaders;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\bullet\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>MAE</TargetName>
     <OutDir>$(SolutionDir)\..\..\MAE.gmx\datafiles\</OutDir>
@@ -125,12 +128,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)bullet\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)bullet\lib\Debug\BulletCollision_Debug.lib;$(SolutionDir)bullet\lib\Debug\BulletDynamics_Debug.lib;$(SolutionDir)bullet\lib\Debug\LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)libraries\bullet\lib\Debug\BulletCollision_Debug.lib;$(SolutionDir)libraries\bullet\lib\Debug\BulletDynamics_Debug.lib;$(SolutionDir)libraries\bullet\lib\Debug\LinearMath_Debug.lib;$(SolutionDir)libraries\recast\lib\Debug\Recast.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,14 +146,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)bullet\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)bullet\lib\Release\BulletCollision.lib;$(SolutionDir)bullet\lib\Release\BulletDynamics.lib;$(SolutionDir)bullet\lib\Release\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)libraries\bullet\lib\Release\BulletCollision.lib;$(SolutionDir)libraries\bullet\lib\Release\BulletDynamics.lib;$(SolutionDir)libraries\bullet\lib\Release\LinearMath.lib;$(SolutionDir)libraries\recast\lib\Release\Recast.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

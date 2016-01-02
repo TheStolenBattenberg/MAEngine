@@ -28,6 +28,15 @@
     <Filter Include="Source Files\GML API">
       <UniqueIdentifier>{1d80d1e7-dc3c-4c04-aa9c-9e0df3014ea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Navigation">
+      <UniqueIdentifier>{120da967-002c-4efd-abd2-6851589e3a7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Navigation">
+      <UniqueIdentifier>{acc22601-3105-4669-bd10-9bf7ff046f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GML API\Bullet">
+      <UniqueIdentifier>{88dac4b5-4863-4319-93a3-204e0b1b5107}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variant.cpp">
@@ -81,21 +90,6 @@
     <ClCompile Include="BulletDebugDraw.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="MA_BulletBody.cpp">
-      <Filter>Source Files\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletConstraint.cpp">
-      <Filter>Source Files\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletMisc.cpp">
-      <Filter>Source Files\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletShape.cpp">
-      <Filter>Source Files\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletWorld.cpp">
-      <Filter>Source Files\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="ModelMPM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -134,6 +128,27 @@
     </ClCompile>
     <ClCompile Include="MA_VertexDecl.cpp">
       <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="Navigation.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_Main.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletBody.cpp">
+      <Filter>Source Files\GML API\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletConstraint.cpp">
+      <Filter>Source Files\GML API\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletMisc.cpp">
+      <Filter>Source Files\GML API\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletShape.cpp">
+      <Filter>Source Files\GML API\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletWorld.cpp">
+      <Filter>Source Files\GML API\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigation.h">
+      <Filter>Header Files\Navigation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

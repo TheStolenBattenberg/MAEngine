@@ -63,7 +63,7 @@ DLLEXPORT double MAB_BodyGetRotationEuler(double BodyID)
 	btTransform trans;
 	if (mabullet->UseMotionState) mabullet->getBody(BodyID)->getMotionState()->getWorldTransform(trans);
 	else trans = mabullet->getBody(BodyID)->getWorldTransform();
-	mabullet->ReturnVec = mabullet->toEuler(trans.getBasis());
+	mabullet->ReturnVec = MABullet::toEuler(trans.getBasis());
 	return 1;
 }
 
