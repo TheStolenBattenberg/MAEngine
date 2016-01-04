@@ -1,5 +1,8 @@
 #include "Navigation.h"
 #include "Main.h"
+#include "NavMeshDebugDraw.h"
+#include "DetourDebugDraw.h"
+#include <iostream>
 
 MANavigation* manav = nullptr;
 
@@ -34,17 +37,66 @@ void MANavigation::cleanup()
 	m_dmesh = nullptr;
 }
 
-int MANavigation::createNavMesh()
+int MANavigation::createNavMesh(char* filename)
 {
-	//these variables need to be set after loading a mesh
-	int ntris;
-	int nverts;
-	float* verts;
-	int* tris;
-	float bmin[3];
-	float bmax[3];
+	//free previous navmesh
+	cleanup();
 
-	//set config
+	int ntris = 0;
+	int nverts = 0;
+	float* verts = nullptr;
+	int* tris = nullptr;
+	float bmin[3] = { -50, -50, -50 };
+	float bmax[3] = { 50, 50, 50 };
+
+	/*
+		Load test mesh from GM model file.
+		This function should take in a vertex buffer instead.
+	*/
+	std::string line;
+	std::ifstream file(filename);
+	std::vector<float> vertices;
+	std::vector<int> triangles;
+	if (file){
+		int version, lines;
+		file >> version >> lines;
+		file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		int vertex_count = 0;
+		for (int i = 0; i < lines; i++){
+			int n;
+			file >> n;
+			if (n > 1 && n < 10){
+				float x, y, z;
+				file >> x >> y >> z;
+
+				vertices.push_back(x);
+				vertices.push_back(y);
+				vertices.push_back(z);
+
+				vertex_count++;
+				if (vertex_count == 3){
+					triangles.push_back(vertices.size()-2);
+					triangles.push_back(vertices.size()-1);
+					triangles.push_back(vertices.size());
+					vertex_count = 0;
+				}
+			}
+			file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		file.close();
+	}
+	else return 0;
+
+	verts = &vertices[0];
+	nverts = vertices.size()/3;
+	tris = &triangles[0];
+	ntris = triangles.size()/3;
+
+	std::cout << "ntris: " << ntris << std::endl;
+	std::cout << "nverts: " << nverts << std::endl;
+
+	//TODO: make functions to set these
 	m_cellSize = 0.3f;
 	m_cellHeight = 0.2f;
 	m_agentHeight = 2.f;
@@ -59,10 +111,7 @@ int MANavigation::createNavMesh()
 	m_detailSampleDist = 6.f;
 	m_detailSampleMaxError = 1.f;
 
-
-
-	cleanup();
-
+	//set config
 	memset(&m_cfg, 0, sizeof(m_cfg));
 	m_cfg.cs = m_cellSize;
 	m_cfg.ch = m_cellHeight;
@@ -85,8 +134,9 @@ int MANavigation::createNavMesh()
 
 	m_solid = rcAllocHeightfield();
 	if (!m_solid) return -1;
-	if (!rcCreateHeightfield(manav->m_ctx, *manav->m_solid, manav->m_cfg.width, manav->m_cfg.height, manav->m_cfg.bmin, manav->m_cfg.bmax, manav->m_cfg.cs, manav->m_cfg.ch)) return -2;
+	if (!rcCreateHeightfield(m_ctx, *m_solid, m_cfg.width, m_cfg.height, m_cfg.bmin, m_cfg.bmax, m_cfg.cs, m_cfg.ch)) return -2;
 
+	//TODO: Allocate this on the stack instead?
 	m_triareas = new unsigned char[ntris];
 	memset(m_triareas, 0, ntris*sizeof(unsigned char));
 	rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, verts, nverts, tris, ntris, m_triareas);
@@ -118,6 +168,8 @@ int MANavigation::createNavMesh()
 	m_pmesh = rcAllocPolyMesh();
 	if (!m_pmesh) return -11;
 	if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh)) return -12;
+
+	std::cout << "PMESH VERTS: " << m_pmesh->nverts << std::endl;
 
 	m_dmesh = rcAllocPolyMeshDetail();
 	if (!m_dmesh) return -13;
@@ -185,9 +237,16 @@ int MANavigation::createNavMesh()
 	return 1;
 }
 
-//temporary test functions
+//test functions
 
 DLLEXPORT double MA_NavMeshCreate(char* filename)
 {
-	return manav->createNavMesh();
+	return manav->createNavMesh(filename);
+}
+
+DLLEXPORT double MA_NavMeshDebugDraw()
+{
+	NavMeshDebugDraw DebugDraw;
+	duDebugDrawNavMesh(&DebugDraw, *manav->m_navMesh, 0);
+	return 1;
 }
