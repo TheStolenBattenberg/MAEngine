@@ -23,7 +23,7 @@ template<typename T> struct col4t
 
 		struct
 		{
-			T a, r, g, b;
+			T b, g, r, a;
 		};
 	};
 

@@ -5,8 +5,7 @@
 #include <algorithm>
 
 #include "Types.h"
-
-
+#include "Exception.h"
 
 template<typename T> inline T clamp(T value, T min, T max) {
 	return std::min(std::max(value, min), max);
@@ -54,7 +53,8 @@ template<typename T> inline void ReadFromFile(std::ifstream& f, T& val)
 {
 	f.read((char*) &val, sizeof(val));
 
-	// TODO: Add error handling
+	if (!f)
+		throw MAEException("Failed to read from file");
 }
 
 template<typename T> inline T ReadFromFile(std::ifstream& f)
@@ -72,4 +72,22 @@ template<typename T> inline void ReadVectorFromFile(std::ifstream& f, std::vecto
 
 	for (uint i = 0; i < items; ++i)
 		vec.push_back(ReadFromFile<T>(f));
+}
+
+inline double ptrToDouble(void* value)
+{
+	static_assert(sizeof(double) >= sizeof(void*), "Size of double must be greater or equal to the size of void*");
+
+	double r = 0.0;
+
+	*(void**) &r = value;
+
+	return r;
+}
+
+inline void* doubleToPtr(double value)
+{
+	static_assert(sizeof(double) >= sizeof(void*), "Size of double must be greater or equal to the size of void*");
+
+	return *(void**) &value;
 }

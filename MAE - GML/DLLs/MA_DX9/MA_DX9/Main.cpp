@@ -8,6 +8,7 @@
 #include "Utils.h"
 #include "ModelMPM.h"
 #include "ModelX.h"
+#include "ParticleSystem.h"
 
 MADX9Main* mamain = 0;
 

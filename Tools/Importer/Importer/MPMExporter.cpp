@@ -53,9 +53,7 @@ struct Material
 
 	static Material defaultMaterial()
 	{
-		Material m = {col4u(0), col4u(), col4u(), col4u(), -1, "", "", ""};
-
-		return m;
+		return {col4u(0), col4u(), col4u(), col4u(), -1, "", "", ""};
 	}
 };
 
