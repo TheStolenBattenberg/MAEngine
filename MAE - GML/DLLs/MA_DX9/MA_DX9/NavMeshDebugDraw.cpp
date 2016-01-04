@@ -59,5 +59,5 @@ void NavMeshDebugDraw::end()
 	int count = 1;
 	if (DrawType == D3DPT_LINELIST) count = 2;
 	else if (DrawType == D3DPT_TRIANGLELIST) count = 3;
-	mamain->d3ddev->DrawPrimitiveUP(DrawType, count, &Vertices[0], sizeof(DVertex));
+	mamain->d3ddev->DrawPrimitiveUP(DrawType, Vertices.size() / count, &Vertices[0], sizeof(DVertex));
 }
