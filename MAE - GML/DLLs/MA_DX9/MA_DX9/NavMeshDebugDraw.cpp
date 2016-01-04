@@ -3,12 +3,10 @@
 
 void NavMeshDebugDraw::depthMask(bool state)
 {
-	// TODO
 }
 
 void NavMeshDebugDraw::texture(bool state)
 {
-	// Ignore texture for now
 }
 
 void NavMeshDebugDraw::begin(duDebugDrawPrimitives prim, float size)

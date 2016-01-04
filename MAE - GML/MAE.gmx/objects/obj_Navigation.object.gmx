@@ -32,9 +32,7 @@ filename = "COMMON/MODEL/navtest.gmmod";
 model = d3d_model_create();
 d3d_model_load(model, filename);
 
-result = MAE_NavMeshCreate(filename);
-
-show_debug_message("NavMeshCreate() return code: "+string(result));
+MAE_NavMeshCreate(filename);
 
 </string>
           </argument>
@@ -66,7 +64,7 @@ d3d_set_lighting(true);
 d3d_light_define_ambient(c_dkgray);
 d3d_light_define_direction(0, 0.5, -1, -0.75, c_white);
 d3d_light_enable(0, 1);
-d3d_model_draw(model, 0, 0, 0, background_get_texture(tex_Light));
+d3d_model_draw(model, 0, 0, 0, -1);
 d3d_set_lighting(false);
 
 MAE_NavMeshDebugDraw();

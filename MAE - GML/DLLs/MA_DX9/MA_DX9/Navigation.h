@@ -40,7 +40,7 @@ struct MANavigation {
 	MANavigation();
 	~MANavigation();
 	void cleanup();
-	int createNavMesh(char* filename);
+	int createNavMesh(char* filename, float minx, float miny, float minz, float maxx, float maxy, float maxz);
 
 };
 

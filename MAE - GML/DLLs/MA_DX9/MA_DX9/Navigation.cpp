@@ -10,6 +10,19 @@ MANavigation::MANavigation()
 {
 	m_ctx = new rcContext();
 	m_navQuery = dtAllocNavMeshQuery();
+	m_cellSize = 0.2f;
+	m_cellHeight = 0.4f;
+	m_agentHeight = 2.f;
+	m_agentRadius = 0.6f;
+	m_agentMaxClimb = 1.f;
+	m_agentMaxSlope = 45.f;
+	m_regionMinSize = 16;
+	m_regionMergeSize = 20;
+	m_edgeMaxLen = 12.f;
+	m_edgeMaxError = 1.3f;
+	m_vertsPerPoly = 6.f;
+	m_detailSampleDist = 6.f;
+	m_detailSampleMaxError = 1.f;
 }
 
 MANavigation::~MANavigation()
@@ -37,23 +50,15 @@ void MANavigation::cleanup()
 	m_dmesh = nullptr;
 }
 
-int MANavigation::createNavMesh(char* filename)
+int MANavigation::createNavMesh(char* filename, float minx, float miny, float minz, float maxx, float maxy, float maxz)
 {
 	//free previous navmesh
 	cleanup();
-
-	int ntris = 0;
-	int nverts = 0;
-	float* verts = nullptr;
-	int* tris = nullptr;
-	float bmin[3] = { -30, -30, -30 };
-	float bmax[3] = { 30, 30, 30 };
 
 	/*
 		Load test mesh from GM model file.
 		This function should take in a vertex buffer instead.
 	*/
-	
 	std::string line;
 	std::ifstream file(filename);
 	vertices.clear();
@@ -89,25 +94,13 @@ int MANavigation::createNavMesh(char* filename)
 	}
 	else return 0;
 
-	verts = &vertices[0];
-	nverts = vertices.size() / 3;
-	tris = &triangles[0];
-	ntris = triangles.size() / 3;
+	float* verts = &vertices[0];
+	int nverts = vertices.size() / 3;
+	int* tris = &triangles[0];
+	int ntris = triangles.size() / 3;
 
-	//TODO: make functions to set these
-	m_cellSize = 0.2f;
-	m_cellHeight = 0.4f;
-	m_agentHeight = 2.f;
-	m_agentRadius = 0.6f;
-	m_agentMaxClimb = 1.f;
-	m_agentMaxSlope = 45.f;
-	m_regionMinSize = 16;
-	m_regionMergeSize = 20;
-	m_edgeMaxLen = 12.f;
-	m_edgeMaxError = 1.3f;
-	m_vertsPerPoly = 6.f;
-	m_detailSampleDist = 6.f;
-	m_detailSampleMaxError = 1.f;
+	float bmin[3] = { minx, miny, minz };
+	float bmax[3] = { maxx, maxy, maxz };
 
 	//set config
 	memset(&m_cfg, 0, sizeof(m_cfg));
@@ -124,7 +117,6 @@ int MANavigation::createNavMesh(char* filename)
 	m_cfg.maxVertsPerPoly = (int)m_vertsPerPoly;
 	m_cfg.detailSampleDist = m_detailSampleDist < 0.9f ? 0 : m_cellSize * m_detailSampleDist;
 	m_cfg.detailSampleMaxError = m_cellHeight * m_detailSampleMaxError;
-
 	rcVcopy(m_cfg.bmin, bmin);
 	rcVcopy(m_cfg.bmax, bmax);
 
@@ -134,7 +126,6 @@ int MANavigation::createNavMesh(char* filename)
 	if (!m_solid) return -1;
 	if (!rcCreateHeightfield(m_ctx, *m_solid, m_cfg.width, m_cfg.height, m_cfg.bmin, m_cfg.bmax, m_cfg.cs, m_cfg.ch)) return -2;
 
-	//TODO: Allocate this on the stack instead?
 	m_triareas = new unsigned char[ntris];
 	memset(m_triareas, 0, ntris*sizeof(unsigned char));
 	rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, verts, nverts, tris, ntris, m_triareas);
@@ -167,8 +158,6 @@ int MANavigation::createNavMesh(char* filename)
 	if (!m_pmesh) return -11;
 	if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh)) return -12;
 
-	std::cout << "PMESH VERTS: " << m_pmesh->nverts << std::endl;
-
 	m_dmesh = rcAllocPolyMeshDetail();
 	if (!m_dmesh) return -13;
 	if (!rcBuildPolyMeshDetail(m_ctx, *m_pmesh, *m_chf, m_cfg.detailSampleDist, m_cfg.detailSampleMaxError, *m_dmesh)) return -14;
@@ -195,13 +184,13 @@ int MANavigation::createNavMesh(char* filename)
 	params.detailTris = m_dmesh->tris;
 	params.detailTriCount = m_dmesh->ntris;
 	/*
-	params.offMeshConVerts = m_geom->getOffMeshConnectionVerts();
-	params.offMeshConRad = m_geom->getOffMeshConnectionRads();
-	params.offMeshConDir = m_geom->getOffMeshConnectionDirs();
-	params.offMeshConAreas = m_geom->getOffMeshConnectionAreas();
-	params.offMeshConFlags = m_geom->getOffMeshConnectionFlags();
-	params.offMeshConUserID = m_geom->getOffMeshConnectionId();
-	params.offMeshConCount = m_geom->getOffMeshConnectionCount();
+	params.offMeshConVerts = 
+	params.offMeshConRad = 
+	params.offMeshConDir = 
+	params.offMeshConAreas = 
+	params.offMeshConFlags = 
+	params.offMeshConUserID = 
+	params.offMeshConCount = 
 	*/
 	params.walkableHeight = m_agentHeight;
 	params.walkableRadius = m_agentRadius;
@@ -211,8 +200,6 @@ int MANavigation::createNavMesh(char* filename)
 	params.cs = m_cfg.cs;
 	params.ch = m_cfg.ch;
 	params.buildBvTree = true;
-
-	std::cout << "PolyCout" << m_pmesh->npolys << std::endl;
 
 	unsigned char* navData = nullptr;
 	int navDataSize = 0;
@@ -241,12 +228,21 @@ int MANavigation::createNavMesh(char* filename)
 
 DLLEXPORT double MA_NavMeshCreate(char* filename)
 {
-	return manav->createNavMesh(filename);
+	return manav->createNavMesh(filename, -30, -30, -30, 30, 30, 30);
+}
+
+DLLEXPORT double MA_NavMeshDestroy()
+{
+	manav->cleanup();
+	return 1;
 }
 
 DLLEXPORT double MA_NavMeshDebugDraw()
 {
 	duDebugDrawNavMesh(&manav->m_debugDraw, *manav->m_navMesh, 0);
+	float* bmin = manav->m_cfg.bmin;
+	float* bmax = manav->m_cfg.bmax;
+	duDebugDrawBoxWire(&manav->m_debugDraw, bmin[0], bmin[1], bmin[2], bmax[0], bmax[1], bmax[2], duRGBA(255, 255, 255, 128), 1.f);
 	/*
 	float* verts = &manav->vertices[0];
 	int nverts = manav->vertices.size() / 3;
@@ -255,5 +251,29 @@ DLLEXPORT double MA_NavMeshDebugDraw()
 	float* normals = &manav->normals[0];
 	duDebugDrawTriMesh(&manav->m_debugDraw, verts, nverts, tris, normals, ntris, 0, 1.f);
 	*/
+	return 1;
+}
+
+DLLEXPORT double MA_NavMeshSetAgentConfig(double agent_height, double agent_radius, double agent_max_climb, double agent_max_slope)
+{
+	manav->m_agentHeight = (float)agent_height;
+	manav->m_agentRadius = (float)agent_radius;
+	manav->m_agentMaxClimb = (float)agent_max_climb;
+	manav->m_agentMaxSlope = (float)agent_max_slope;
+	return 1;
+}
+
+DLLEXPORT double MA_NavMeshSetConfig(double cell_size, double cell_height, double region_min_size, double region_merge_size, double edge_max_len,
+									 double edge_max_error, double verts_per_poly, double detail_sample_dist, double detail_sample_max_error)
+{
+	manav->m_cellSize = (float)cell_size;
+	manav->m_cellHeight = (float)cell_height;	
+	manav->m_regionMinSize = (float)region_min_size;
+	manav->m_regionMergeSize = (float)region_merge_size;
+	manav->m_edgeMaxLen = (float)edge_max_len;
+	manav->m_edgeMaxError = (float)edge_max_error;
+	manav->m_vertsPerPoly = (float)verts_per_poly;
+	manav->m_detailSampleDist = (float)detail_sample_dist;
+	manav->m_detailSampleMaxError = (float)detail_sample_max_error;
 	return 1;
 }
