@@ -85,9 +85,21 @@ inline double ptrToDouble(void* value)
 	return r;
 }
 
-inline void* doubleToPtr(double value)
+inline void* DoubleToPtr(double value)
 {
 	static_assert(sizeof(double) >= sizeof(void*), "Size of double must be greater or equal to the size of void*");
 
 	return *(void**) &value;
+}
+
+inline void CheckDX9Result(HRESULT res, const char* msg)
+{
+	if (FAILED(res))
+		throw MAEDX9Exception(res, msg);
+}
+
+inline void CheckDX9Result(HRESULT res, const std::string& msg)
+{
+	if (FAILED(res))
+		throw MAEDX9Exception(res, msg);
 }

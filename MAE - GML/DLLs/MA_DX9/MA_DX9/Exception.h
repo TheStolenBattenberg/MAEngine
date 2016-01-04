@@ -7,22 +7,31 @@
 #include <stdexcept>
 
 #define _GMEXBEG() \
-	try {
+	try            \
+	{
 
-#define _GMEXEND(x, e, ignoreInv)   \
+#define _GMEXEND(ret, e, ignoreInv) \
 	}                               \
 	catch (MAEInvException ex)      \
 	{                               \
 		if (!(ignoreInv))           \
 			(e).onError(ex.what()); \
                                     \
-		return (x);                 \
+		return (ret);               \
 	}                               \
 	catch (std::exception ex)       \
 	{                               \
 		(e).onError(ex.what());     \
-		return (x);                 \
+		return (ret);               \
 	}
+
+#define _GMEXENDSIMPLE(ret)   \
+	}                         \
+	catch (std::exception ex) \
+	{                         \
+		return (ret);         \
+	}
+
 
 class MAEException: public std::runtime_error {
 public:
