@@ -33,6 +33,10 @@ struct MANavigation {
 	float m_detailSampleDist;
 	float m_detailSampleMaxError;
 
+	std::vector<float> vertices;
+	std::vector<int> triangles;
+	std::vector<float> normals;
+
 	MANavigation();
 	~MANavigation();
 	void cleanup();
