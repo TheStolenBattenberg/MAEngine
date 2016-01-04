@@ -60,6 +60,7 @@ show_debug_message("NavMeshCreate() return code: "+string(result));
             <kind>1</kind>
             <string>d3d_set_projection_ext(30, 30, 30, 0, 0, 0, 0, 0, 1, 60, room_width/room_height, 1, 1000);
 
+/*
 texture_set_repeat(true);
 draw_set_color(c_white);
 d3d_set_lighting(true);
@@ -68,6 +69,10 @@ d3d_light_define_direction(0, 0.5, -1, -0.75, c_white);
 d3d_light_enable(0, 1);
 d3d_model_draw(model, 0, 0, 0, background_get_texture(tex_Light));
 d3d_set_lighting(false);
+*/
+
+MAE_NavMeshDebugDraw();
+
 </string>
           </argument>
         </arguments>

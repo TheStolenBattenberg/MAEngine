@@ -4,13 +4,13 @@
 #include "DetourNavMesh.h"
 #include "DetourNavMeshBuilder.h"
 #include "DetourNavMeshQuery.h"
+#include "NavMeshDebugDraw.h"
 
 struct MANavigation {
 	rcConfig m_cfg;
-
+	NavMeshDebugDraw m_debugDraw;
 	rcContext* m_ctx;
 	dtNavMeshQuery* m_navQuery;
-
 	rcHeightfield* m_solid = nullptr;
 	rcCompactHeightfield* m_chf = nullptr;
 	rcContourSet* m_cset = nullptr;
@@ -37,7 +37,7 @@ struct MANavigation {
 	~MANavigation();
 	void cleanup();
 	int createNavMesh(char* filename);
-	
+
 };
 
 extern MANavigation* manav;
