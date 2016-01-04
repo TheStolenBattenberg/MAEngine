@@ -40,6 +40,7 @@
     <ClCompile Include="ModelMPM.cpp" />
     <ClCompile Include="ModelX.cpp" />
     <ClCompile Include="Navigation.cpp" />
+    <ClCompile Include="NavMeshDebugDraw.cpp" />
     <ClCompile Include="ParticleAttractor.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleRepulsor.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="ModelMPM.h" />
     <ClInclude Include="ModelX.h" />
     <ClInclude Include="Navigation.h" />
+    <ClInclude Include="NavMeshDebugDraw.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleAttractor.h" />
     <ClInclude Include="ParticleEmitter.h" />

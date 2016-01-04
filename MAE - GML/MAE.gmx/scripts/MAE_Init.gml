@@ -373,3 +373,9 @@ if (argument[0] & INIT_PHYSICS)
         CONE_MOTOR_ENABLED,
     };
 }
+
+if (argument[0] & INIT_NAVIGATION)
+{   
+    global.MA_NavMeshCreate    = external_define(global.DLL_MAE, "MA_NavMeshCreate", dll_cdecl, ty_real, 1, ty_string);
+    global.MA_NavMeshDebugDraw = external_define(global.DLL_MAE, "MA_NavMeshDebugDraw", dll_cdecl, ty_real, 0);
+}
