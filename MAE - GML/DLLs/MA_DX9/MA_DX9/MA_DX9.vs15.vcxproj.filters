@@ -153,6 +153,9 @@
     <ClCompile Include="Exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NavMeshDebugDraw.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Exception.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshDebugDraw.h">
+      <Filter>Header Files\Navigation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
