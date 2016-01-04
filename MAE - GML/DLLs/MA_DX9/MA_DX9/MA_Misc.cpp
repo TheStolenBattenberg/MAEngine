@@ -2,6 +2,8 @@
 #include "Types.h"
 #include "Hook.h"
 #include "Math.h"
+#include "Exception.h"
+#include "Utils.h"
 
 /**
  * Math. (Remove, just for debugging)
@@ -97,11 +99,19 @@ DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
 
 DLLEXPORT double MADX9_SetSamplerState(double stage, double type, double value)
 {
-	return SUCCEEDED(mamain->d3ddev->SetSamplerState((uint)stage, (D3DSAMPLERSTATETYPE)(uint)type, (uint)value));
+	_GMEXBEG();
+
+	CheckDX9Result(mamain->d3ddev->SetSamplerState((uint) stage, (D3DSAMPLERSTATETYPE) (uint) type, (uint) value), "Failed to set sampler state");
+
+	return 1;
+
+	_GMEXEND(0, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_SetRenderState(double state, double value)
 {
+	_GMEXBEG();
+
 	uint v;
 
 	switch ((D3DRENDERSTATETYPE)(uint)state)
@@ -125,7 +135,11 @@ DLLEXPORT double MADX9_SetRenderState(double state, double value)
 		break;
 	}
 
-	return SUCCEEDED(mamain->d3ddev->SetRenderState((D3DRENDERSTATETYPE)(uint)state, v));
+	CheckDX9Result(mamain->d3ddev->SetRenderState((D3DRENDERSTATETYPE)(uint)state, v), "Failed to set render state");
+
+	return 1;
+
+	_GMEXEND(0, mamain->err, mamain->ignoreInv);
 }
 
 /**
@@ -134,20 +148,26 @@ DLLEXPORT double MADX9_SetRenderState(double state, double value)
 
 DLLEXPORT double MADX9_FreePointer(double p)
 {
-	if (*(LPUNKNOWN*) &p == 0)
-		return 0;
+	_GMEXBEG();
 
-	return SUCCEEDED((*(LPUNKNOWN*) &p)->Release());
+	void* ptr = DoubleToPtr(p);
+
+	if (ptr == 0)
+		throw MAEInvException("Pointer is null");
+
+	return SUCCEEDED(((LPUNKNOWN) ptr)->Release());
+
+	_GMEXEND(0, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_Clear(double colour, double alpha, double z, double stencil, double flags)
 {
 	uint c = (uint) colour;
 
-	return SUCCEEDED(mamain->d3ddev->Clear(0, 0, (uint) flags, D3DCOLOR_ARGB((uint) (alpha * 255.0), c, c >> 8, c >> 16), (float) z, (DWORD) stencil));
+	return SUCCEEDED(mamain->d3ddev->Clear(0, 0, (uint) flags, D3DCOLOR_ARGB((uint) (alpha * 255.0), c, c >> 8, c >> 16), (float) z, (uint) stencil));
 }
 
 DLLEXPORT double MADX9_IsNullPointer(double p)
 {
-	return *(void**) &p == 0;
+	return DoubleToPtr(p) == 0;
 }

@@ -1,23 +1,19 @@
 #include "Main.h"
 #include "Types.h"
+#include "Exception.h"
+#include "Utils.h"
 
 DLLEXPORT double MADX9_MaterialCreate()
 {
+	_GMEXBEG();
+
 	D3DMATERIAL9* mat = new D3DMATERIAL9;
 
 	memset(mat, 0, sizeof(*mat));
 
-	for (uint i = 0; i < mamain->Material.size(); ++i)
-	{
-		if (mamain->Material[i] == 0)
-		{
-			mamain->Material[i] = mat;
-			return i;
-		}
-	}
+	return putInto(mat, mamain->Material);
 
-	mamain->Material.push_back(mat);
-	return mamain->Material.size() - 1;
+	_GMEXEND(-1, mamain->err, mamain->ignoreInv)
 }
 
 DLLEXPORT double MADX9_MaterialDestroy(double index)
