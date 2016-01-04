@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MA_BulletBody.cpp" />
     <ClCompile Include="MA_BulletConstraint.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletDebugDraw.h" />
+    <ClInclude Include="Exception.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Math.h" />
@@ -126,7 +128,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;WIN32;_DEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

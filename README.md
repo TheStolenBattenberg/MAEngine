@@ -10,12 +10,12 @@ MA-Engine, or 'MAE' for short, is a 3D Engine developed for use in Game Maker: S
 -   + MD2 Morph Target Animation
 - Pure HLSL9 Support
 
-## Credits:
+## Credits
 - TheStolenBattenberg (MA_DX9 DLL, GML API & Functions, Making Broken Code)
 - falki147 (MA_DX9 DLL, GML API & Functions, Fixing Broken Code)
 - TickleForce (MA_Bullet DLL, GML API & Functions)
 
-## Used Libraries:
+## Used Libraries
 - DirectX9
 - [Bullet Physics](http://bulletphysics.org/wordpress/)
 - [ASSIMP](http://assimp.org/)

@@ -6,7 +6,6 @@
  * Includes
  */
 
-#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 #include <d3d9.h>
@@ -57,6 +56,8 @@ public:
 	 */
 
 	std::vector<float> matStack;
+
+	bool ignoreInv = 0;
 
 private:
 	std::string retStr;
