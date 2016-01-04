@@ -777,7 +777,7 @@
       <constant name="HOOK_PROPERTYREDIRECTTEXREMOVE">$05</constant>
       <constant name="HOOK_PROPERTYREDIRECTTEXTO">$06</constant>
       <constant name="INIT_ALL">$FFFFFFFF</constant>
-      <constant name="INIT_AUDIO">$02</constant>
+      <constant name="INIT_NAVIGATION">$02</constant>
       <constant name="INIT_FLUSH">$08</constant>
       <constant name="INIT_PHYSICS">$04</constant>
       <constant name="INIT_RENDER">$01</constant>

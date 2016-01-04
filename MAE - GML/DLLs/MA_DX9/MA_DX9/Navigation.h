@@ -36,8 +36,9 @@ struct MANavigation {
 	MANavigation();
 	~MANavigation();
 	void cleanup();
-	int createNavMesh();
+	int createNavMesh(char* filename);
 	
 };
 
 extern MANavigation* manav;
+

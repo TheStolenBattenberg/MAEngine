@@ -95,9 +95,10 @@ if(room == rm_debug)
         3 - Shaders
         4 - Lights
         5 - MD2 Model Animation
-        6 - X Model Static
-        7 - Physics
-        8 - MPM Model
+        6 - X Model Static   
+        7 - MPM Model
+        8 - Physics
+        9 - Navigation
         
         Escape - Exit.
     ");
@@ -110,8 +111,9 @@ if(room == rm_debug)
         case ord("4"): { room_goto(rm_Light); } break;
         case ord("5"): { room_goto(rm_MD2Animation); } break;
         case ord("6"): { room_goto(rm_XStatic); } break;
-        case ord("7"): { room_goto(rm_Physics); } break;
-        case ord("8"): { room_goto(rm_MPM); } break;
+        case ord("7"): { room_goto(rm_MPM); } break;
+        case ord("8"): { room_goto(rm_Physics); } break;
+        case ord("9"): { room_goto(rm_Navigation); } break;
     }
     
     if (keyboard_check_released(vk_escape))
