@@ -1,6 +1,5 @@
 #include "Navigation.h"
 #include "Main.h"
-#include "NavMeshDebugDraw.h"
 #include "DetourDebugDraw.h"
 #include <iostream>
 
@@ -70,15 +69,15 @@ int MANavigation::createNavMesh(char* filename)
 				float x, y, z;
 				file >> x >> y >> z;
 
-				vertices.push_back(x);
-				vertices.push_back(y);
+				vertices.push_back(-x);
 				vertices.push_back(z);
+				vertices.push_back(y);
 
 				vertex_count++;
 				if (vertex_count == 3){
-					triangles.push_back(vertices.size()-2);
-					triangles.push_back(vertices.size()-1);
-					triangles.push_back(vertices.size());
+					triangles.push_back(vertices.size()/3 - 2);
+					triangles.push_back(vertices.size()/3 - 1);
+					triangles.push_back(vertices.size()/3);
 					vertex_count = 0;
 				}
 			}
@@ -97,8 +96,8 @@ int MANavigation::createNavMesh(char* filename)
 	std::cout << "nverts: " << nverts << std::endl;
 
 	//TODO: make functions to set these
-	m_cellSize = 0.3f;
-	m_cellHeight = 0.2f;
+	m_cellSize = 0.5f;
+	m_cellHeight = 0.5f;
 	m_agentHeight = 2.f;
 	m_agentRadius = 0.6f;
 	m_agentMaxClimb = 0.9f;
@@ -246,7 +245,6 @@ DLLEXPORT double MA_NavMeshCreate(char* filename)
 
 DLLEXPORT double MA_NavMeshDebugDraw()
 {
-	NavMeshDebugDraw DebugDraw;
-	duDebugDrawNavMesh(&DebugDraw, *manav->m_navMesh, 0);
+	duDebugDrawNavMesh(&manav->m_debugDraw, *manav->m_navMesh, 0);
 	return 1;
 }
