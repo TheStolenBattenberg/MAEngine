@@ -33,6 +33,19 @@ struct MANavigation {
 	float m_detailSampleDist;
 	float m_detailSampleMaxError;
 
+	static const int MAX_POLYS = 256;
+	//dtPolyRef m_startRef;
+	//dtPolyRef m_endRef;
+	dtPolyRef m_polys[MAX_POLYS];
+	int m_npolys;
+	dtQueryFilter m_filter;
+	float m_straightPath[MAX_POLYS * 3];
+	unsigned char m_straightPathFlags[MAX_POLYS];
+	dtPolyRef m_straightPathPolys[MAX_POLYS];
+	int m_nstraightPath = 0;
+
+	float returnVec[3];
+
 	std::vector<float> vertices;
 	std::vector<int> triangles;
 	std::vector<float> normals;

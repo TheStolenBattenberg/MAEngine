@@ -23,6 +23,8 @@ MANavigation::MANavigation()
 	m_vertsPerPoly = 6.f;
 	m_detailSampleDist = 6.f;
 	m_detailSampleMaxError = 1.f;
+	m_filter.setIncludeFlags(0xffff);
+	m_filter.setExcludeFlags(0);
 }
 
 MANavigation::~MANavigation()
@@ -276,4 +278,79 @@ DLLEXPORT double MA_NavMeshSetConfig(double cell_size, double cell_height, doubl
 	manav->m_detailSampleDist = (float)detail_sample_dist;
 	manav->m_detailSampleMaxError = (float)detail_sample_max_error;
 	return 1;
+}
+
+DLLEXPORT double MA_NavFindNearestPoly(double x, double y, double z, double ex, double ey, double ez)
+{
+	float pos[3] = { (float)-x, (float)z, (float)y };
+	float extents[3] = { (float)ex, (float)ez, (float)ey };
+	dtPolyRef ref;
+	manav->m_navQuery->findNearestPoly(pos, extents, &manav->m_filter, &ref, 0);
+	return ref;
+}
+
+/*
+DLLEXPORT double MA_NavFindPath(double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
+{
+	dtPolyRef startRef = (dtPolyRef)start_poly;
+	dtPolyRef endRef = (dtPolyRef)end_poly;
+	float startPos[3] = { xf, yf, zf };
+	float endPos[3] = { xt, yt, zt };
+	manav->m_navQuery->findPath(startRef, endRef, startPos, endPos, &manav->m_filter, manav->m_polys, &manav->m_npolys, MANavigation::MAX_POLYS);
+	return manav->m_npolys;
+}
+*/
+DLLEXPORT double MA_NavGetPoly(double n)
+{
+	return manav->m_polys[(int)n];
+}
+
+DLLEXPORT double MA_NavFindStraightPath(double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
+{
+	dtPolyRef startRef = (dtPolyRef)start_poly;
+	dtPolyRef endRef = (dtPolyRef)end_poly;
+	float startPos[3] = { (float)-xf, (float)zf, (float)yf };
+	float endPos[3] = { (float)-xt, (float)zt, (float)yt };
+	float epos[3];
+
+	manav->m_navQuery->findPath(startRef, endRef, startPos, endPos, &manav->m_filter, manav->m_polys, &manav->m_npolys, MANavigation::MAX_POLYS);
+
+	rcVcopy(epos, endPos);
+	if (manav->m_polys[manav->m_npolys - 1] != endRef)
+		manav->m_navQuery->closestPointOnPoly(manav->m_polys[manav->m_npolys - 1], endPos, epos, 0);
+
+	if (manav->m_npolys) {
+		manav->m_navQuery->findStraightPath(startPos, epos, manav->m_polys, manav->m_npolys, manav->m_straightPath, manav->m_straightPathFlags,
+			manav->m_straightPathPolys, &manav->m_nstraightPath, MANavigation::MAX_POLYS, 0);
+	}
+
+	return manav->m_npolys;
+	
+}
+
+DLLEXPORT double MA_NavGetPathLength()
+{
+	return manav->m_nstraightPath;
+}
+
+DLLEXPORT double MA_NavGetPathPos(double n)
+{
+	manav->returnVec[0] = manav->m_straightPath[(int)n * 3] * -1;
+	manav->returnVec[1] = manav->m_straightPath[(int)n * 3 + 2];
+	manav->returnVec[2] = manav->m_straightPath[(int)n * 3 + 1];
+	return 1;
+}
+
+DLLEXPORT double MA_NavGetVec(double n)
+{
+	switch ((int)n)
+	{
+	case 0:
+		return manav->returnVec[0];
+	case 1:
+		return manav->returnVec[1];
+	case 2:
+		return manav->returnVec[2];
+	}
+	return 0;
 }

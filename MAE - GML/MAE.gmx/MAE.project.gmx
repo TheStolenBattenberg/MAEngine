@@ -552,13 +552,17 @@
         <script>scripts\MAE_NavMeshSetConfig.gml</script>
         <script>scripts\MAE_NavMeshSetAgentConfig.gml</script>
         <script>scripts\MAE_NavMeshDebugDraw.gml</script>
+        <script>scripts\MAE_NavFindNearestPoly.gml</script>
+        <script>scripts\MAE_NavFindStraightPath.gml</script>
+        <script>scripts\MAE_NavGetPoly.gml</script>
+        <script>scripts\MAE_NavGetPathLength.gml</script>
+        <script>scripts\MAE_NavGetPathPos.gml</script>
       </scripts>
     </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shdLight.shader</shader>
   </shaders>
-  <fonts name="fonts"/>
   <objects name="objects">
     <object>objects\obj_debug</object>
     <object>objects\obj_VecMatQuat</object>
