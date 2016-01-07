@@ -34,6 +34,9 @@ d3d_model_load(model, filename);
 
 MAE_NavMeshCreate(filename);
 
+start_pos = MAE_VectorCreate(2, 16, 1);
+end_pos = MAE_VectorCreate(7, -2, 3);
+
 </string>
           </argument>
         </arguments>
@@ -56,9 +59,8 @@ MAE_NavMeshCreate(filename);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_set_projection_ext(-30, -30, 30, 0, 0, 0, 0, 0, 1, 60, room_width/room_height, 1, 1000);
+            <string>d3d_set_projection_ext(30, 30, 30, 0, 0, 0, 0, 0, 1, 60, room_width/room_height, 1, 1000);
 
-texture_set_repeat(true);
 draw_set_color(c_white);
 d3d_set_lighting(true);
 d3d_light_define_ambient(c_dkgray);
@@ -68,6 +70,52 @@ d3d_model_draw(model, 0, 0, 0, -1);
 d3d_set_lighting(false);
 
 MAE_NavMeshDebugDraw();
+
+var length = MAE_NavGetPathLength();
+if(length == 0) exit;
+
+var s = 0.5;
+draw_set_color(c_red);
+d3d_transform_set_translation(start_pos[0], start_pos[1], start_pos[2]);
+d3d_draw_ellipsoid(-s, -s, -s, s, s, s, -1, 1, 1, 20);
+d3d_transform_set_translation(end_pos[0], end_pos[1], end_pos[2]);
+d3d_draw_ellipsoid(-s, -s, -s, s, s, s, -1, 1, 1, 20);
+d3d_transform_set_identity();
+d3d_primitive_begin(pr_linestrip);
+
+for(var i=0; i&lt;length; i++){
+    var pos = MAE_NavGetPathPos(i);
+    d3d_vertex_colour(pos[0], pos[1], pos[2], c_red, 1);
+}
+d3d_primitive_end();
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="32">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>start_poly = MAE_NavFindNearestPoly(start_pos[0], start_pos[1], start_pos[2], 1, 1, 2);
+end_poly = MAE_NavFindNearestPoly(end_pos[0], end_pos[1], end_pos[2], 1, 1, 2);
+show_debug_message(start_poly);
+show_debug_message(end_poly);
+MAE_NavFindStraightPath(start_poly, end_poly, start_pos[0], start_pos[1], start_pos[2], end_pos[0], end_pos[1], end_pos[2]);
 
 </string>
           </argument>

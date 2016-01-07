@@ -381,4 +381,10 @@ if (argument[0] & INIT_NAVIGATION)
     global.MA_NavMeshDebugDraw      = external_define(global.DLL_MAE, "MA_NavMeshDebugDraw", dll_cdecl, ty_real, 0);
     global.MA_NavMeshSetConfig      = external_define(global.DLL_MAE, "MA_NavMeshSetConfig", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MA_NavMeshSetAgentConfig = external_define(global.DLL_MAE, "MA_NavMeshSetAgentConfig", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.MA_NavFindNearestPoly    = external_define(global.DLL_MAE, "MA_NavFindNearestPoly", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MA_NavFindStraightPath   = external_define(global.DLL_MAE, "MA_NavFindStraightPath", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MA_NavGetPoly            = external_define(global.DLL_MAE, "MA_NavGetPoly", dll_cdecl, ty_real, 1, ty_real);
+    global.MA_NavGetPathLength      = external_define(global.DLL_MAE, "MA_NavGetPathLength", dll_cdecl, ty_real, 0);
+    global.MA_NavGetPathPos         = external_define(global.DLL_MAE, "MA_NavGetPathPos", dll_cdecl, ty_real, 1, ty_real);
+    global.MA_NavGetVec             = external_define(global.DLL_MAE, "MA_NavGetVec", dll_cdecl, ty_real, 1, ty_real);
 }
