@@ -1,8 +1,8 @@
 #include "NavMeshDebugDraw.h"
-#include <iostream>
 
 void NavMeshDebugDraw::depthMask(bool state)
 {
+	mamain->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, (DWORD)state);
 }
 
 void NavMeshDebugDraw::texture(bool state)
@@ -12,23 +12,7 @@ void NavMeshDebugDraw::texture(bool state)
 void NavMeshDebugDraw::begin(duDebugDrawPrimitives prim, float size)
 {
 	Vertices.clear();
-
-	switch (prim)
-	{
-	case DU_DRAW_POINTS:
-		DrawType = D3DPT_POINTLIST;
-		break;
-	case DU_DRAW_LINES:
-		DrawType = D3DPT_LINELIST;
-		break;
-	case DU_DRAW_TRIS:
-		DrawType = D3DPT_TRIANGLELIST;
-		break;
-	case DU_DRAW_QUADS:
-		std::cout << "This happened" << std::endl;
-		// ???
-		break;
-	};
+	DrawType = prim;
 }
 
 void NavMeshDebugDraw::vertex(const float* pos, unsigned int color)
@@ -54,8 +38,22 @@ void NavMeshDebugDraw::vertex(const float x, const float y, const float z, unsig
 void NavMeshDebugDraw::end()
 {
 	mamain->d3ddev->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
-	int count = 1;
-	if (DrawType == D3DPT_LINELIST) count = 2;
-	else if (DrawType == D3DPT_TRIANGLELIST) count = 3;
-	mamain->d3ddev->DrawPrimitiveUP(DrawType, Vertices.size() / count, &Vertices[0], sizeof(DVertex));
+	int count = 0;
+	D3DPRIMITIVETYPE D3DDrawType;
+	switch (DrawType)
+	{
+	case DU_DRAW_POINTS:
+		D3DDrawType = D3DPT_POINTLIST;
+		count = 1;
+		break;
+	case DU_DRAW_LINES:
+		D3DDrawType = D3DPT_LINELIST;
+		count = 2;
+		break;
+	case DU_DRAW_TRIS:
+		D3DDrawType = D3DPT_TRIANGLELIST;
+		count = 3;
+		break;
+	};
+	mamain->d3ddev->DrawPrimitiveUP(D3DDrawType, Vertices.size() / count, &Vertices[0], sizeof(DVertex));
 }

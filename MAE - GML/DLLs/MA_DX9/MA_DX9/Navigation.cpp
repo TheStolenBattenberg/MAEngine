@@ -203,7 +203,7 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 	rcVcopy(params.bmax, m_pmesh->bmax);
 	params.cs = m_cfg.cs;
 	params.ch = m_cfg.ch;
-	params.buildBvTree = false;
+	params.buildBvTree = true;
 
 	unsigned char* navData = nullptr;
 	int navDataSize = 0;
