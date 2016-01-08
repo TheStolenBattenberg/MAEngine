@@ -83,11 +83,13 @@ d3d_draw_ellipsoid(-s, -s, -s, s, s, s, -1, 1, 1, 20);
 d3d_transform_set_identity();
 d3d_primitive_begin(pr_linestrip);
 
+d3d_set_hidden(false);
 for(var i=0; i&lt;length; i++){
     var pos = MAE_NavGetPathPos(i);
     d3d_vertex_colour(pos[0], pos[1], pos[2], c_red, 1);
 }
 d3d_primitive_end();
+d3d_set_hidden(true);
 
 </string>
           </argument>
@@ -111,10 +113,8 @@ d3d_primitive_end();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>start_poly = MAE_NavFindNearestPoly(start_pos[0], start_pos[1], start_pos[2], 1, 1, 2);
-end_poly = MAE_NavFindNearestPoly(end_pos[0], end_pos[1], end_pos[2], 1, 1, 2);
-show_debug_message(start_poly);
-show_debug_message(end_poly);
+            <string>start_poly = MAE_NavFindNearestPoly(start_pos[0], start_pos[1], start_pos[2], 2, 2, 2);
+end_poly = MAE_NavFindNearestPoly(end_pos[0], end_pos[1], end_pos[2], 2, 2, 2);
 MAE_NavFindStraightPath(start_poly, end_poly, start_pos[0], start_pos[1], start_pos[2], end_pos[0], end_pos[1], end_pos[2]);
 
 </string>

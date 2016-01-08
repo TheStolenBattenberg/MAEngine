@@ -12,8 +12,8 @@ MANavigation::MANavigation()
 	m_navQuery = dtAllocNavMeshQuery();
 	m_cellSize = 0.2f;
 	m_cellHeight = 0.4f;
-	m_agentHeight = 2.f;
-	m_agentRadius = 0.6f;
+	m_agentHeight = 3.f;
+	m_agentRadius = 1.f;
 	m_agentMaxClimb = 1.f;
 	m_agentMaxSlope = 45.f;
 	m_regionMinSize = 16;
@@ -23,8 +23,6 @@ MANavigation::MANavigation()
 	m_vertsPerPoly = 6.f;
 	m_detailSampleDist = 6.f;
 	m_detailSampleMaxError = 1.f;
-	m_filter.setIncludeFlags(0xffff);
-	m_filter.setExcludeFlags(0);
 }
 
 MANavigation::~MANavigation()
@@ -171,6 +169,10 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 
 	if (m_cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON) return -15;
 
+	for (int i = 0; i < m_pmesh->npolys; ++i) {
+		m_pmesh->flags[i] = 1;
+	}
+
 	dtNavMeshCreateParams params;
 	memset(&params, 0, sizeof(params));
 	params.verts = m_pmesh->verts;
@@ -201,7 +203,7 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 	rcVcopy(params.bmax, m_pmesh->bmax);
 	params.cs = m_cfg.cs;
 	params.ch = m_cfg.ch;
-	params.buildBvTree = true;
+	params.buildBvTree = false;
 
 	unsigned char* navData = nullptr;
 	int navDataSize = 0;
