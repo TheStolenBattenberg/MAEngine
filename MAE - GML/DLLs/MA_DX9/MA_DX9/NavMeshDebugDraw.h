@@ -14,8 +14,8 @@ struct DVertex
 class NavMeshDebugDraw : public duDebugDraw
 {
 private:
-	D3DPRIMITIVETYPE DrawType;
 	std::vector<DVertex> Vertices;
+	duDebugDrawPrimitives DrawType;
 
 public:
 	virtual void depthMask(bool state);
