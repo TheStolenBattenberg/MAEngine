@@ -6,6 +6,7 @@
 
 #include "Types.h"
 #include "Object.h"
+#include "Error.h"
 
 #include <d3d9.h>
 #include <vector>
@@ -210,15 +211,15 @@ class MPMModel: public Object
 public:
 	~MPMModel();
 
-	bool load(const std::string& model);
+	ErrorCode load(const std::string& model);
 	void render();
 
 private:
-	void readInstances(std::ifstream& f);
-	void readMesh(std::ifstream& f);
-	void readVertexDesc(std::ifstream& f);
-	void readVertexData(std::ifstream& f);
-	void readIndexData(std::ifstream& f);
+	ErrorCode readInstances(std::ifstream& f);
+	ErrorCode readMesh(std::ifstream& f);
+	ErrorCode readVertexDesc(std::ifstream& f);
+	ErrorCode readVertexData(std::ifstream& f);
+	ErrorCode readIndexData(std::ifstream& f);
 
 	struct Mesh
 	{

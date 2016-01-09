@@ -150,9 +150,6 @@
     <ClCompile Include="MA_BulletWorld.cpp">
       <Filter>Source Files\GML API\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Exception.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NavMeshDebugDraw.cpp">
       <Filter>Source Files\Navigation</Filter>
     </ClCompile>
@@ -232,9 +229,6 @@
     </ClInclude>
     <ClInclude Include="Navigation.h">
       <Filter>Header Files\Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="Exception.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NavMeshDebugDraw.h">
       <Filter>Header Files\Navigation</Filter>

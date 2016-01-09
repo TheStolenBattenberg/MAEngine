@@ -41,8 +41,8 @@ class Shader
 public:
 	~Shader();
 
-	bool compile(std::string vert, std::string pixel);
-	bool compileasm(std::string vert, std::string pixel);
+	ErrorCode compile(std::string vert, std::string pixel);
+	ErrorCode compileasm(std::string vert, std::string pixel);
 
 	LPDIRECT3DVERTEXSHADER9 VShader = 0;
 	LPDIRECT3DPIXELSHADER9  PShader = 0;
@@ -56,17 +56,17 @@ class Surface
 public:
 	~Surface();
 
-	bool createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard);
-	bool createFromPointer(LPDIRECT3DSURFACE9 surf);
-	bool createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable);
+	ErrorCode createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard);
+	ErrorCode createFromPointer(LPDIRECT3DSURFACE9 surf);
+	ErrorCode createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable);
 
-	bool setRenderTarget(uint level);
-	static bool resetRenderTarget(uint level);
+	ErrorCode setRenderTarget(uint level);
+	static ErrorCode resetRenderTarget(uint level);
 
-	bool setDepthBuffer();
-	static bool resetDepthBuffer();
+	ErrorCode setDepthBuffer();
+	static ErrorCode resetDepthBuffer();
 
-	bool update(Surface& surf);
+	ErrorCode update(Surface& surf);
 
 	LPDIRECT3DSURFACE9 surf;
 
@@ -89,14 +89,14 @@ public:
 
 	~Texture();
 
-	bool create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool);
-	bool generateMipMaps();
-	bool getSurface(uint level, Surface& surf);
+	ErrorCode create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool);
+	ErrorCode generateMipMaps();
+	ErrorCode getSurface(uint level, Surface& surf);
 	uint getSurfaceCount();
-	bool loadFromFile(std::string file, MipMaps mipmaps);
-	bool loadFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
-	bool setMipMapFilter(D3DTEXTUREFILTERTYPE filter);
-	bool update(Texture& src);
+	ErrorCode loadFromFile(std::string file, MipMaps mipmaps);
+	ErrorCode loadFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
+	ErrorCode setMipMapFilter(D3DTEXTUREFILTERTYPE filter);
+	ErrorCode update(Texture& src);
 
 	LPDIRECT3DTEXTURE9 tex = 0;
 

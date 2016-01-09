@@ -16,9 +16,11 @@ ParticleSystem::ParticleSystem() {
 	}
 
 	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(ParticlePoint), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
-	if (FAILED(res)) {
-		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
-	}
+
+	// TODO: Add proper error checking
+
+	if (FAILED(res))
+		ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, res);
 }
 
 ParticleSystem::~ParticleSystem() {
@@ -170,9 +172,11 @@ void ParticleSystem::setMaxParticleCount(uint max) {
 		psVertexBuffer->Release();
 	}
 	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(ParticlePoint) * max, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
-	if (FAILED(res)) {
-		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", res);
-	}
+
+	// TODO: Add proper error checking
+
+	if (FAILED(res))
+		ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, res);
 }
 
 void ParticleSystem::setTexture(LPDIRECT3DTEXTURE9 tex) {

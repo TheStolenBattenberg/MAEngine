@@ -14,14 +14,14 @@ Buffer::~Buffer()
 
 void Buffer::reserve(uint amount)
 {
-	if (!data->reserve(amount))
-		mamain->err.onError("Failed to reserve memory");
+	// TODO: Add proper error checking
+	data->reserve(amount);
 }
 
 void Buffer::remove(uint offset, uint length)
 {
-	if (!data->remove(offset, length))
-		mamain->err.onError("Failed to remove memory");
+	// TODO: Add proper error checking
+	data->remove(offset, length);
 
 	if (offset < pos)
 	{
@@ -34,11 +34,10 @@ void Buffer::remove(uint offset, uint length)
 
 void Buffer::seek(uint pos)
 {
+	// TODO: Add proper error checking
+
 	if (pos > data->size())
-	{
-		mamain->err.onError("Failed to seek position");
 		return;
-	}
 
 	this->pos = pos;
 }
@@ -60,34 +59,34 @@ const void* Buffer::get()
 
 void Buffer::write(const void* data, uint length)
 {
+	// TODO: Add proper error checking
+	
 	if (!this->data->write(pos, length, data))
-	{
-		mamain->err.onError("Failed to write to memory");
 		return;
-	}
 
 	pos += length;
 }
 
 void Buffer::read(void* data, uint length)
 {
+	// TODO: Add proper error checking
+	
 	if (!this->data->read(pos, length, data))
-	{
-		mamain->err.onError("Failed to read from memory");
 		return;
-	}
 
 	pos += length;
 }
 
 void Buffer::poke(uint offset, const void* data, uint length)
 {
-	if (!this->data->write(offset, length, data))
-		mamain->err.onError("Failed to write to memory");
+	// TODO: Add proper error checking
+
+	this->data->write(offset, length, data);
 }
 
 void Buffer::peek(uint offset, void* data, uint length)
 {
-	if (!this->data->read(offset, length, data))
-		mamain->err.onError("Failed to read from memory");
+	// TODO: Add proper error checking
+
+	this->data->read(offset, length, data);
 }

@@ -14,7 +14,7 @@ MADX9Main* mamain = 0;
 
 MADX9Main::MADX9Main(LPDIRECT3DDEVICE9 d3ddev)
 {
-	err.flags = Error::ShowMessage | Error::ShowDebugMessage;
+	errCrit.flags = CriticalErrorHandler::ShowMessage | CriticalErrorHandler::ShowDebugMessage;
 
 	d3ddev->AddRef();
 	d3ddev->GetDirect3D(&d3d);
@@ -40,10 +40,10 @@ MADX9Main::~MADX9Main()
 	ClearVector(XModels);
 	ClearVector(ParticleSys);
 
-	if (VertexDeclarationMPM != 0)
+	if (VertexDeclarationParticle != 0)
 	{
-		VertexDeclarationMPM->Release();
-		VertexDeclarationMPM = 0;
+		VertexDeclarationParticle->Release();
+		VertexDeclarationParticle = 0;
 	}
 
 	if (d3ddev != 0)

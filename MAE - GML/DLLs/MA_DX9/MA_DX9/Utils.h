@@ -1,11 +1,11 @@
 #pragma once
 
+#include "Types.h"
+#include "Error.h"
+
 #include <vector>
 #include <fstream>
 #include <algorithm>
-
-#include "Types.h"
-#include "Exception.h"
 
 template<typename T> inline T clamp(T value, T min, T max) {
 	return std::min(std::max(value, min), max);
@@ -49,29 +49,9 @@ template<typename T> inline void ClearVector(std::vector<T*>& vec)
 	vec.clear();
 }
 
-template<typename T> inline void ReadFromFile(std::ifstream& f, T& val)
+template<typename T> inline bool ReadFromFile(std::ifstream& f, T& val)
 {
-	f.read((char*) &val, sizeof(val));
-
-	if (!f)
-		throw MAEException("Failed to read from file");
-}
-
-template<typename T> inline T ReadFromFile(std::ifstream& f)
-{
-	T ret;
-
-	ReadFromFile(f, ret);
-
-	return ret;
-}
-
-template<typename T> inline void ReadVectorFromFile(std::ifstream& f, std::vector<T>& vec, uint items)
-{
-	vec.reserve(items);
-
-	for (uint i = 0; i < items; ++i)
-		vec.push_back(ReadFromFile<T>(f));
+	return f.read((char*) &val, sizeof(val)) ? 1 : 0;
 }
 
 inline double ptrToDouble(void* value)
@@ -90,16 +70,4 @@ inline void* DoubleToPtr(double value)
 	static_assert(sizeof(double) >= sizeof(void*), "Size of double must be greater or equal to the size of void*");
 
 	return *(void**) &value;
-}
-
-inline void CheckDX9Result(HRESULT res, const char* msg)
-{
-	if (FAILED(res))
-		throw MAEDX9Exception(res, msg);
-}
-
-inline void CheckDX9Result(HRESULT res, const std::string& msg)
-{
-	if (FAILED(res))
-		throw MAEDX9Exception(res, msg);
 }

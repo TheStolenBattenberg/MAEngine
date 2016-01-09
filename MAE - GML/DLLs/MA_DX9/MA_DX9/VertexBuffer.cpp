@@ -3,10 +3,8 @@
 
 VertexBuffer::VertexBuffer(uint length, uint usage, D3DPOOL pool)
 {
-	HRESULT res = mamain->d3ddev->CreateVertexBuffer(length, usage, 0, pool, &vb, 0);
-
-	if (FAILED(res))
-		mamain->err.onErrorDX9("Failed to create vertex buffer", res);
+	// TODO: Add error checking
+	mamain->d3ddev->CreateVertexBuffer(length, usage, 0, pool, &vb, 0);
 }
 
 VertexBuffer::~VertexBuffer()
@@ -21,9 +19,10 @@ Memory* VertexBuffer::createMemoryInterface(uint offset, uint size, uint flags)
 
 	HRESULT res = vb->Lock(offset, size, &ptr, flags);
 
+	// TODO: Add error checking
+
 	if (FAILED(res))
 	{
-		mamain->err.onErrorDX9("Failed to lock vertex buffer", res);
 		return 0;
 	}
 

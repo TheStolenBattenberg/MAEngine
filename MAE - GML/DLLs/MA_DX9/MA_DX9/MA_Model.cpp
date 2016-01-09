@@ -117,11 +117,10 @@ DLLEXPORT double MAE_MPMLoad(const char* file)
 {
 	MPMModel* m = new MPMModel();
 
-	if (!m->load(file))
-	{
-		delete m;
-		return -1;
-	}
+	ErrorCode res = m->load(file);
+
+	if (res != ErrorOk)
+		return res;
 
 	return putInto(m, mamain->MPMModels);
 }

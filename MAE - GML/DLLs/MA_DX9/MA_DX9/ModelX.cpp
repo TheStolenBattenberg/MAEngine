@@ -28,8 +28,9 @@ bool XModel::load(std::string filename, std::string texturedir) {
 
 	HRESULT res;
 	res = D3DXLoadMeshFromX(filename.c_str(), D3DXMESH_SYSTEMMEM, mamain->d3ddev, NULL, &materialBuffer, NULL, &materialCount, &mesh);
+
 	if (FAILED(res)) {
-		mamain->err.onErrorDX9("Couldn't load .X mesh. ", res);
+		ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, res, "D3DXLoadMeshFromX");
 		return false;
 	}
 
@@ -37,12 +38,6 @@ bool XModel::load(std::string filename, std::string texturedir) {
 
 	materials = new D3DMATERIAL9[materialCount];
 	textures  = new LPDIRECT3DTEXTURE9[materialCount];
-
-	if (materials == NULL || textures == NULL) {
-		mamain->err.onError("Failed to allocate memory");
-		materialBuffer->Release();
-		return false;
-	}
 
 	memset(materials, 0, materialCount * sizeof(D3DMATERIAL9));
 	memset(textures, 0, materialCount * sizeof(LPDIRECT3DTEXTURE9));
@@ -53,10 +48,12 @@ bool XModel::load(std::string filename, std::string texturedir) {
 
 		textures[i] = NULL;
 		if (xMaterials[i].pTextureFilename != NULL && lstrlen(xMaterials[i].pTextureFilename) > 0) {
-			res = D3DXCreateTextureFromFile(mamain->d3ddev, (texturedir + '/' + xMaterials[i].pTextureFilename).c_str(), &textures[i]);
-			if (FAILED(res)) {
-				mamain->err.onErrorDX9("Couldn't load .X texture.", res);
-			}
+			std::string file = texturedir + '/' + xMaterials[i].pTextureFilename;
+
+			res = D3DXCreateTextureFromFile(mamain->d3ddev, file.c_str(), &textures[i]);
+
+			if (FAILED(res))
+				ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateTexFromFile, res, file);
 		}
 	}
 

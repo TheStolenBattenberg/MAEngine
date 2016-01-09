@@ -24,7 +24,8 @@ public:
 
 	const char* returnStr(std::string& str);
 	
-	Error err;
+	ErrorObject err;
+	CriticalErrorHandler errCrit;
 
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
@@ -48,7 +49,6 @@ public:
 
 	DWORD stFVF;
 
-	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationMPM = 0;
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationParticle = 0;
 
 	/**
