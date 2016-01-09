@@ -7,7 +7,7 @@ DLLEXPORT double MADX9_TextureCreateFromFile(const char* file, Texture::MipMaps 
 {
 	Texture* tex = new Texture();
 
-	if (!tex->loadFromFile(file, mipmaps))
+	if (tex->loadFromFile(file, mipmaps) != ErrorOk)
 	{
 		delete tex;
 		return -1;

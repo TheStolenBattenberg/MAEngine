@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Types.h"
+
 #include <d3d9.h>
 #include <vector>
-
-#include "Types.h"
 
 class VertexDecl
 {
@@ -11,7 +11,7 @@ public:
 	~VertexDecl();
 
 	void add(ushort stream, ushort offset, ubyte type, ubyte method, ubyte usage, ubyte usageIndex);
-	bool build();
+	ErrorCode build();
 	void set();
 
 private:

@@ -248,18 +248,15 @@ MD2Model::~MD2Model()
 		decl->Release();
 }
 
-bool MD2Model::load(std::string model, bool normals)
+ErrorCode MD2Model::load(std::string model, bool normals)
 {
 	this->normals = normals;
 
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
-	if (!f.is_open())
-	{
-		mamain->err.onError("Failed to open MD2 file.");
-		return 0;
-	}
-
+	if (!f)
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorReadFile, model);
+	
 	/**
 	* Load and validate MD2 Header
 	*/
@@ -269,10 +266,7 @@ bool MD2Model::load(std::string model, bool normals)
 	f.read((char*)&h, sizeof(h));
 
 	if (h.magicNumber != MD2Type::MagicNumber || h.version != MD2Type::Version || h.frameSize == 0)
-	{
-		mamain->err.onError("The MD2 header is corrupt.");
-		return 0;
-	}
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorReadFile, model);
 
 	triCount  = h.numTris;
 	vertCount = h.numVert;
@@ -300,11 +294,9 @@ bool MD2Model::load(std::string model, bool normals)
 
 		if (FAILED(result))
 		{
-			mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
-
 			delete[] FrameBuffer;
 
-			return 0;
+			return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, result);;
 		}
 
 		if (normals)
@@ -355,11 +347,9 @@ bool MD2Model::load(std::string model, bool normals)
 
 	if (FAILED(result))
 	{
-		mamain->err.onErrorDX9("Couldn't create the DirectX9 Index Buffer!", result);
-
 		delete[] TriangleBuffer;
-
-		return 0;
+		
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateIndexBuffer, result);
 	}
 
 	MD2Type::IndexBuffer* IndexBuffer;
@@ -387,12 +377,10 @@ bool MD2Model::load(std::string model, bool normals)
 
 	if (FAILED(result))
 	{
-		mamain->err.onErrorDX9("Couldn't create the DirectX9 Vertex Buffer!", result);
-
 		delete[] CoordBuffer;
 		delete[] TriangleBuffer;
-
-		return 0;
+		
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, result);
 	}
 
 	TexCoord* VertexTextureBuffer;
@@ -429,10 +417,7 @@ bool MD2Model::load(std::string model, bool normals)
 		HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-		{
-			mamain->err.onErrorDX9("Failed to create vertex declaration", res);
-			return 0;
-		}
+			return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexDecl, res);
 	}
 	else
 	{
@@ -447,13 +432,10 @@ bool MD2Model::load(std::string model, bool normals)
 		HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-		{
-			mamain->err.onErrorDX9("Failed to create vertex declaration", res);
-			return 0;
-		}
+			return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexDecl, res);
 	}
 
-	return 1;
+	return ErrorOk;
 }
 
 void MD2Model::setTexture(LPDIRECT3DTEXTURE9 tex)

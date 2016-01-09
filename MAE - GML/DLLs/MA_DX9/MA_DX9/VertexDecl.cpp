@@ -9,26 +9,21 @@ VertexDecl::~VertexDecl()
 
 void VertexDecl::add(ushort stream, ushort offset, ubyte type, ubyte method, ubyte usage, ubyte usageIndex)
 {
-	D3DVERTEXELEMENT9 elem = {stream, offset, type, method, usage, usageIndex};
-	elems.push_back(elem);
+	elems.push_back({stream, offset, type, method, usage, usageIndex});
 }
 
-bool VertexDecl::build()
+ErrorCode VertexDecl::build()
 {
-	D3DVERTEXELEMENT9 elem = D3DDECL_END();
-	elems.push_back(elem);
+	elems.push_back(D3DDECL_END());
 
 	HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elems.data(), &decl);
 
 	if (FAILED(res))
-	{
-		mamain->err.onErrorDX9("Failed to create vertex declaration", res);
-		return 0;
-	}
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, res);
 
 	elems.clear();
 
-	return 1;
+	return ErrorOk;
 }
 
 void VertexDecl::set()

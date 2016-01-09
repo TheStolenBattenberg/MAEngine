@@ -67,19 +67,13 @@ DLLEXPORT double MADX9_ShaderSet(double index)
 	result = mamain->d3ddev->SetVertexShader(mamain->Shader[(uint)index]->VShader);
 
 	if (FAILED(result))
-	{
-		mamain->err.onErrorDX9("Failed to set vertex shader", result);
-		return 0;
-	}
-
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, result, "SetVertexShader");
+	
 	//Set the Pixel Shader
 	result = mamain->d3ddev->SetPixelShader(mamain->Shader[(uint)index]->PShader);
 
 	if (FAILED(result))
-	{
-		mamain->err.onErrorDX9("Failed to set pixel shader", result);
-		return 0;
-	}
+		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, result, "SetPixelShader");
 
 	return 1;
 }

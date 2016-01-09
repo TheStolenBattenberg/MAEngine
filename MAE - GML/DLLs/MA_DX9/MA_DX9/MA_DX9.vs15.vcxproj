@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MA_BulletBody.cpp" />
     <ClCompile Include="MA_BulletConstraint.cpp" />
@@ -55,7 +54,6 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletDebugDraw.h" />
-    <ClInclude Include="Exception.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Math.h" />

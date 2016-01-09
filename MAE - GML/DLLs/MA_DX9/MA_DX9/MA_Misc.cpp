@@ -2,7 +2,6 @@
 #include "Types.h"
 #include "Hook.h"
 #include "Math.h"
-#include "Exception.h"
 #include "Utils.h"
 
 /**
@@ -21,17 +20,17 @@ DLLEXPORT double MADX9_MathRandomRange(double min, double max) {
  */
 
 DLLEXPORT double MADX9_ErrorSetFlags(double flags) {
-	mamain->err.flags = (uint)flags;
+	mamain->errCrit.flags = (uint)flags;
 
 	return 1;
 }
 
 DLLEXPORT double MADX9_ErrorEmpty() {
-	return mamain->err.empty();
+	return mamain->errCrit.empty();
 }
 
 DLLEXPORT const char* MADX9_ErrorPop() {
-	return mamain->returnStr(mamain->err.pop());
+	return mamain->returnStr(mamain->errCrit.pop().getErrorString());
 }
 
 /**
@@ -99,19 +98,16 @@ DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
 
 DLLEXPORT double MADX9_SetSamplerState(double stage, double type, double value)
 {
-	_GMEXBEG();
+	HRESULT res = mamain->d3ddev->SetSamplerState((uint) stage, (D3DSAMPLERSTATETYPE) (uint) type, (uint) value);
 
-	CheckDX9Result(mamain->d3ddev->SetSamplerState((uint) stage, (D3DSAMPLERSTATETYPE) (uint) type, (uint) value), "Failed to set sampler state");
+	if (FAILED(res))
+		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetSamplerState");
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_SetRenderState(double state, double value)
 {
-	_GMEXBEG();
-
 	uint v;
 
 	switch ((D3DRENDERSTATETYPE)(uint)state)
@@ -135,11 +131,12 @@ DLLEXPORT double MADX9_SetRenderState(double state, double value)
 		break;
 	}
 
-	CheckDX9Result(mamain->d3ddev->SetRenderState((D3DRENDERSTATETYPE)(uint)state, v), "Failed to set render state");
+	HRESULT res = mamain->d3ddev->SetRenderState((D3DRENDERSTATETYPE) (uint) state, v);
 
-	return 1;
+	if (FAILED(res))
+		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetSamplerState");
 
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 /**
@@ -148,16 +145,14 @@ DLLEXPORT double MADX9_SetRenderState(double state, double value)
 
 DLLEXPORT double MADX9_FreePointer(double p)
 {
-	_GMEXBEG();
-
-	void* ptr = DoubleToPtr(p);
+	LPUNKNOWN ptr = (LPUNKNOWN) DoubleToPtr(p);
 
 	if (ptr == 0)
-		throw MAEInvException("Pointer is null");
+		return ErrorHandle(mamain->err, ErrorInv);
 
-	return SUCCEEDED(((LPUNKNOWN) ptr)->Release());
+	ptr->Release();
 
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_Clear(double colour, double alpha, double z, double stencil, double flags)

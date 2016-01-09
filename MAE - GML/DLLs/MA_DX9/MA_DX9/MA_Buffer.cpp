@@ -3,7 +3,6 @@
 #include "Buffer.h"
 #include "Memory.h"
 #include "Utils.h"
-#include "Exception.h"
 
 enum Type
 {
@@ -21,114 +20,80 @@ void* bufferPtr = 0;
 
 DLLEXPORT double MADX9_BufferCreate()
 {
-	_GMEXBEG();
-
 	return putInto(new Buffer(new DynamicMemory()), mamain->Buffers);
-
-	_GMEXEND(-1, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_BufferDestroy(double ind)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	delete mamain->Buffers[(uint) ind];
 	mamain->Buffers[(uint) ind] = 0;
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferReserve(double ind, double amount)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->reserve((uint) amount);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferRemove(double ind, double offset, double length)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->remove((uint) offset, (uint) length);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferSeek(double ind, double offset)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->seek((uint) offset);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferTell(double ind)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	return mamain->Buffers[(uint) ind]->tell();
-
-	_GMEXEND(-1, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_BufferSize(double ind)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	return mamain->Buffers[(uint) ind]->size();
-
-	_GMEXEND(-1, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_BufferWrite(double ind, const void* data, double bufofs, double length)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->write((ubyte*) data + (uint) bufofs, (uint) length);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferWriteValue(double ind, double type, double value)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	switch ((Type) (uint) type)
 	{
@@ -157,34 +122,26 @@ DLLEXPORT double MADX9_BufferWriteValue(double ind, double type, double value)
 		mamain->Buffers[(uint) ind]->write<double>((double) value);
 		break;
 	default:
-		throw MAEInvException("Invalid buffer value type");
+		return ErrorInv;
 	}
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferRead(double ind, void* data, double bufofs, double length)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->read((ubyte*) data + (uint) bufofs, (uint) length);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferReadValue(double ind, double type)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	switch ((Type) (uint) type)
 	{
@@ -205,32 +162,24 @@ DLLEXPORT double MADX9_BufferReadValue(double ind, double type)
 	case TypeF64:
 		return mamain->Buffers[(uint) ind]->read<double>();
 	default:
-		throw MAEInvException("Invalid buffer value type");
+		return ErrorInv;
 	}
-
-	_GMEXEND(-1, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_BufferPoke(double ind, double offset, double bufofs, double length)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->poke((uint) offset, (ubyte*) bufferPtr + (uint) bufofs, (uint) length);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferPokeValue(double ind, double offset, double type, double value)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	switch ((Type) (uint) type)
 	{
@@ -259,34 +208,26 @@ DLLEXPORT double MADX9_BufferPokeValue(double ind, double offset, double type, d
 		mamain->Buffers[(uint) ind]->poke<double>((uint) offset, (double) value);
 		break;
 	default:
-		throw MAEInvException("Invalid buffer value type");
+		return ErrorInv;
 	}
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferPeek(double ind, double offset, double bufofs, double length)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	mamain->Buffers[(uint) ind]->peek((uint) offset, (ubyte*) bufferPtr + (uint) bufofs, (uint) length);
 
-	return 1;
-
-	_GMEXEND(0, mamain->err, mamain->ignoreInv);
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_BufferPeekValue(double ind, double offset, double type)
 {
-	_GMEXBEG();
-
 	if (!isValidIndex((uint) ind, mamain->Buffers))
-		throw MAEInvException("Invalid buffer id");
+		return ErrorInv;
 
 	switch ((Type) (uint) type)
 	{
@@ -307,14 +248,12 @@ DLLEXPORT double MADX9_BufferPeekValue(double ind, double offset, double type)
 	case TypeF64:
 		return mamain->Buffers[(uint) ind]->peek<double>((uint) offset);
 	default:
-		throw MAEInvException("Invalid buffer value type");
+		return ErrorInv;
 	}
-
-	_GMEXEND(-1, mamain->err, mamain->ignoreInv);
 }
 
 DLLEXPORT double MADX9_BufferSetPointer(void* ptr)
 {
 	bufferPtr = ptr;
-	return 1;
+	return ErrorOk;
 }
