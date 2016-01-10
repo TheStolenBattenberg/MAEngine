@@ -1,4 +1,4 @@
-///MAE_NavMeshDebugDraw()
+///MAE_NavMeshDebugDraw(index)
 
-return external_call(global.MA_NavMeshDebugDraw);
+return external_call(global.MA_NavMeshDebugDraw, argument0);
 

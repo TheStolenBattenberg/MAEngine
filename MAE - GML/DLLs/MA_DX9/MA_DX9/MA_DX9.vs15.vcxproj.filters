@@ -153,6 +153,9 @@
     <ClCompile Include="NavMeshDebugDraw.cpp">
       <Filter>Source Files\Navigation</Filter>
     </ClCompile>
+    <ClCompile Include="MA_Navigation.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">

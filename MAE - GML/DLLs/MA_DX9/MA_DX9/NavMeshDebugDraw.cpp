@@ -1,4 +1,5 @@
 #include "NavMeshDebugDraw.h"
+#include "Main.h"
 
 void NavMeshDebugDraw::depthMask(bool state)
 {

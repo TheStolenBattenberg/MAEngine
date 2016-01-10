@@ -1,12 +1,9 @@
 #include "Navigation.h"
-#include "Main.h"
-#include "DetourDebugDraw.h"
-#include "RecastDebugDraw.h"
 #include <iostream>
 
 MANavigation* manav = nullptr;
 
-MANavigation::MANavigation()
+MANavMesh::MANavMesh()
 {
 	m_ctx = new rcContext();
 	m_navQuery = dtAllocNavMeshQuery();
@@ -25,17 +22,17 @@ MANavigation::MANavigation()
 	m_detailSampleMaxError = 1.f;
 }
 
-MANavigation::~MANavigation()
+MANavMesh::~MANavMesh()
 {
 	delete m_ctx;
 	dtFreeNavMeshQuery(m_navQuery);
 	cleanup();
 }
 
-void MANavigation::cleanup()
+void MANavMesh::cleanup()
 {
 	if (m_triareas) delete[] m_triareas;
-	dtFreeNavMesh(m_navMesh);	
+	dtFreeNavMesh(m_navMesh);
 	rcFreeHeightField(m_solid);
 	rcFreeCompactHeightfield(m_chf);
 	rcFreeContourSet(m_cset);
@@ -50,59 +47,13 @@ void MANavigation::cleanup()
 	m_dmesh = nullptr;
 }
 
-int MANavigation::createNavMesh(char* filename, float minx, float miny, float minz, float maxx, float maxy, float maxz)
+int MANavMesh::begin(float minx, float miny, float minz, float maxx, float maxy, float maxz)
 {
-	//free previous navmesh
 	cleanup();
-
-	/*
-		Load test mesh from GM model file.
-		This function should take in a vertex buffer instead.
-	*/
-	std::string line;
-	std::ifstream file(filename);
-	vertices.clear();
-	triangles.clear();
-	normals.clear();
-	if (file){
-		int version, lines;
-		file >> version >> lines;
-		file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-		for (int i = 0; i < lines; i++){
-			int n;
-			file >> n;
-			if (n == 6){
-				float x, y, z;
-				file >> x >> y >> z;
-				float nx, ny, nz;
-				file >> nx >> ny >> nz;
-
-				triangles.push_back(vertices.size() / 3);
-
-				vertices.push_back(-x);
-				vertices.push_back(z);
-				vertices.push_back(y);
-
-				normals.push_back(nx);
-				normals.push_back(ny);
-				normals.push_back(nz);
-			}
-			file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
-		file.close();
-	}
-	else return 0;
-
-	float* verts = &vertices[0];
-	int nverts = vertices.size() / 3;
-	int* tris = &triangles[0];
-	int ntris = triangles.size() / 3;
 
 	float bmin[3] = { minx, miny, minz };
 	float bmax[3] = { maxx, maxy, maxz };
 
-	//set config
 	memset(&m_cfg, 0, sizeof(m_cfg));
 	m_cfg.cs = m_cellSize;
 	m_cfg.ch = m_cellHeight;
@@ -126,14 +77,50 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 	if (!m_solid) return -1;
 	if (!rcCreateHeightfield(m_ctx, *m_solid, m_cfg.width, m_cfg.height, m_cfg.bmin, m_cfg.bmax, m_cfg.cs, m_cfg.ch)) return -2;
 
-	m_triareas = new unsigned char[ntris];
-	memset(m_triareas, 0, ntris*sizeof(unsigned char));
-	rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, verts, nverts, tris, ntris, m_triareas);
-	rcRasterizeTriangles(m_ctx, verts, nverts, tris, m_triareas, ntris, *m_solid, m_cfg.walkableClimb);
+	return 1;
+}
+
+int MANavMesh::addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix)
+{
+	int* tbuffer = nullptr;
+	if (!tris) {
+		tris = new int[nverts / 3];
+		for (int i = 0; i < nverts / 3; ++i) {
+			tris[i] = i;
+		}
+		ntris = nverts / 9;
+		tbuffer = tris;
+	}
+	float* vbuffer = new float[nverts * 3];
+	D3DXMATRIX d3dmatrix(matrix);
+	for (int i = 0; i < nverts; ++i) {
+		float x = verts[i * 3];
+		float y = verts[i * 3 + 1];
+		float z = verts[i * 3 + 2];		
+		D3DXVECTOR3 v(x, y, z);
+		D3DXVECTOR3 vOut;
+		D3DXVec3TransformCoord(&vOut, &v, &d3dmatrix);
+		vbuffer[i * 3] = -vOut.x;
+		vbuffer[i * 3 + 1] = vOut.z;
+		vbuffer[i * 3 + 2] = vOut.y;
+	}
+
+	m_triareas = new uint8_t[ntris];
+	memset(m_triareas, 0, ntris*sizeof(uint8_t));
+
+	rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, vbuffer, nverts, tris, ntris, m_triareas);
+	rcRasterizeTriangles(m_ctx, vbuffer, nverts, tris, m_triareas, ntris, *m_solid, m_cfg.walkableClimb);
 
 	delete[] m_triareas;
 	m_triareas = nullptr;
+	delete[] vbuffer;
+	if (tbuffer) delete[] tbuffer;
 
+	return 1;
+}
+
+int MANavMesh::end()
+{
 	rcFilterLowHangingWalkableObstacles(m_ctx, m_cfg.walkableClimb, *m_solid);
 	rcFilterLedgeSpans(m_ctx, m_cfg.walkableHeight, m_cfg.walkableClimb, *m_solid);
 	rcFilterWalkableLowHeightSpans(m_ctx, m_cfg.walkableHeight, *m_solid);
@@ -188,13 +175,13 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 	params.detailTris = m_dmesh->tris;
 	params.detailTriCount = m_dmesh->ntris;
 	/*
-	params.offMeshConVerts = 
-	params.offMeshConRad = 
-	params.offMeshConDir = 
-	params.offMeshConAreas = 
-	params.offMeshConFlags = 
-	params.offMeshConUserID = 
-	params.offMeshConCount = 
+	params.offMeshConVerts =
+	params.offMeshConRad =
+	params.offMeshConDir =
+	params.offMeshConAreas =
+	params.offMeshConFlags =
+	params.offMeshConUserID =
+	params.offMeshConCount =
 	*/
 	params.walkableHeight = m_agentHeight;
 	params.walkableRadius = m_agentRadius;
@@ -205,7 +192,7 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 	params.ch = m_cfg.ch;
 	params.buildBvTree = true;
 
-	unsigned char* navData = nullptr;
+	uint8_t* navData = nullptr;
 	int navDataSize = 0;
 	if (!dtCreateNavMeshData(&params, &navData, &navDataSize)) return -16;
 
@@ -217,142 +204,14 @@ int MANavigation::createNavMesh(char* filename, float minx, float miny, float mi
 
 	dtStatus status;
 	status = m_navMesh->init(navData, navDataSize, DT_TILE_FREE_DATA);
-	if (dtStatusFailed(status)){
+	if (dtStatusFailed(status)) {
 		dtFree(navData);
 		return -18;
 	}
 
 	status = m_navQuery->init(m_navMesh, 2048);
+	
 	if (dtStatusFailed(status)) return -19;
 
 	return 1;
-}
-
-//test functions
-
-DLLEXPORT double MA_NavMeshCreate(char* filename)
-{
-	return manav->createNavMesh(filename, -30, -30, -30, 30, 30, 30);
-}
-
-DLLEXPORT double MA_NavMeshDestroy()
-{
-	manav->cleanup();
-	return 1;
-}
-
-DLLEXPORT double MA_NavMeshDebugDraw()
-{
-	duDebugDrawNavMesh(&manav->m_debugDraw, *manav->m_navMesh, 0);
-	float* bmin = manav->m_cfg.bmin;
-	float* bmax = manav->m_cfg.bmax;
-	duDebugDrawBoxWire(&manav->m_debugDraw, bmin[0], bmin[1], bmin[2], bmax[0], bmax[1], bmax[2], duRGBA(255, 255, 255, 128), 1.f);
-	/*
-	float* verts = &manav->vertices[0];
-	int nverts = manav->vertices.size() / 3;
-	int* tris = &manav->triangles[0];
-	int ntris = manav->triangles.size() / 3;
-	float* normals = &manav->normals[0];
-	duDebugDrawTriMesh(&manav->m_debugDraw, verts, nverts, tris, normals, ntris, 0, 1.f);
-	*/
-	return 1;
-}
-
-DLLEXPORT double MA_NavMeshSetAgentConfig(double agent_height, double agent_radius, double agent_max_climb, double agent_max_slope)
-{
-	manav->m_agentHeight = (float)agent_height;
-	manav->m_agentRadius = (float)agent_radius;
-	manav->m_agentMaxClimb = (float)agent_max_climb;
-	manav->m_agentMaxSlope = (float)agent_max_slope;
-	return 1;
-}
-
-DLLEXPORT double MA_NavMeshSetConfig(double cell_size, double cell_height, double region_min_size, double region_merge_size, double edge_max_len,
-									 double edge_max_error, double verts_per_poly, double detail_sample_dist, double detail_sample_max_error)
-{
-	manav->m_cellSize = (float)cell_size;
-	manav->m_cellHeight = (float)cell_height;	
-	manav->m_regionMinSize = (float)region_min_size;
-	manav->m_regionMergeSize = (float)region_merge_size;
-	manav->m_edgeMaxLen = (float)edge_max_len;
-	manav->m_edgeMaxError = (float)edge_max_error;
-	manav->m_vertsPerPoly = (float)verts_per_poly;
-	manav->m_detailSampleDist = (float)detail_sample_dist;
-	manav->m_detailSampleMaxError = (float)detail_sample_max_error;
-	return 1;
-}
-
-DLLEXPORT double MA_NavFindNearestPoly(double x, double y, double z, double ex, double ey, double ez)
-{
-	float pos[3] = { (float)-x, (float)z, (float)y };
-	float extents[3] = { (float)ex, (float)ez, (float)ey };
-	dtPolyRef ref;
-	manav->m_navQuery->findNearestPoly(pos, extents, &manav->m_filter, &ref, 0);
-	return ref;
-}
-
-/*
-DLLEXPORT double MA_NavFindPath(double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
-{
-	dtPolyRef startRef = (dtPolyRef)start_poly;
-	dtPolyRef endRef = (dtPolyRef)end_poly;
-	float startPos[3] = { xf, yf, zf };
-	float endPos[3] = { xt, yt, zt };
-	manav->m_navQuery->findPath(startRef, endRef, startPos, endPos, &manav->m_filter, manav->m_polys, &manav->m_npolys, MANavigation::MAX_POLYS);
-	return manav->m_npolys;
-}
-*/
-DLLEXPORT double MA_NavGetPoly(double n)
-{
-	return manav->m_polys[(int)n];
-}
-
-DLLEXPORT double MA_NavFindStraightPath(double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
-{
-	dtPolyRef startRef = (dtPolyRef)start_poly;
-	dtPolyRef endRef = (dtPolyRef)end_poly;
-	float startPos[3] = { (float)-xf, (float)zf, (float)yf };
-	float endPos[3] = { (float)-xt, (float)zt, (float)yt };
-	float epos[3];
-
-	manav->m_navQuery->findPath(startRef, endRef, startPos, endPos, &manav->m_filter, manav->m_polys, &manav->m_npolys, MANavigation::MAX_POLYS);
-
-	rcVcopy(epos, endPos);
-	if (manav->m_polys[manav->m_npolys - 1] != endRef)
-		manav->m_navQuery->closestPointOnPoly(manav->m_polys[manav->m_npolys - 1], endPos, epos, 0);
-
-	if (manav->m_npolys) {
-		manav->m_navQuery->findStraightPath(startPos, epos, manav->m_polys, manav->m_npolys, manav->m_straightPath, manav->m_straightPathFlags,
-			manav->m_straightPathPolys, &manav->m_nstraightPath, MANavigation::MAX_POLYS, 0);
-	}
-
-	return manav->m_npolys;
-	
-}
-
-DLLEXPORT double MA_NavGetPathLength()
-{
-	return manav->m_nstraightPath;
-}
-
-DLLEXPORT double MA_NavGetPathPos(double n)
-{
-	manav->returnVec[0] = manav->m_straightPath[(int)n * 3] * -1;
-	manav->returnVec[1] = manav->m_straightPath[(int)n * 3 + 2];
-	manav->returnVec[2] = manav->m_straightPath[(int)n * 3 + 1];
-	return 1;
-}
-
-DLLEXPORT double MA_NavGetVec(double n)
-{
-	switch ((int)n)
-	{
-	case 0:
-		return manav->returnVec[0];
-	case 1:
-		return manav->returnVec[1];
-	case 2:
-		return manav->returnVec[2];
-	}
-	return 0;
 }

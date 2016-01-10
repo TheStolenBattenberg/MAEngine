@@ -29,6 +29,7 @@
     <ClCompile Include="MA_Material.cpp" />
     <ClCompile Include="MA_Misc.cpp" />
     <ClCompile Include="MA_Model.cpp" />
+    <ClCompile Include="MA_Navigation.cpp" />
     <ClCompile Include="MA_Particle.cpp" />
     <ClCompile Include="MA_Shader.cpp" />
     <ClCompile Include="MA_Surface.cpp" />

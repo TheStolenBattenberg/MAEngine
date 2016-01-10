@@ -32,11 +32,15 @@ filename = "COMMON/MODEL/navtest.gmmod";
 model = d3d_model_create();
 d3d_model_load(model, filename);
 
-MAE_NavMeshCreate(filename);
+navmesh = MAE_NavMeshCreate();
+MAE_NavMeshBegin(navmesh, -100, -100, -100, 100, 100, 100);
+MAE_NavMeshAddGMModel(navmesh, filename, matrix_get(matrix_world));
+MAE_NavMeshEnd(navmesh);
 
 start_pos = MAE_VectorCreate(2, 16, 1);
 end_pos = MAE_VectorCreate(7, -2, 3);
 
+path = 0;
 </string>
           </argument>
         </arguments>
@@ -69,10 +73,9 @@ d3d_light_enable(0, 1);
 d3d_model_draw(model, 0, 0, 0, -1);
 d3d_set_lighting(false);
 
-MAE_NavMeshDebugDraw();
+MAE_NavMeshDebugDraw(navmesh);
 
-var length = MAE_NavGetPathLength();
-if(length == 0) exit;
+if(!is_array(path)) exit;
 
 var s = 0.5;
 draw_set_color(c_red);
@@ -84,8 +87,9 @@ d3d_transform_set_identity();
 d3d_primitive_begin(pr_linestrip);
 
 d3d_set_hidden(false);
-for(var i=0; i&lt;length; i++){
-    var pos = MAE_NavGetPathPos(i);
+var len = array_length_1d(path);
+for(var i=0; i&lt;len; i++){
+    var pos = path[i];
     d3d_vertex_colour(pos[0], pos[1], pos[2], c_red, 1);
 }
 d3d_primitive_end();
@@ -113,9 +117,9 @@ d3d_set_hidden(true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>start_poly = MAE_NavFindNearestPoly(start_pos[0], start_pos[1], start_pos[2], 2, 2, 2);
-end_poly = MAE_NavFindNearestPoly(end_pos[0], end_pos[1], end_pos[2], 2, 2, 2);
-MAE_NavFindStraightPath(start_poly, end_poly, start_pos[0], start_pos[1], start_pos[2], end_pos[0], end_pos[1], end_pos[2]);
+            <string>start_poly = MAE_NavMeshFindNearestPoly(navmesh, start_pos[0], start_pos[1], start_pos[2], 2, 2, 2);
+end_poly = MAE_NavMeshFindNearestPoly(navmesh, end_pos[0], end_pos[1], end_pos[2], 2, 2, 2);
+path = MAE_NavMeshFindPath(navmesh, start_poly, end_poly, start_pos[0], start_pos[1], start_pos[2], end_pos[0], end_pos[1], end_pos[2]);
 
 </string>
           </argument>
