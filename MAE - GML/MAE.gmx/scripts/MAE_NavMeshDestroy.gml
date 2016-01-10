@@ -1,4 +1,4 @@
-///MAE_NavMeshDestroy()
+///MAE_NavMeshDestroy(index)
 
-return external_call(global.MA_NavMeshDestroy);
+return external_call(global.MA_NavMeshDestroy, argument0);
 

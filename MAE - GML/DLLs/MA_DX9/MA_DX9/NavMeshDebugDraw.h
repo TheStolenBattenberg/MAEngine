@@ -1,7 +1,8 @@
 #pragma once
 
 #include "DebugDraw.h"
-#include "Main.h"
+#include <d3dx9.h>
+#include <vector>
 
 struct DVertex
 {

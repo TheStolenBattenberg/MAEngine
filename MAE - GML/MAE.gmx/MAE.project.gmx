@@ -549,14 +549,15 @@
       <scripts name="Navigation">
         <script>scripts\MAE_NavMeshCreate.gml</script>
         <script>scripts\MAE_NavMeshDestroy.gml</script>
+        <script>scripts\MAE_NavMeshBegin.gml</script>
+        <script>scripts\MAE_NavMeshEnd.gml</script>
+        <script>scripts\MAE_NavMeshAddGMModel.gml</script>
+        <script>scripts\MAE_NavMeshAddVertexBuffer.gml</script>
         <script>scripts\MAE_NavMeshSetConfig.gml</script>
         <script>scripts\MAE_NavMeshSetAgentConfig.gml</script>
         <script>scripts\MAE_NavMeshDebugDraw.gml</script>
-        <script>scripts\MAE_NavFindNearestPoly.gml</script>
-        <script>scripts\MAE_NavFindStraightPath.gml</script>
-        <script>scripts\MAE_NavGetPoly.gml</script>
-        <script>scripts\MAE_NavGetPathLength.gml</script>
-        <script>scripts\MAE_NavGetPathPos.gml</script>
+        <script>scripts\MAE_NavMeshFindNearestPoly.gml</script>
+        <script>scripts\MAE_NavMeshFindPath.gml</script>
       </scripts>
     </scripts>
   </scripts>
