@@ -167,7 +167,7 @@ matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
 matrix_set(matrix_view, matView);
 
 
-d3d_transform_add_scaling(0.06, 0.06, 0.06);
+d3d_transform_add_scaling(0.03, 0.03, 0.03);
 MAE_ModelMPMRender(global.m);
 d3d_transform_set_identity();
 

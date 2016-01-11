@@ -49,7 +49,7 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 
 	matst(const quatt<T>& q)
 	{
-		static_assert(S >= 3, "Must have atleast have a size of 3");
+		static_assert(S >= 3, "Must atleast have a size of 3");
 
 		*this = matst<S, T>();
 
@@ -70,6 +70,21 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 			data[i] = values[i];
 	}
 
+	vecct<S, T> getRow(std::size_t ind)
+	{
+		return vecct<S, T>(&data[ind * S]);
+	}
+
+	vecct<S, T> getColumn(std::size_t ind)
+	{
+		T values[S];
+
+		for (std::size_t i = 0; i < S; ++i)
+			values[S * i + ind];
+
+		return vecct<S, T>(values);
+	}
+
 	T& operator[](std::size_t index)
 	{
 		return data[index];
@@ -88,6 +103,32 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 	const T& operator()(std::size_t column, std::size_t row) const
 	{
 		return data[column + row * size];
+	}
+
+	matst<S, T> operator*(const matst<S, T>& mat)
+	{
+		matst<S, T> ret;
+
+		for (std::size i = 0; i < S; ++i)
+			for (std::size j = 0; j < S; ++j)
+				ret(i, j) = getRow(i) * mat.getColumn(j);
+
+		return ret;
+	}
+
+	vecct<S, T> operator*(const vecct<S, T>& vec)
+	{
+		vecct<S, T> vec;
+
+		for (std::size_t i = 0; i < S; ++i)
+			vec[i] = getRow(i) * vec;
+
+		return vec;
+	}
+
+	matst<S, T>& operator*=(const matst<S, T>& mat)
+	{
+		return *this = *this * mat;
 	}
 };
 
