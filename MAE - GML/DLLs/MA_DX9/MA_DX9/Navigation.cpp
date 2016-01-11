@@ -1,5 +1,5 @@
 #include "Navigation.h"
-#include <iostream>
+#include "Utils.h"
 
 MANavigation* manav = nullptr;
 
@@ -214,4 +214,9 @@ int MANavMesh::end()
 	if (dtStatusFailed(status)) return -19;
 
 	return 1;
+}
+
+MANavigation::~MANavigation()
+{
+	ClearVector(NavMeshes);
 }
