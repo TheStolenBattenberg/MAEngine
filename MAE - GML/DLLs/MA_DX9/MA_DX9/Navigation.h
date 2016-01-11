@@ -60,7 +60,7 @@ struct MANavigation {
 	std::vector<MANavMesh*> NavMeshes;
 
 	MANavigation() {};
-	~MANavigation() {};
+	~MANavigation();
 };
 
 extern MANavigation* manav;
