@@ -45,6 +45,12 @@ void MANavMesh::cleanup()
 	m_cset = nullptr;
 	m_pmesh = nullptr;
 	m_dmesh = nullptr;
+	m_connection_verts.clear();
+	m_connection_rad.clear();
+	m_connection_areas.clear();
+	m_connection_flags.clear();
+	m_connection_userIDs.clear();
+	m_connection_dir.clear();
 }
 
 int MANavMesh::begin(float minx, float miny, float minz, float maxx, float maxy, float maxz)
@@ -173,16 +179,14 @@ int MANavMesh::end()
 	params.detailVerts = m_dmesh->verts;
 	params.detailVertsCount = m_dmesh->nverts;
 	params.detailTris = m_dmesh->tris;
-	params.detailTriCount = m_dmesh->ntris;
-	/*
-	params.offMeshConVerts =
-	params.offMeshConRad =
-	params.offMeshConDir =
-	params.offMeshConAreas =
-	params.offMeshConFlags =
-	params.offMeshConUserID =
-	params.offMeshConCount =
-	*/
+	params.detailTriCount = m_dmesh->ntris;	
+	params.offMeshConVerts = m_connection_verts.data();
+	params.offMeshConRad = m_connection_rad.data();
+	params.offMeshConDir = m_connection_dir.data();
+	params.offMeshConAreas = m_connection_areas.data();
+	params.offMeshConFlags = m_connection_flags.data();
+	params.offMeshConUserID = m_connection_userIDs.data();
+	params.offMeshConCount = m_connection_flags.size();
 	params.walkableHeight = m_agentHeight;
 	params.walkableRadius = m_agentRadius;
 	params.walkableClimb = m_agentMaxClimb;
@@ -213,6 +217,22 @@ int MANavMesh::end()
 	
 	if (dtStatusFailed(status)) return -19;
 
+	return 1;
+}
+
+bool MANavMesh::addLink(float* v1, float* v2, int dir)
+{
+	m_connection_verts.push_back(v1[0]);
+	m_connection_verts.push_back(v1[1]);
+	m_connection_verts.push_back(v1[2]);
+	m_connection_verts.push_back(v2[0]);
+	m_connection_verts.push_back(v2[1]);
+	m_connection_verts.push_back(v2[2]);
+	m_connection_rad.push_back(0);
+	m_connection_dir.push_back(dir);
+	m_connection_areas.push_back(1);
+	m_connection_flags.push_back(1);
+	m_connection_userIDs.push_back(1);
 	return 1;
 }
 

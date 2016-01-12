@@ -16,6 +16,13 @@ DLLEXPORT double MA_NavMeshDestroy(double index)
 	return 1;
 }
 
+DLLEXPORT double MA_NavMeshClear(double index)
+{
+	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	navmesh->cleanup();
+	return 1;
+}
+
 DLLEXPORT double MA_NavMeshBegin(double index, double minx, double miny, double minz, double maxx, double maxy, double maxz)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
@@ -59,9 +66,9 @@ DLLEXPORT double MA_NavMeshAddGMModel(double index, char* filename)
 	}
 	else return 0;
 
-	float* verts = &vertices[0];
+	float* verts = vertices.data();
 	int nverts = vertices.size() / 3;
-	int* tris = &triangles[0];
+	int* tris = triangles.data();
 	int ntris = triangles.size() / 3;
 
 	return navmesh->addMesh(verts, nverts, tris, ntris, mamain->matStack.data());
@@ -79,6 +86,14 @@ DLLEXPORT double MA_NavMeshAddVertexBuffer(double index, float* verts, int* tris
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
 	return navmesh->addMesh(verts, G_nverts, tris, G_ntris, mamain->matStack.data());
+}
+
+DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1, double x2, double y2, double z2, double dir)
+{
+	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	float v1[3] = { (float)x1, (float)y1, (float)z1 };
+	float v2[3] = { (float)x2, (float)y2, (float)z2 };
+	return navmesh->addLink(v1, v2, (int)dir);
 }
 
 DLLEXPORT double MA_NavMeshDebugDraw(double index)

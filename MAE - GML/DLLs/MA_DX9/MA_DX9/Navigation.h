@@ -21,6 +21,13 @@ struct MANavMesh {
 	dtNavMesh* m_navMesh = nullptr;
 	uint8_t* m_triareas = nullptr;
 
+	std::vector<float> m_connection_verts;
+	std::vector<float> m_connection_rad;
+	std::vector<uint8_t> m_connection_dir;
+	std::vector<uint8_t> m_connection_areas;
+	std::vector<uint16_t> m_connection_flags;
+	std::vector<uint32_t> m_connection_userIDs;
+
 	float m_cellSize;
 	float m_cellHeight;
 	float m_agentHeight;
@@ -41,6 +48,7 @@ struct MANavMesh {
 	int begin(float minx, float miny, float minz, float maxx, float maxy, float maxz);
 	int addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix);
 	int end();
+	bool addLink(float* v1, float* v2, int dir);
 };
 
 struct MANavigation {	
