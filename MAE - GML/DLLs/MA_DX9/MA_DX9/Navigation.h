@@ -48,7 +48,7 @@ struct MANavMesh {
 	int begin(float minx, float miny, float minz, float maxx, float maxy, float maxz);
 	int addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix);
 	int end();
-	bool addLink(float* v1, float* v2, int dir);
+	bool addLink(float* v1, float* v2, int dir, float radius);
 };
 
 struct MANavigation {	

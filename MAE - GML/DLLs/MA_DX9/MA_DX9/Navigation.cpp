@@ -57,8 +57,8 @@ int MANavMesh::begin(float minx, float miny, float minz, float maxx, float maxy,
 {
 	cleanup();
 
-	float bmin[3] = { minx, miny, minz };
-	float bmax[3] = { maxx, maxy, maxz };
+	float bmin[3] = { minx, minz, miny };
+	float bmax[3] = { maxx, maxz, maxy };
 
 	memset(&m_cfg, 0, sizeof(m_cfg));
 	m_cfg.cs = m_cellSize;
@@ -220,15 +220,15 @@ int MANavMesh::end()
 	return 1;
 }
 
-bool MANavMesh::addLink(float* v1, float* v2, int dir)
+bool MANavMesh::addLink(float* v1, float* v2, int dir, float radius)
 {
-	m_connection_verts.push_back(v1[0]);
-	m_connection_verts.push_back(v1[1]);
+	m_connection_verts.push_back(-v1[0]);
 	m_connection_verts.push_back(v1[2]);
-	m_connection_verts.push_back(v2[0]);
-	m_connection_verts.push_back(v2[1]);
+	m_connection_verts.push_back(v1[1]);
+	m_connection_verts.push_back(-v2[0]);
 	m_connection_verts.push_back(v2[2]);
-	m_connection_rad.push_back(0);
+	m_connection_verts.push_back(v2[1]);
+	m_connection_rad.push_back(radius);
 	m_connection_dir.push_back(dir);
 	m_connection_areas.push_back(1);
 	m_connection_flags.push_back(1);

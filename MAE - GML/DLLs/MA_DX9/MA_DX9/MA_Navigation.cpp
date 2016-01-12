@@ -88,12 +88,12 @@ DLLEXPORT double MA_NavMeshAddVertexBuffer(double index, float* verts, int* tris
 	return navmesh->addMesh(verts, G_nverts, tris, G_ntris, mamain->matStack.data());
 }
 
-DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1, double x2, double y2, double z2, double dir)
+DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
 	float v1[3] = { (float)x1, (float)y1, (float)z1 };
 	float v2[3] = { (float)x2, (float)y2, (float)z2 };
-	return navmesh->addLink(v1, v2, (int)dir);
+	return navmesh->addLink(v1, v2, (int)dir, (float)radius);
 }
 
 DLLEXPORT double MA_NavMeshDebugDraw(double index)
