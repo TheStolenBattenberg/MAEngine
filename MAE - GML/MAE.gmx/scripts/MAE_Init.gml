@@ -378,10 +378,12 @@ if (argument[0] & INIT_NAVIGATION)
 {   
     global.MA_NavMeshCreate          = external_define(global.DLL_MAE, "MA_NavMeshCreate", dll_cdecl, ty_real, 0);
     global.MA_NavMeshDestroy         = external_define(global.DLL_MAE, "MA_NavMeshDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.MA_NavMeshClear           = external_define(global.DLL_MAE, "MA_NavMeshClear", dll_cdecl, ty_real, 1, ty_real);
     global.MA_NavMeshBegin           = external_define(global.DLL_MAE, "MA_NavMeshBegin", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MA_NavMeshEnd             = external_define(global.DLL_MAE, "MA_NavMeshEnd", dll_cdecl, ty_real, 1, ty_real);
     global.MA_NavMeshAddGMModel      = external_define(global.DLL_MAE, "MA_NavMeshAddGMModel", dll_cdecl, ty_real, 2, ty_real, ty_string);
     global.MA_NavMeshAddVertexBuffer = external_define(global.DLL_MAE, "MA_NavMeshAddVertexBuffer", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
+    global.MA_NavMeshAddLink         = external_define(global.DLL_MAE, "MA_NavMeshAddLink", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MA_NavMeshDebugDraw       = external_define(global.DLL_MAE, "MA_NavMeshDebugDraw", dll_cdecl, ty_real, 1, ty_real);
     global.MA_NavMeshSetConfig       = external_define(global.DLL_MAE, "MA_NavMeshSetConfig", dll_cdecl, ty_real, 10, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MA_NavMeshSetAgentConfig  = external_define(global.DLL_MAE, "MA_NavMeshSetAgentConfig", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);

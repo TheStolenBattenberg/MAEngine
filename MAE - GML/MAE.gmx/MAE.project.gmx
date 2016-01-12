@@ -549,10 +549,12 @@
       <scripts name="Navigation">
         <script>scripts\MAE_NavMeshCreate.gml</script>
         <script>scripts\MAE_NavMeshDestroy.gml</script>
+        <script>scripts\MAE_NavMeshClear.gml</script>
         <script>scripts\MAE_NavMeshBegin.gml</script>
         <script>scripts\MAE_NavMeshEnd.gml</script>
         <script>scripts\MAE_NavMeshAddGMModel.gml</script>
         <script>scripts\MAE_NavMeshAddVertexBuffer.gml</script>
+        <script>scripts\MAE_NavMeshAddLink.gml</script>
         <script>scripts\MAE_NavMeshSetConfig.gml</script>
         <script>scripts\MAE_NavMeshSetAgentConfig.gml</script>
         <script>scripts\MAE_NavMeshDebugDraw.gml</script>
