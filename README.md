@@ -1,6 +1,7 @@
 # MA-Engine
 
 [![Join the chat at https://gitter.im/TheStolenBattenberg/MA-Engine](https://badges.gitter.im/TheStolenBattenberg/MA-Engine.svg)](https://gitter.im/TheStolenBattenberg/MA-Engine?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 MA-Engine, or 'MAE' for short, is a 3D Engine developed for use in Game Maker: Studio by users of the Game Maker Community. In the future, it will be expanded to other languages too, such as C++ and Java.
 
 ## Current Features
