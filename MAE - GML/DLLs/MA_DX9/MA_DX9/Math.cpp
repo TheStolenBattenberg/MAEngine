@@ -18,7 +18,7 @@ float interpLinear(float x, float y, float s) {
 }
 
 float interpCosine(float x, float y, float s) {
-	float interp = (float)(1 - cos(s*M_PI)) / 2;
+	float interp = (float)(1 - cos(s*PI)) / 2;
 	return (x * (1 - interp) + y*interp);
 }
 

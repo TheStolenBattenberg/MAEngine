@@ -1,5 +1,5 @@
 #pragma once
-#define _USE_MATH_DEFINES
+const double PI = 3.14159265359;
 
 #include "Types.h"
 #include <Windows.h>
