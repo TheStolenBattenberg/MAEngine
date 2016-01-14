@@ -51,9 +51,10 @@ void MANavMesh::cleanup()
 	m_connection_flags.clear();
 	m_connection_userIDs.clear();
 	m_connection_dir.clear();
+	m_meshes.clear();
 }
 
-int MANavMesh::begin(float minx, float miny, float minz, float maxx, float maxy, float maxz)
+int MANavMesh::beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz)
 {
 	cleanup();
 
@@ -77,90 +78,129 @@ int MANavMesh::begin(float minx, float miny, float minz, float maxx, float maxy,
 	rcVcopy(m_cfg.bmin, bmin);
 	rcVcopy(m_cfg.bmax, bmax);
 
-	rcCalcGridSize(m_cfg.bmin, m_cfg.bmax, m_cfg.cs, &m_cfg.width, &m_cfg.height);
-
-	m_solid = rcAllocHeightfield();
-	if (!m_solid) return -1;
-	if (!rcCreateHeightfield(m_ctx, *m_solid, m_cfg.width, m_cfg.height, m_cfg.bmin, m_cfg.bmax, m_cfg.cs, m_cfg.ch)) return -2;
-
 	return 1;
 }
 
 int MANavMesh::addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix)
 {
-	int* tbuffer = nullptr;
-	if (!tris) {
-		tris = new int[nverts / 3];
-		for (int i = 0; i < nverts / 3; ++i) {
-			tris[i] = i;
-		}
-		ntris = nverts / 9;
-		tbuffer = tris;
-	}
-	float* vbuffer = new float[nverts * 3];
-	D3DXMATRIX d3dmatrix(matrix);
-	for (int i = 0; i < nverts; ++i) {
-		float x = verts[i * 3];
-		float y = verts[i * 3 + 1];
-		float z = verts[i * 3 + 2];		
-		D3DXVECTOR3 v(x, y, z);
-		D3DXVECTOR3 vOut;
-		D3DXVec3TransformCoord(&vOut, &v, &d3dmatrix);
-		vbuffer[i * 3] = -vOut.x;
-		vbuffer[i * 3 + 1] = vOut.z;
-		vbuffer[i * 3 + 2] = vOut.y;
-	}
-
-	m_triareas = new uint8_t[ntris];
-	memset(m_triareas, 0, ntris*sizeof(uint8_t));
-
-	rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, vbuffer, nverts, tris, ntris, m_triareas);
-	rcRasterizeTriangles(m_ctx, vbuffer, nverts, tris, m_triareas, ntris, *m_solid, m_cfg.walkableClimb);
-
-	delete[] m_triareas;
-	m_triareas = nullptr;
-	delete[] vbuffer;
-	if (tbuffer) delete[] tbuffer;
-
+	m_meshes.push_back({verts, nverts, tris, ntris, D3DXMATRIX(matrix) });
 	return 1;
 }
 
-int MANavMesh::end()
+int MANavMesh::endBuild(bool async)
 {
+	if (async) {
+		buildStatus = 0;
+		m_build_thread = std::thread(&MANavMesh::build, this);
+		return 1;
+	}
+	build();
+	return buildStatus;
+}
+
+void MANavMesh::build()
+{
+	rcCalcGridSize(m_cfg.bmin, m_cfg.bmax, m_cfg.cs, &m_cfg.width, &m_cfg.height);
+
+	m_solid = rcAllocHeightfield();
+	rcCreateHeightfield(m_ctx, *m_solid, m_cfg.width, m_cfg.height, m_cfg.bmin, m_cfg.bmax, m_cfg.cs, m_cfg.ch);
+
+	for (auto i : m_meshes) {
+		int* tris = i.tris;
+		int ntris = i.ntris;
+		float* verts = i.verts;
+		int nverts = i.nverts;
+		D3DXMATRIX d3dmatrix = i.matrix;
+
+		int* tbuffer = nullptr;
+		if (!tris) {
+			tris = new int[nverts / 3];
+			for (int i = 0; i < nverts / 3; ++i) {
+				tris[i] = i;
+			}
+			ntris = nverts / 9;
+			tbuffer = tris;
+		}
+		float* vbuffer = new float[nverts * 3];		
+		for (int i = 0; i < nverts; ++i) {
+			float x = verts[i * 3];
+			float y = verts[i * 3 + 1];
+			float z = verts[i * 3 + 2];
+			D3DXVECTOR3 v(x, y, z);
+			D3DXVECTOR3 vOut;
+			D3DXVec3TransformCoord(&vOut, &v, &d3dmatrix);
+			vbuffer[i * 3] = -vOut.x;
+			vbuffer[i * 3 + 1] = vOut.z;
+			vbuffer[i * 3 + 2] = vOut.y;
+		}
+
+		m_triareas = new uint8_t[ntris];
+		memset(m_triareas, 0, ntris*sizeof(uint8_t));
+
+		rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, vbuffer, nverts, tris, ntris, m_triareas);
+		rcRasterizeTriangles(m_ctx, vbuffer, nverts, tris, m_triareas, ntris, *m_solid, m_cfg.walkableClimb);
+
+		delete[] m_triareas;
+		m_triareas = nullptr;
+		delete[] vbuffer;
+		if (tbuffer) delete[] tbuffer;
+	}
+	m_meshes.clear();
+
 	rcFilterLowHangingWalkableObstacles(m_ctx, m_cfg.walkableClimb, *m_solid);
 	rcFilterLedgeSpans(m_ctx, m_cfg.walkableHeight, m_cfg.walkableClimb, *m_solid);
 	rcFilterWalkableLowHeightSpans(m_ctx, m_cfg.walkableHeight, *m_solid);
 
 	m_chf = rcAllocCompactHeightfield();
-	if (!m_chf) return -4;
-	if (!rcBuildCompactHeightfield(m_ctx, m_cfg.walkableHeight, m_cfg.walkableClimb, *m_solid, *m_chf)) return -5;
+	if (!rcBuildCompactHeightfield(m_ctx, m_cfg.walkableHeight, m_cfg.walkableClimb, *m_solid, *m_chf)) {
+		buildStatus = -1;
+		return;
+	}
 
 	rcFreeHeightField(m_solid);
 	m_solid = nullptr;
 
-	if (!rcErodeWalkableArea(m_ctx, m_cfg.walkableRadius, *m_chf)) return -6;
+	if (!rcErodeWalkableArea(m_ctx, m_cfg.walkableRadius, *m_chf)) {
+		buildStatus = -2;
+		return;
+	}
 
-	if (!rcBuildDistanceField(m_ctx, *m_chf)) return -7;
-	if (!rcBuildRegions(m_ctx, *m_chf, 0, m_cfg.minRegionArea, m_cfg.mergeRegionArea)) return -8;
+	if (!rcBuildDistanceField(m_ctx, *m_chf)) {
+		buildStatus = -3;
+		return;
+	}
+	if (!rcBuildRegions(m_ctx, *m_chf, 0, m_cfg.minRegionArea, m_cfg.mergeRegionArea)) {
+		buildStatus = -4;
+		return;
+	}
 
 	m_cset = rcAllocContourSet();
-	if (!m_cset) return -9;
-	if (!rcBuildContours(m_ctx, *m_chf, m_cfg.maxSimplificationError, m_cfg.maxEdgeLen, *m_cset)) return -10;
+	if (!rcBuildContours(m_ctx, *m_chf, m_cfg.maxSimplificationError, m_cfg.maxEdgeLen, *m_cset)) {
+		buildStatus = -5;
+		return;
+	}
 
 	m_pmesh = rcAllocPolyMesh();
-	if (!m_pmesh) return -11;
-	if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh)) return -12;
+	if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh)) {
+		buildStatus = -6;
+		return;
+	}
 
 	m_dmesh = rcAllocPolyMeshDetail();
-	if (!m_dmesh) return -13;
-	if (!rcBuildPolyMeshDetail(m_ctx, *m_pmesh, *m_chf, m_cfg.detailSampleDist, m_cfg.detailSampleMaxError, *m_dmesh)) return -14;
+	if (!rcBuildPolyMeshDetail(m_ctx, *m_pmesh, *m_chf, m_cfg.detailSampleDist, m_cfg.detailSampleMaxError, *m_dmesh)) {
+		buildStatus = -7;
+		return;
+	}
 
 	rcFreeCompactHeightfield(m_chf);
 	m_chf = nullptr;
 	rcFreeContourSet(m_cset);
 	m_cset = nullptr;
 
-	if (m_cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON) return -15;
+	if (m_cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON) {
+		buildStatus = -8;
+		return;
+	}
 
 	for (int i = 0; i < m_pmesh->npolys; ++i) {
 		m_pmesh->flags[i] = 1;
@@ -198,26 +238,34 @@ int MANavMesh::end()
 
 	uint8_t* navData = nullptr;
 	int navDataSize = 0;
-	if (!dtCreateNavMeshData(&params, &navData, &navDataSize)) return -16;
+	if (!dtCreateNavMeshData(&params, &navData, &navDataSize)) {
+		buildStatus = -9;
+		return;
+	}
 
 	m_navMesh = dtAllocNavMesh();
 	if (!m_navMesh) {
 		dtFree(navData);
-		return -17;
+		buildStatus = -10;
+		return;
 	}
 
 	dtStatus status;
 	status = m_navMesh->init(navData, navDataSize, DT_TILE_FREE_DATA);
 	if (dtStatusFailed(status)) {
 		dtFree(navData);
-		return -18;
+		buildStatus = -11;
+		return;
 	}
 
 	status = m_navQuery->init(m_navMesh, 2048);
 	
-	if (dtStatusFailed(status)) return -19;
+	if (dtStatusFailed(status)) {
+		buildStatus = -12;
+		return;
+	}
 
-	return 1;
+	buildStatus = 1;
 }
 
 bool MANavMesh::addLink(float* v1, float* v2, int dir, float radius)

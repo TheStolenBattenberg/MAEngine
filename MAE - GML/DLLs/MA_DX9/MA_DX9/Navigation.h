@@ -7,8 +7,33 @@
 #include "NavMeshDebugDraw.h"
 #include <stdint.h>
 #include <vector>
+#include <thread>
 
-struct MANavMesh {
+class MANavMesh {
+private:
+	struct Mesh {
+		float* verts;
+		int nverts;
+		int* tris;
+		int ntris;
+		D3DXMATRIX matrix;
+	};
+
+	std::vector<Mesh> m_meshes;
+
+	std::vector<float> m_connection_verts;
+	std::vector<float> m_connection_rad;
+	std::vector<uint8_t> m_connection_dir;
+	std::vector<uint8_t> m_connection_areas;
+	std::vector<uint16_t> m_connection_flags;
+	std::vector<uint32_t> m_connection_userIDs;
+
+	std::thread m_build_thread;
+	volatile int buildStatus = -20;
+
+	void build();
+
+public:
 	rcContext* m_ctx;
 	rcConfig m_cfg;
 	dtNavMeshQuery* m_navQuery;
@@ -20,13 +45,6 @@ struct MANavMesh {
 	rcPolyMeshDetail* m_dmesh = nullptr;
 	dtNavMesh* m_navMesh = nullptr;
 	uint8_t* m_triareas = nullptr;
-
-	std::vector<float> m_connection_verts;
-	std::vector<float> m_connection_rad;
-	std::vector<uint8_t> m_connection_dir;
-	std::vector<uint8_t> m_connection_areas;
-	std::vector<uint16_t> m_connection_flags;
-	std::vector<uint32_t> m_connection_userIDs;
 
 	float m_cellSize;
 	float m_cellHeight;
@@ -45,13 +63,18 @@ struct MANavMesh {
 	MANavMesh();
 	~MANavMesh();
 	void cleanup();
-	int begin(float minx, float miny, float minz, float maxx, float maxy, float maxz);
+	int beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz);
 	int addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix);
-	int end();
+	int endBuild(bool async);
 	bool addLink(float* v1, float* v2, int dir, float radius);
+	inline int getBuildStatus() { return buildStatus; }
+	inline int waitForBuild() {
+		if(m_build_thread.joinable()) m_build_thread.join();
+		return buildStatus;
+	}
 };
 
-struct MANavigation {	
+struct MANavigation {
 	NavMeshDebugDraw m_debugDraw;	
 	float returnVec[3];
 	

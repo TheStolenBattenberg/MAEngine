@@ -11,7 +11,9 @@ DLLEXPORT double MA_NavMeshCreate()
 
 DLLEXPORT double MA_NavMeshDestroy(double index)
 {
-	delete manav->NavMeshes[(uint)index];
+	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	navmesh->waitForBuild();
+	delete navmesh;
 	manav->NavMeshes[(uint)index] = 0;
 	return 1;
 }
@@ -19,30 +21,51 @@ DLLEXPORT double MA_NavMeshDestroy(double index)
 DLLEXPORT double MA_NavMeshClear(double index)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() == 0) return -1;
+
 	navmesh->cleanup();
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshBegin(double index, double minx, double miny, double minz, double maxx, double maxy, double maxz)
+DLLEXPORT double MA_NavMeshBeginBuild(double index, double minx, double miny, double minz, double maxx, double maxy, double maxz)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	return navmesh->begin((float)minx, (float)miny, (float)minz, (float)maxx, (float)maxy, (float)maxz);
+	if (navmesh->getBuildStatus() == 0) return -1;
+
+	return navmesh->beginBuild((float)minx, (float)miny, (float)minz, (float)maxx, (float)maxy, (float)maxz);
 }
 
-DLLEXPORT double MA_NavMeshEnd(double index)
+DLLEXPORT double MA_NavMeshEndBuild(double index, double async)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	return navmesh->end();
+	if (navmesh->getBuildStatus() == 0) return -1;
+
+	return navmesh->endBuild(async > 0.5);
 }
 
+DLLEXPORT double MA_NavMeshWaitForBuild(double index)
+{
+	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	return navmesh->waitForBuild();
+}
+
+DLLEXPORT double MA_NavMeshGetBuildStatus(double index)
+{
+	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	return navmesh->getBuildStatus();
+}
+
+std::vector<float> vertices;
+std::vector<int> triangles;
 DLLEXPORT double MA_NavMeshAddGMModel(double index, char* filename)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() == 0) return -1;
 
 	std::string line;
 	std::ifstream file(filename);
-	std::vector<float> vertices;
-	std::vector<int> triangles;
+	vertices.clear();
+	triangles.clear();
 	if (file) {
 		int version, lines;
 		file >> version >> lines;
@@ -85,12 +108,16 @@ DLLEXPORT double MA_NavSetVertexBufferSize(double nverts, double ntris)
 DLLEXPORT double MA_NavMeshAddVertexBuffer(double index, float* verts, int* tris)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() == 0) return -1;
+
 	return navmesh->addMesh(verts, G_nverts, tris, G_ntris, mamain->matStack.data());
 }
 
 DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() == 0) return -1;
+
 	float v1[3] = { (float)x1, (float)y1, (float)z1 };
 	float v2[3] = { (float)x2, (float)y2, (float)z2 };
 	return navmesh->addLink(v1, v2, (int)dir, (float)radius);
@@ -99,6 +126,8 @@ DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1
 DLLEXPORT double MA_NavMeshDebugDraw(double index)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() <= 0) return -1;
+
 	duDebugDrawNavMesh(&manav->m_debugDraw, *navmesh->m_navMesh, 0);
 	float* bmin = navmesh->m_cfg.bmin;
 	float* bmax = navmesh->m_cfg.bmax;
@@ -135,6 +164,8 @@ DLLEXPORT double MA_NavMeshSetConfig(double index, double cell_size, double cell
 DLLEXPORT double MA_NavMeshFindNearestPoly(double index, double x, double y, double z, double ex, double ey, double ez)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() <= 0) return -1;
+
 	float pos[3] = { (float)-x, (float)z, (float)y };
 	float extents[3] = { (float)ex, (float)ez, (float)ey };
 	dtPolyRef ref;
@@ -145,6 +176,7 @@ DLLEXPORT double MA_NavMeshFindNearestPoly(double index, double x, double y, dou
 DLLEXPORT double MA_NavMeshFindPath(double index, double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
 {
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
+	if (navmesh->getBuildStatus() <= 0) return -1;
 
 	dtPolyRef startRef = (dtPolyRef)start_poly;
 	dtPolyRef endRef = (dtPolyRef)end_poly;
