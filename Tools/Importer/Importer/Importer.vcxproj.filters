@@ -24,9 +24,6 @@
     <ClInclude Include="Importer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ModelMPM.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="MPMExporter.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

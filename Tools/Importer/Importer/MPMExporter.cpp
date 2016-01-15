@@ -1,7 +1,7 @@
 #include "MPMExporter.h"
+#include "Types.h"
 
-#include "ModelMPM.h"
-
+#include <MPM.h>
 #include <assimp/scene.h>
 #include <DefaultIOSystem.h>
 #include <BaseImporter.h>
@@ -134,13 +134,13 @@ void MPMRegisterExporter(Assimp::Exporter& exp)
 		if (f == 0)
 			throw DeadlyExportError("Failed to open file");
 
-		WriteToFile<MPMModel::Header>(f, {MPMModel::MagicNumber, MPMModel::Version, MPMModel::CompVersion, meshes.size(), materials.size()});
+		WriteToFile<MPM::Header>(f, {MPM::MagicNumber, MPM::Version, MPM::CompVersion, meshes.size(), materials.size()});
 
 		WriteInstances(f, scene, meshes);
 		WriteMaterials(f, materials);
 		WriteMeshes(f, meshes, materials);
 
-		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketEndOfFileID, 0});
+		WriteToFile<MPM::PacketHeader>(f, {MPM::PacketEndOfFileID, 0});
 
 		iohandler->Close(f);
 	});
@@ -496,51 +496,51 @@ void WriteMeshes(Assimp::IOStream* f, const std::map<uint, std::tuple<uint, Mesh
 		uint ind = std::get<0>(i.second);
 		Mesh& mesh = std::get<1>(i.second);
 
-		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketMeshID, sizeof(MPMModel::Mesh)});
-		WriteToFile<MPMModel::Mesh>(f, {ind, mesh.matInd, mesh.numVert, mesh.numInd});
+		WriteToFile<MPM::PacketHeader>(f, {MPM::PacketMeshID, sizeof(MPM::Mesh)});
+		WriteToFile<MPM::Mesh>(f, {ind, mesh.matInd, mesh.numVert, mesh.numInd});
 
 		uint num  = GetNumComponents(mesh.vertFmt);
 		uint size = GetSizeFromFormat(mesh.vertFmt);
 
-		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexDescID, sizeof(MPMModel::PacketVertexDescHeader) + num * sizeof(MPMModel::PacketVertexDesc)});
-		WriteToFile<MPMModel::PacketVertexDescHeader>(f, {ind, num, size, 0});
+		WriteToFile<MPM::PacketHeader>(f, {MPM::PacketVertexDescID, sizeof(MPM::PacketVertexDescHeader) + num * sizeof(MPM::PacketVertexDesc)});
+		WriteToFile<MPM::PacketVertexDescHeader>(f, {ind, num, size, 0});
 		
 		ushort ofs = 0;
 
 		if (mesh.vertFmt & UsageFlagPosition)
 		{
-			WriteToFile<MPMModel::PacketVertexDesc>(f, {0, MPMModel::PacketVertexDesc::UsagePosition, MPMModel::PacketVertexDesc::TypeVec3, ofs});
+			WriteToFile<MPM::PacketVertexDesc>(f, {0, MPM::PacketVertexDesc::UsagePosition, MPM::PacketVertexDesc::TypeVec3, ofs});
 			ofs += 12;
 		}
 
 		if (mesh.vertFmt & UsageFlagNormal)
 		{
-			WriteToFile<MPMModel::PacketVertexDesc>(f, {0, MPMModel::PacketVertexDesc::UsageNormal, MPMModel::PacketVertexDesc::TypeVec3, ofs});
+			WriteToFile<MPM::PacketVertexDesc>(f, {0, MPM::PacketVertexDesc::UsageNormal, MPM::PacketVertexDesc::TypeVec3, ofs});
 			ofs += 12;
 		}
 
 		if (mesh.vertFmt & UsageFlagTexCoord)
 		{
-			WriteToFile<MPMModel::PacketVertexDesc>(f, {0, MPMModel::PacketVertexDesc::UsageTexCoord, MPMModel::PacketVertexDesc::TypeVec2, ofs});
+			WriteToFile<MPM::PacketVertexDesc>(f, {0, MPM::PacketVertexDesc::UsageTexCoord, MPM::PacketVertexDesc::TypeVec2, ofs});
 			ofs += 8;
 		}
 
 		if (mesh.vertFmt & UsageFlagColor)
 		{
-			WriteToFile<MPMModel::PacketVertexDesc>(f, {0, MPMModel::PacketVertexDesc::UsageColor, MPMModel::PacketVertexDesc::TypeColor, ofs});
+			WriteToFile<MPM::PacketVertexDesc>(f, {0, MPM::PacketVertexDesc::UsageColor, MPM::PacketVertexDesc::TypeColor, ofs});
 			ofs += 4;
 		}
 
-		WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexDataID, sizeof(MPMModel::PacketVertexDataHeader) + mesh.numVert * size});
-		WriteToFile<MPMModel::PacketVertexDataHeader>(f, {ind, mesh.numVert * size});
+		WriteToFile<MPM::PacketHeader>(f, {MPM::PacketVertexDataID, sizeof(MPM::PacketVertexDataHeader) + mesh.numVert * size});
+		WriteToFile<MPM::PacketVertexDataHeader>(f, {ind, mesh.numVert * size});
 		WriteToFileRaw(f, mesh.data, mesh.numVert * size);
 
 		if (mesh.numInd != 0)
 		{
 			uint indSize = mesh.numInd > 0xFFFF ? sizeof(uint) : sizeof(ushort);
 
-			WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketVertexIndexDataID, sizeof(MPMModel::PacketVertexIndexHeader) + mesh.numInd * indSize});
-			WriteToFile<MPMModel::PacketVertexIndexHeader>(f, {ind, mesh.numInd, (uint) (mesh.numInd > 0xFFFF ? MPMModel::PacketVertexIndexHeader::TypeU32 : MPMModel::PacketVertexIndexHeader::TypeU16)});
+			WriteToFile<MPM::PacketHeader>(f, {MPM::PacketVertexIndexDataID, sizeof(MPM::PacketVertexIndexHeader) + mesh.numInd * indSize});
+			WriteToFile<MPM::PacketVertexIndexHeader>(f, {ind, mesh.numInd, (uint) (mesh.numInd > 0xFFFF ? MPM::PacketVertexIndexHeader::TypeU32 : MPM::PacketVertexIndexHeader::TypeU16)});
 			WriteToFileRaw(f, mesh.indexData, mesh.numInd * indSize);
 		}
 	}
@@ -551,7 +551,7 @@ void WriteInstances(Assimp::IOStream* f, const aiScene* scene, const std::map<ui
 	std::stack<std::tuple<aiNode*, aiMatrix4x4>> stack;
 	stack.push(std::tuple<aiNode*, aiMatrix4x4>(scene->mRootNode, scene->mRootNode->mTransformation));
 
-	std::vector<MPMModel::Inst> instances;
+	std::vector<MPM::Inst> instances;
 
 	while (!stack.empty())
 	{
@@ -585,8 +585,8 @@ void WriteInstances(Assimp::IOStream* f, const aiScene* scene, const std::map<ui
 			stack.push(std::tuple<aiNode*, aiMatrix4x4>(node->mChildren[i], mat * node->mChildren[i]->mTransformation));
 	}
 
-	WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketInstID, sizeof(MPMModel::InstHeader) + instances.size() * sizeof(MPMModel::Inst)});
-	WriteToFile<MPMModel::InstHeader>(f, {instances.size()});
+	WriteToFile<MPM::PacketHeader>(f, {MPM::PacketInstID, sizeof(MPM::InstHeader) + instances.size() * sizeof(MPM::Inst)});
+	WriteToFile<MPM::InstHeader>(f, {instances.size()});
 
 	for (auto i : instances)
 		WriteToFile(f, i);
@@ -594,12 +594,12 @@ void WriteInstances(Assimp::IOStream* f, const aiScene* scene, const std::map<ui
 
 void WriteMaterials(Assimp::IOStream* f, const std::vector<Material>& materials)
 {
-	WriteToFile<MPMModel::PacketHeader>(f, {MPMModel::PacketMaterialID, sizeof(MPMModel::MaterialHeader) + materials.size() * sizeof(MPMModel::Material)});
-	WriteToFile<MPMModel::MaterialHeader>(f, {materials.size()});
+	WriteToFile<MPM::PacketHeader>(f, {MPM::PacketMaterialID, sizeof(MPM::MaterialHeader) + materials.size() * sizeof(MPM::Material)});
+	WriteToFile<MPM::MaterialHeader>(f, {materials.size()});
 
 	for (auto i : materials)
 	{
-		MPMModel::Material mat;
+		MPM::Material mat;
 
 		mat.ambient      = i.ambient;
 		mat.diffuse      = i.diffuse;

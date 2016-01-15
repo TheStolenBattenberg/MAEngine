@@ -28,26 +28,26 @@ ErrorCode MPMModel::load(const std::string& model)
 {
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
-	MPMTypes::Header h;
+	MPM::Header h;
 	
 	if (!ReadFromFile(f, h))
 		return ErrorReadFile;
 
-	if (h.magicNumber != MPMTypes::MagicNumber)
+	if (h.magicNumber != MPM::MagicNumber)
 		return ErrorReadFile;
 
-	if (h.compVersion > MPMTypes::Version)
+	if (h.compVersion > MPM::Version)
 		return ErrorReadFile;
 
 	for (uint i = 0; i < h.numMeshes; ++i)
 		meshes.push_back({0, 0, 0, 0, 0, 0, 0});
 
-	MPMTypes::PacketHeader ph;
+	MPM::PacketHeader ph;
 
 	if (!ReadFromFile(f, ph))
 		return ErrorReadFile;
 
-	while (ph.id != MPMTypes::PacketEndOfFileID)
+	while (ph.id != MPM::PacketEndOfFileID)
 	{
 		auto offs = f.tellg();
 
@@ -55,19 +55,19 @@ ErrorCode MPMModel::load(const std::string& model)
 
 		switch (ph.id)
 		{
-		case MPMTypes::PacketInstID:
+		case MPM::PacketInstID:
 			err = readInstances(f);
 			break;
-		case MPMTypes::PacketMeshID:
+		case MPM::PacketMeshID:
 			err = readMesh(f);
 			break;
-		case MPMTypes::PacketVertexDescID:
+		case MPM::PacketVertexDescID:
 			err = readVertexDesc(f);
 			break;
-		case MPMTypes::PacketVertexDataID:
+		case MPM::PacketVertexDataID:
 			err = readVertexData(f);
 			break;
-		case MPMTypes::PacketVertexIndexDataID:
+		case MPM::PacketVertexIndexDataID:
 			err = readIndexData(f);
 			break;
 		default:
@@ -89,18 +89,18 @@ ErrorCode MPMModel::load(const std::string& model)
 
 ErrorCode MPMModel::readInstances(std::ifstream& f)
 {
-	MPMTypes::InstHeader ih;
+	MPM::InstHeader ih;
 
 	if (!ReadFromFile(f, ih))
 		return ErrorReadFile;
 
-	std::vector<MPMTypes::Inst> inst;
+	std::vector<MPM::Inst> inst;
 
 	inst.reserve(ih.num);
 
 	for (uint i = 0; i < ih.num; ++i)
 	{
-		MPMTypes::Inst in;
+		MPM::Inst in;
 
 		if (!ReadFromFile(f, in))
 			return ErrorReadFile;
@@ -118,7 +118,7 @@ ErrorCode MPMModel::readInstances(std::ifstream& f)
 
 ErrorCode MPMModel::readMesh(std::ifstream& f)
 {
-	MPMTypes::Mesh mesh;
+	MPM::Mesh mesh;
 
 	if (!ReadFromFile(f, mesh))
 		return ErrorReadFile;
@@ -132,20 +132,20 @@ ErrorCode MPMModel::readMesh(std::ifstream& f)
 
 ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 {
-	MPMTypes::PacketVertexDescHeader vh;
+	MPM::PacketVertexDescHeader vh;
 
 	if (!ReadFromFile(f, vh))
 		return ErrorReadFile;
 
 	meshes[vh.meshInd].stride = vh.vertStride;
 
-	std::vector<MPMTypes::PacketVertexDesc> vertexDescs;
+	std::vector<MPM::PacketVertexDesc> vertexDescs;
 
 	vertexDescs.reserve(vh.num);
 
 	for (uint i = 0; i < vh.num; ++i)
 	{
-		MPMTypes::PacketVertexDesc vd;
+		MPM::PacketVertexDesc vd;
 
 		if (!ReadFromFile(f, vd))
 			return ErrorReadFile;
@@ -191,7 +191,7 @@ ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 
 ErrorCode MPMModel::readVertexData(std::ifstream& f)
 {
-	MPMTypes::PacketVertexDataHeader vdh;
+	MPM::PacketVertexDataHeader vdh;
 
 	if (!ReadFromFile(f, vdh))
 		return ErrorReadFile;
@@ -218,7 +218,7 @@ ErrorCode MPMModel::readVertexData(std::ifstream& f)
 
 ErrorCode MPMModel::readIndexData(std::ifstream& f)
 {
-	MPMTypes::PacketVertexIndexHeader vih;
+	MPM::PacketVertexIndexHeader vih;
 
 	if (!ReadFromFile(f, vih))
 		return ErrorReadFile;

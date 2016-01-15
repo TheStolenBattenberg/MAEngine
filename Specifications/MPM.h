@@ -1,25 +1,21 @@
-#pragma once 
+#pragma once
 
-/**
- * Includes
- */
-
-#include "Types.h"
-
+#include <stdint.h>
 #include <Vec.h>
-#include <Quat.h>
+#include <Mat.h>
 #include <Color.h>
+#include <Quat.h>
 
 /**
  * MAE Packet Model
  * Version 1
  */
 
-namespace MPMModel
+namespace MPM
 {
-	const uint MagicNumber = 0x464D504D;
-	const uint Version     = 0x00000001;
-	const uint CompVersion = 0x00000001;
+	const uint32_t MagicNumber = 0x464D504D;
+	const uint32_t Version     = 0x00000001;
+	const uint32_t CompVersion = 0x00000001;
 
 	enum Packets
 	{
@@ -42,35 +38,35 @@ namespace MPMModel
 
 	struct Header
 	{
-		uint   magicNumber;
-		ushort version;
-		ushort compVersion; // Min version supported
-		uint   numMeshes;
-		uint   numMaterials;
+		uint32_t magicNumber;
+		uint16_t version;
+		uint16_t compVersion; // Min version supported
+		uint32_t numMeshes;
+		uint32_t numMaterials;
 	};
 
 	struct PacketHeader
 	{
-		uint id;
-		uint length;
+		uint32_t id;
+		uint32_t length;
 	};
 
 	struct InstHeader
 	{
-		uint num;
+		uint32_t num;
 	};
 
 	struct Inst
 	{
-		uint meshInd;
-		vec3 trans;
-		vec3 scal;
-		quat rot;
+		uint32_t meshInd;
+		vec3     trans;
+		vec3     scal;
+		quat     rot;
 	};
 
 	struct MaterialHeader
 	{
-		uint num;
+		uint32_t num;
 	};
 
 	struct Material
@@ -87,18 +83,18 @@ namespace MPMModel
 
 	struct Mesh
 	{
-		uint meshId;
-		uint matInd;
-		uint numVertices;
-		uint numIndices;
+		uint32_t meshId;
+		uint32_t matInd;
+		uint32_t numVertices;
+		uint32_t numIndices;
 	};
 
 	struct PacketVertexDescHeader
 	{
-		uint meshInd;
-		uint num;               // Number of PacketVertexDesc structs
-		uint vertStride;
-		uint morphTargetStride;
+		uint32_t meshInd;
+		uint32_t num;               // Number of PacketVertexDesc structs
+		uint32_t vertStride;
+		uint32_t morphTargetStride;
 	};
 
 	struct PacketVertexDesc
@@ -130,16 +126,16 @@ namespace MPMModel
 			TypeShort4 = 0x08
 		};
 
-		ushort flags;
-		ubyte  usage;
-		ubyte  type;
-		ushort offset;
+		uint16_t flags;
+		uint8_t  usage;
+		uint8_t  type;
+		uint16_t offset;
 	};
 
 	struct PacketVertexDataHeader
 	{
-		uint meshInd;
-		uint length;
+		uint32_t meshInd;
+		uint32_t length;
 	};
 
 	struct PacketVertexIndexHeader
@@ -150,21 +146,21 @@ namespace MPMModel
 			TypeU32 = 0x02
 		};
 
-		uint meshInd;
-		uint num;
-		uint type;
+		uint32_t meshInd;
+		uint32_t num;
+		uint32_t type;
 	};
 
 	struct PacketBonesHeader
 	{
-		uint meshInd;
-		uint num;
-		uint frames;
+		uint32_t meshInd;
+		uint32_t num;
+		uint32_t frames;
 	};
 
 	struct PacketBonesFrameHeader
 	{
-		uint time; // In ms. Indicates when the frame begins
+		uint32_t time; // In ms. Indicates when the frame begins
 	};
 
 	struct PacketBones
@@ -176,26 +172,26 @@ namespace MPMModel
 
 	struct PacketMorphTargetHeader
 	{
-		uint meshInd;
-		uint size;
-		uint frames;
+		uint32_t meshInd;
+		uint32_t size;
+		uint32_t frames;
 	};
 
 	struct PacketMorphTargetFrameHeader
 	{
-		uint time; // In ms. Indicates when the frame begins
+		uint32_t time; // In ms. Indicates when the frame begins
 	};
 
 	struct PacketAnimationHeader
 	{
-		uint meshInd;
-		uint num;
+		uint32_t meshInd;
+		uint32_t num;
 	};
 
 	struct PacketAnimation
 	{
 		char name[64];
-		uint start;
-		uint end;
+		uint32_t start;
+		uint32_t end;
 	};
 }

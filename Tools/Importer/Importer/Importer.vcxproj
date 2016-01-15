@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)code;$(SolutionDir)include;$(SolutionDir)..\UtilHeaders;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)code;$(SolutionDir)include;$(SolutionDir)..\UtilHeaders;$(SolutionDir)..\..\Specifications;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)library;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)code;$(SolutionDir)include;$(SolutionDir)..\UtilHeaders;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)code;$(SolutionDir)include;$(SolutionDir)..\UtilHeaders;$(SolutionDir)..\..\Specifications;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)library;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,6 @@
     <ClInclude Include="D3DExporter.h" />
     <ClInclude Include="D3DImporter.h" />
     <ClInclude Include="Importer.h" />
-    <ClInclude Include="ModelMPM.h" />
     <ClInclude Include="MPMExporter.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Types.h" />
