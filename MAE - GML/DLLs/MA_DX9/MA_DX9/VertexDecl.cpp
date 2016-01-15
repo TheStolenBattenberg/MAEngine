@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "VertexDecl.h"
+#include "Utils.h"
 
 VertexDecl::~VertexDecl()
 {

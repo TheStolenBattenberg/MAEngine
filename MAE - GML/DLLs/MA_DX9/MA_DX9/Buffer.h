@@ -1,9 +1,9 @@
 #pragma once
 
-#include <vector>
-
 #include "Types.h"
 #include "Memory.h"
+
+#include <vector>
 
 class Buffer
 {

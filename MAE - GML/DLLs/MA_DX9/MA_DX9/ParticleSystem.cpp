@@ -2,6 +2,7 @@
 
 #include "Main.h"
 #include "ParticleSystem.h"
+#include "Utils.h"
 
 ParticleSystem::ParticleSystem() {
 	if (mamain->VertexDeclarationParticle == 0) {

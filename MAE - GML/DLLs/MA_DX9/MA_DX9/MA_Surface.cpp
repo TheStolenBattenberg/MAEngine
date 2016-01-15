@@ -1,15 +1,18 @@
 #include "Main.h"
 #include "Utils.h"
-#include "Resources.h"
+#include "Surface.h"
+#include "Texture.h"
 
 DLLEXPORT double MADX9_SurfaceCreateDepthStencil(double width, double height, double format, double ms, double msquality, double discard)
 {
 	Surface* surf = new Surface();
 
-	if (!surf->createDepthStencil((uint) width, (uint) height, (D3DFORMAT) (uint) format, (D3DMULTISAMPLE_TYPE) (uint) ms, (uint) msquality, discard ? 1 : 0))
+	ErrorCode ret = surf->createDepthStencil((uint) width, (uint) height, (D3DFORMAT) (uint) format, (D3DMULTISAMPLE_TYPE) (uint) ms, (uint) msquality, discard ? 1 : 0);
+	
+	if (ret != ErrorOk)
 	{
 		delete surf;
-		return -1;
+		return ret;
 	}
 
 	return putInto(surf, mamain->Surfaces);
@@ -19,10 +22,12 @@ DLLEXPORT double MADX9_SurfaceCreateFromPointer(double ptr)
 {
 	Surface* surf = new Surface();
 
-	if (!surf->createFromPointer(*(LPDIRECT3DSURFACE9*) &ptr))
+	ErrorCode ret = surf->createFromPointer(*(LPDIRECT3DSURFACE9*) &ptr);
+
+	if (ret != ErrorOk)
 	{
 		delete surf;
-		return -1;
+		return ret;
 	}
 
 	return putInto(surf, mamain->Surfaces);
@@ -35,10 +40,12 @@ DLLEXPORT double MADX9_SurfaceCreateFromTexture(double tex, double level)
 	
 	Surface* surf = new Surface();
 
-	if (!mamain->Textures[(uint) tex]->getSurface((uint) level, *surf))
+	ErrorCode ret = mamain->Textures[(uint) tex]->getSurface((uint) level, *surf);
+	
+	if (ret != ErrorOk)
 	{
 		delete surf;
-		return -1;
+		return ret;
 	}
 
 	return putInto(surf, mamain->Surfaces);
@@ -48,10 +55,12 @@ DLLEXPORT double MADX9_SurfaceCreateRenderTarget(double width, double height, do
 {
 	Surface* surf = new Surface();
 
-	if (!surf->createRenderTarget((uint) width, (uint) height, (D3DFORMAT) (uint) format, (D3DMULTISAMPLE_TYPE) (uint) ms, (uint) msquality, lockable ? 1 : 0))
+	ErrorCode ret = surf->createRenderTarget((uint) width, (uint) height, (D3DFORMAT) (uint) format, (D3DMULTISAMPLE_TYPE) (uint) ms, (uint) msquality, lockable ? 1 : 0);
+
+	if (ret != ErrorOk)
 	{
 		delete surf;
-		return -1;
+		return ret;
 	}
 
 	return putInto(surf, mamain->Surfaces);
@@ -60,7 +69,7 @@ DLLEXPORT double MADX9_SurfaceCreateRenderTarget(double width, double height, do
 DLLEXPORT double MADX9_SurfaceDestroy(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Surfaces))
-		return 0;
+		return ErrorHandle(mamain->err, ErrorInv);
 
 	delete mamain->Surfaces[(uint) ind];
 	mamain->Surfaces[(uint) ind] = 0;
@@ -71,7 +80,7 @@ DLLEXPORT double MADX9_SurfaceDestroy(double ind)
 DLLEXPORT double MADX9_SurfaceSetRenderTarget(double ind, double level)
 {
 	if (!isValidIndex((uint) ind, mamain->Surfaces))
-		return 0;
+		return ErrorHandle(mamain->err, ErrorInv);
 
 	return mamain->Surfaces[(uint) ind]->setRenderTarget((uint) level);
 }
@@ -84,7 +93,7 @@ DLLEXPORT double MADX9_SurfaceResetRenderTarget(double level)
 DLLEXPORT double MADX9_SurfaceSetDepthBuffer(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Surfaces))
-		return 0;
+		return ErrorHandle(mamain->err, ErrorInv);
 
 	return mamain->Surfaces[(uint) ind]->setDepthBuffer();
 }
@@ -98,24 +107,16 @@ DLLEXPORT double MADX9_SurfaceUpdate(double dest, double src)
 {
 	if (!isValidIndex((uint) dest, mamain->Surfaces) ||
 	    !isValidIndex((uint) src, mamain->Surfaces))
-		return 0;
+		return ErrorHandle(mamain->err, ErrorInv);
 
 	return mamain->Surfaces[(uint) dest]->update(*mamain->Surfaces[(uint) src]);
 }
 
 DLLEXPORT double MADX9_SurfaceGetPointer(double ind)
 {
-	void* ptr = 0;
-
 	if (isValidIndex((uint) ind, mamain->Surfaces))
-	{
-		mamain->Surfaces[(uint) ind]->surf->AddRef();
-		ptr = mamain->Surfaces[(uint) ind]->surf;
-	}
+		return 0;
 
-	double ret = 0;
-
-	*(void**) &ret = ptr;
-
-	return ret;
+	mamain->Surfaces[(uint) ind]->surf->AddRef();
+	return PtrToDouble(mamain->Surfaces[(uint) ind]->surf);
 }

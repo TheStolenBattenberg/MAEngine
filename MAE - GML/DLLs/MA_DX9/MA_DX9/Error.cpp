@@ -92,6 +92,8 @@ std::string ErrorObject::getError(ErrorCode code)
 		return "Failed to create texture";
 	case ErrorCreateTexFromFile:
 		return "Failed to create texture from file";
+	case ErrorMemory:
+		return "Failed to allocate memory";
 	}
 
 	std::stringstream ss;

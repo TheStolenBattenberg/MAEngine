@@ -1,6 +1,5 @@
 #include "Main.h"
 #include "Hook.h"
-#include "Resources.h"
 #include "ModelMD2.h"
 #include "Buffer.h"
 #include "VertexBuffer.h"
@@ -9,6 +8,9 @@
 #include "ModelMPM.h"
 #include "ModelX.h"
 #include "ParticleSystem.h"
+#include "Shader.h"
+#include "Surface.h"
+#include "Texture.h"
 
 MADX9Main* mamain = 0;
 

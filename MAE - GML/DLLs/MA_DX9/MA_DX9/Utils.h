@@ -54,7 +54,7 @@ template<typename T> inline bool ReadFromFile(std::ifstream& f, T& val)
 	return f.read((char*) &val, sizeof(val)) ? 1 : 0;
 }
 
-inline double ptrToDouble(void* value)
+inline double PtrToDouble(void* value)
 {
 	static_assert(sizeof(double) >= sizeof(void*), "Size of double must be greater or equal to the size of void*");
 
@@ -70,4 +70,20 @@ inline void* DoubleToPtr(double value)
 	static_assert(sizeof(double) >= sizeof(void*), "Size of double must be greater or equal to the size of void*");
 
 	return *(void**) &value;
+}
+
+template<typename... Args> inline ErrorCode ErrorHandle(ErrorObject& err, ErrorCode code, Args... args)
+{
+	err = ErrorObject(code, args...);
+
+	return code;
+}
+
+template<typename... Args> inline ErrorCode ErrorHandleCritical(ErrorObject& err, CriticalErrorHandler& handler, ErrorCode code, Args... args)
+{
+	err = ErrorObject(code, args...);
+
+	handler.onError(err);
+
+	return code;
 }

@@ -4,6 +4,8 @@
 #include "Memory.h"
 #include "Utils.h"
 
+#include <memory>
+
 enum Type
 {
 	TypeU8  = 0,
@@ -16,11 +18,24 @@ enum Type
 	TypeF64 = 7
 };
 
-void* bufferPtr = 0;
+void* bufferPtr = nullptr;
 
 DLLEXPORT double MADX9_BufferCreate()
 {
-	return putInto(new Buffer(new DynamicMemory()), mamain->Buffers);
+	Memory* mem = new(std::nothrow) DynamicMemory();
+
+	if (mem == 0)
+		return ErrorHandle(mamain->err, ErrorMemory);
+
+	Buffer* buf = new(std::nothrow) Buffer(mem);
+
+	if (buf == 0)
+	{
+		delete mem;
+		return ErrorHandle(mamain->err, ErrorMemory);
+	}
+
+	return putInto(buf, mamain->Buffers);
 }
 
 DLLEXPORT double MADX9_BufferDestroy(double ind)
@@ -29,7 +44,7 @@ DLLEXPORT double MADX9_BufferDestroy(double ind)
 		return ErrorInv;
 
 	delete mamain->Buffers[(uint) ind];
-	mamain->Buffers[(uint) ind] = 0;
+	mamain->Buffers[(uint) ind] = nullptr;
 
 	return ErrorOk;
 }

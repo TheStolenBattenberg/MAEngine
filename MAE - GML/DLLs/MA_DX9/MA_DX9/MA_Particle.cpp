@@ -1,7 +1,7 @@
 #include "Main.h"
 #include "Types.h"
 #include "Utils.h"
-#include "Resources.h"
+#include "Texture.h"
 
 #include "ParticleSystem.h"
 

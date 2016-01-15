@@ -21,7 +21,8 @@ enum ErrorCode: long
 	ErrorCompilePixelShader  = -0x09, // DataD3D9, DataShader
 	ErrorCreatePixelShader   = -0x0A, // DataD3D9
 	ErrorCreateTexture       = -0x0B, // DataD3D9
-	ErrorCreateTexFromFile   = -0x0C  // DataD3D9, DataTexFile
+	ErrorCreateTexFromFile   = -0x0C, // DataD3D9, DataTexFile
+	ErrorMemory              = -0x0D
 };
 
 class ErrorObject
@@ -86,19 +87,3 @@ private:
 
 	std::stack<ErrorObject> errorStack;
 };
-
-template<typename... Args> inline ErrorCode ErrorHandle(ErrorObject& err, ErrorCode code, Args... args)
-{
-	err = ErrorObject(code, args...);
-
-	return code;
-}
-
-template<typename... Args> inline ErrorCode ErrorHandleCritical(ErrorObject& err, CriticalErrorHandler& handler, ErrorCode code, Args... args)
-{
-	err = ErrorObject(code, args...);
-
-	handler.onError(err);
-
-	return code;
-}
