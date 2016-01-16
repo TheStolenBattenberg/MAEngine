@@ -108,21 +108,23 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MAEDLL.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MAEDLL.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(SolutionDir)..\..\..\Tools\UtilHeaders;$(SolutionDir)..\..\..\Specifications;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Tools\UtilHeaders;$(MAE)Specifications;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>MAE</TargetName>
     <OutDir>$(SolutionDir)\..\..\MAE.gmx\datafiles\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(SolutionDir)..\..\..\Tools\UtilHeaders;$(SolutionDir)..\..\..\Specifications;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Tools\UtilHeaders;$(MAE)Specifications;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>MAE</TargetName>
     <OutDir>$(SolutionDir)\..\..\MAE.gmx\datafiles\</OutDir>

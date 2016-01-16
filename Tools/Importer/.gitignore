@@ -15,11 +15,3 @@ Debug/
 *.suo
 *.opensdf
 *.vc.opendb
-
-# =============================
-# Ignore ASSIMP
-# =============================
-
-code/
-include/
-library/
