@@ -114,11 +114,11 @@ void MANavMesh::build()
 
 		int* tbuffer = nullptr;
 		if (!tris) {
-			tris = new int[nverts / 3];
-			for (int i = 0; i < nverts / 3; ++i) {
+			tris = new int[nverts];
+			for (int i = 0; i < nverts; ++i) {
 				tris[i] = i;
 			}
-			ntris = nverts / 9;
+			ntris = nverts / 3;
 			tbuffer = tris;
 		}
 		float* vbuffer = new float[nverts * 3];		

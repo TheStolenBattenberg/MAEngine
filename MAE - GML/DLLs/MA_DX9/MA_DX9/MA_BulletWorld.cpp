@@ -124,6 +124,7 @@ DLLEXPORT double MAB_WorldRaycastSingle(double BodyID, double X, double Y, doubl
 
 DLLEXPORT double MAB_WorldSweep(double ShapeID, double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
 {
+	//TODO: Fix this because it doesn't work for some reason
 	if (!mabullet->worldExists()) return -1;
 	if (!mabullet->shapeExists(ShapeID)) return -2;
 	btConvexShape* convex = dynamic_cast<btConvexShape*>(mabullet->getShape(ShapeID));

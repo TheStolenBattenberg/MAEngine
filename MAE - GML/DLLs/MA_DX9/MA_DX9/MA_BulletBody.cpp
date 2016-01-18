@@ -11,7 +11,7 @@ DLLEXPORT double MAB_BodyCreate(double ShapeID, double Mass, double XRot, double
 	quat.setEulerZYX((btScalar)XRot, (btScalar)YRot, (btScalar)ZRot);
 	btDefaultMotionState* motionstate = new btDefaultMotionState(btTransform(quat, btVector3((btScalar)X, (btScalar)Y, (btScalar)Z)));
 	btVector3 intertia(0.f, 0.f, 0.f);
-	shape->calculateLocalInertia((btScalar)Mass, intertia);
+	if (!dynamic_cast<btTriangleMeshShape*>(shape)) shape->calculateLocalInertia((btScalar)Mass, intertia);
 	btRigidBody::btRigidBodyConstructionInfo bodyCI((btScalar)Mass, motionstate, shape, intertia);
 	btRigidBody* rigidbody = new btRigidBody(bodyCI);
 	MABody* body = new MABody(rigidbody);

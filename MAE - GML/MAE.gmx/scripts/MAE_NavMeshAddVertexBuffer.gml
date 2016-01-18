@@ -6,6 +6,6 @@ if(argument2 <= 0){
     external_call(global.MA_NavSetVertexBufferSize, buffer_tell(argument1) div 12, 0);
     return external_call(global.MA_NavMeshAddVertexBuffer, argument0, buffer_get_address(argument1), 0);
 }
-external_call(global.MA_NavSetVertexBufferSize, buffer_tell(argument1) div 12, buffer_get_size(argument2) div 12);
+external_call(global.MA_NavSetVertexBufferSize, buffer_tell(argument1) div 12, buffer_tell(argument2) div 12);
 return external_call(global.MA_NavMeshAddVertexBuffer, argument0, buffer_get_address(argument1), buffer_get_address(argument2));
 
