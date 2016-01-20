@@ -3,6 +3,8 @@
 #include "Mesh.h"
 #include "ModelMD2.h"
 
+#include "MA_Main.h"
+
 namespace MD2Type
 {
 	enum

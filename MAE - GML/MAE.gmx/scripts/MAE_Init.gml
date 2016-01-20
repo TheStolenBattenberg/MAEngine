@@ -111,15 +111,11 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_HookSetPropertyPointer = external_define(global.DLL_MAE, "MADX9_HookSetPropertyPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
     
     // Surfaces
-    global.MADX9_SurfaceCreateDepthStencil = external_define(global.DLL_MAE, "MADX9_SurfaceCreateDepthStencil", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_SurfaceCreateFromPointer  = external_define(global.DLL_MAE, "MADX9_SurfaceCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_SurfaceCreateFromTexture  = external_define(global.DLL_MAE, "MADX9_SurfaceCreateFromTexture", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_SurfaceCreateRenderTarget = external_define(global.DLL_MAE, "MADX9_SurfaceCreateRenderTarget", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.__MAE_SurfaceCreate             = external_define(global.DLL_MAE, "MAE_SurfaceCreate", dll_cdecl, ty_real, 0);
+    global.MADX9_SurfaceCreateDepthStencil = external_define(global.DLL_MAE, "MADX9_SurfaceCreateDepthStencil", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_SurfaceCreateFromPointer  = external_define(global.DLL_MAE, "MADX9_SurfaceCreateFromPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.MADX9_SurfaceCreateRenderTarget = external_define(global.DLL_MAE, "MADX9_SurfaceCreateRenderTarget", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_SurfaceDestroy            = external_define(global.DLL_MAE, "MADX9_SurfaceDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_SurfaceSetRenderTarget    = external_define(global.DLL_MAE, "MADX9_SurfaceSetRenderTarget", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_SurfaceResetRenderTarget  = external_define(global.DLL_MAE, "MADX9_SurfaceResetRenderTarget", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_SurfaceSetDepthBuffer     = external_define(global.DLL_MAE, "MADX9_SurfaceSetDepthBuffer", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_SurfaceResetDepthBuffer   = external_define(global.DLL_MAE, "MADX9_SurfaceResetDepthBuffer", dll_cdecl, ty_real, 0);
     global.MADX9_SurfaceUpdate             = external_define(global.DLL_MAE, "MADX9_SurfaceUpdate", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_SurfaceGetPointer         = external_define(global.DLL_MAE, "MADX9_SurfaceGetPointer", dll_cdecl, ty_real, 1, ty_real);
 

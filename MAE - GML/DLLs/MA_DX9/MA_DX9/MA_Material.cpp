@@ -2,6 +2,8 @@
 #include "Types.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 DLLEXPORT double MADX9_MaterialCreate()
 {
 	return putInto((D3DMATERIAL9*) memset(new D3DMATERIAL9, 0, sizeof(D3DMATERIAL9)), mamain->Material);

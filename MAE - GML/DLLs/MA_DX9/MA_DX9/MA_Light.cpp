@@ -2,6 +2,8 @@
 #include "Types.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 DLLEXPORT double MADX9_LightCreate(double LightType)
 {
 	D3DLIGHTTYPE lightTable[] = {D3DLIGHT_POINT, D3DLIGHT_SPOT, D3DLIGHT_DIRECTIONAL};

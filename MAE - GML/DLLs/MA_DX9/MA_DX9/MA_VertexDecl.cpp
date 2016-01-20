@@ -2,6 +2,8 @@
 #include "VertexDecl.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 DLLEXPORT double MADX9_VertexDeclarationCreate()
 {
 	try

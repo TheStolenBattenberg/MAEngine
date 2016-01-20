@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include "Texture.h"
 
+#include "MA_Main.h"
+
 #include "ModelMPM.h"
 #include "ModelMD2.h"
 #include "ModelX.h"

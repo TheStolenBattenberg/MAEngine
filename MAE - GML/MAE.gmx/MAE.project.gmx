@@ -310,9 +310,9 @@
           <script>scripts\MAE_ShaderSetConstantMat4.gml</script>
         </scripts>
         <scripts name="Surfaces">
+          <script>scripts\MAE_SurfaceCreate.gml</script>
           <script>scripts\MAE_SurfaceCreateDepthStencil.gml</script>
           <script>scripts\MAE_SurfaceCreateFromPointer.gml</script>
-          <script>scripts\MAE_SurfaceCreateFromTexture.gml</script>
           <script>scripts\MAE_SurfaceCreateRenderTarget.gml</script>
           <script>scripts\MAE_SurfaceDestroy.gml</script>
           <script>scripts\MAE_SurfaceGetPointer.gml</script>

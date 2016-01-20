@@ -1,6 +1,8 @@
 #include "BulletDebugDraw.h"
 #include "Main.h"
 
+#include "MA_Main.h"
+
 void MABulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
 {
 	Vertices.push_back(Vertex(from.x(), from.y(), from.z(), D3DXCOLOR(fromColor.x(), fromColor.y(), fromColor.z(), 1.0f)));

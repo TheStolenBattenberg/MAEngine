@@ -87,3 +87,22 @@ template<typename... Args> inline ErrorCode ErrorHandleCritical(ErrorObject& err
 
 	return code;
 }
+
+template<typename T> inline T* VectorGetPointerSafe(uint index, const std::vector<T*>& vec)
+{
+	return index >= surfaces.size() ? 0 : surfaces[index];
+}
+
+template<typename T> inline uint VectorPushBackPointer(T* ptr, std::vector<T*>& vec)
+{
+	auto it = std::find(vec.begin(), vec.end(), (T*) 0);
+
+	if (it == vec.end())
+	{
+		vec.push_back(ptr);
+		return vec.size() - 1;
+	}
+
+	*it = ptr;
+	return it - vec.begin();
+}

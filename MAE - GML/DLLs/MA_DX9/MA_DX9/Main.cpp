@@ -11,10 +11,18 @@
 #include "Shader.h"
 #include "Surface.h"
 #include "Texture.h"
+#include "MainImpl.h"
+#include "SurfaceImpl.h"
 
-MADX9Main* mamain = 0;
+uint MainImpl::release()
+{
+	if (--count == 0)
+		delete this;
 
-MADX9Main::MADX9Main(LPDIRECT3DDEVICE9 d3ddev)
+	return count;
+}
+
+MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 {
 	errCrit.flags = CriticalErrorHandler::ShowMessage | CriticalErrorHandler::ShowDebugMessage;
 
@@ -27,12 +35,14 @@ MADX9Main::MADX9Main(LPDIRECT3DDEVICE9 d3ddev)
 	hook = new Hook(d3ddev);
 }
 
-MADX9Main::~MADX9Main()
+MainImpl::~MainImpl()
 {
+	for (auto i : surfaces)
+		delete i;
+
 	ClearVector(Shader);
 	ClearVector(MD2Models);
 	ClearVector(MPMModels);
-	ClearVector(Surfaces);
 	ClearVector(Textures);
 	ClearVector(Light);
 	ClearVector(Material);
@@ -62,7 +72,50 @@ MADX9Main::~MADX9Main()
 	hook  = 0;
 }
 
-const char* MADX9Main::returnStr(std::string& str)
+ErrorCode MainImpl::setError(const ErrorObject& obj)
 {
-	return (retStr = str).c_str();
+	return (err = obj).getCode();
+}
+
+const ErrorObject& MainImpl::getError()
+{
+	return err;
+}
+
+ErrorCode MainImpl::surfaceCreate(Surface*& surf)
+{
+	SurfaceImpl* s = new(std::nothrow) SurfaceImpl(this);
+
+	if (s == 0)
+		return this->setError(ErrorObject(ErrorMemory));
+
+	surfaces.push_back(s);
+	surf = s;
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::surfaceExists(const Surface* surf, bool& exists)
+{
+	exists = 0;
+
+	if (surf != 0)
+	{
+		if (std::find(surfaces.begin(), surfaces.end(), (SurfaceImpl*) surf) != surfaces.end())
+			exists = 1;
+	}
+
+	return ErrorOk;
+}
+
+void MainImpl::surfaceRemove(const Surface* surf)
+{
+	surfaces.remove_if([surf](Surface* s) {
+		return s == surf;
+	});
+}
+
+Main* MainCreate(LPDIRECT3DDEVICE9 device)
+{
+	return new(std::nothrow) MainImpl(device);
 }

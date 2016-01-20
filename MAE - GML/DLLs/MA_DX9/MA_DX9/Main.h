@@ -15,15 +15,19 @@
 #include <vector>
 
 #include "Error.h"
+#include "RefCounted.h"
 
-class MADX9Main
+class Main: public RefCounted
 {
 public:
-	MADX9Main(LPDIRECT3DDEVICE9 d3ddev);
-	~MADX9Main();
+	virtual uint release() = 0;
 
-	const char* returnStr(std::string& str);
-	
+	virtual ErrorCode surfaceCreate(class Surface*& surf) = 0;
+	virtual ErrorCode surfaceExists(const class Surface* surf, bool& exists) = 0;
+
+	virtual ErrorCode setError(const ErrorObject& obj) = 0;
+	virtual const ErrorObject& getError() = 0;
+
 	ErrorObject err;
 	CriticalErrorHandler errCrit;
 
@@ -33,7 +37,6 @@ public:
 	std::vector<class Shader*>       Shader;
 	std::vector<D3DLIGHT9*>          Light;
 	std::vector<D3DMATERIAL9*>       Material;
-	std::vector<class Surface*>      Surfaces;
 	std::vector<class Texture*>      Textures;
 	std::vector<class Buffer*>       Buffers;
 	std::vector<class VertexDecl*>   VertexDeclarations;
@@ -50,17 +53,6 @@ public:
 	DWORD stFVF;
 
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationParticle = 0;
-
-	/**
-	 * This stack can be used to transfer matrices to the DLL using MADX9_MatStackFloat and MADX9_MatStackClear
-	 */
-
-	std::vector<float> matStack;
-
-	bool ignoreInv = 0;
-
-private:
-	std::string retStr;
 };
 
-extern MADX9Main* mamain;
+Main* MainCreate(LPDIRECT3DDEVICE9 device);

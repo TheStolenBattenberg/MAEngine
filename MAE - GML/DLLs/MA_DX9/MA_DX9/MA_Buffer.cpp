@@ -4,6 +4,8 @@
 #include "Memory.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 #include <memory>
 
 enum Type

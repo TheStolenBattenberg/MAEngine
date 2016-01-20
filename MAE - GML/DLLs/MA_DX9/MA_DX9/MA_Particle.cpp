@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "Texture.h"
 
+#include "MA_Main.h"
 #include "ParticleSystem.h"
 
 /**

@@ -4,6 +4,8 @@
 #include "Buffer.h"
 #include "Memory.h"
 
+#include "MA_Main.h"
+
 DLLEXPORT double MADX9_VertexBufferCreate(double length, double usage, double pool)
 {
 	try

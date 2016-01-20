@@ -1,19 +1,31 @@
-#include "Surface.h"
+#include "SurfaceImpl.h"
 #include "Utils.h"
+#include "MainImpl.h"
 
-const uint MaxRenderTargets = 16;
+#include <list>
 
-std::stack<LPDIRECT3DSURFACE9> DepthBuffers;
-std::stack<LPDIRECT3DSURFACE9> RenderTargets[MaxRenderTargets];
-std::stack<D3DVIEWPORT9>       Viewports[MaxRenderTargets];
+SurfaceImpl::SurfaceImpl(MainImpl* main)
+{
+	this->main = main;
+}
 
-Surface::~Surface()
+uint SurfaceImpl::release()
+{
+	if (--count == 0)
+		delete this;
+
+	return count;
+}
+
+SurfaceImpl::~SurfaceImpl()
 {
 	if (surf != 0)
 		surf->Release();
+
+	main->surfaceRemove(this);
 }
 
-ErrorCode Surface::createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard)
+ErrorCode SurfaceImpl::createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard)
 {
 	if (surf != 0)
 	{
@@ -21,20 +33,20 @@ ErrorCode Surface::createDepthStencil(uint width, uint height, D3DFORMAT format,
 		surf = 0;
 	}
 
-	HRESULT res = mamain->d3ddev->CreateDepthStencilSurface(width, height, format, ms, msquality, discard, &surf, 0);
+	HRESULT res = main->d3ddev->CreateDepthStencilSurface(width, height, format, ms, msquality, discard, &surf, 0);
 
 	if (FAILED(res))
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, res, "CreateDepthStencilSurface");
+		return ErrorHandleCritical(main->err, main->errCrit, ErrorD3D9, res, "CreateDepthStencilSurface");
 
-	surfUsage = D3DUSAGE_DEPTHSTENCIL;
-	surfPool = D3DPOOL_DEFAULT;
-	surfWidth = width;
+	surfUsage  = D3DUSAGE_DEPTHSTENCIL;
+	surfPool   = D3DPOOL_DEFAULT;
+	surfWidth  = width;
 	surfHeight = height;
 
 	return ErrorOk;
 }
 
-ErrorCode Surface::createFromPointer(LPDIRECT3DSURFACE9 surf)
+ErrorCode SurfaceImpl::createFromPointer(LPDIRECT3DSURFACE9 surf)
 {
 	if (this->surf != 0)
 	{
@@ -43,18 +55,18 @@ ErrorCode Surface::createFromPointer(LPDIRECT3DSURFACE9 surf)
 	}
 
 	if (surf == 0)
-		return ErrorHandle(mamain->err, ErrorInv);
+		return ErrorHandle(main->err, ErrorInv);
 
 	D3DSURFACE_DESC desc;
 
 	HRESULT res = surf->GetDesc(&desc);
 
 	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "GetDesc");
+		return ErrorHandle(main->err, ErrorD3D9, res, "GetDesc");
 
-	surfUsage = desc.Usage;
-	surfPool = desc.Pool;
-	surfWidth = desc.Width;
+	surfUsage  = desc.Usage;
+	surfPool   = desc.Pool;
+	surfWidth  = desc.Width;
 	surfHeight = desc.Height;
 
 	this->surf = surf;
@@ -63,7 +75,7 @@ ErrorCode Surface::createFromPointer(LPDIRECT3DSURFACE9 surf)
 	return ErrorOk;
 }
 
-ErrorCode Surface::createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable)
+ErrorCode SurfaceImpl::createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable)
 {
 	if (surf != 0)
 	{
@@ -71,10 +83,10 @@ ErrorCode Surface::createRenderTarget(uint width, uint height, D3DFORMAT format,
 		surf = 0;
 	}
 
-	HRESULT res = mamain->d3ddev->CreateRenderTarget(width, height, format, ms, msquality, lockable, &surf, 0);
+	HRESULT res = main->d3ddev->CreateRenderTarget(width, height, format, ms, msquality, lockable, &surf, 0);
 
 	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "CreateRenderTarget");
+		return ErrorHandle(main->err, ErrorD3D9, res, "CreateRenderTarget");
 
 	surfUsage = D3DUSAGE_RENDERTARGET;
 	surfPool = D3DPOOL_DEFAULT;
@@ -84,120 +96,55 @@ ErrorCode Surface::createRenderTarget(uint width, uint height, D3DFORMAT format,
 	return ErrorOk;
 }
 
-ErrorCode Surface::setRenderTarget(uint level)
+ErrorCode SurfaceImpl::update(Surface* surf)
 {
-	if ((surfUsage & D3DUSAGE_RENDERTARGET) == 0 || level > MaxRenderTargets)
-		return ErrorHandle(mamain->err, ErrorInv);
+	D3DPOOL pool;
 
-	LPDIRECT3DSURFACE9 surf;
+	ErrorCode ret = surf->getPool(pool);
 
-	HRESULT res = mamain->d3ddev->GetRenderTarget(level, &surf);
+	if (ret != ErrorOk)
+		return ret;
 
-	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "GetRenderTarget");
+	if (surfPool == D3DPOOL_DEFAULT && pool == D3DPOOL_DEFAULT)
+		return ErrorHandle(main->err, ErrorInv);
 
-	D3DVIEWPORT9 vp;
+	LPDIRECT3DSURFACE9 s;
 
-	mamain->d3ddev->GetViewport(&vp);
-
-	Viewports[level].push(vp);
-
-	RenderTargets[level].push(surf);
-
-	vp.X = 0;
-	vp.Y = 0;
-	vp.Width = surfWidth;
-	vp.Height = surfHeight;
-	vp.MinZ = 0;
-	vp.MaxZ = 1;
-
-	res = mamain->d3ddev->SetRenderTarget(level, this->surf);
-
-	mamain->d3ddev->SetViewport(&vp);
-
-	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetRenderTarget");
-
-	return ErrorOk;
-}
-
-ErrorCode Surface::resetRenderTarget(uint level)
-{
-	if (level > MaxRenderTargets || RenderTargets[level].empty())
-		return ErrorHandle(mamain->err, ErrorInv);
-
-	LPDIRECT3DSURFACE9 surf = RenderTargets[level].top();
-
-	RenderTargets[level].pop();
-
-	surf->Release();
-
-	HRESULT res = mamain->d3ddev->SetRenderTarget(level, surf);
-
-	mamain->d3ddev->SetViewport(&Viewports[level].top());
-	Viewports[level].pop();
-
-	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetRenderTarget");
-
-	return ErrorOk;
-}
-
-ErrorCode Surface::setDepthBuffer()
-{
-	if ((surfUsage & D3DUSAGE_DEPTHSTENCIL) == 0)
-		return ErrorHandle(mamain->err, ErrorInv);
-
-	LPDIRECT3DSURFACE9 surf;
-
-	HRESULT res = mamain->d3ddev->GetDepthStencilSurface(&surf);
-
-	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "GetDepthStencilSurface");
-
-	DepthBuffers.push(surf);
-
-	res = mamain->d3ddev->SetDepthStencilSurface(this->surf);
-
-	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetDepthStencilSurface");
-
-	return ErrorOk;
-}
-
-ErrorCode Surface::resetDepthBuffer()
-{
-	if (DepthBuffers.empty())
-		return ErrorHandle(mamain->err, ErrorInv);
-
-	LPDIRECT3DSURFACE9 surf = DepthBuffers.top();
-
-	DepthBuffers.pop();
-
-	surf->Release();
-
-	HRESULT res = mamain->d3ddev->SetDepthStencilSurface(surf);
-
-	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetDepthStencilSurface");
-
-	return ErrorOk;
-}
-
-ErrorCode Surface::update(Surface& surf)
-{
-	if (surfPool == D3DPOOL_DEFAULT && surf.surfPool == D3DPOOL_DEFAULT)
-		return ErrorHandle(mamain->err, ErrorInv);
+	if ((ret = surf->getSurf(s)) != ErrorOk)
+		return ret;
 
 	HRESULT res;
 
 	if (surfPool == D3DPOOL_DEFAULT)
-		res = mamain->d3ddev->UpdateSurface(surf.surf, 0, this->surf, 0);
+		res = main->d3ddev->UpdateSurface(s, 0, this->surf, 0);
 	else
-		res = mamain->d3ddev->GetRenderTargetData(surf.surf, this->surf);
+		res = main->d3ddev->GetRenderTargetData(s, this->surf);
+
+	s->Release();
 
 	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetDepthStencilSurface");
+		return ErrorHandle(main->err, ErrorD3D9, res, "SetDepthStencilSurface");
+
+	return ErrorOk;
+}
+
+ErrorCode SurfaceImpl::getSurf(LPDIRECT3DSURFACE9& surf)
+{
+	if (this->surf == 0)
+		return main->setError(ErrorObject(ErrorInv));
+
+	this->surf->AddRef();
+	surf = this->surf;
+
+	return ErrorOk;
+}
+
+ErrorCode SurfaceImpl::getPool(D3DPOOL& pool)
+{
+	if (surf == 0)
+		return main->setError(ErrorObject(ErrorInv));
+
+	pool = (D3DPOOL) surfPool;
 
 	return ErrorOk;
 }

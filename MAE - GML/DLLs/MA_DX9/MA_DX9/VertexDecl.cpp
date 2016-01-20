@@ -2,6 +2,8 @@
 #include "VertexDecl.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 VertexDecl::~VertexDecl()
 {
 	if (decl != 0)

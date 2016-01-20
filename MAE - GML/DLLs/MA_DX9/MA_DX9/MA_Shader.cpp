@@ -3,8 +3,12 @@
 #include "Shader.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 #include <Vec.h>
 #include <Mat.h>
+
+std::vector<float> matStack;
 
 DLLEXPORT double MADX9_ShaderCreateASM(const char* VSCode, const char* PSCode)
 {
@@ -154,7 +158,7 @@ DLLEXPORT double MADX9_ShaderSetConstantMat3(double index, double shd, double c)
 	if (!isValidIndex((uint) index, mamain->Shader))
 		return ErrorHandle(mamain->err, ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setMat3((uint)c, mat3(mamain->matStack.data()));
+	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setMat3((uint)c, mat3(matStack.data()));
 }
 
 DLLEXPORT double MADX9_ShaderSetConstantMat4(double index, double shd, double c)
@@ -162,45 +166,45 @@ DLLEXPORT double MADX9_ShaderSetConstantMat4(double index, double shd, double c)
 	if (!isValidIndex((uint) index, mamain->Shader))
 		return ErrorHandle(mamain->err, ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setMat4((uint)c, mat4(mamain->matStack.data()));
+	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setMat4((uint)c, mat4(matStack.data()));
 }
 
 DLLEXPORT double MADX9_MatStackFloat8(double v1, double v2, double v3, double v4, double v5, double v6, double v7, double v8)
 {
-	mamain->matStack.reserve(8);
+	matStack.reserve(8);
 
-	mamain->matStack.push_back((float) v1);
-	mamain->matStack.push_back((float) v2);
-	mamain->matStack.push_back((float) v3);
-	mamain->matStack.push_back((float) v4);
-	mamain->matStack.push_back((float) v5);
-	mamain->matStack.push_back((float) v6);
-	mamain->matStack.push_back((float) v7);
-	mamain->matStack.push_back((float) v8);
+	matStack.push_back((float) v1);
+	matStack.push_back((float) v2);
+	matStack.push_back((float) v3);
+	matStack.push_back((float) v4);
+	matStack.push_back((float) v5);
+	matStack.push_back((float) v6);
+	matStack.push_back((float) v7);
+	matStack.push_back((float) v8);
 
 	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_MatStackFloat9(double v1, double v2, double v3, double v4, double v5, double v6, double v7, double v8, double v9)
 {
-	mamain->matStack.reserve(9);
+	matStack.reserve(9);
 
-	mamain->matStack.push_back((float) v1);
-	mamain->matStack.push_back((float) v2);
-	mamain->matStack.push_back((float) v3);
-	mamain->matStack.push_back((float) v4);
-	mamain->matStack.push_back((float) v5);
-	mamain->matStack.push_back((float) v6);
-	mamain->matStack.push_back((float) v7);
-	mamain->matStack.push_back((float) v8);
-	mamain->matStack.push_back((float) v9);
+	matStack.push_back((float) v1);
+	matStack.push_back((float) v2);
+	matStack.push_back((float) v3);
+	matStack.push_back((float) v4);
+	matStack.push_back((float) v5);
+	matStack.push_back((float) v6);
+	matStack.push_back((float) v7);
+	matStack.push_back((float) v8);
+	matStack.push_back((float) v9);
 
 	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_MatStackClear()
 {
-	mamain->matStack.clear();
+	matStack.clear();
 
 	return ErrorOk;
 }

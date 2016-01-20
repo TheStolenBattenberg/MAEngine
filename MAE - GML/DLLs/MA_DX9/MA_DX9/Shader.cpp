@@ -1,6 +1,8 @@
 #include "Shader.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 Shader::ShaderConstants::~ShaderConstants()
 {
 	if (constants != 0)

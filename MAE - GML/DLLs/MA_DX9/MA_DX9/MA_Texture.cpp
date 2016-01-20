@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include "Texture.h"
 
+#include "MA_Main.h"
+
 DLLEXPORT double MADX9_TextureCreateFromFile(const char* file, Texture::MipMaps mipmaps)
 {
 	Texture* tex = new Texture();

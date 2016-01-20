@@ -4,6 +4,8 @@
 #include "Main.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 #include <fstream>
 
 MPMModel::~MPMModel()

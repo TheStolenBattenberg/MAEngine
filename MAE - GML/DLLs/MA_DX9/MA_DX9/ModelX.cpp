@@ -3,6 +3,7 @@
 
 //TODO: Remove
 #include "Utils.h"
+#include "MA_Main.h"
 
 XModel::~XModel()
 {

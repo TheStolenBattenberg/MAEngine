@@ -1,6 +1,8 @@
 #include "NavMeshDebugDraw.h"
 #include "Main.h"
 
+#include "MA_Main.h"
+
 void NavMeshDebugDraw::depthMask(bool state)
 {
 	mamain->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, (DWORD)state);

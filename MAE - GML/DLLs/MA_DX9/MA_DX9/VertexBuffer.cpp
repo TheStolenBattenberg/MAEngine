@@ -1,6 +1,8 @@
 #include "VertexBuffer.h"
 #include "Main.h"
 
+#include "MA_Main.h"
+
 VertexBuffer::VertexBuffer(uint length, uint usage, D3DPOOL pool)
 {
 	// TODO: Add error checking

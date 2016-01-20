@@ -2,6 +2,8 @@
 #include "Utils.h"
 #include "Surface.h"
 
+#include "MA_Main.h"
+
 Texture::~Texture()
 {
 	if (tex != 0)
@@ -39,7 +41,7 @@ ErrorCode Texture::generateMipMaps()
 	return ErrorOk;
 }
 
-ErrorCode Texture::getSurface(uint level, Surface& surf)
+ErrorCode Texture::getSurface(uint level, Surface* surf)
 {
 	if (level >= tex->GetLevelCount())
 		return ErrorHandle(mamain->err, ErrorInv);
@@ -51,7 +53,7 @@ ErrorCode Texture::getSurface(uint level, Surface& surf)
 	if (FAILED(res))
 		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, res, "GetSurfaceLevel");
 
-	ErrorCode ret = surf.createFromPointer(s);
+	ErrorCode ret = surf->createFromPointer(s);
 
 	s->Release();
 

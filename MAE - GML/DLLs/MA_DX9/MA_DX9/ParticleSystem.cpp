@@ -4,6 +4,8 @@
 #include "ParticleSystem.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 ParticleSystem::ParticleSystem() {
 	if (mamain->VertexDeclarationParticle == 0) {
 		D3DVERTEXELEMENT9 part_decl_ve[] = {

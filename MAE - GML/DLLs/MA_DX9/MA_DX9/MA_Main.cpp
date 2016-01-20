@@ -1,10 +1,15 @@
 #include "Main.h"
 #include "Bullet.h"
 #include "Navigation.h"
+#include "MA_Main.h"
+
+Main* mamain = 0;
+
+std::vector<Surface*> surfaces;
 
 DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer)
 {
-	mamain   = new MADX9Main(pointer);
+	mamain   = MainCreate(pointer);
 	mabullet = new MABullet();
 	manav    = new MANavigation();
 
@@ -14,10 +19,11 @@ DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer)
 DLLEXPORT double MADX9_Free()
 {
 	if (mamain != 0) {
-		delete mamain;
+		mamain->release();
+		mamain = 0;
+
 		delete mabullet;
 		delete manav;
-		mamain = 0;
 	}
 
 	return 1;
@@ -32,7 +38,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 		{
 			MessageBox(0, "MADX9 wasn't freed. MAE_Free() should be called at the end.", "MAE", MB_OK | MB_ICONERROR);
 
-			delete mamain;
+			mamain->release();
 			mamain = 0;
 		}
 		break;

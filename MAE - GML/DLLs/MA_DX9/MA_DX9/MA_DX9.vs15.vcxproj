@@ -59,7 +59,9 @@
     <ClInclude Include="BulletDebugDraw.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="MainImpl.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="MA_Main.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelMD2.h" />
@@ -74,8 +76,10 @@
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Hook.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="RefCounted.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="SurfaceImpl.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Utils.h" />

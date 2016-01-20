@@ -1,29 +1,19 @@
 #pragma once
 
 #include "Main.h"
+#include "RefCounted.h"
 
-class Surface
+class Surface: public RefCounted
 {
 public:
-	~Surface();
+	virtual uint release() = 0;
 
-	ErrorCode createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard);
-	ErrorCode createFromPointer(LPDIRECT3DSURFACE9 surf);
-	ErrorCode createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable);
+	virtual ErrorCode createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard) = 0;
+	virtual ErrorCode createFromPointer(LPDIRECT3DSURFACE9 surf) = 0;
+	virtual ErrorCode createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable) = 0;
+	
+	virtual ErrorCode getSurf(LPDIRECT3DSURFACE9& surf) = 0;
+	virtual ErrorCode getPool(D3DPOOL& pool) = 0;
 
-	ErrorCode setRenderTarget(uint level);
-	static ErrorCode resetRenderTarget(uint level);
-
-	ErrorCode setDepthBuffer();
-	static ErrorCode resetDepthBuffer();
-
-	ErrorCode update(Surface& surf);
-
-	LPDIRECT3DSURFACE9 surf;
-
-protected:
-	uint surfUsage;
-	uint surfPool;
-	uint surfWidth;
-	uint surfHeight;
+	virtual ErrorCode update(Surface* surf) = 0;
 };

@@ -4,6 +4,10 @@
 #include "Math.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
+std::string retStr;
+
 /**
  * Math. (Remove, just for debugging)
  */
@@ -30,7 +34,7 @@ DLLEXPORT double MADX9_ErrorEmpty() {
 }
 
 DLLEXPORT const char* MADX9_ErrorPop() {
-	return mamain->returnStr(mamain->errCrit.pop().getErrorString());
+	return (retStr = mamain->errCrit.pop().getErrorString()).c_str();
 }
 
 /**

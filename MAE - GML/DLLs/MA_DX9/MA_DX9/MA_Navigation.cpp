@@ -3,6 +3,8 @@
 #include "Main.h"
 #include "Utils.h"
 
+#include "MA_Main.h"
+
 DLLEXPORT double MA_NavMeshCreate()
 {
 	MANavMesh* navmesh = new MANavMesh();
@@ -94,7 +96,7 @@ DLLEXPORT double MA_NavMeshAddGMModel(double index, char* filename)
 	int* tris = triangles.data();
 	int ntris = triangles.size() / 3;
 
-	return navmesh->addMesh(verts, nverts, tris, ntris, mamain->matStack.data());
+	return navmesh->addMesh(verts, nverts, tris, ntris, matStack.data());
 }
 
 int G_nverts = 0, G_ntris = 0;
@@ -110,7 +112,7 @@ DLLEXPORT double MA_NavMeshAddVertexBuffer(double index, float* verts, int* tris
 	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
 	if (navmesh->getBuildStatus() == 0) return -1;
 
-	return navmesh->addMesh(verts, G_nverts, tris, G_ntris, mamain->matStack.data());
+	return navmesh->addMesh(verts, G_nverts, tris, G_ntris, matStack.data());
 }
 
 DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius)

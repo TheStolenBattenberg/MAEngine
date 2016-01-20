@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GML API">
+      <UniqueIdentifier>{9b2dbe0d-a362-4b1a-a932-07b64bf69944}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variant.cpp">
@@ -252,6 +255,18 @@
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="RefCounted.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MA_Main.h">
+      <Filter>Header Files\GML API</Filter>
+    </ClInclude>
+    <ClInclude Include="MainImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceImpl.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>
