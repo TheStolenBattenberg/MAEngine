@@ -21,9 +21,6 @@ ParticleSystem::ParticleSystem() {
 	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(ParticlePoint), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 
 	// TODO: Add proper error checking
-
-	if (FAILED(res))
-		ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, res);
 }
 
 ParticleSystem::~ParticleSystem() {
@@ -162,9 +159,6 @@ void ParticleSystem::setMaxParticleCount(uint max) {
 	HRESULT res = mamain->d3ddev->CreateVertexBuffer(sizeof(ParticlePoint) * max, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 
 	// TODO: Add proper error checking
-
-	if (FAILED(res))
-		ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, res);
 }
 
 void ParticleSystem::setTexture(LPDIRECT3DTEXTURE9 tex) {

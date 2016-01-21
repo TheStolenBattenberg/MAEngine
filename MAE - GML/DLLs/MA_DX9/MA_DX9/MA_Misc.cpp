@@ -20,24 +20,6 @@ DLLEXPORT double MADX9_MathRandomRange(double min, double max) {
 }
 
 /**
- * Errors
- */
-
-DLLEXPORT double MADX9_ErrorSetFlags(double flags) {
-	mamain->errCrit.flags = (uint)flags;
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_ErrorEmpty() {
-	return mamain->errCrit.empty();
-}
-
-DLLEXPORT const char* MADX9_ErrorPop() {
-	return (retStr = mamain->errCrit.pop().getErrorString()).c_str();
-}
-
-/**
  * Hook
  */
 
@@ -105,7 +87,7 @@ DLLEXPORT double MADX9_SetSamplerState(double stage, double type, double value)
 	HRESULT res = mamain->d3ddev->SetSamplerState((uint) stage, (D3DSAMPLERSTATETYPE) (uint) type, (uint) value);
 
 	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetSamplerState");
+		return mamain->setError(ErrorD3D9);
 
 	return ErrorOk;
 }
@@ -138,7 +120,7 @@ DLLEXPORT double MADX9_SetRenderState(double state, double value)
 	HRESULT res = mamain->d3ddev->SetRenderState((D3DRENDERSTATETYPE) (uint) state, v);
 
 	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, "SetSamplerState");
+		return mamain->setError(ErrorD3D9);
 
 	return ErrorOk;
 }
@@ -152,7 +134,7 @@ DLLEXPORT double MADX9_FreePointer(double p)
 	LPUNKNOWN ptr = (LPUNKNOWN) DoubleToPtr(p);
 
 	if (ptr == 0)
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	ptr->Release();
 

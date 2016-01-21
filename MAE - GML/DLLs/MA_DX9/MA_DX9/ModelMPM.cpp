@@ -186,7 +186,7 @@ ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 	HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elements.data(), &meshes[vh.meshInd].decl);
 
 	if (FAILED(res))
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexDecl, res);
+		return mamain->setError(ErrorCreateVertexDecl);
 	
 	return ErrorOk;
 }
@@ -203,7 +203,7 @@ ErrorCode MPMModel::readVertexData(std::ifstream& f)
 	HRESULT res = mamain->d3ddev->CreateVertexBuffer(vdh.length, 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 	if (FAILED(res))
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, res);
+		return mamain->setError(ErrorCreateVertexBuffer);
 
 	void* data;
 
@@ -232,7 +232,7 @@ ErrorCode MPMModel::readIndexData(std::ifstream& f)
 	HRESULT res = mamain->d3ddev->CreateIndexBuffer(length, 0, vih.type == vih.TypeU32 ? D3DFMT_INDEX32 : D3DFMT_INDEX16, D3DPOOL_DEFAULT, &ib, 0);
 
 	if (FAILED(res))
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateIndexBuffer, res);
+		return mamain->setError(ErrorCreateIndexBuffer);
 
 	void* data;
 

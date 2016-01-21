@@ -24,8 +24,6 @@ uint MainImpl::release()
 
 MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 {
-	errCrit.flags = CriticalErrorHandler::ShowMessage | CriticalErrorHandler::ShowDebugMessage;
-
 	d3ddev->AddRef();
 	d3ddev->GetDirect3D(&d3d);
 	d3d->AddRef();
@@ -72,14 +70,14 @@ MainImpl::~MainImpl()
 	hook  = 0;
 }
 
-ErrorCode MainImpl::setError(const ErrorObject& obj)
+ErrorCode MainImpl::setError(ErrorCode code)
 {
-	return (err = obj).getCode();
+	return errCode = code;
 }
 
-const ErrorObject& MainImpl::getError()
+ErrorCode MainImpl::getError()
 {
-	return err;
+	return errCode;
 }
 
 ErrorCode MainImpl::surfaceCreate(Surface*& surf)
@@ -87,7 +85,7 @@ ErrorCode MainImpl::surfaceCreate(Surface*& surf)
 	SurfaceImpl* s = new(std::nothrow) SurfaceImpl(this);
 
 	if (s == 0)
-		return this->setError(ErrorObject(ErrorMemory));
+		return this->setError(ErrorMemory);
 
 	surfaces.push_back(s);
 	surf = s;

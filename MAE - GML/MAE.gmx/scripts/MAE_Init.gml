@@ -70,11 +70,6 @@ if (argument[0] & INIT_RENDER)
     global._MAE_MPMDestroy = external_define(global.DLL_MAE, "MAE_MPMDestroy", dll_cdecl, ty_real, 1, ty_real);
     global._MAE_MPMRender  = external_define(global.DLL_MAE, "MAE_MPMRender", dll_cdecl, ty_real, 1, ty_real);
     
-    // Error
-    global.MADX9_ErrorSetFlags = external_define(global.DLL_MAE, "MADX9_ErrorSetFlags", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_ErrorEmpty    = external_define(global.DLL_MAE, "MADX9_ErrorEmpty", dll_cdecl, ty_real, 0);
-    global.MADX9_ErrorPop      = external_define(global.DLL_MAE, "MADX9_ErrorPop", dll_cdecl, ty_string, 0);
-    
     // Textures
     global.MADX9_TextureCreateFromFile         = external_define(global.DLL_MAE, "MADX9_TextureCreateFromFile", dll_cdecl, ty_real, 2, ty_string, ty_real);
     global.MADX9_TextureCreateFromPointer      = external_define(global.DLL_MAE, "MADX9_TextureCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);

@@ -36,7 +36,7 @@ ErrorCode SurfaceImpl::createDepthStencil(uint width, uint height, D3DFORMAT for
 	HRESULT res = main->d3ddev->CreateDepthStencilSurface(width, height, format, ms, msquality, discard, &surf, 0);
 
 	if (FAILED(res))
-		return ErrorHandleCritical(main->err, main->errCrit, ErrorD3D9, res, "CreateDepthStencilSurface");
+		return main->setError(ErrorCreateSurface);
 
 	surfUsage  = D3DUSAGE_DEPTHSTENCIL;
 	surfPool   = D3DPOOL_DEFAULT;
@@ -55,14 +55,14 @@ ErrorCode SurfaceImpl::createFromPointer(LPDIRECT3DSURFACE9 surf)
 	}
 
 	if (surf == 0)
-		return ErrorHandle(main->err, ErrorInv);
+		return main->setError(ErrorInv);
 
 	D3DSURFACE_DESC desc;
 
 	HRESULT res = surf->GetDesc(&desc);
 
 	if (FAILED(res))
-		return ErrorHandle(main->err, ErrorD3D9, res, "GetDesc");
+		return main->setError(ErrorD3D9);
 
 	surfUsage  = desc.Usage;
 	surfPool   = desc.Pool;
@@ -86,7 +86,7 @@ ErrorCode SurfaceImpl::createRenderTarget(uint width, uint height, D3DFORMAT for
 	HRESULT res = main->d3ddev->CreateRenderTarget(width, height, format, ms, msquality, lockable, &surf, 0);
 
 	if (FAILED(res))
-		return ErrorHandle(main->err, ErrorD3D9, res, "CreateRenderTarget");
+		return main->setError(ErrorCreateSurface);
 
 	surfUsage = D3DUSAGE_RENDERTARGET;
 	surfPool = D3DPOOL_DEFAULT;
@@ -106,7 +106,7 @@ ErrorCode SurfaceImpl::update(Surface* surf)
 		return ret;
 
 	if (surfPool == D3DPOOL_DEFAULT && pool == D3DPOOL_DEFAULT)
-		return ErrorHandle(main->err, ErrorInv);
+		return main->setError(ErrorInv);
 
 	LPDIRECT3DSURFACE9 s;
 
@@ -123,7 +123,7 @@ ErrorCode SurfaceImpl::update(Surface* surf)
 	s->Release();
 
 	if (FAILED(res))
-		return ErrorHandle(main->err, ErrorD3D9, res, "SetDepthStencilSurface");
+		return main->setError(ErrorD3D9);
 
 	return ErrorOk;
 }
@@ -131,7 +131,7 @@ ErrorCode SurfaceImpl::update(Surface* surf)
 ErrorCode SurfaceImpl::getSurf(LPDIRECT3DSURFACE9& surf)
 {
 	if (this->surf == 0)
-		return main->setError(ErrorObject(ErrorInv));
+		return main->setError(ErrorInv);
 
 	this->surf->AddRef();
 	surf = this->surf;
@@ -142,7 +142,7 @@ ErrorCode SurfaceImpl::getSurf(LPDIRECT3DSURFACE9& surf)
 ErrorCode SurfaceImpl::getPool(D3DPOOL& pool)
 {
 	if (surf == 0)
-		return main->setError(ErrorObject(ErrorInv));
+		return main->setError(ErrorInv);
 
 	pool = (D3DPOOL) surfPool;
 

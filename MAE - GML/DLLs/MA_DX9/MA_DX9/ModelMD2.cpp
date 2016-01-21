@@ -257,7 +257,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
 	if (!f)
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorReadFile, model);
+		return mamain->setError(ErrorReadFile);
 	
 	/**
 	* Load and validate MD2 Header
@@ -268,7 +268,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	f.read((char*)&h, sizeof(h));
 
 	if (h.magicNumber != MD2Type::MagicNumber || h.version != MD2Type::Version || h.frameSize == 0)
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorReadFile, model);
+		return mamain->setError(ErrorReadFile);
 
 	triCount  = h.numTris;
 	vertCount = h.numVert;
@@ -298,7 +298,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 		{
 			delete[] FrameBuffer;
 
-			return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, result);;
+			return mamain->setError(ErrorCreateVertexBuffer);
 		}
 
 		if (normals)
@@ -351,7 +351,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	{
 		delete[] TriangleBuffer;
 		
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateIndexBuffer, result);
+		return mamain->setError(ErrorCreateIndexBuffer);
 	}
 
 	MD2Type::IndexBuffer* IndexBuffer;
@@ -382,7 +382,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 		delete[] CoordBuffer;
 		delete[] TriangleBuffer;
 		
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexBuffer, result);
+		return mamain->setError(ErrorCreateVertexBuffer);
 	}
 
 	TexCoord* VertexTextureBuffer;
@@ -419,7 +419,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 		HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-			return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexDecl, res);
+			return mamain->setError(ErrorCreateVertexDecl);
 	}
 	else
 	{
@@ -434,7 +434,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 		HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-			return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateVertexDecl, res);
+			return mamain->setError(ErrorCreateVertexDecl);
 	}
 
 	return ErrorOk;

@@ -72,22 +72,6 @@ inline void* DoubleToPtr(double value)
 	return *(void**) &value;
 }
 
-template<typename... Args> inline ErrorCode ErrorHandle(ErrorObject& err, ErrorCode code, Args... args)
-{
-	err = ErrorObject(code, args...);
-
-	return code;
-}
-
-template<typename... Args> inline ErrorCode ErrorHandleCritical(ErrorObject& err, CriticalErrorHandler& handler, ErrorCode code, Args... args)
-{
-	err = ErrorObject(code, args...);
-
-	handler.onError(err);
-
-	return code;
-}
-
 template<typename T> inline T* VectorGetPointerSafe(uint index, const std::vector<T*>& vec)
 {
 	return index >= surfaces.size() ? 0 : surfaces[index];

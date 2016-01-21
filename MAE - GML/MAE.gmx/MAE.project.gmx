@@ -203,11 +203,6 @@
           <script>scripts\MAE_BufferPeek.gml</script>
           <script>scripts\MAE_BufferPeekValue.gml</script>
         </scripts>
-        <scripts name="Error">
-          <script>scripts\MAE_ErrorSetFlags.gml</script>
-          <script>scripts\MAE_ErrorEmpty.gml</script>
-          <script>scripts\MAE_ErrorPop.gml</script>
-        </scripts>
         <scripts name="Hook">
           <script>scripts\MAE_HookDisable.gml</script>
           <script>scripts\MAE_HookEnable.gml</script>

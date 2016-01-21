@@ -31,7 +31,7 @@ bool XModel::load(std::string filename, std::string texturedir) {
 	res = D3DXLoadMeshFromX(filename.c_str(), D3DXMESH_SYSTEMMEM, mamain->d3ddev, NULL, &materialBuffer, NULL, &materialCount, &mesh);
 
 	if (FAILED(res)) {
-		ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, res, "D3DXLoadMeshFromX");
+		// TODO: Add proper error checking
 		return false;
 	}
 
@@ -53,8 +53,7 @@ bool XModel::load(std::string filename, std::string texturedir) {
 
 			res = D3DXCreateTextureFromFile(mamain->d3ddev, file.c_str(), &textures[i]);
 
-			if (FAILED(res))
-				ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorCreateTexFromFile, res, file);
+			// TODO: Add proper error checking
 		}
 	}
 

@@ -20,7 +20,7 @@ DLLEXPORT double MADX9_SurfaceCreateDepthStencil(double index, double width, dou
 	Surface* surf = VectorGetPointerSafe((uint) index, surfaces);
 
 	if (surf == 0)
-		return mamain->setError(ErrorObject(ErrorInv));
+		return mamain->setError(ErrorInv);
 
 	return surf->createDepthStencil((uint) width, (uint) height, (D3DFORMAT) (uint) format, (D3DMULTISAMPLE_TYPE) (uint) ms, (uint) msquality, discard >= 0.5);
 }
@@ -30,7 +30,7 @@ DLLEXPORT double MADX9_SurfaceCreateFromPointer(double index, double ptr)
 	Surface* surf = VectorGetPointerSafe((uint) index, surfaces);
 
 	if (surf == 0)
-		return mamain->setError(ErrorObject(ErrorInv));
+		return mamain->setError(ErrorInv);
 
 	return surf->createFromPointer((LPDIRECT3DSURFACE9) DoubleToPtr(ptr));
 }
@@ -40,7 +40,7 @@ DLLEXPORT double MADX9_SurfaceCreateRenderTarget(double index, double width, dou
 	Surface* surf = VectorGetPointerSafe((uint) index, surfaces);
 
 	if (surf == 0)
-		return mamain->setError(ErrorObject(ErrorInv));
+		return mamain->setError(ErrorInv);
 
 	return surf->createRenderTarget((uint) width, (uint) height, (D3DFORMAT) (uint) format, (D3DMULTISAMPLE_TYPE) (uint) ms, (uint) msquality, lockable >= 0.5);
 }
@@ -50,7 +50,7 @@ DLLEXPORT double MADX9_SurfaceDestroy(double index)
 	Surface* surf = VectorGetPointerSafe((uint) index, surfaces);
 
 	if (surf == 0)
-		return mamain->setError(ErrorObject(ErrorInv));
+		return mamain->setError(ErrorInv);
 
 	surf->release();
 
@@ -63,7 +63,7 @@ DLLEXPORT double MADX9_SurfaceUpdate(double dest, double src)
 	Surface* srcSurf = VectorGetPointerSafe((uint) src, surfaces);
 
 	if (destSurf == 0 || srcSurf == 0)
-		return mamain->setError(ErrorObject(ErrorInv));
+		return mamain->setError(ErrorInv);
 
 	return destSurf->update(srcSurf);
 }

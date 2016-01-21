@@ -16,9 +16,10 @@ public:
 	ErrorCode surfaceExists(const class Surface* surf, bool& exists);
 	void surfaceRemove(const class Surface* surf);
 
-	ErrorCode setError(const ErrorObject& obj);
-	const ErrorObject& getError();
+	ErrorCode setError(ErrorCode code);
+	ErrorCode getError();
 
 private:
+	ErrorCode errCode;
 	std::list<class SurfaceImpl*> surfaces;
 };

@@ -25,11 +25,8 @@ public:
 	virtual ErrorCode surfaceCreate(class Surface*& surf) = 0;
 	virtual ErrorCode surfaceExists(const class Surface* surf, bool& exists) = 0;
 
-	virtual ErrorCode setError(const ErrorObject& obj) = 0;
-	virtual const ErrorObject& getError() = 0;
-
-	ErrorObject err;
-	CriticalErrorHandler errCrit;
+	virtual ErrorCode setError(ErrorCode code) = 0;
+	virtual ErrorCode getError() = 0;
 
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;

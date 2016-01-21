@@ -37,8 +37,8 @@ public:
 
 	~Shader();
 
-	ErrorCode compile(const std::string& vert, const std::string& pixel);
-	ErrorCode compileASM(const std::string& vert, const std::string& pixel);
+	ErrorCode compile(const std::string& vert, const std::string& pixel, std::string& error);
+	ErrorCode compileASM(const std::string& vert, const std::string& pixel, std::string& error);
 
 	LPDIRECT3DVERTEXSHADER9 VShader = 0;
 	LPDIRECT3DPIXELSHADER9  PShader = 0;

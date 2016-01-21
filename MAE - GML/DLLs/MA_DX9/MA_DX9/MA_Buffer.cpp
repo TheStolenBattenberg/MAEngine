@@ -27,14 +27,14 @@ DLLEXPORT double MADX9_BufferCreate()
 	Memory* mem = new(std::nothrow) DynamicMemory();
 
 	if (mem == 0)
-		return ErrorHandle(mamain->err, ErrorMemory);
+		return mamain->setError(ErrorMemory);
 
 	Buffer* buf = new(std::nothrow) Buffer(mem);
 
 	if (buf == 0)
 	{
 		delete mem;
-		return ErrorHandle(mamain->err, ErrorMemory);
+		return mamain->setError(ErrorMemory);
 	}
 
 	return putInto(buf, mamain->Buffers);

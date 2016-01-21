@@ -27,7 +27,7 @@ DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
 	if ((tex->tex = (LPDIRECT3DTEXTURE9) DoubleToPtr(ptr)) == 0)
 	{
 		delete tex;
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 	}
 
 	tex->tex->AddRef();
@@ -38,7 +38,7 @@ DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
 DLLEXPORT double MADX9_TextureDestroy(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	delete mamain->Textures[(uint)ind];
 	mamain->Textures[(uint)ind] = 0;
@@ -49,12 +49,12 @@ DLLEXPORT double MADX9_TextureDestroy(double ind)
 DLLEXPORT double MADX9_TextureSet(double ind, double stage)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	HRESULT res = mamain->d3ddev->SetTexture((uint)stage, mamain->Textures[(uint)ind]->tex);
 
 	if (FAILED(res))
-		return ErrorHandle(mamain->err, ErrorD3D9, res, res, "SetTexture");
+		return mamain->setError(ErrorD3D9);
 
 	return ErrorOk;
 }
@@ -92,7 +92,7 @@ DLLEXPORT double MADX9_TextureCreate(double width, double height, double levels,
 DLLEXPORT double MADX9_TextureGenerateMipMaps(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	return mamain->Textures[(uint) ind]->generateMipMaps();
 }
@@ -100,7 +100,7 @@ DLLEXPORT double MADX9_TextureGenerateMipMaps(double ind)
 DLLEXPORT double MADX9_TextureGetPointer(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	mamain->Textures[(uint) ind]->tex->AddRef();
 	return PtrToDouble(mamain->Textures[(uint) ind]->tex);
@@ -109,7 +109,7 @@ DLLEXPORT double MADX9_TextureGetPointer(double ind)
 DLLEXPORT double MADX9_TextureGetSurfaceCount(double ind)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	uint count;
 
@@ -124,7 +124,7 @@ DLLEXPORT double MADX9_TextureGetSurfaceCount(double ind)
 DLLEXPORT double MADX9_TextureSetMipMapFilter(double ind, double filter)
 {
 	if (!isValidIndex((uint) ind, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	return mamain->Textures[(uint) ind]->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);
 }
@@ -133,7 +133,7 @@ DLLEXPORT double MADX9_TextureUpdate(double dest, double src)
 {
 	if (!isValidIndex((uint) dest, mamain->Textures) ||
 	    !isValidIndex((uint) src, mamain->Textures))
-		return ErrorHandle(mamain->err, ErrorInv);
+		return mamain->setError(ErrorInv);
 
 	return mamain->Textures[(uint) dest]->update(*mamain->Textures[(uint) src]);
 }

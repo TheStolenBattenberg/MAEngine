@@ -22,7 +22,7 @@ ErrorCode VertexDecl::build()
 	HRESULT res = mamain->d3ddev->CreateVertexDeclaration(elems.data(), &decl);
 
 	if (FAILED(res))
-		return ErrorHandleCritical(mamain->err, mamain->errCrit, ErrorD3D9, res);
+		return mamain->setError(ErrorCreateVertexDecl);
 
 	elems.clear();
 
