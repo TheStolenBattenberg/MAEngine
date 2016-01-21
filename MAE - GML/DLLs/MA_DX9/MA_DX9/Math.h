@@ -1,5 +1,5 @@
 #pragma once
-const double PI = 3.14159265359;
+const double PI = 3.1415926535897932384626433832795;
 
 #include "Types.h"
 #include <Windows.h>
@@ -18,3 +18,8 @@ float interpCubic(float x, float y, float z, float w, float s);
 float distance1D(float x1, float x2); //Pretty pointless.
 float distance2D(float x1, float y1, float x2, float y2);
 float distance3D(float x1, float y1, float z1, float x2, float y2, float z2);
+
+//Misc
+float radToDeg(float rad);
+float degToRad(float deg);
+float clamp(float val, float min, float max);

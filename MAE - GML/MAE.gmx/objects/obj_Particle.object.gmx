@@ -75,7 +75,7 @@ MAE_ParticleEmitterSetParticleSize(index, 2, 16);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every 30 steps.
+            <string>MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step.
 </string>
           </argument>
         </arguments>

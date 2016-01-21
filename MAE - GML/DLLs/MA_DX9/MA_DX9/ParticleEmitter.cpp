@@ -96,6 +96,13 @@ void ParticleEmitter::setColour(float rMin, float gMin, float bMin, float aMin, 
 	pColourEnd.y   = gMax;
 	pColourEnd.z   = bMax;
 	pColourEnd.w   = aMax;
+
+	if (rMin != rMax || gMin != gMax || bMin != bMax || aMin != aMax){
+		interpColours = true;
+	}
+	else {
+		interpColours = false;
+	}
 }
 
 void ParticleEmitter::setAcceleration(float x, float y, float z) {
@@ -108,17 +115,18 @@ uint ParticleEmitter::getSpawnThisTick() {
 	return randomRange(pMinPerEmitt, pMaxPerEmitt);
 }
 
-//This probably should not automatically interpolate the colours
-vec4 ParticleEmitter::getColour(float interp) {
-	vec4 col = pColourStart;
-	if (interp > 2.0f) { //HACKY AS F***... Replace this ASAP.
-		float m = (1.0f / (interp));
+vec4 ParticleEmitter::getColour(float interp) {	
+	if (interpColours) {
+		vec4 col = pColourStart;
+		float m = (1.0f / interp);
 		col.x = interpCosine(pColourStart.x, pColourEnd.x, 1.0f - m);
 		col.y = interpCosine(pColourStart.y, pColourEnd.y, 1.0f - m);
 		col.z = interpCosine(pColourStart.z, pColourEnd.z, 1.0f - m);
 		col.w = interpCosine(pColourStart.w, pColourEnd.w, 1.0f - m);
+		return col;
+	}else {
+		return pColourStart;
 	}
-	return col;
 }
 
 uint ParticleEmitter::getMinEmitt() {

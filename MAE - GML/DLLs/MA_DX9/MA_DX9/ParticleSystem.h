@@ -7,8 +7,7 @@
 #include "Math.h"
 #include "Particle.h"
 #include "ParticleEmitter.h"
-#include "ParticleAttractor.h"
-#include "ParticleRepulsor.h"
+#include "ParticleModifier.h"
 
 class ParticleSystem {
 public:
@@ -30,9 +29,8 @@ public:
 
 	void setMaxParticleCount(uint max);
 private:
+	std::vector<ParticleModifier*> psMods;
 	ParticleEmitter*   psEmitter = NULL;
-	ParticleAttractor* psAttractor = NULL;
-	ParticleRepulsor*  psRepulsor = NULL;
 
 	std::vector<Particle> psBuffer;
 

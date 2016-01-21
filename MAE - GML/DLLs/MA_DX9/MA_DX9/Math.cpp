@@ -36,7 +36,6 @@ float distance1D(float x1, float x2) {
 	return x2 - x1;
 }
 
-//Would using pow(coord1, coord2) be faster? Probably not. Avoiding sqrt(value) would.
 float distance2D(float x1, float y1, float x2, float y2) { 
 	float xd, yd; 
 	xd = x2 - x1; 
@@ -52,4 +51,16 @@ float distance3D(float x1, float y1, float z1, float x2, float y2, float z2) {
 	zd = z2 - z1;
 
 	return (float)sqrt((xd*xd) + (yd*yd) + (zd*zd));
+}
+
+float radToDeg(float rad) {
+	return (float)(rad * (180.0 / PI));
+}
+
+float degToRad(float deg) {
+	return (float)(deg * (PI / 180.0));
+}
+
+float clamp(float val, float min, float max) {
+	return val <= min ? min : val >= max ? max : val;
 }

@@ -69,12 +69,6 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source Files\Particle System</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleRepulsor.cpp">
-      <Filter>Source Files\Particle System</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleAttractor.cpp">
-      <Filter>Source Files\Particle System</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Source Files\Particle System</Filter>
     </ClCompile>
@@ -171,6 +165,12 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleModifier.cpp">
+      <Filter>Source Files\Particle System</Filter>
+    </ClCompile>
+    <ClCompile Include="Encryption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -213,12 +213,6 @@
       <Filter>Header Files\Particle System</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEmitter.h">
-      <Filter>Header Files\Particle System</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleAttractor.h">
-      <Filter>Header Files\Particle System</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleRepulsor.h">
       <Filter>Header Files\Particle System</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h">
@@ -268,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="SurfaceImpl.h">
       <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModifier.h">
+      <Filter>Header Files\Particle System</Filter>
+    </ClInclude>
+    <ClInclude Include="Encryption.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -30,12 +30,7 @@ ParticleSystem::~ParticleSystem() {
 	if (psEmitter != NULL) {
 		delete psEmitter;
 	}
-	if (psAttractor != NULL) {
-		delete psAttractor;
-	}
-	if (psRepulsor != NULL) {
-		delete psRepulsor;
-	}
+
 	if (psVertexBuffer != 0) {
 		psVertexBuffer->Release();
 	}
@@ -50,14 +45,6 @@ void ParticleSystem::createEmitter() {
 	 * This needs to be changed. We should have multiple emitter shapes, like sphere, box, cylinder etc.
 	 */
 	psEmitter = new ParticleEmitter(PE_BOX);
-}
-
-void ParticleSystem::createAttractor() {
-	psAttractor = new ParticleAttractor();
-}
-
-void ParticleSystem::createRepulsor() {
-	psRepulsor = new ParticleRepulsor();
 }
 
 ParticleEmitter* ParticleSystem::getEmitter() {
@@ -90,14 +77,12 @@ void ParticleSystem::update(uint time) {
 			psBuffer.pop_back();
 		}
 		else {
-			if (psAttractor != NULL) {
-				//Move the particles towards if in range.
+			if(psMods.size() > 0) {
+				//Run Modifiers.
+				for (uint mod = 0; mod < psMods.size(); ++mod) {
+					psMods[mod]->update(&psBuffer[i]);
+				}
 			}
-
-			if (psRepulsor != NULL) {
-				//Move the particles away if in range.
-			}
-
 			psBuffer[i].pPosition.x += psBuffer[i].pVelocity.x;
 			psBuffer[i].pPosition.y += psBuffer[i].pVelocity.y;
 			psBuffer[i].pPosition.z += psBuffer[i].pVelocity.z;

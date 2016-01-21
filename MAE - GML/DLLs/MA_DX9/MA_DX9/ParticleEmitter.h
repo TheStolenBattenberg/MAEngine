@@ -48,4 +48,5 @@ private:
 	vec3 pAcceleration;
 	uint pMinPerEmitt, pMaxPerEmitt;
 	uint peTimer = 0;
+	bool interpColours = false;
 };
