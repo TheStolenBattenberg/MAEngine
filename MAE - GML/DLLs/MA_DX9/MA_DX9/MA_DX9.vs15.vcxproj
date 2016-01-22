@@ -78,6 +78,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="RefCounted.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderImpl.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="SurfaceImpl.h" />
     <ClInclude Include="Texture.h" />

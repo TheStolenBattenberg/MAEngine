@@ -272,5 +272,8 @@
     <ClInclude Include="TextureImpl.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderImpl.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

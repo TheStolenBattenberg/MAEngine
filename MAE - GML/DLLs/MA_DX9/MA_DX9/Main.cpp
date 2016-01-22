@@ -8,12 +8,10 @@
 #include "ModelMPM.h"
 #include "ModelX.h"
 #include "ParticleSystem.h"
-#include "Shader.h"
-#include "Surface.h"
-#include "Texture.h"
 #include "MainImpl.h"
 #include "SurfaceImpl.h"
 #include "TextureImpl.h"
+#include "ShaderImpl.h"
 
 uint MainImpl::release()
 {
@@ -36,7 +34,6 @@ MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 
 MainImpl::~MainImpl()
 {
-	ClearVector(Shader);
 	ClearVector(MD2Models);
 	ClearVector(MPMModels);
 	ClearVector(Light);
@@ -46,6 +43,9 @@ MainImpl::~MainImpl()
 	ClearVector(VertexBuffers);
 	ClearVector(XModels);
 	ClearVector(ParticleSys);
+
+	for (auto i : shaders)
+		delete i;
 
 	for (auto i : surfaces)
 		delete i;
@@ -149,6 +149,39 @@ void MainImpl::textureRemove(const Texture* tex)
 	});
 }
 
+ErrorCode MainImpl::shaderCreate(Shader*& shd)
+{
+	ShaderImpl* s = new(std::nothrow) ShaderImpl(this);
+
+	if (s == 0)
+		return setError(ErrorMemory);
+
+	shaders.push_back(s);
+	shd = s;
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::shaderExists(const Shader* shd, bool& exists)
+{
+	exists = 0;
+
+	if (shd != 0)
+	{
+		if (std::find(shaders.begin(), shaders.end(), (ShaderImpl*) shd) != shaders.end())
+			exists = 1;
+	}
+
+	return ErrorOk;
+}
+
+void MainImpl::shaderRemove(const Shader* shd)
+{
+	shaders.remove_if([shd](Shader* s) {
+		return s == shd;
+	});
+}
+
 ErrorCode MainImpl::setTexture(uint stage, class Texture* tex)
 {
 	LPDIRECT3DTEXTURE9 t;
@@ -172,6 +205,39 @@ ErrorCode MainImpl::resetTexture(uint stage)
 {
 	if (FAILED(d3ddev->SetTexture(stage, 0)))
 		return setError(ErrorD3D9);
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::setShader(Shader* shd)
+{
+	LPDIRECT3DVERTEXSHADER9 vshd;
+	LPDIRECT3DPIXELSHADER9 pshd;
+
+	ErrorCode ret;
+	
+	if ((ret = shd->getVertexShader(vshd)) != ErrorOk)
+		return ret;
+
+	if ((ret = shd->getPixelShader(pshd)) != ErrorOk)
+	{
+		vshd->Release();
+		return ret;
+	}
+
+	d3ddev->SetVertexShader(vshd);
+	d3ddev->SetPixelShader(pshd);
+
+	vshd->Release();
+	pshd->Release();
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::resetShader()
+{
+	d3ddev->SetVertexShader(0);
+	d3ddev->SetPixelShader(0);
 
 	return ErrorOk;
 }

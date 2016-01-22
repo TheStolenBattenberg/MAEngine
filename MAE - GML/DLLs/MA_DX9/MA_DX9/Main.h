@@ -28,8 +28,14 @@ public:
 	virtual ErrorCode textureCreate(class Texture*& tex) = 0;
 	virtual ErrorCode textureExists(const class Texture* tex, bool& exists) = 0;
 
+	virtual ErrorCode shaderCreate(class Shader*& shd) = 0;
+	virtual ErrorCode shaderExists(const class Shader* shd, bool& exists) = 0;
+
 	virtual ErrorCode setTexture(uint stage, class Texture* tex) = 0;
 	virtual ErrorCode resetTexture(uint stage) = 0;
+
+	virtual ErrorCode setShader(class Shader* shd) = 0;
+	virtual ErrorCode resetShader() = 0;
 
 	virtual ErrorCode setError(ErrorCode code) = 0;
 	virtual ErrorCode getError() = 0;
@@ -37,7 +43,6 @@ public:
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
-	std::vector<class Shader*>       Shader;
 	std::vector<D3DLIGHT9*>          Light;
 	std::vector<D3DMATERIAL9*>       Material;
 	std::vector<class Buffer*>       Buffers;

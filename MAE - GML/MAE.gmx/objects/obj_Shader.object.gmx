@@ -84,7 +84,9 @@ keyboard_lastchar = "1";
  *
  */
 
-Shd_02 = MAE_ShaderCreate(
+Shd_02 = MAE_ShaderCreate();
+
+MAE_ShaderCompile(Shd_02,
 "
 vs.1.1
 
@@ -126,7 +128,9 @@ SHADER_ASM);
           <argument>
             <kind>1</kind>
             <string>///HLSL9 Shader
-Shd_01 = MAE_ShaderCreate(
+Shd_01 = MAE_ShaderCreate();
+
+MAE_ShaderCompile(Shd_01,
 "
 uniform float4x4 uMatWorldView  : register(c0);
 uniform float4x4 uMatProjection : register(c4);
@@ -254,7 +258,7 @@ switch(shader)
         draw_set_colour(c_red);
         d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
         
-        MAE_ShaderReset();
+        MAE_ShaderSet(-1);
     break;
     
     case "2":
@@ -268,7 +272,7 @@ switch(shader)
         draw_set_colour(c_red);
         d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
         
-    MAE_ShaderReset();
+    MAE_ShaderSet(-1);
     break;
 }
 

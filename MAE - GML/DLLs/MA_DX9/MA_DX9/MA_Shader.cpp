@@ -11,163 +11,147 @@
 std::vector<float> matStack;
 std::string err;
 
-DLLEXPORT double MADX9_ShaderCreateASM(const char* VSCode, const char* PSCode)
+DLLEXPORT double MAE_ShaderCreate()
 {
-	Shader* shd = new Shader();
+	Shader* s;
 
-	ErrorCode ret = shd->compileASM(VSCode, PSCode, err);
+	ErrorCode ret = mamain->shaderCreate(s);
 
-	if (ret != ErrorOk)
-	{
-		delete shd;
-		return ret;
-	}
-
-	return putInto(shd, mamain->Shader);
+	return ret != ErrorOk ? ret : VectorPushBackPointer(s, shaders);
 }
 
-DLLEXPORT double MADX9_ShaderCreateHLSL9(const char* VSCode, const char* PSCode)
+DLLEXPORT double MAE_ShaderCompileASM(double index, const char* VSCode, const char* PSCode)
 {
-	Shader* shd = new Shader();
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
 
-	ErrorCode ret = shd->compile(VSCode, PSCode, err);
+	if (shd == 0)
+		return mamain->setError(ErrorInv);
 
-	if (ret != ErrorOk)
-	{
-		delete shd;
-		return ret;
-	}
+	return shd->compileASM(VSCode, PSCode, err);
+}
 
-	return putInto(shd, mamain->Shader);
+DLLEXPORT double MAE_ShaderCompileHLSL9(double index, const char* VSCode, const char* PSCode)
+{
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
+		return mamain->setError(ErrorInv);
+
+	return shd->compile(VSCode, PSCode, err);
 }
 
 DLLEXPORT double MADX9_ShaderSet(double index)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	if (index < 0)
+		return mamain->resetShader();
+
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	HRESULT result;
-
-	mamain->d3ddev->GetFVF(&mamain->stFVF);
-
-	result = mamain->d3ddev->SetVertexShader(mamain->Shader[(uint)index]->VShader);
-
-	if (FAILED(result))
-		return mamain->setError(ErrorD3D9);
-
-	result = mamain->d3ddev->SetPixelShader(mamain->Shader[(uint)index]->PShader);
-
-	if (FAILED(result))
-		return mamain->setError(ErrorD3D9);
-
-	return ErrorOk;
-}
-
-DLLEXPORT double MADX9_ShaderReset()
-{
-	HRESULT result;
-
-	result = mamain->d3ddev->SetVertexShader(NULL);
-
-	if (FAILED(result))
-		return mamain->setError(ErrorD3D9);
-
-	result = mamain->d3ddev->SetPixelShader(NULL);
-
-	if (FAILED(result))
-		return mamain->setError(ErrorD3D9);
-
-	mamain->d3ddev->SetFVF(mamain->stFVF);
-	return ErrorOk;
+	return mamain->setShader(shd);
 }
 
 DLLEXPORT double MADX9_ShaderDestroy(double index)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	delete mamain->Shader[(uint)index];
-	mamain->Shader[(uint)index] = 0;
+	shd->release();
+	shaders[(uint) index] = 0;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_ShaderFindConstant(double index, double shd, const char* c)
+DLLEXPORT double MADX9_ShaderFindConstant(double index, double type, const char* c)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
 	uint ind;
 
-	ErrorCode ret = (shd ? mamain->Shader[(uint)index]->PConstants : mamain->Shader[(uint)index]->VConstants).find(c, ind);
+	ErrorCode ret = shd->find((Shader::ShaderType) (uint) type, c, ind);
 
-	if (ret != ErrorOk)
-		return ret;
-
-	return ind;
+	return ret != ErrorOk ? ret : ind;
 }
 
-DLLEXPORT double MADX9_ShaderGetSampler(double index, double shd, double c)
+DLLEXPORT double MADX9_ShaderGetSampler(double index, double type, double c)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
 	uint ind;
 
-	ErrorCode ret = (shd ? mamain->Shader[(uint)index]->PConstants : mamain->Shader[(uint)index]->VConstants).getSampler((uint) c, ind);
+	ErrorCode ret = shd->getSampler((Shader::ShaderType) (uint) type, (uint) c, ind);
 
-	if (ret != ErrorOk)
-		return ret;
-
-	return ind;
+	return ret != ErrorOk ? ret : ind;
 }
 
-DLLEXPORT double MADX9_ShaderSetConstantFloat(double index, double shd, double c, double x)
+DLLEXPORT double MADX9_ShaderSetConstantFloat(double index, double type, double c, double x)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setFloat((uint) c, (float) x);
+	return shd->setFloat((Shader::ShaderType) (uint) index, (uint) c, (float) x);
 }
 
-DLLEXPORT double MADX9_ShaderSetConstantVec2(double index, double shd, double c, double x, double y)
+DLLEXPORT double MADX9_ShaderSetConstantVec2(double index, double type, double c, double x, double y)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setVec2((uint) c, vec2((float) x, (float) y));
+	return shd->setVec2((Shader::ShaderType) (uint) index, (uint) c, vec2((float) x, (float) y));
 }
 
-DLLEXPORT double MADX9_ShaderSetConstantVec3(double index, double shd, double c, double x, double y, double z)
+DLLEXPORT double MADX9_ShaderSetConstantVec3(double index, double type, double c, double x, double y, double z)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setVec3((uint) c, vec3((float) x, (float) y, (float) z));
+	return shd->setVec3((Shader::ShaderType) (uint) index, (uint) c, vec3((float) x, (float) y, (float) z));
 }
 
-DLLEXPORT double MADX9_ShaderSetConstantVec4(double index, double shd, double c, double x, double y, double z, double w)
+DLLEXPORT double MADX9_ShaderSetConstantVec4(double index, double type, double c, double x, double y, double z, double w)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setVec4((uint) c, vec4((float) x, (float) y, (float) z, (float) w));
+	return shd->setVec4((Shader::ShaderType) (uint) index, (uint) c, vec4((float) x, (float) y, (float) z, (float) w));
 }
 
-DLLEXPORT double MADX9_ShaderSetConstantMat3(double index, double shd, double c)
+DLLEXPORT double MADX9_ShaderSetConstantMat3(double index, double type, double c)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setMat3((uint)c, mat3(matStack.data()));
+	return shd->setMat3((Shader::ShaderType) (uint) index, (uint) c, mat3(matStack.data()));
 }
 
-DLLEXPORT double MADX9_ShaderSetConstantMat4(double index, double shd, double c)
+DLLEXPORT double MADX9_ShaderSetConstantMat4(double index, double type, double c)
 {
-	if (!isValidIndex((uint) index, mamain->Shader))
+	Shader* shd = VectorGetPointerSafe((uint) index, shaders);
+
+	if (shd == 0)
 		return mamain->setError(ErrorInv);
 
-	return (shd ? mamain->Shader[(uint) index]->PConstants : mamain->Shader[(uint) index]->VConstants).setMat4((uint)c, mat4(matStack.data()));
+	return shd->setMat4((Shader::ShaderType) (uint) index, (uint) c, mat4(matStack.data()));
 }
 
 DLLEXPORT double MADX9_MatStackFloat8(double v1, double v2, double v3, double v4, double v5, double v6, double v7, double v8)

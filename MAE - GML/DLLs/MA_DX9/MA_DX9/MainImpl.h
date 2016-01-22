@@ -20,8 +20,15 @@ public:
 	ErrorCode textureExists(const class Texture* tex, bool& exists);
 	void textureRemove(const class Texture* tex);
 
+	ErrorCode shaderCreate(class Shader*& shd);
+	ErrorCode shaderExists(const class Shader* shd, bool& exists);
+	void shaderRemove(const class Shader* shd);
+
 	ErrorCode setTexture(uint stage, class Texture* tex);
 	ErrorCode resetTexture(uint stage);
+
+	ErrorCode setShader(class Shader* shd);
+	ErrorCode resetShader();
 
 	ErrorCode setError(ErrorCode code);
 	ErrorCode getError();
@@ -30,4 +37,5 @@ private:
 	ErrorCode errCode;
 	std::list<class SurfaceImpl*> surfaces;
 	std::list<class TextureImpl*> textures;
+	std::list<class ShaderImpl*>  shaders;
 };

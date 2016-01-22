@@ -6,43 +6,35 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <string>
-#include <vector>
 #include <Mat.h>
 #include <Vec.h>
 
-class Shader
+#include "RefCounted.h"
+
+class Shader: public RefCounted
 {
 public:
-	class ShaderConstants
+	enum ShaderType: long
 	{
-	public:
-		~ShaderConstants();
-
-		ErrorCode find(const std::string& c, uint& ind);
-		ErrorCode getSampler(uint c, uint& ind);
-
-		ErrorCode setFloat(uint c, float f);
-
-		ErrorCode setVec2(uint c, const vec2& v);
-		ErrorCode setVec3(uint c, const vec3& v);
-		ErrorCode setVec4(uint c, const vec4& v);
-		ErrorCode setMat3(uint c, const mat3& m);
-		ErrorCode setMat4(uint c, const mat4& m);
-
-		LPD3DXCONSTANTTABLE constants = 0;
-
-	private:
-		std::vector<D3DXHANDLE> handles;
+		ShaderTypeVertex = 0,
+		ShaderTypePixel  = 1
 	};
 
-	~Shader();
+	virtual uint release() = 0;
 
-	ErrorCode compile(const std::string& vert, const std::string& pixel, std::string& error);
-	ErrorCode compileASM(const std::string& vert, const std::string& pixel, std::string& error);
+	virtual ErrorCode compile(const std::string& vert, const std::string& pixel, std::string& error) = 0;
+	virtual ErrorCode compileASM(const std::string& vert, const std::string& pixel, std::string& error) = 0;
 
-	LPDIRECT3DVERTEXSHADER9 VShader = 0;
-	LPDIRECT3DPIXELSHADER9  PShader = 0;
+	virtual ErrorCode find(ShaderType type, const std::string& c, uint& ind) = 0;
+	virtual ErrorCode getSampler(ShaderType type, uint c, uint& ind) = 0;
 
-	ShaderConstants VConstants;
-	ShaderConstants PConstants;
+	virtual ErrorCode getVertexShader(LPDIRECT3DVERTEXSHADER9& vert) = 0;
+	virtual ErrorCode getPixelShader(LPDIRECT3DPIXELSHADER9& pixel) = 0;
+
+	virtual ErrorCode setFloat(ShaderType type, uint c, float f) = 0;
+	virtual ErrorCode setVec2(ShaderType type, uint c, const vec2& v) = 0;
+	virtual ErrorCode setVec3(ShaderType type, uint c, const vec3& v) = 0;
+	virtual ErrorCode setVec4(ShaderType type, uint c, const vec4& v) = 0;
+	virtual ErrorCode setMat3(ShaderType type, uint c, const mat3& m) = 0;
+	virtual ErrorCode setMat4(ShaderType type, uint c, const mat4& m) = 0;
 };
