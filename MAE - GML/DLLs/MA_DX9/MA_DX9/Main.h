@@ -25,6 +25,12 @@ public:
 	virtual ErrorCode surfaceCreate(class Surface*& surf) = 0;
 	virtual ErrorCode surfaceExists(const class Surface* surf, bool& exists) = 0;
 
+	virtual ErrorCode textureCreate(class Texture*& tex) = 0;
+	virtual ErrorCode textureExists(const class Texture* tex, bool& exists) = 0;
+
+	virtual ErrorCode setTexture(uint stage, class Texture* tex) = 0;
+	virtual ErrorCode resetTexture(uint stage) = 0;
+
 	virtual ErrorCode setError(ErrorCode code) = 0;
 	virtual ErrorCode getError() = 0;
 
@@ -34,7 +40,6 @@ public:
 	std::vector<class Shader*>       Shader;
 	std::vector<D3DLIGHT9*>          Light;
 	std::vector<D3DMATERIAL9*>       Material;
-	std::vector<class Texture*>      Textures;
 	std::vector<class Buffer*>       Buffers;
 	std::vector<class VertexDecl*>   VertexDeclarations;
 	std::vector<class VertexBuffer*> VertexBuffers;

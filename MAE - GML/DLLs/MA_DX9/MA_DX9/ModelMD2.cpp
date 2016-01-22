@@ -244,7 +244,7 @@ MD2Model::~MD2Model()
 		indBuf->Release();
 
 	if (tex != 0)
-		tex->Release();
+		tex->release();
 
 	if (decl != 0)
 		decl->Release();
@@ -440,13 +440,13 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	return ErrorOk;
 }
 
-void MD2Model::setTexture(LPDIRECT3DTEXTURE9 tex)
+void MD2Model::setTexture(Texture* texture)
 {
-	if (this->tex != 0)
-		this->tex->Release();
+	if (tex != 0)
+		tex->release();
 
-	tex->AddRef();
-	this->tex = tex;
+	texture->addRef();
+	tex = texture;
 }
 
 uint MD2Model::getFrameCount()
@@ -456,7 +456,7 @@ uint MD2Model::getFrameCount()
 
 void MD2Model::render(uint frame1, uint frame2, float tween)
 {
-	mamain->d3ddev->SetTexture(0, tex);
+	mamain->setTexture(0, tex);
 
 	mamain->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);
 	mamain->d3ddev->SetRenderState(D3DRS_TWEENFACTOR, *(DWORD*) &tween);

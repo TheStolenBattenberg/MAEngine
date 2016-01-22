@@ -81,6 +81,7 @@
     <ClInclude Include="Surface.h" />
     <ClInclude Include="SurfaceImpl.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureImpl.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Variant.h" />

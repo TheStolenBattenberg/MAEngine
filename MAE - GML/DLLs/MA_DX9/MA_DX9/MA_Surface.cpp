@@ -53,6 +53,7 @@ DLLEXPORT double MADX9_SurfaceDestroy(double index)
 		return mamain->setError(ErrorInv);
 
 	surf->release();
+	surfaces[(uint) index] = 0;
 
 	return ErrorOk;
 }

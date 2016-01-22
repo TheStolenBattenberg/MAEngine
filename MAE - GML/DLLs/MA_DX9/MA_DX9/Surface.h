@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Main.h"
+#include "Error.h"
 #include "RefCounted.h"
+
+#include <d3d9.h>
 
 class Surface: public RefCounted
 {

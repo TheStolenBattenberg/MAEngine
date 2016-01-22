@@ -319,6 +319,7 @@
         </scripts>
         <scripts name="Textures">
           <script>scripts\MAE_TextureCreate.gml</script>
+          <script>scripts\MAE_TextureCreateEmpty.gml</script>
           <script>scripts\MAE_TextureCreateFromFile.gml</script>
           <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
           <script>scripts\MAE_TextureCreateFromGMTex.gml</script>

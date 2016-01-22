@@ -6,6 +6,7 @@
 
 #include "Types.h"
 #include "Object.h"
+#include "Texture.h"
 
 #include <vector>
 
@@ -15,7 +16,7 @@ public:
 	~MD2Model();
 
 	ErrorCode load(std::string model, bool normals);
-	void setTexture(LPDIRECT3DTEXTURE9 tex);
+	void setTexture(Texture* tex);
 	void render(uint frame1, uint frame2, float tween);
 	uint getFrameCount();
 
@@ -23,7 +24,7 @@ private:
 	uint vertCount = 0;
 	uint triCount = 0;
 
-	LPDIRECT3DTEXTURE9 tex = 0;
+	Texture* tex = 0;
 
 	LPDIRECT3DVERTEXDECLARATION9 decl = 0;
 

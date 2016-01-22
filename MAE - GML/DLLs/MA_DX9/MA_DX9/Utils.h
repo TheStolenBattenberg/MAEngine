@@ -74,7 +74,7 @@ inline void* DoubleToPtr(double value)
 
 template<typename T> inline T* VectorGetPointerSafe(uint index, const std::vector<T*>& vec)
 {
-	return index >= surfaces.size() ? 0 : surfaces[index];
+	return index >= vec.size() ? 0 : vec[index];
 }
 
 template<typename T> inline uint VectorPushBackPointer(T* ptr, std::vector<T*>& vec)

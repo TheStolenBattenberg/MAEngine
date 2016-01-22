@@ -3,6 +3,8 @@
 #include "Main.h"
 #include "ParticleSystem.h"
 #include "Utils.h"
+#include "Main.h"
+#include "Texture.h"
 
 #include "MA_Main.h"
 
@@ -31,9 +33,10 @@ ParticleSystem::~ParticleSystem() {
 	if (psVertexBuffer != 0) {
 		psVertexBuffer->Release();
 	}
-	if (psTexture != 0) {
-		psTexture->Release();
-	}
+
+	if (texture != 0)
+		texture->release();
+
 	psBuffer.clear();
 }
 
@@ -133,7 +136,7 @@ void ParticleSystem::render() {
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*)&v);
 
 	mamain->d3ddev->SetVertexDeclaration(mamain->VertexDeclarationParticle);
-	mamain->d3ddev->SetTexture(0, psTexture);
+	mamain->setTexture(0, texture);
 	mamain->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));
 	mamain->d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
 	mamain->d3ddev->SetVertexDeclaration(NULL);
@@ -161,10 +164,10 @@ void ParticleSystem::setMaxParticleCount(uint max) {
 	// TODO: Add proper error checking
 }
 
-void ParticleSystem::setTexture(LPDIRECT3DTEXTURE9 tex) {
-	if (this->psTexture != 0)
-		this->psTexture->Release();
+void ParticleSystem::setTexture(Texture* tex) {
+	if (texture != 0)
+		texture->release();
 
-	tex->AddRef();
-	this->psTexture = tex;
+	tex->addRef();
+	texture = tex;
 }

@@ -269,5 +269,8 @@
     <ClInclude Include="Encryption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextureImpl.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

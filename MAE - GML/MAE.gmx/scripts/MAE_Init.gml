@@ -71,12 +71,13 @@ if (argument[0] & INIT_RENDER)
     global._MAE_MPMRender  = external_define(global.DLL_MAE, "MAE_MPMRender", dll_cdecl, ty_real, 1, ty_real);
     
     // Textures
-    global.MADX9_TextureCreateFromFile         = external_define(global.DLL_MAE, "MADX9_TextureCreateFromFile", dll_cdecl, ty_real, 2, ty_string, ty_real);
-    global.MADX9_TextureCreateFromPointer      = external_define(global.DLL_MAE, "MADX9_TextureCreateFromPointer", dll_cdecl, ty_real, 1, ty_real);
+    global.__MAE_TextureCreate                 = external_define(global.DLL_MAE, "MAE_TextureCreate", dll_cdecl, ty_real, 0);
+    global.MADX9_TextureCreateFromFile         = external_define(global.DLL_MAE, "MADX9_TextureCreateFromFile", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_real);
+    global.MADX9_TextureCreateFromPointer      = external_define(global.DLL_MAE, "MADX9_TextureCreateFromPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_TextureDestroy                = external_define(global.DLL_MAE, "MADX9_TextureDestroy", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_TextureSet                    = external_define(global.DLL_MAE, "MADX9_TextureSet", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_TextureCreateFromFileInMemory = external_define(global.DLL_MAE, "MADX9_TextureCreateFromFileInMemory", dll_cdecl, ty_real, 3, ty_string, ty_real, ty_real);
-    global.MADX9_TextureCreate                 = external_define(global.DLL_MAE, "MADX9_TextureCreate", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.MADX9_TextureCreateFromFileInMemory = external_define(global.DLL_MAE, "MADX9_TextureCreateFromFileInMemory", dll_cdecl, ty_real, 4, ty_real, ty_string, ty_real, ty_real);
+    global.MADX9_TextureCreateEmpty            = external_define(global.DLL_MAE, "MADX9_TextureCreateEmpty", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_TextureGenerateMipMaps        = external_define(global.DLL_MAE, "MADX9_TextureGenerateMipMaps", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_TextureGetPointer             = external_define(global.DLL_MAE, "MADX9_TextureGetPointer", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_TextureGetSurfaceCount        = external_define(global.DLL_MAE, "MADX9_TextureGetSurfaceCount", dll_cdecl, ty_real, 1, ty_real);

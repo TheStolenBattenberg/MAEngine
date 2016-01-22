@@ -8,6 +8,7 @@
 #include "Particle.h"
 #include "ParticleEmitter.h"
 #include "ParticleModifier.h"
+#include "Texture.h"
 
 class ParticleSystem {
 public:
@@ -23,7 +24,7 @@ public:
 	void update(uint time);
 	void render();
 
-	void setTexture(LPDIRECT3DTEXTURE9 tex);
+	void setTexture(Texture* tex);
 
 	uint getParticleCount();
 
@@ -36,7 +37,8 @@ private:
 
 	uint psMaxParticleCount;
 
+	Texture* texture = 0;
+
 	//D3D...
-	LPDIRECT3DTEXTURE9 psTexture = 0;
 	LPDIRECT3DVERTEXBUFFER9 psVertexBuffer = 0;
 };

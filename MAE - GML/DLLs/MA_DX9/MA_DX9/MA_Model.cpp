@@ -15,8 +15,10 @@
 
 DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd, double normals)
 {
-	if (!isValidIndex((uint) texInd, mamain->Textures))
-		return -1;
+	Texture* tex = VectorGetPointerSafe((uint) texInd, textures);
+
+	if (tex == 0)
+		return mamain->setError(ErrorInv);
 
 	MD2Model* MD2 = new MD2Model();
 
@@ -26,7 +28,7 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd, double n
 		return -1;
 	}
 
-	MD2->setTexture(mamain->Textures[(uint)texInd]->tex);
+	MD2->setTexture(tex);
 
 	return putInto(MD2, mamain->MD2Models);
 }

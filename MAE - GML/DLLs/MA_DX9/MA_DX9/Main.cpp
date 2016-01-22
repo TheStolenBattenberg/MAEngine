@@ -13,6 +13,7 @@
 #include "Texture.h"
 #include "MainImpl.h"
 #include "SurfaceImpl.h"
+#include "TextureImpl.h"
 
 uint MainImpl::release()
 {
@@ -35,13 +36,9 @@ MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 
 MainImpl::~MainImpl()
 {
-	for (auto i : surfaces)
-		delete i;
-
 	ClearVector(Shader);
 	ClearVector(MD2Models);
 	ClearVector(MPMModels);
-	ClearVector(Textures);
 	ClearVector(Light);
 	ClearVector(Material);
 	ClearVector(Buffers);
@@ -49,6 +46,12 @@ MainImpl::~MainImpl()
 	ClearVector(VertexBuffers);
 	ClearVector(XModels);
 	ClearVector(ParticleSys);
+
+	for (auto i : surfaces)
+		delete i;
+
+	for (auto i : textures)
+		delete i;
 
 	if (VertexDeclarationParticle != 0)
 	{
@@ -111,6 +114,66 @@ void MainImpl::surfaceRemove(const Surface* surf)
 	surfaces.remove_if([surf](Surface* s) {
 		return s == surf;
 	});
+}
+
+ErrorCode MainImpl::textureCreate(Texture*& tex)
+{
+	TextureImpl* t = new(std::nothrow) TextureImpl(this);
+
+	if (t == 0)
+		return this->setError(ErrorMemory);
+
+	textures.push_back(t);
+	tex = t;
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::textureExists(const Texture* tex, bool& exists)
+{
+	exists = 0;
+
+	if (tex != 0)
+	{
+		if (std::find(textures.begin(), textures.end(), (TextureImpl*) tex) != textures.end())
+			exists = 1;
+	}
+
+	return ErrorOk;
+}
+
+void MainImpl::textureRemove(const Texture* tex)
+{
+	textures.remove_if([tex](Texture* t) {
+		return t == tex;
+	});
+}
+
+ErrorCode MainImpl::setTexture(uint stage, class Texture* tex)
+{
+	LPDIRECT3DTEXTURE9 t;
+
+	ErrorCode ret = tex->getTexture(t);
+
+	if (ret != ErrorOk)
+		return ret;
+	
+	HRESULT res = d3ddev->SetTexture(stage, t);
+
+	t->Release();
+
+	if (FAILED(res))
+		return setError(ErrorD3D9);
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::resetTexture(uint stage)
+{
+	if (FAILED(d3ddev->SetTexture(stage, 0)))
+		return setError(ErrorD3D9);
+
+	return ErrorOk;
 }
 
 Main* MainCreate(LPDIRECT3DDEVICE9 device)

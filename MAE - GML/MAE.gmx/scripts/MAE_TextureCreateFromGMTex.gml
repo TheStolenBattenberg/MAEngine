@@ -1,4 +1,4 @@
-///MAE_TextureCreateFromGMTex(tex)
+///MAE_TextureCreateFromGMTex(index,tex)
 
 /**
  * Description:
@@ -6,7 +6,8 @@
  *   Requires INIT_FLUSH
  *
  * Arguments:
- *   [1] - Game Maker texture
+ *   [1] - Index of the texture
+ *   [2] - Game Maker texture
  *
  * Returns:
  *   Texture index or -1 on failure.
@@ -14,7 +15,7 @@
 
 var t;
 
-draw_primitive_begin_texture(pr_pointlist, argument0);
+draw_primitive_begin_texture(pr_pointlist, argument1);
 draw_vertex(0, 0);
 draw_primitive_end();
 
@@ -27,7 +28,7 @@ if (MAE_HookStackEmpty())
 
 var p = MAE_HookStackPopPointer();
 
-var t = MAE_TextureCreateFromPointer(p);
+var t = MAE_TextureCreateFromPointer(argument0, p);
 
 MAE_FreePointer(p);
 

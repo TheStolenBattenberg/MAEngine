@@ -5,135 +5,137 @@
 
 #include "MA_Main.h"
 
-DLLEXPORT double MADX9_TextureCreateFromFile(const char* file, Texture::MipMaps mipmaps)
+DLLEXPORT double MAE_TextureCreate()
 {
-	Texture* tex = new Texture();
-
-	ErrorCode ret = tex->loadFromFile(file, mipmaps);
+	Texture* tex;
+	
+	ErrorCode ret = mamain->textureCreate(tex);
 
 	if (ret != ErrorOk)
-	{
-		delete tex;
 		return ret;
-	}
 
-	return putInto(tex, mamain->Textures);
+	return VectorPushBackPointer(tex, textures);
 }
 
-DLLEXPORT double MADX9_TextureCreateFromPointer(double ptr)
+DLLEXPORT double MADX9_TextureCreateFromFile(double index, const char* file, Texture::MipMaps mipmaps)
 {
-	Texture* tex = new Texture();
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
 
-	if ((tex->tex = (LPDIRECT3DTEXTURE9) DoubleToPtr(ptr)) == 0)
-	{
-		delete tex;
+	if (tex == 0)
 		return mamain->setError(ErrorInv);
-	}
 
-	tex->tex->AddRef();
-
-	return putInto(tex, mamain->Textures);
+	return tex->loadFromFile(file, mipmaps);
 }
 
-DLLEXPORT double MADX9_TextureDestroy(double ind)
+DLLEXPORT double MADX9_TextureCreateFromPointer(double index, double ptr)
 {
-	if (!isValidIndex((uint) ind, mamain->Textures))
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0 || DoubleToPtr(ptr) == 0)
 		return mamain->setError(ErrorInv);
 
-	delete mamain->Textures[(uint)ind];
-	mamain->Textures[(uint)ind] = 0;
+	return tex->createFromPointer((LPDIRECT3DTEXTURE9) DoubleToPtr(ptr));
+}
+
+DLLEXPORT double MADX9_TextureDestroy(double index)
+{
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
+		return mamain->setError(ErrorInv);
+
+	tex->release();
+	textures[(uint) index] = 0;
 
 	return 1;
 }
 
-DLLEXPORT double MADX9_TextureSet(double ind, double stage)
+DLLEXPORT double MADX9_TextureSet(double stage, double index)
 {
-	if (!isValidIndex((uint) ind, mamain->Textures))
+	if (index < 0)
+		return mamain->resetTexture((uint) stage);
+
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
 		return mamain->setError(ErrorInv);
 
-	HRESULT res = mamain->d3ddev->SetTexture((uint)stage, mamain->Textures[(uint)ind]->tex);
-
-	if (FAILED(res))
-		return mamain->setError(ErrorD3D9);
-
-	return ErrorOk;
+	return mamain->setTexture((uint) stage, tex);
 }
 
-DLLEXPORT double MADX9_TextureCreateFromFileInMemory(const void* data, double length, Texture::MipMaps mipmaps)
+DLLEXPORT double MADX9_TextureCreateFromFileInMemory(double index, const void* data, double length, Texture::MipMaps mipmaps)
 {
-	Texture* tex = new Texture();
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
 
-	ErrorCode ret = tex->loadFromFileInMemory(data, (uint) length, mipmaps);
-
-	if (ret != ErrorOk)
-	{
-		delete tex;
-		return ret;
-	}
-
-	return putInto(tex, mamain->Textures);
-}
-
-DLLEXPORT double MADX9_TextureCreate(double width, double height, double levels, double usage, double format, double pool)
-{
-	Texture* tex = new Texture();
-
-	ErrorCode ret = tex->create((uint) width, (uint) height, (uint) levels, (uint) usage, (D3DFORMAT) (uint) format, (D3DPOOL) (uint) pool);
-
-	if (ret != ErrorOk)
-	{
-		delete tex;
-		return ret;
-	}
-
-	return putInto(tex, mamain->Textures);
-}
-
-DLLEXPORT double MADX9_TextureGenerateMipMaps(double ind)
-{
-	if (!isValidIndex((uint) ind, mamain->Textures))
+	if (tex == 0)
 		return mamain->setError(ErrorInv);
 
-	return mamain->Textures[(uint) ind]->generateMipMaps();
+	return tex->loadFromFileInMemory(data, (uint) length, mipmaps);
 }
 
-DLLEXPORT double MADX9_TextureGetPointer(double ind)
+DLLEXPORT double MADX9_TextureCreateEmpty(double index, double width, double height, double levels, double usage, double format, double pool)
 {
-	if (!isValidIndex((uint) ind, mamain->Textures))
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
 		return mamain->setError(ErrorInv);
 
-	mamain->Textures[(uint) ind]->tex->AddRef();
-	return PtrToDouble(mamain->Textures[(uint) ind]->tex);
+	return tex->create((uint) width, (uint) height, (uint) levels, (uint) usage, (D3DFORMAT) (uint) format, (D3DPOOL) (uint) pool);
 }
 
-DLLEXPORT double MADX9_TextureGetSurfaceCount(double ind)
+DLLEXPORT double MADX9_TextureGenerateMipMaps(double index)
 {
-	if (!isValidIndex((uint) ind, mamain->Textures))
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
+		return mamain->setError(ErrorInv);
+
+	return tex->generateMipMaps();
+}
+
+DLLEXPORT double MADX9_TextureGetPointer(double index)
+{
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
+		return PtrToDouble(0);
+
+	LPDIRECT3DTEXTURE9 t;
+
+	return tex->getTexture(t) != ErrorOk ? PtrToDouble(0) : PtrToDouble(t);
+}
+
+DLLEXPORT double MADX9_TextureGetSurfaceCount(double index)
+{
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
 		return mamain->setError(ErrorInv);
 
 	uint count;
 
-	ErrorCode ret = mamain->Textures[(uint) ind]->getSurfaceCount(count);
+	ErrorCode ret = tex->getSurfaceCount(count);
 
-	if (ret != ErrorOk)
-		return ret;
-
-	return count;
+	return ret != ErrorOk ? ret : count;
 }
 
-DLLEXPORT double MADX9_TextureSetMipMapFilter(double ind, double filter)
+DLLEXPORT double MADX9_TextureSetMipMapFilter(double index, double filter)
 {
-	if (!isValidIndex((uint) ind, mamain->Textures))
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
+
+	if (tex == 0)
 		return mamain->setError(ErrorInv);
 
-	return mamain->Textures[(uint) ind]->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);
+	return tex->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);
 }
 
-DLLEXPORT double MADX9_TextureUpdate(double dest, double src)
+DLLEXPORT double MADX9_TextureUpdate(double destIndex, double srcIndex)
 {
-	if (!isValidIndex((uint) dest, mamain->Textures) ||
-	    !isValidIndex((uint) src, mamain->Textures))
+	Texture* dest = VectorGetPointerSafe((uint) destIndex, textures);
+	Texture* src = VectorGetPointerSafe((uint) srcIndex, textures);
+
+	if (dest == 0 || src == 0)
 		return mamain->setError(ErrorInv);
 
-	return mamain->Textures[(uint) dest]->update(*mamain->Textures[(uint) src]);
+	return dest->update(src);
 }

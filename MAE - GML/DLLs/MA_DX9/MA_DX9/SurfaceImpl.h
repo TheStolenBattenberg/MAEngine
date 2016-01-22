@@ -20,7 +20,7 @@ public:
 
 	ErrorCode update(Surface* surf);
 
-protected:
+private:
 	MainImpl* main;
 
 	LPDIRECT3DSURFACE9 surf = 0;

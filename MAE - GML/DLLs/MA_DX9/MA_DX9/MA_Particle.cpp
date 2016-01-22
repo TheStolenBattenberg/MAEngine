@@ -48,14 +48,14 @@ DLLEXPORT double MADX9_ParticleSystemSetParticleCount(double index, double count
 }
 
 DLLEXPORT double MADX9_ParticleSystemSetTexture(double index, double texInd) {
-	if ((uint)texInd >= mamain->Textures.size())
-		return 0;
+	Texture* tex = VectorGetPointerSafe((uint) index, textures);
 
-	if (mamain->Textures[(uint)texInd] == 0)
-		return 0;
+	if (tex == 0)
+		return mamain->setError(ErrorInv);
 
-	mamain->ParticleSys[(uint)index]->setTexture(mamain->Textures[(uint)texInd]->tex);
-	return 1;
+	mamain->ParticleSys[(uint) index]->setTexture(tex);
+
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_ParticleEmitterCreate(double index) {
