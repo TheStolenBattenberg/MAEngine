@@ -7,10 +7,6 @@
 #include <fstream>
 #include <algorithm>
 
-template<typename T> inline T clamp(T value, T min, T max) {
-	return std::min(std::max(value, min), max);
-}
-
 template<typename T> inline bool isValidIndex(uint ind, std::vector<T*>& vec)
 {
 	if (ind >= vec.size())

@@ -537,6 +537,11 @@
           </scripts>
           <script>scripts\MAE_ViewportCreate.gml</script>
         </scripts>
+        <scripts name="Error">
+          <script>scripts\MAE_ErrorSetFlags.gml</script>
+          <script>scripts\MAE_ErrorPop.gml</script>
+          <script>scripts\MAE_ErrorGetString.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Private">
         <script>scripts\MAE_Init.gml</script>

@@ -7,14 +7,15 @@ TextureImpl::~TextureImpl()
 {
 	if (tex != 0)
 		tex->Release();
-
-	main->removeTexture(this);
 }
 
 uint TextureImpl::release()
 {
 	if (--count == 0)
+	{
+		main->removeTexture(this);
 		delete this;
+	}
 
 	return count;
 }

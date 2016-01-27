@@ -16,7 +16,7 @@ DLLEXPORT double MADX9_MathCosineInterp(double x, double y, double s) {
 }
 
 DLLEXPORT double MADX9_MathRandomRange(double min, double max) {
-	return (double)randomRangef((float)min, (float)max);
+	return (double)interpLinear((float)min, (float)max, (float) rand() / RAND_MAX);
 }
 
 /**

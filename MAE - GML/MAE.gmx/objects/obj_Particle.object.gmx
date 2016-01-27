@@ -38,8 +38,10 @@ rot = 0;
 index = MAE_ParticleSystemCreate();
 MAE_ParticleSystemSetParticleCount(index, 512);
 
-var t = MAE_TextureCreateFromFile("COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
-    MAE_ParticleSystemSetTexture(index, t);
+var t = MAE_TextureCreate();
+
+MAE_TextureCreateFromFile(t, "COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
+MAE_ParticleSystemSetTexture(index, t);
 MAE_TextureDestroy(t);
 
 /**

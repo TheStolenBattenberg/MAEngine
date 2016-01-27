@@ -14,7 +14,6 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Encryption.cpp" />
-    <ClCompile Include="Math.cpp" />
     <ClCompile Include="MA_BulletBody.cpp" />
     <ClCompile Include="MA_BulletConstraint.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
@@ -25,6 +24,7 @@
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Hook.cpp" />
     <ClCompile Include="MA_Buffer.cpp" />
+    <ClCompile Include="MA_Error.cpp" />
     <ClCompile Include="MA_Light.cpp" />
     <ClCompile Include="MA_Main.cpp" />
     <ClCompile Include="MA_Material.cpp" />

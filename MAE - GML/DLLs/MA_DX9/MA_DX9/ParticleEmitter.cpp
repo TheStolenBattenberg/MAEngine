@@ -26,13 +26,13 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 		Particle part;
 
 		for (uint i = 0; i < count; i++) {
-			part.pPosition.x = randomRangef(pMinPosition.x, pMaxPosition.x); //Set Position.
-			part.pPosition.y = randomRangef(pMinPosition.y, pMaxPosition.y);
-			part.pPosition.z = randomRangef(pMinPosition.z, pMaxPosition.z);
+			part.pPosition.x = interpLinear(pMinPosition.x, pMaxPosition.x, (float) rand() / RAND_MAX); //Set Position.
+			part.pPosition.y = interpLinear(pMinPosition.y, pMaxPosition.y, (float) rand() / RAND_MAX);
+			part.pPosition.z = interpLinear(pMinPosition.z, pMaxPosition.z, (float) rand() / RAND_MAX);
 
-			part.pVelocity.x = randomRangef(pMinVelocity.x, pMaxVelocity.x); //Set Velocity.
-			part.pVelocity.y = randomRangef(pMinVelocity.y, pMaxVelocity.y);
-			part.pVelocity.z = randomRangef(pMinVelocity.z, pMaxVelocity.z);
+			part.pVelocity.x = interpLinear(pMinVelocity.x, pMaxVelocity.x, (float) rand() / RAND_MAX); //Set Velocity.
+			part.pVelocity.y = interpLinear(pMinVelocity.y, pMaxVelocity.y, (float) rand() / RAND_MAX);
+			part.pVelocity.z = interpLinear(pMinVelocity.z, pMaxVelocity.z, (float) rand() / RAND_MAX);
 
 			part.pColour.x   = pColourStart.x;
 			part.pColour.y   = pColourStart.y;
@@ -41,9 +41,9 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 
 			part.pAge        = 0;
 
-			part.pLife       = randomRange(pMinLife, pMaxLife);
+			part.pLife       = interpLinear(pMinLife, pMaxLife, (float) rand() / RAND_MAX);
 
-			part.pSize       = randomRangef(pMinSize, pMaxSize);
+			part.pSize       = interpLinear(pMinSize, pMaxSize, (float) rand() / RAND_MAX);
 
 			parts[i] = part;
 		}
@@ -112,7 +112,7 @@ void ParticleEmitter::setAcceleration(float x, float y, float z) {
 }
 
 uint ParticleEmitter::getSpawnThisTick() {
-	return randomRange(pMinPerEmitt, pMaxPerEmitt);
+	return interpLinear(pMinPerEmitt, pMaxPerEmitt, (float) rand() / RAND_MAX);
 }
 
 vec4 ParticleEmitter::getColour(float interp) {	

@@ -15,6 +15,21 @@ global.MADX9_Free = external_define(global.DLL_MAE, "MADX9_Free", dll_cdecl, ty_
 
 external_call(global.MADX9_Init, window_device());
 
+/*
+ * Error functions
+ */
+
+global.__MAE_ErrorSetFlags  = external_define(global.DLL_MAE, "MAE_ErrorSetFlags", dll_cdecl, ty_real, 1, ty_real);
+global.__MAE_ErrorPop       = external_define(global.DLL_MAE, "MAE_ErrorPop", dll_cdecl, ty_real, 0);
+global.__MAE_ErrorGetString = external_define(global.DLL_MAE, "MAE_ErrorGetString", dll_cdecl, ty_string, 1, ty_real);
+
+enum ErrorFlags
+{
+    Push   = $01,
+    DbgMsg = $02,
+    Msg    = $04
+};
+
 if (argument[0] & INIT_RENDER)
 {
     //Shaders

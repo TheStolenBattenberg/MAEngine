@@ -16,14 +16,15 @@ ShaderImpl::~ShaderImpl()
 
 	if (pshd != 0)
 		pshd->Release();
-
-	main->removeShader(this);
 }
 
 uint ShaderImpl::release()
 {
 	if (--count == 0)
+	{
+		main->removeShader(this);
 		delete this;
+	}
 
 	return count;
 }

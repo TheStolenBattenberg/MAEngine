@@ -75,6 +75,9 @@ MainImpl::~MainImpl()
 
 ErrorCode MainImpl::setError(ErrorCode code)
 {
+	for (auto i : functions)
+		i(code);
+
 	return errCode = code;
 }
 
@@ -143,6 +146,33 @@ void MainImpl::removeShader(const Shader* shd)
 	});
 }
 
+ErrorCode MainImpl::resetRenderTarget(uint ind)
+{
+	if (FAILED(d3ddev->SetRenderTarget(ind, nullptr)))
+		return setError(ErrorD3D9);
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::setRenderTarget(uint ind, class Surface* surf)
+{
+	LPDIRECT3DSURFACE9 s;
+	
+	ErrorCode ret = surf->getSurf(s);
+
+	if (ret != ErrorOk)
+		return ret;
+
+	HRESULT res = d3ddev->SetRenderTarget(ind, s);
+
+	s->Release();
+
+	if (FAILED(res))
+		return setError(ErrorD3D9);
+
+	return ErrorOk;
+}
+
 ErrorCode MainImpl::setTexture(uint stage, class Texture* tex)
 {
 	LPDIRECT3DTEXTURE9 t;
@@ -199,6 +229,20 @@ ErrorCode MainImpl::resetShader()
 {
 	d3ddev->SetVertexShader(0);
 	d3ddev->SetPixelShader(0);
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::onError(void(*func)(ErrorCode))
+{
+	functions.push_back(func);
+
+	return ErrorOk;
+}
+
+ErrorCode MainImpl::unregisterErrorFunction(void(*func)(ErrorCode))
+{
+	functions.remove_if([func](void(*f)(ErrorCode)) { return func == f; });
 
 	return ErrorOk;
 }

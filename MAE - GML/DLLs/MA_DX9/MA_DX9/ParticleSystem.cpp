@@ -135,8 +135,10 @@ void ParticleSystem::render() {
 	v = 1.0f;
 	mamain->d3ddev->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*)&v);
 
+	if (texture != 0)
+		mamain->setTexture(0, texture);
+
 	mamain->d3ddev->SetVertexDeclaration(mamain->VertexDeclarationParticle);
-	mamain->setTexture(0, texture);
 	mamain->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));
 	mamain->d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
 	mamain->d3ddev->SetVertexDeclaration(NULL);

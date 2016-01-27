@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "Mesh.h"
 #include "ModelMD2.h"
+#include "Math.h"
 
 #include "MA_Main.h"
 
