@@ -9,7 +9,7 @@ DLLEXPORT double MAE_SurfaceCreate()
 	Surface* surf;
 	ErrorCode ret;
 
-	if ((ret = mamain->surfaceCreate(surf)) != ErrorOk)
+	if ((ret = mamain->createSurface(surf)) != ErrorOk)
 		return ret;
 
 	return VectorPushBackPointer(surf, surfaces);

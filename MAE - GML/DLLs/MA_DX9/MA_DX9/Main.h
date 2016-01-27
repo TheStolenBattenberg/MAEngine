@@ -22,23 +22,15 @@ class Main: public RefCounted
 public:
 	virtual uint release() = 0;
 
-	virtual ErrorCode surfaceCreate(class Surface*& surf) = 0;
-	virtual ErrorCode surfaceExists(const class Surface* surf, bool& exists) = 0;
-
-	virtual ErrorCode textureCreate(class Texture*& tex) = 0;
-	virtual ErrorCode textureExists(const class Texture* tex, bool& exists) = 0;
-
-	virtual ErrorCode shaderCreate(class Shader*& shd) = 0;
-	virtual ErrorCode shaderExists(const class Shader* shd, bool& exists) = 0;
-
-	virtual ErrorCode setTexture(uint stage, class Texture* tex) = 0;
-	virtual ErrorCode resetTexture(uint stage) = 0;
-
-	virtual ErrorCode setShader(class Shader* shd) = 0;
-	virtual ErrorCode resetShader() = 0;
-
-	virtual ErrorCode setError(ErrorCode code) = 0;
+	virtual ErrorCode createShader(class Shader*& shd) = 0;
+	virtual ErrorCode createSurface(class Surface*& surf) = 0;
+	virtual ErrorCode createTexture(class Texture*& tex) = 0;
 	virtual ErrorCode getError() = 0;
+	virtual ErrorCode resetShader() = 0;
+	virtual ErrorCode resetTexture(uint stage) = 0;
+	virtual ErrorCode setError(ErrorCode code) = 0;
+	virtual ErrorCode setShader(class Shader* shd) = 0;
+	virtual ErrorCode setTexture(uint stage, class Texture* tex) = 0;
 
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;

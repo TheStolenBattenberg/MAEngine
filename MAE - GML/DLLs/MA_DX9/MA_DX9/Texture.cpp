@@ -8,7 +8,7 @@ TextureImpl::~TextureImpl()
 	if (tex != 0)
 		tex->Release();
 
-	main->textureRemove(this);
+	main->removeTexture(this);
 }
 
 uint TextureImpl::release()

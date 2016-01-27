@@ -83,7 +83,7 @@ ErrorCode MainImpl::getError()
 	return errCode;
 }
 
-ErrorCode MainImpl::surfaceCreate(Surface*& surf)
+ErrorCode MainImpl::createSurface(Surface*& surf)
 {
 	SurfaceImpl* s = new(std::nothrow) SurfaceImpl(this);
 
@@ -96,27 +96,14 @@ ErrorCode MainImpl::surfaceCreate(Surface*& surf)
 	return ErrorOk;
 }
 
-ErrorCode MainImpl::surfaceExists(const Surface* surf, bool& exists)
-{
-	exists = 0;
-
-	if (surf != 0)
-	{
-		if (std::find(surfaces.begin(), surfaces.end(), (SurfaceImpl*) surf) != surfaces.end())
-			exists = 1;
-	}
-
-	return ErrorOk;
-}
-
-void MainImpl::surfaceRemove(const Surface* surf)
+void MainImpl::removeSurface(const Surface* surf)
 {
 	surfaces.remove_if([surf](Surface* s) {
 		return s == surf;
 	});
 }
 
-ErrorCode MainImpl::textureCreate(Texture*& tex)
+ErrorCode MainImpl::createTexture(Texture*& tex)
 {
 	TextureImpl* t = new(std::nothrow) TextureImpl(this);
 
@@ -129,27 +116,14 @@ ErrorCode MainImpl::textureCreate(Texture*& tex)
 	return ErrorOk;
 }
 
-ErrorCode MainImpl::textureExists(const Texture* tex, bool& exists)
-{
-	exists = 0;
-
-	if (tex != 0)
-	{
-		if (std::find(textures.begin(), textures.end(), (TextureImpl*) tex) != textures.end())
-			exists = 1;
-	}
-
-	return ErrorOk;
-}
-
-void MainImpl::textureRemove(const Texture* tex)
+void MainImpl::removeTexture(const Texture* tex)
 {
 	textures.remove_if([tex](Texture* t) {
 		return t == tex;
 	});
 }
 
-ErrorCode MainImpl::shaderCreate(Shader*& shd)
+ErrorCode MainImpl::createShader(Shader*& shd)
 {
 	ShaderImpl* s = new(std::nothrow) ShaderImpl(this);
 
@@ -162,20 +136,7 @@ ErrorCode MainImpl::shaderCreate(Shader*& shd)
 	return ErrorOk;
 }
 
-ErrorCode MainImpl::shaderExists(const Shader* shd, bool& exists)
-{
-	exists = 0;
-
-	if (shd != 0)
-	{
-		if (std::find(shaders.begin(), shaders.end(), (ShaderImpl*) shd) != shaders.end())
-			exists = 1;
-	}
-
-	return ErrorOk;
-}
-
-void MainImpl::shaderRemove(const Shader* shd)
+void MainImpl::removeShader(const Shader* shd)
 {
 	shaders.remove_if([shd](Shader* s) {
 		return s == shd;

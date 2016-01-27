@@ -15,7 +15,7 @@ DLLEXPORT double MAE_ShaderCreate()
 {
 	Shader* s;
 
-	ErrorCode ret = mamain->shaderCreate(s);
+	ErrorCode ret = mamain->createShader(s);
 
 	return ret != ErrorOk ? ret : VectorPushBackPointer(s, shaders);
 }

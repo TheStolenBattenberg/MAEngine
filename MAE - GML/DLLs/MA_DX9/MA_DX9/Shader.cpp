@@ -17,7 +17,7 @@ ShaderImpl::~ShaderImpl()
 	if (pshd != 0)
 		pshd->Release();
 
-	main->shaderRemove(this);
+	main->removeShader(this);
 }
 
 uint ShaderImpl::release()

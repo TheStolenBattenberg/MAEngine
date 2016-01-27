@@ -9,7 +9,7 @@ DLLEXPORT double MAE_TextureCreate()
 {
 	Texture* tex;
 	
-	ErrorCode ret = mamain->textureCreate(tex);
+	ErrorCode ret = mamain->createTexture(tex);
 
 	if (ret != ErrorOk)
 		return ret;

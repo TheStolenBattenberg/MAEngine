@@ -12,26 +12,19 @@ public:
 
 	uint release();
 
-	ErrorCode surfaceCreate(class Surface*& surf);
-	ErrorCode surfaceExists(const class Surface* surf, bool& exists);
-	void surfaceRemove(const class Surface* surf);
-
-	ErrorCode textureCreate(class Texture*& tex);
-	ErrorCode textureExists(const class Texture* tex, bool& exists);
-	void textureRemove(const class Texture* tex);
-
-	ErrorCode shaderCreate(class Shader*& shd);
-	ErrorCode shaderExists(const class Shader* shd, bool& exists);
-	void shaderRemove(const class Shader* shd);
-
-	ErrorCode setTexture(uint stage, class Texture* tex);
-	ErrorCode resetTexture(uint stage);
-
-	ErrorCode setShader(class Shader* shd);
-	ErrorCode resetShader();
-
-	ErrorCode setError(ErrorCode code);
+	ErrorCode createShader(class Shader*& shd);
+	ErrorCode createSurface(class Surface*& surf);
+	ErrorCode createTexture(class Texture*& tex);
 	ErrorCode getError();
+	ErrorCode resetShader();
+	ErrorCode resetTexture(uint stage);
+	ErrorCode setError(ErrorCode code);
+	ErrorCode setShader(class Shader* shd);
+	ErrorCode setTexture(uint stage, class Texture* tex);
+
+	void removeShader(const class Shader* shd);
+	void removeSurface(const class Surface* surf);
+	void removeTexture(const class Texture* tex);
 
 private:
 	ErrorCode errCode;

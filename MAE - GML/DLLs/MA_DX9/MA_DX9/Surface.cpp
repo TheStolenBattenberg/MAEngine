@@ -22,7 +22,7 @@ SurfaceImpl::~SurfaceImpl()
 	if (surf != 0)
 		surf->Release();
 
-	main->surfaceRemove(this);
+	main->removeSurface(this);
 }
 
 ErrorCode SurfaceImpl::createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard)
