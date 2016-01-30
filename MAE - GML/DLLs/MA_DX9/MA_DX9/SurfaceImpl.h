@@ -1,12 +1,11 @@
 #pragma once
 
 #include "Surface.h"
-#include "MainImpl.h"
 
 class SurfaceImpl: public Surface
 {
 public:
-	SurfaceImpl(MainImpl* main);
+	SurfaceImpl(class MainImpl* main): main(main) { };
 	~SurfaceImpl();
 
 	uint release();
@@ -14,14 +13,12 @@ public:
 	ErrorCode createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard);
 	ErrorCode createFromPointer(LPDIRECT3DSURFACE9 surf);
 	ErrorCode createRenderTarget(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool lockable);
-
-	ErrorCode getSurf(LPDIRECT3DSURFACE9& surf);
 	ErrorCode getPool(D3DPOOL& pool);
-
+	ErrorCode getSurf(LPDIRECT3DSURFACE9& surf);
 	ErrorCode update(Surface* surf);
 
 private:
-	MainImpl* main;
+	class MainImpl* main;
 
 	LPDIRECT3DSURFACE9 surf = 0;
 

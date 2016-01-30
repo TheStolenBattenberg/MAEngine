@@ -2,11 +2,9 @@
 
 #include "Types.h"
 
-class RefCounted
-{
+class RefCounted {
 public:
-	uint addRef()
-	{
+	uint addRef() {
 		return ++count;
 	}
 

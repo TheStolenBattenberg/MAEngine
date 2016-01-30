@@ -5,6 +5,8 @@
 
 TextureImpl::~TextureImpl()
 {
+	main->removeTexture(this);
+
 	if (tex != 0)
 		tex->Release();
 }
@@ -12,10 +14,7 @@ TextureImpl::~TextureImpl()
 uint TextureImpl::release()
 {
 	if (--count == 0)
-	{
-		main->removeTexture(this);
 		delete this;
-	}
 
 	return count;
 }

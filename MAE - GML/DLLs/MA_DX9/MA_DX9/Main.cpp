@@ -12,6 +12,7 @@
 #include "SurfaceImpl.h"
 #include "TextureImpl.h"
 #include "ShaderImpl.h"
+#include "SceneImpl.h"
 
 uint MainImpl::release()
 {
@@ -44,14 +45,14 @@ MainImpl::~MainImpl()
 	ClearVector(XModels);
 	ClearVector(ParticleSys);
 
-	for (auto i : shaders)
-		delete i;
+	while (!shaders.empty())
+		delete shaders.front();
 
-	for (auto i : surfaces)
-		delete i;
+	while (!surfaces.empty())
+		delete surfaces.front();
 
-	for (auto i : textures)
-		delete i;
+	while (!textures.empty())
+		delete textures.front();
 
 	if (VertexDeclarationParticle != 0)
 	{
@@ -73,6 +74,12 @@ MainImpl::~MainImpl()
 	hook  = 0;
 }
 
+ErrorCode MainImpl::checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) {
+	exists = SUCCEEDED(d3d->CheckDeviceFormat(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, adapdterFmt, usage, type, fmt));
+
+	return ErrorOk;
+}
+
 ErrorCode MainImpl::setError(ErrorCode code)
 {
 	for (auto i : functions)
@@ -84,6 +91,18 @@ ErrorCode MainImpl::setError(ErrorCode code)
 ErrorCode MainImpl::getError()
 {
 	return errCode;
+}
+
+ErrorCode MainImpl::createScene(Scene*& scene) {
+	SceneImpl* s = new(std::nothrow) SceneImpl(this);
+
+	if (s == 0)
+		return setError(ErrorMemory);
+
+	scenes.push_back(s);
+	scene = (Scene*) s;
+
+	return ErrorOk;
 }
 
 ErrorCode MainImpl::createSurface(Surface*& surf)
@@ -144,6 +163,23 @@ void MainImpl::removeShader(const Shader* shd)
 	shaders.remove_if([shd](Shader* s) {
 		return s == shd;
 	});
+}
+
+ErrorCode MainImpl::getRenderTarget(uint ind, class Surface*& surf)
+{
+	LPDIRECT3DSURFACE9 s;
+
+	if (FAILED(d3ddev->GetRenderTarget(ind, &s)))
+		return setError(ErrorD3D9);
+
+	ErrorCode ret = createSurface(surf);
+
+	if (ret == ErrorOk)
+		ret = surf->createFromPointer(s);
+
+	s->Release();
+
+	return ret;
 }
 
 ErrorCode MainImpl::resetRenderTarget(uint ind)
@@ -235,6 +271,9 @@ ErrorCode MainImpl::resetShader()
 
 ErrorCode MainImpl::onError(void(*func)(ErrorCode))
 {
+	if (std::find(functions.begin(), functions.end(), func) == functions.end())
+		return ErrorOk;
+
 	functions.push_back(func);
 
 	return ErrorOk;
@@ -245,6 +284,10 @@ ErrorCode MainImpl::unregisterErrorFunction(void(*func)(ErrorCode))
 	functions.remove_if([func](void(*f)(ErrorCode)) { return func == f; });
 
 	return ErrorOk;
+}
+
+void MainImpl::removeScene(const class Scene* scene) {
+	scenes.remove_if([scene](Scene* s) { return s == scene; });
 }
 
 Main* MainCreate(LPDIRECT3DDEVICE9 device)

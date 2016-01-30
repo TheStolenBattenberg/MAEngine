@@ -14,6 +14,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="MA_BulletBody.cpp" />
     <ClCompile Include="MA_BulletConstraint.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleModifier.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -58,6 +60,8 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletDebugDraw.h" />
     <ClInclude Include="Encryption.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityImpl.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="MainImpl.h" />
@@ -75,8 +79,10 @@
     <ClInclude Include="ParticleModifier.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Hook.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="Pipeline.h" />
     <ClInclude Include="RefCounted.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneImpl.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderImpl.h" />
     <ClInclude Include="Surface.h" />

@@ -22,10 +22,13 @@ class Main: public RefCounted
 public:
 	virtual uint release() = 0;
 
+	virtual ErrorCode checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) = 0;
+	virtual ErrorCode createScene(class Scene*& scene) = 0;
 	virtual ErrorCode createShader(class Shader*& shd) = 0;
 	virtual ErrorCode createSurface(class Surface*& surf) = 0;
 	virtual ErrorCode createTexture(class Texture*& tex) = 0;
 	virtual ErrorCode getError() = 0;
+	virtual ErrorCode getRenderTarget(uint ind, class Surface*& surf) = 0;
 	virtual ErrorCode onError(void(*func)(ErrorCode)) = 0;
 	virtual ErrorCode resetRenderTarget(uint ind) = 0;
 	virtual ErrorCode resetShader() = 0;

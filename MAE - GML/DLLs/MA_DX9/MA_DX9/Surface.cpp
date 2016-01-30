@@ -4,24 +4,18 @@
 
 #include <list>
 
-SurfaceImpl::SurfaceImpl(MainImpl* main)
-{
-	this->main = main;
-}
-
 uint SurfaceImpl::release()
 {
 	if (--count == 0)
-	{
-		main->removeSurface(this);
 		delete this;
-	}
 
 	return count;
 }
 
 SurfaceImpl::~SurfaceImpl()
 {
+	main->removeSurface(this);
+
 	if (surf != 0)
 		surf->Release();
 }

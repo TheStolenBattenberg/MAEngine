@@ -5,7 +5,6 @@
  */
 
 #include "Types.h"
-#include "Object.h"
 #include "Error.h"
 
 #include <d3d9.h>
@@ -13,7 +12,7 @@
 #include <Mat.h>
 #include <MPM.h>
 
-class MPMModel: public Object
+class MPMModel
 {
 public:
 	~MPMModel();

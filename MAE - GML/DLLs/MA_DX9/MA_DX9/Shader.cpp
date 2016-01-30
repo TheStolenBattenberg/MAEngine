@@ -5,6 +5,8 @@
 
 ShaderImpl::~ShaderImpl()
 {
+	main->removeShader(this);
+
 	if (vtable != 0)
 		vtable->Release();
 
@@ -21,10 +23,7 @@ ShaderImpl::~ShaderImpl()
 uint ShaderImpl::release()
 {
 	if (--count == 0)
-	{
-		main->removeShader(this);
 		delete this;
-	}
 
 	return count;
 }

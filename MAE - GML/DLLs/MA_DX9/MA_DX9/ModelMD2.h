@@ -5,12 +5,11 @@
  */
 
 #include "Types.h"
-#include "Object.h"
 #include "Texture.h"
 
 #include <vector>
 
-class MD2Model: public Object
+class MD2Model
 {
 public:
 	~MD2Model();
