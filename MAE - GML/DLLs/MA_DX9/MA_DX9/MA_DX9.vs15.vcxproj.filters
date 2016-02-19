@@ -69,9 +69,6 @@
     <ClCompile Include="ModelMD2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Hook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ModelX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -207,9 +204,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelMPM.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">

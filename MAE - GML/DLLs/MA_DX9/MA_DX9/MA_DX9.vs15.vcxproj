@@ -23,7 +23,6 @@
     <ClCompile Include="MA_BulletWorld.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Error.cpp" />
-    <ClCompile Include="Hook.cpp" />
     <ClCompile Include="MA_Buffer.cpp" />
     <ClCompile Include="MA_Error.cpp" />
     <ClCompile Include="MA_Light.cpp" />
@@ -78,7 +77,6 @@
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleModifier.h" />
     <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="Hook.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="RefCounted.h" />
     <ClInclude Include="Scene.h" />

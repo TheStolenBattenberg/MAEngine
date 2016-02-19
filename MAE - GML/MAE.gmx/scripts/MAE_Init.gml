@@ -111,16 +111,6 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_MatStackFloat9 = external_define(global.DLL_MAE, "MADX9_MatStackFloat9", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MatStackClear  = external_define(global.DLL_MAE, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
     
-    // Hook
-    global.MADX9_HookEnable             = external_define(global.DLL_MAE, "MADX9_HookEnable", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_HookDisable            = external_define(global.DLL_MAE, "MADX9_HookDisable", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_HookStackPopPointer    = external_define(global.DLL_MAE, "MADX9_HookStackPopPointer", dll_cdecl, ty_real, 0);
-    global.MADX9_HookStackClear         = external_define(global.DLL_MAE, "MADX9_HookStackClear", dll_cdecl, ty_real, 0);
-    global.MADX9_HookStackEmpty         = external_define(global.DLL_MAE, "MADX9_HookStackEmpty", dll_cdecl, ty_real, 0);
-    global.MADX9_HookSetPropertyNull    = external_define(global.DLL_MAE, "MADX9_HookSetPropertyNull", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_HookSetPropertyInt     = external_define(global.DLL_MAE, "MADX9_HookSetPropertyInt", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_HookSetPropertyPointer = external_define(global.DLL_MAE, "MADX9_HookSetPropertyPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    
     // Surfaces
     global.__MAE_SurfaceCreate             = external_define(global.DLL_MAE, "MAE_SurfaceCreate", dll_cdecl, ty_real, 0);
     global.MADX9_SurfaceCreateDepthStencil = external_define(global.DLL_MAE, "MADX9_SurfaceCreateDepthStencil", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
@@ -180,29 +170,6 @@ if (argument[0] & INIT_RENDER)
         F32 = 6,
         F64 = 7
     };
-}
-
-if (argument[0] & INIT_FLUSH)
-{
-    MAE_HookEnable(HOOK_ACTIONFETCHVERTDECL);
-    
-    vertex_format_begin();
-    vertex_format_add_colour();
-    var f = vertex_format_end();
-    
-    MAE_HookDisable(HOOK_ACTIONFETCHVERTDECL);
-    
-    var p = MAE_HookStackPopPointer();
-    
-    MAE_HookSetPropertyPointer(HOOK_PROPERTYDISABLEVERTDECL, p);
-    MAE_HookEnable(HOOK_ACTIONIGNOREVERTDECL);
-    
-    MAE_FreePointer(p);
-    
-    global.MAE_FlushBuffer = vertex_create_buffer_ext(4);
-    vertex_begin(global.MAE_FlushBuffer, f);
-    vertex_colour(global.MAE_FlushBuffer, 0, 0);
-    vertex_end(global.MAE_FlushBuffer);
 }
 
 if (argument[0] & INIT_PHYSICS)

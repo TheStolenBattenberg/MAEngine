@@ -14,5 +14,4 @@ public:
 	virtual uint release() = 0;
 
 	virtual ErrorCode setMode(PipelineMode mode) = 0;
-	virtual ErrorCode render(class Scene* scene) = 0;
 };

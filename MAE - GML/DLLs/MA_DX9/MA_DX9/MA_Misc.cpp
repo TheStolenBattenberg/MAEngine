@@ -1,6 +1,5 @@
 #include "Main.h"
 #include "Types.h"
-#include "Hook.h"
 #include "Math.h"
 #include "Utils.h"
 
@@ -17,65 +16,6 @@ DLLEXPORT double MADX9_MathCosineInterp(double x, double y, double s) {
 
 DLLEXPORT double MADX9_MathRandomRange(double min, double max) {
 	return (double)interpLinear((float)min, (float)max, (float) rand() / RAND_MAX);
-}
-
-/**
- * Hook
- */
-
-DLLEXPORT double MADX9_HookEnable(double actions)
-{
-	return mamain->hook->enable((Hook::Actions) (uint) actions);
-}
-
-DLLEXPORT double MADX9_HookDisable(double actions)
-{
-	mamain->hook->disable((Hook::Actions) (uint) actions);
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_HookStackPopPointer(double ind)
-{
-	if (!mamain->hook->values.empty())
-	{
-		double p = 0.0;
-
-		*((void**) &p) = mamain->hook->values.top().getPointer();
-		mamain->hook->values.pop();
-
-		return p;
-	}
-
-	return -1;
-}
-
-DLLEXPORT double MADX9_HookStackEmpty(double ind)
-{
-	return mamain->hook->values.empty();
-}
-
-DLLEXPORT double MADX9_HookStackClear(double ind)
-{
-	while (!mamain->hook->values.empty())
-		mamain->hook->values.pop();
-
-	return 1;
-}
-
-DLLEXPORT double MADX9_HookSetPropertyNull(double prop)
-{
-	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant());
-}
-
-DLLEXPORT double MADX9_HookSetPropertyInt(double prop, double value)
-{
-	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant((int) value));
-}
-
-DLLEXPORT double MADX9_HookSetPropertyPointer(double prop, double value)
-{
-	return mamain->hook->set((Hook::Propertys) (uint) prop, Variant(*(void**) &value));
 }
 
 /**

@@ -1,5 +1,4 @@
 #include "Main.h"
-#include "Hook.h"
 #include "ModelMD2.h"
 #include "Buffer.h"
 #include "VertexBuffer.h"
@@ -29,8 +28,6 @@ MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 	d3d->AddRef();
 
 	this->d3ddev = d3ddev;
-
-	hook = new Hook(d3ddev);
 }
 
 MainImpl::~MainImpl()
@@ -68,10 +65,6 @@ MainImpl::~MainImpl()
 
 	d3ddev = 0;
 	d3d    = 0;
-
-	delete hook;
-
-	hook  = 0;
 }
 
 ErrorCode MainImpl::checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) {

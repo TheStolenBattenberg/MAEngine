@@ -7,10 +7,10 @@ public:
 	EntityImpl(class SceneImpl* main): main(main) { }
 	~EntityImpl();
 
-	uint release();
+	virtual uint release();
 
-	ErrorCode setModel(class Model* model);
-	ErrorCode setTransformation(const mat4& mat);
+	virtual ErrorCode setModel(class Model* model);
+	virtual ErrorCode setTransformation(const mat4& mat);
 
 private:
 	class SceneImpl* main;

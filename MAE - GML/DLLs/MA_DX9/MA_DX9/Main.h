@@ -54,8 +54,6 @@ public:
 
 	std::vector<class ParticleSystem*> ParticleSys;
 
-	class Hook* hook;
-
 	DWORD stFVF;
 
 	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationParticle = 0;

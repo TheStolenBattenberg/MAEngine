@@ -1,7 +1,7 @@
 #include "Encryption.h"
 
 char* Encryption::encrypt(ENC_TYPE type, char* data, uint datalength, char* key, uint keylength) {
-	char* encrypted;
+	/*char* encrypted;
 	
 	switch (type) {
 		case ENC_XOR:
@@ -16,11 +16,12 @@ char* Encryption::encrypt(ENC_TYPE type, char* data, uint datalength, char* key,
 			}
 		break;
 	}
-	return encrypted;
+	return encrypted;*/
+	return nullptr;
 }
 
 char* Encryption::decrypt(ENC_TYPE type, char* data, uint datalength, char* key, uint keylength) {
-	char* decrypted;
+	/*char* decrypted;
 
 	switch (type) {
 	case ENC_XOR:
@@ -35,11 +36,13 @@ char* Encryption::decrypt(ENC_TYPE type, char* data, uint datalength, char* key,
 		}
 		break;
 	}
-	return decrypted;
+	return decrypted;*/
+	return nullptr;
 }
 
 char* Encryption::hash(HSH_TYPE type, char* data) {
-	char* hashed;
+	/*char* hashed;
 		//to-do.
-	return hashed;
+	return hashed;*/
+	return nullptr;
 }
