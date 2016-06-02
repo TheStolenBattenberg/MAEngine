@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Particle System">
-      <UniqueIdentifier>{ab46e417-a629-4127-a6a2-79c5829e577e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Particle System">
-      <UniqueIdentifier>{bbcc484e-1d84-4db8-a9b7-77a7215bf307}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Bullet">
       <UniqueIdentifier>{1fdafe5f-be7c-4b12-be1d-fbdb5e050090}</UniqueIdentifier>
     </Filter>
@@ -34,60 +28,45 @@
     <Filter Include="Source Files\Navigation">
       <UniqueIdentifier>{acc22601-3105-4669-bd10-9bf7ff046f33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GML API\Bullet">
-      <UniqueIdentifier>{88dac4b5-4863-4319-93a3-204e0b1b5107}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Resources">
-      <UniqueIdentifier>{7e362ae9-3c2f-4738-bdae-0d43980f57ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Resources">
-      <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\GML API">
       <UniqueIdentifier>{9b2dbe0d-a362-4b1a-a932-07b64bf69944}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scene">
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{48a47471-89bc-4839-a2a4-a496d78ffac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{e656e179-349c-4aa1-a010-5e65865f2750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering\Scene">
       <UniqueIdentifier>{7f5dd442-58a6-4f08-b5ea-567758b21182}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Pipeline">
+    <Filter Include="Header Files\Rendering\Pipeline">
       <UniqueIdentifier>{dff53498-9e8b-4deb-b28b-6bcfd509a56a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Scene">
+    <Filter Include="Header Files\Rendering\Resources">
+      <UniqueIdentifier>{7e362ae9-3c2f-4738-bdae-0d43980f57ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering\Mesh">
+      <UniqueIdentifier>{61f47a94-208e-409f-a066-cbafba00c979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{745f9c0b-59ad-44c5-8f87-c8ad534d500d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Mesh">
+      <UniqueIdentifier>{14422170-4622-454f-850f-1d8f419110de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Scene">
       <UniqueIdentifier>{53b0db05-53a6-4192-94dd-7105737f70f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{a0c336d8-38f7-4eb8-9954-f78d117535c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Resources">
+      <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Variant.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Error.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMD2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelX.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Source Files\Particle System</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEmitter.cpp">
-      <Filter>Source Files\Particle System</Filter>
-    </ClCompile>
-    <ClCompile Include="Memory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexDecl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
@@ -95,9 +74,6 @@
     </ClCompile>
     <ClCompile Include="BulletDebugDraw.cpp">
       <Filter>Source Files\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMPM.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MA_Buffer.cpp">
       <Filter>Source Files\GML API</Filter>
@@ -138,21 +114,6 @@
     <ClCompile Include="MA_Main.cpp">
       <Filter>Source Files\GML API</Filter>
     </ClCompile>
-    <ClCompile Include="MA_BulletBody.cpp">
-      <Filter>Source Files\GML API\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletConstraint.cpp">
-      <Filter>Source Files\GML API\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletMisc.cpp">
-      <Filter>Source Files\GML API\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletShape.cpp">
-      <Filter>Source Files\GML API\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="MA_BulletWorld.cpp">
-      <Filter>Source Files\GML API\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="NavMeshDebugDraw.cpp">
       <Filter>Source Files\Navigation</Filter>
     </ClCompile>
@@ -160,77 +121,89 @@
       <Filter>Source Files\GML API</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Source Files\Resources</Filter>
+      <Filter>Source Files\Rendering\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Surface.cpp">
-      <Filter>Source Files\Resources</Filter>
+      <Filter>Source Files\Rendering\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleModifier.cpp">
-      <Filter>Source Files\Particle System</Filter>
-    </ClCompile>
-    <ClCompile Include="Encryption.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Rendering\Resources</Filter>
     </ClCompile>
     <ClCompile Include="MA_Error.cpp">
       <Filter>Source Files\GML API</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Scene</Filter>
+      <Filter>Source Files\Rendering\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\Scene</Filter>
+      <Filter>Source Files\Rendering\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelLoadMS3D.cpp">
+      <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMD2.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMPM.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelX.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAttractor.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleModifier.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleRepulsor.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexDecl.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Error.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Variant.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletBody.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletConstraint.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletMisc.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletShape.cpp">
+      <Filter>Source Files\GML API</Filter>
+    </ClCompile>
+    <ClCompile Include="MA_BulletWorld.cpp">
+      <Filter>Source Files\GML API</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Variant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Error.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMD2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMPM.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelX.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Header Files\Particle System</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>Header Files\Particle System</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEmitter.h">
-      <Filter>Header Files\Particle System</Filter>
-    </ClInclude>
-    <ClInclude Include="Buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Memory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexDecl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
@@ -239,9 +212,6 @@
     <ClInclude Include="BulletDebugDraw.h">
       <Filter>Header Files\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Navigation.h">
       <Filter>Header Files\Navigation</Filter>
     </ClInclude>
@@ -249,16 +219,13 @@
       <Filter>Header Files\Navigation</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Surface.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="RefCounted.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="MA_Main.h">
       <Filter>Header Files\GML API</Filter>
@@ -267,34 +234,97 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceImpl.h">
-      <Filter>Header Files\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleModifier.h">
-      <Filter>Header Files\Particle System</Filter>
-    </ClInclude>
-    <ClInclude Include="Encryption.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="TextureImpl.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="ShaderImpl.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files\Scene</Filter>
+      <Filter>Header Files\Rendering\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files\Scene</Filter>
+      <Filter>Header Files\Rendering\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneImpl.h">
-      <Filter>Header Files\Scene</Filter>
+      <Filter>Header Files\Rendering\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Pipeline.h">
-      <Filter>Header Files\Pipeline</Filter>
+      <Filter>Header Files\Rendering\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="EntityImpl.h">
-      <Filter>Header Files\Scene</Filter>
+      <Filter>Header Files\Rendering\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAttractor.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModifier.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleRepulsor.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMD2.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMPM.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="RefCounted.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexDecl.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Variant.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelX.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelLoadMS3D.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,7 +2,6 @@
 #include "ParticleEmitter.h"
 
 ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
-	//This does nothing. Surprise!
 	switch (type) {
 		case PE_BOX: {
 

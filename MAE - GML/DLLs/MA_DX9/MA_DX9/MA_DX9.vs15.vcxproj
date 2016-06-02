@@ -13,7 +13,8 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="CModel.cpp" />
+    <ClCompile Include="CModelLoadMS3D.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="MA_BulletBody.cpp" />
     <ClCompile Include="MA_BulletConstraint.cpp" />
@@ -43,8 +44,10 @@
     <ClCompile Include="ModelX.cpp" />
     <ClCompile Include="Navigation.cpp" />
     <ClCompile Include="NavMeshDebugDraw.cpp" />
+    <ClCompile Include="ParticleAttractor.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleModifier.cpp" />
+    <ClCompile Include="ParticleRepulsor.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -58,7 +61,9 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletDebugDraw.h" />
-    <ClInclude Include="Encryption.h" />
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CModel.h" />
+    <ClInclude Include="CModelLoadMS3D.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityImpl.h" />
     <ClInclude Include="Main.h" />
@@ -74,8 +79,10 @@
     <ClInclude Include="Navigation.h" />
     <ClInclude Include="NavMeshDebugDraw.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleAttractor.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleModifier.h" />
+    <ClInclude Include="ParticleRepulsor.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="RefCounted.h" />
