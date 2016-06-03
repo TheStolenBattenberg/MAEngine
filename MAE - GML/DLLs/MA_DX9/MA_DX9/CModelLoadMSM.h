@@ -8,7 +8,7 @@
 #include "CMesh.h"
 #include "Types.h"
 
-class CModelLoadMS3D {
+class CModelLoadMSM {
 public:
-	void Load(std::vector<Mesh> *msh, string file);
+	void Load(std::vector<Mesh> *mesh, string file);
 };

@@ -18,10 +18,6 @@ template<typename T, typename F> T interpCosine(T x, T y, F s)
 	return interpLinear(x, y, (F(1) - std::cos(s * F(PI))) / F(2));
 }
 
-/*
- * Source: http://paulbourke.net/miscellaneous/interpolation/
- */
-
 template<typename T> T interpCubic(T x, T y, T z, T s)
 {
 	T s1 = s * s;

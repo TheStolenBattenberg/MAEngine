@@ -201,6 +201,9 @@
     <ClCompile Include="MA_BulletWorld.cpp">
       <Filter>Source Files\GML API</Filter>
     </ClCompile>
+    <ClCompile Include="CModelLoadMSM.cpp">
+      <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -324,6 +327,9 @@
       <Filter>Header Files\Rendering\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CMesh.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelLoadMSM.h">
       <Filter>Header Files\Rendering\Mesh</Filter>
     </ClInclude>
   </ItemGroup>

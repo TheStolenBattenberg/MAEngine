@@ -1,6 +1,9 @@
 #include "CModelLoadMS3D.h"
 
 namespace MS3DType {
+	const string MagicNumber = "MS3D000000";
+	const uint   Version     =  0x00000004;
+
 	struct Header {
 		char MagicNumber[10];
 		uint Version;
@@ -45,13 +48,19 @@ namespace MS3DType {
 	//
 }
 
-void CModelLoadMS3D::Load(Mesh* msh, string file) {
+void CModelLoadMS3D::Load(std::vector<Mesh> *mesh, string file) {
+	ushort i;
+	
+	//Open File.
 	std::ifstream f(file, std::ios::in | std::ios::binary);
 	if (!f) {
 		return;
 	}
 
+	//Read & Verify Header.
 	MS3DType::Header h;
 	f.read((char*)&h, sizeof(h));
-
+	if (h.MagicNumber != MS3DType::MagicNumber && h.Version != MS3DType::Version) {
+		return;
+	}
 }

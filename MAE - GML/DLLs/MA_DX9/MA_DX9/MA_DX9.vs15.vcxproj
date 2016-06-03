@@ -15,6 +15,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CModelLoadMS3D.cpp" />
+    <ClCompile Include="CModelLoadMSM.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="MA_BulletBody.cpp" />
     <ClCompile Include="MA_BulletConstraint.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CModelLoadMS3D.h" />
+    <ClInclude Include="CModelLoadMSM.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityImpl.h" />
     <ClInclude Include="Main.h" />

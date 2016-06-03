@@ -23,6 +23,14 @@ struct Material {
 	Texture*     m_pTexture;
 };
 
+struct Animation { //This is experimental. Should allow us to keep model animations within the engine, and have an easy API for GML to access I.E: SetAnimation("Walk");.
+	string m_sName;
+	ushort m_iFirstFrame;
+	ushort m_iLastFrame;
+	float m_fFPS;
+};
+
+
 struct Vertex {
 	float x, y, z;
 };
@@ -35,8 +43,8 @@ struct TexCoord {
 	float u, v;
 };
 
-struct NormTexCoord {
-	Normal   n;
+struct VertexTexCoord {
+	Vertex   v;
 	TexCoord t;
 };
 
