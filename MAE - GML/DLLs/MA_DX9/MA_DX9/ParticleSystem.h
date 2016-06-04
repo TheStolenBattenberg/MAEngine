@@ -16,8 +16,6 @@ public:
 	~ParticleSystem();
 
 	void createEmitter();
-	void createAttractor();
-	void createRepulsor();
 
 	ParticleEmitter* getEmitter();
 

@@ -8,7 +8,6 @@
 
 struct Mesh {
 	uint                    m_uiMaterialIndex;
-
 	uint                    m_uiVertexCount;
 	uint                    m_uiNormalCount;
 	uint                    m_uiPolyCount;

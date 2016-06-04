@@ -30,12 +30,61 @@ namespace MS3DType {
 		ubyte  GroupIndex;
 	};
 
-	// There's a lot more to the MS3D Header, but we'll leave it like this for now, as this is the data I want. What's left is:
-	//     Groups
-	//     Materials
-	//     Keyframes
-	//     Comments
-	//     Extra Vertex Information (Vertex Weights)
+	//ushort GroupCount;
+
+	struct Group {
+		ubyte  Flags;
+		char   Name[32];
+		ushort TriangleCount;
+		ushort TriangleIndices; //Multiply by TriangleCount.
+		ubyte  MaterialIndex;
+	};
+
+	//ushort MaterialCount;
+
+	struct Material {
+		char  Name[32];
+		float Ambient[4];
+		float Diffuse[4];
+		float Specular[4];
+		float Emissive[4];
+		float Shininess;
+		float Transparency;
+		ubyte Mode;
+		char  Texture[128];
+		char  Alphamap[128];
+	};
+
+	//float FPS;
+	//float CurrentTime;
+	//int   TotalFrames;
+	
+	//ushort JointCount;
+
+	struct KeyframeRotation {
+		float Time;
+		float Rotation[3];
+	};
+
+	struct KeyframePosition {	
+		float Time;
+		float Position[3];
+	};
+
+	struct Joint {
+		ubyte Flags;
+		char  Name[32];
+		char  ParentName[32];
+		float Rotation[3];
+		float Position[3];
+
+		ushort KeyframeRotationCount;
+		ushort KeyframePositionCount;
+
+		KeyframeRotation KfRot; //Multiply by KeyframeRotationCount;
+		KeyframePosition KfPos; //Multiply by KeyframePositionCount;
+	};
+
 	//
 	// Mesh Transformation:
 	// 
@@ -46,21 +95,4 @@ namespace MS3DType {
 	//
 	// For normals skip step 2.
 	//
-}
-
-void CModelLoadMS3D::Load(std::vector<Mesh> *mesh, string file) {
-	ushort i;
-	
-	//Open File.
-	std::ifstream f(file, std::ios::in | std::ios::binary);
-	if (!f) {
-		return;
-	}
-
-	//Read & Verify Header.
-	MS3DType::Header h;
-	f.read((char*)&h, sizeof(h));
-	if (h.MagicNumber != MS3DType::MagicNumber && h.Version != MS3DType::Version) {
-		return;
-	}
 }

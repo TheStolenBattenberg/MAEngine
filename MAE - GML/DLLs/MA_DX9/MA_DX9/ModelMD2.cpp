@@ -345,7 +345,6 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	/**
 	* Load index data
 	*/
-
 	HRESULT result = mamain->d3ddev->CreateIndexBuffer(h.numTris * sizeof(MD2Type::IndexBuffer), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf, 0);
 
 	if (FAILED(result))

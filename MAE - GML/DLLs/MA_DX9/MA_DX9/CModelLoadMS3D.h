@@ -10,5 +10,5 @@
 
 class CModelLoadMS3D {
 public:
-	void Load(std::vector<Mesh> *msh, string file);
+	uint Load(Mesh* mesh, string file);
 };
