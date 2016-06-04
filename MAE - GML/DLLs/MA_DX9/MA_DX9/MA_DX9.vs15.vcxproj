@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CFmod.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CModelLoadMS3D.cpp" />
     <ClCompile Include="CModelLoadMSM.cpp" />
@@ -45,10 +46,8 @@
     <ClCompile Include="ModelX.cpp" />
     <ClCompile Include="Navigation.cpp" />
     <ClCompile Include="NavMeshDebugDraw.cpp" />
-    <ClCompile Include="ParticleAttractor.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleModifier.cpp" />
-    <ClCompile Include="ParticleRepulsor.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -62,6 +61,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletDebugDraw.h" />
+    <ClInclude Include="CFmod.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CModelLoadMS3D.h" />
@@ -81,10 +81,8 @@
     <ClInclude Include="Navigation.h" />
     <ClInclude Include="NavMeshDebugDraw.h" />
     <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleAttractor.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleModifier.h" />
-    <ClInclude Include="ParticleRepulsor.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="RefCounted.h" />
@@ -136,14 +134,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Tools\UtilHeaders;$(MAE)Specifications;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\libraries\fmod\include;$(DXSDK_DIR)\Include;$(MAE)Tools\UtilHeaders;$(MAE)Specifications;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>MAE</TargetName>
     <OutDir>$(SolutionDir)\..\..\MAE.gmx\datafiles\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Tools\UtilHeaders;$(MAE)Specifications;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Mentis Animae\GIT\MAE-Engine\MAE - GML\DLLs\MA_DX9\libraries\fmod\include;$(DXSDK_DIR)\Include;$(MAE)Tools\UtilHeaders;$(MAE)Specifications;$(SolutionDir)libraries\recast\include\;$(SolutionDir)libraries\bullet\include\;$(SolutionDir)libraries\theoraplayback\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>MAE</TargetName>
     <OutDir>$(SolutionDir)\..\..\MAE.gmx\datafiles\</OutDir>
@@ -161,7 +159,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)libraries\bullet\lib\Debug\BulletCollision_Debug.lib;$(SolutionDir)libraries\bullet\lib\Debug\BulletDynamics_Debug.lib;$(SolutionDir)libraries\bullet\lib\Debug\LinearMath_Debug.lib;$(SolutionDir)libraries\recast\lib\Debug\Recast.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libogg.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libtheora.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libtheoraplayer.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libvorbis.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libvorbisfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)libraries\fmod\lib\fmod_vc.lib;$(SolutionDir)libraries\fmod\lib\fmodL_vc.lib;$(SolutionDir)libraries\bullet\lib\Debug\BulletCollision_Debug.lib;$(SolutionDir)libraries\bullet\lib\Debug\BulletDynamics_Debug.lib;$(SolutionDir)libraries\bullet\lib\Debug\LinearMath_Debug.lib;$(SolutionDir)libraries\recast\lib\Debug\Recast.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libogg.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libtheora.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libtheoraplayer.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libvorbis.lib;$(SolutionDir)libraries\theoraplayback\lib\Debug\libvorbisfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -181,7 +179,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)libraries\bullet\lib\Release\BulletCollision.lib;$(SolutionDir)libraries\bullet\lib\Release\BulletDynamics.lib;$(SolutionDir)libraries\bullet\lib\Release\LinearMath.lib;$(SolutionDir)libraries\recast\lib\Release\Recast.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libogg.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libtheora.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libtheoraplayer.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libvorbis.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libvorbisfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;$(SolutionDir)libraries\fmod\lib\fmod_vc.lib;$(SolutionDir)libraries\fmod\lib\fmodL_vc.lib;$(SolutionDir)libraries\bullet\lib\Release\BulletCollision.lib;$(SolutionDir)libraries\bullet\lib\Release\BulletDynamics.lib;$(SolutionDir)libraries\bullet\lib\Release\LinearMath.lib;$(SolutionDir)libraries\recast\lib\Release\Recast.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libogg.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libtheora.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libtheoraplayer.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libvorbis.lib;$(SolutionDir)libraries\theoraplayback\lib\Release\libvorbisfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

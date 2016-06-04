@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Rendering\Resources">
       <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FMOD">
+      <UniqueIdentifier>{045e9f60-8a5b-4103-8627-6fefe4f9c805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FMOD">
+      <UniqueIdentifier>{e64661df-6d07-4551-9e44-715f95116f15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -153,9 +159,6 @@
     <ClCompile Include="ModelX.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleAttractor.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
@@ -163,9 +166,6 @@
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleRepulsor.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
@@ -203,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="CModelLoadMSM.cpp">
       <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CFmod.cpp">
+      <Filter>Source Files\FMOD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,16 +263,10 @@
     <ClInclude Include="EntityImpl.h">
       <Filter>Header Files\Rendering\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleAttractor.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleEmitter.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="ParticleModifier.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleRepulsor.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
@@ -331,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="CModelLoadMSM.h">
       <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CFmod.h">
+      <Filter>Header Files\FMOD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
