@@ -15,4 +15,4 @@ Debug/
 *.suo
 *.opensdf
 *.vc.opendb
-
+*.db
