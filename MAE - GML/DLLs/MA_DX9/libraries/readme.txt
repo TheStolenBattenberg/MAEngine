@@ -1,1 +1,0 @@
-Put third-party libs in this folder.
