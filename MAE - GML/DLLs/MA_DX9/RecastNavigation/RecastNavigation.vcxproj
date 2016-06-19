@@ -11,26 +11,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\DebugDraw.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\DetourDebugDraw.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\RecastDebugDraw.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\RecastDump.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourAlloc.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourCommon.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNavMesh.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNavMeshBuilder.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNavMeshQuery.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNode.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\Recast.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastAlloc.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastArea.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastContour.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastFilter.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastLayers.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastMesh.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastMeshDetail.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastRasterization.cpp" />
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastRegion.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\DebugDraw.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\DetourDebugDraw.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\RecastDebugDraw.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\RecastDump.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourAlloc.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourCommon.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNavMesh.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNavMeshBuilder.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNavMeshQuery.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNode.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\Recast.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastAlloc.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastArea.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastContour.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastFilter.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastLayers.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastMesh.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastMeshDetail.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastRasterization.cpp" />
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastRegion.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{344DE8BF-6291-4359-8119-E5C5C98B8F27}</ProjectGuid>
