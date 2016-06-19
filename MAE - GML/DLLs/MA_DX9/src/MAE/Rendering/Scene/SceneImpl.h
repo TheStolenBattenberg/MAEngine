@@ -9,9 +9,9 @@ public:
 	SceneImpl(class MainImpl* main): main(main) { };
 	~SceneImpl();
 
-	virtual uint release();
+	uint release();
 
-	virtual ErrorCode createEntity(class Entity*& entity);
+	ErrorCode createEntity(class Entity*& entity);
 
 	void removeEntity(class Entity* entity);
 
