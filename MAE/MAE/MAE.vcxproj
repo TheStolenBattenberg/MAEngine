@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\MAE\Bullet\Bullet.cpp" />
+    <ClCompile Include="..\src\MAE\Bullet\BulletDebugDraw.cpp" />
+    <ClCompile Include="..\src\MAE\Core\Buffer.cpp" />
+    <ClCompile Include="..\src\MAE\Core\Error.cpp" />
+    <ClCompile Include="..\src\MAE\Core\Memory.cpp" />
+    <ClCompile Include="..\src\MAE\Core\Variant.cpp" />
+    <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp" />
+    <ClCompile Include="..\src\MAE\Main.cpp" />
+    <ClCompile Include="..\src\MAE\Navigation\Navigation.cpp" />
+    <ClCompile Include="..\src\MAE\Navigation\NavMeshDebugDraw.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\ModelMD2.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\ModelMPM.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\ModelX.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\ParticleEmitter.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\ParticleModifier.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\ParticleSystem.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Resources\Surface.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Scene\Entity.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\VertexDecl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />
+    <ClInclude Include="..\src\MAE\Bullet\BulletDebugDraw.h" />
+    <ClInclude Include="..\src\MAE\Core\Buffer.h" />
+    <ClInclude Include="..\src\MAE\Core\Error.h" />
+    <ClInclude Include="..\src\MAE\Core\Math.h" />
+    <ClInclude Include="..\src\MAE\Core\Memory.h" />
+    <ClInclude Include="..\src\MAE\Core\RefCounted.h" />
+    <ClInclude Include="..\src\MAE\Core\Types.h" />
+    <ClInclude Include="..\src\MAE\Core\Utils.h" />
+    <ClInclude Include="..\src\MAE\Core\Variant.h" />
+    <ClInclude Include="..\src\MAE\FMOD\CFmod.h" />
+    <ClInclude Include="..\src\MAE\Main.h" />
+    <ClInclude Include="..\src\MAE\MainImpl.h" />
+    <ClInclude Include="..\src\MAE\Navigation\Navigation.h" />
+    <ClInclude Include="..\src\MAE\Navigation\NavMeshDebugDraw.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Mesh.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.h" />
+    <ClInclude Include="..\src\MAE\Rendering\ModelMD2.h" />
+    <ClInclude Include="..\src\MAE\Rendering\ModelMPM.h" />
+    <ClInclude Include="..\src\MAE\Rendering\ModelX.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Particle.h" />
+    <ClInclude Include="..\src\MAE\Rendering\ParticleEmitter.h" />
+    <ClInclude Include="..\src\MAE\Rendering\ParticleModifier.h" />
+    <ClInclude Include="..\src\MAE\Rendering\ParticleSystem.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Pipeline\Pipeline.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Resources\Shader.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Resources\ShaderImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Resources\Surface.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Resources\SurfaceImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Resources\Texture.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Resources\TextureImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Scene\EntityImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Scene\Scene.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Scene\SceneImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h" />
+    <ClInclude Include="..\src\MAE\Rendering\VertexDecl.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B7D9E020-382F-4DA2-8FE4-7E4C4466448D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MA_DX9</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MAE.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MAE.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)recastnavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <TargetName>Core</TargetName>
+    <OutDir>$(ProjectDir)lib\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)recastnavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <TargetName>Core</TargetName>
+    <OutDir>$(ProjectDir)lib\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;WIN32;_DEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;fmod_vc.lib;fmodL_vc.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;RecastNavigation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;MA_DX9_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3dcompiler.lib;d3dx9.lib;d3d9.lib;fmod_vc.lib;fmodL_vc.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;RecastNavigation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExtensionSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RelativeProjectRoot>../src/GMLAPI/</RelativeProjectRoot>
+  <HeaderFilesFilter>Header Files</HeaderFilesFilter>
+  <SourceFilesFilter>Source Files</SourceFilesFilter>
+  <HeaderExtensions>
+    <string>.h</string>
+    <string>.hpp</string>
+    <string>.hh</string>
+  </HeaderExtensions>
+  <SourceExtensions>
+    <string>.c</string>
+    <string>.cpp</string>
+    <string>.cc</string>
+  </SourceExtensions>
+</ExtensionSettings>

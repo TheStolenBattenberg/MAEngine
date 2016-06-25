@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Bullet">
+      <UniqueIdentifier>{1fdafe5f-be7c-4b12-be1d-fbdb5e050090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bullet">
+      <UniqueIdentifier>{8ef2811f-276d-47ad-ba08-22443e887aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Navigation">
+      <UniqueIdentifier>{120da967-002c-4efd-abd2-6851589e3a7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Navigation">
+      <UniqueIdentifier>{acc22601-3105-4669-bd10-9bf7ff046f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{48a47471-89bc-4839-a2a4-a496d78ffac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{e656e179-349c-4aa1-a010-5e65865f2750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering\Scene">
+      <UniqueIdentifier>{7f5dd442-58a6-4f08-b5ea-567758b21182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering\Pipeline">
+      <UniqueIdentifier>{dff53498-9e8b-4deb-b28b-6bcfd509a56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering\Resources">
+      <UniqueIdentifier>{7e362ae9-3c2f-4738-bdae-0d43980f57ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering\Mesh">
+      <UniqueIdentifier>{61f47a94-208e-409f-a066-cbafba00c979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{745f9c0b-59ad-44c5-8f87-c8ad534d500d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Mesh">
+      <UniqueIdentifier>{14422170-4622-454f-850f-1d8f419110de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Scene">
+      <UniqueIdentifier>{53b0db05-53a6-4192-94dd-7105737f70f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{a0c336d8-38f7-4eb8-9954-f78d117535c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Resources">
+      <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FMOD">
+      <UniqueIdentifier>{045e9f60-8a5b-4103-8627-6fefe4f9c805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FMOD">
+      <UniqueIdentifier>{e64661df-6d07-4551-9e44-715f95116f15}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\MAE\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Bullet\Bullet.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Bullet\BulletDebugDraw.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Navigation\Navigation.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Navigation\NavMeshDebugDraw.cpp">
+      <Filter>Source Files\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\ModelMD2.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\ModelMPM.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\ModelX.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\ParticleEmitter.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\ParticleModifier.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\ParticleSystem.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\VertexDecl.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp">
+      <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.cpp">
+      <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp">
+      <Filter>Source Files\Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Scene\Entity.cpp">
+      <Filter>Source Files\Rendering\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp">
+      <Filter>Source Files\Rendering\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp">
+      <Filter>Source Files\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Resources\Surface.cpp">
+      <Filter>Source Files\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp">
+      <Filter>Source Files\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Core\Buffer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Core\Error.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Core\Memory.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Core\Variant.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp">
+      <Filter>Source Files\FMOD</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\MAE\Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\MainImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Bullet\Bullet.h">
+      <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Bullet\BulletDebugDraw.h">
+      <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Navigation\Navigation.h">
+      <Filter>Header Files\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Navigation\NavMeshDebugDraw.h">
+      <Filter>Header Files\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Mesh.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\ModelMD2.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\ModelMPM.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\ModelX.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Particle.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\ParticleEmitter.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\ParticleModifier.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\ParticleSystem.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexDecl.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h">
+      <Filter>Header Files\Rendering\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Scene\EntityImpl.h">
+      <Filter>Header Files\Rendering\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Scene\Scene.h">
+      <Filter>Header Files\Rendering\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Scene\SceneImpl.h">
+      <Filter>Header Files\Rendering\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Pipeline\Pipeline.h">
+      <Filter>Header Files\Rendering\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Resources\Shader.h">
+      <Filter>Header Files\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Resources\ShaderImpl.h">
+      <Filter>Header Files\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Resources\Surface.h">
+      <Filter>Header Files\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Resources\SurfaceImpl.h">
+      <Filter>Header Files\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Resources\Texture.h">
+      <Filter>Header Files\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Resources\TextureImpl.h">
+      <Filter>Header Files\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.h">
+      <Filter>Header Files\Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Buffer.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Error.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Math.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Memory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\RefCounted.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Types.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Utils.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Variant.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\FMOD\CFmod.h">
+      <Filter>Header Files\FMOD</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
