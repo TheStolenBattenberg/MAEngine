@@ -32,9 +32,6 @@ ParticleSystem::~ParticleSystem() {
 		psVertexBuffer->Release();
 	}
 
-	if (texture != 0)
-		texture->release();
-
 	psBuffer.clear();
 }
 
@@ -165,9 +162,5 @@ void ParticleSystem::setMaxParticleCount(uint max) {
 }
 
 void ParticleSystem::setTexture(Texture* tex) {
-	if (texture != 0)
-		texture->release();
-
-	tex->addRef();
 	texture = tex;
 }

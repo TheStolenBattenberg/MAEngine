@@ -15,12 +15,12 @@
 #include <vector>
 
 #include <MAE/Core/Error.h>
-#include <MAE/Core/RefCounted.h>
+#include <MAE/Core/Releasable.h>
 
-class Main: public RefCounted
+class Main: public Releasable
 {
 public:
-	virtual uint release() = 0;
+	virtual void release() = 0;
 
 	virtual ErrorCode checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) = 0;
 	virtual ErrorCode createScene(class Scene*& scene) = 0;

@@ -242,9 +242,6 @@ MD2Model::~MD2Model()
 	if (indBuf != 0)
 		indBuf->Release();
 
-	if (tex != 0)
-		tex->release();
-
 	if (decl != 0)
 		decl->Release();
 }
@@ -440,10 +437,6 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 
 void MD2Model::setTexture(Texture* texture)
 {
-	if (tex != 0)
-		tex->release();
-
-	texture->addRef();
 	tex = texture;
 }
 

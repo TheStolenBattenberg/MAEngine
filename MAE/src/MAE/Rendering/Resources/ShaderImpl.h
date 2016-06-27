@@ -11,7 +11,7 @@ public:
 	ShaderImpl(class MainImpl* main): main(main) { }
 	~ShaderImpl();
 
-	uint release();
+	void release();
 
 	ErrorCode compile(const std::string& vert, const std::string& pixel, std::string& error);
 	ErrorCode compileASM(const std::string& vert, const std::string& pixel, std::string& error);
@@ -40,4 +40,3 @@ private:
 	LPDIRECT3DVERTEXSHADER9 vshd = 0;
 	LPDIRECT3DPIXELSHADER9  pshd = 0;
 };
-

@@ -20,12 +20,8 @@ ShaderImpl::~ShaderImpl()
 		pshd->Release();
 }
 
-uint ShaderImpl::release()
-{
-	if (--count == 0)
-		delete this;
-
-	return count;
+void ShaderImpl::release() {
+	::delete this;
 }
 
 ErrorCode ShaderImpl::compileASM(const std::string& vert, const std::string& pixel, std::string& error)

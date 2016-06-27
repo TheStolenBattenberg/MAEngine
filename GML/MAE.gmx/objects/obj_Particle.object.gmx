@@ -38,11 +38,10 @@ rot = 0;
 index = MAE_ParticleSystemCreate();
 MAE_ParticleSystemSetParticleCount(index, 512);
 
-var t = MAE_TextureCreate();
+tex = MAE_TextureCreate();
 
-MAE_TextureCreateFromFile(t, "COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
-MAE_ParticleSystemSetTexture(index, t);
-MAE_TextureDestroy(t);
+MAE_TextureCreateFromFile(tex, "COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
+MAE_ParticleSystemSetTexture(index, tex);
 
 /**
  * Particle Emitter
@@ -101,6 +100,7 @@ MAE_ParticleEmitterSetParticleSize(index, 2, 16);
           <argument>
             <kind>1</kind>
             <string>MAE_ParticleSystemDestroy(index);
+MAE_TextureDestroy(tex);
 </string>
           </argument>
         </arguments>

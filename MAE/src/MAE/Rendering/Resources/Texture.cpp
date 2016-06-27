@@ -11,12 +11,8 @@ TextureImpl::~TextureImpl()
 		tex->Release();
 }
 
-uint TextureImpl::release()
-{
-	if (--count == 0)
-		delete this;
-
-	return count;
+void TextureImpl::release() {
+	::delete this;
 }
 
 ErrorCode TextureImpl::create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool)

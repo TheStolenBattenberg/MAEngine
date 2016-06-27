@@ -1,11 +1,11 @@
 #pragma once
 
 #include <MAE/Core/Error.h>
-#include <MAE/Core/RefCounted.h>
+#include <MAE/Core/Releasable.h>
 
-class Scene: public RefCounted {
+class Scene: public Releasable {
 public:
-	virtual uint release() = 0;
+	virtual void release() = 0;
 
 	virtual ErrorCode createEntity(class Entity*& entity) = 0;
 };

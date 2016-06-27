@@ -9,7 +9,7 @@ public:
 	SceneImpl(class MainImpl* main): main(main) { };
 	~SceneImpl();
 
-	uint release();
+	void release();
 
 	ErrorCode createEntity(class Entity*& entity);
 

@@ -4,12 +4,8 @@
 
 #include <list>
 
-uint SurfaceImpl::release()
-{
-	if (--count == 0)
-		delete this;
-
-	return count;
+void SurfaceImpl::release() {
+	::delete this;
 }
 
 SurfaceImpl::~SurfaceImpl()

@@ -15,12 +15,8 @@
 
 Main* mainObj = 0;
 
-uint MainImpl::release()
-{
-	if (--count == 0)
-		delete this;
-
-	return count;
+void MainImpl::release() {
+	::delete this;
 }
 
 MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
@@ -89,7 +85,7 @@ ErrorCode MainImpl::getError()
 }
 
 ErrorCode MainImpl::createScene(Scene*& scene) {
-	SceneImpl* s = new(std::nothrow) SceneImpl(this);
+	SceneImpl* s = ::new(std::nothrow) SceneImpl(this);
 
 	if (s == 0)
 		return setError(ErrorMemory);
@@ -102,7 +98,7 @@ ErrorCode MainImpl::createScene(Scene*& scene) {
 
 ErrorCode MainImpl::createSurface(Surface*& surf)
 {
-	SurfaceImpl* s = new(std::nothrow) SurfaceImpl(this);
+	SurfaceImpl* s = ::new(std::nothrow) SurfaceImpl(this);
 
 	if (s == 0)
 		return this->setError(ErrorMemory);
@@ -122,7 +118,7 @@ void MainImpl::removeSurface(const Surface* surf)
 
 ErrorCode MainImpl::createTexture(Texture*& tex)
 {
-	TextureImpl* t = new(std::nothrow) TextureImpl(this);
+	TextureImpl* t = ::new(std::nothrow) TextureImpl(this);
 
 	if (t == 0)
 		return this->setError(ErrorMemory);
@@ -142,7 +138,7 @@ void MainImpl::removeTexture(const Texture* tex)
 
 ErrorCode MainImpl::createShader(Shader*& shd)
 {
-	ShaderImpl* s = new(std::nothrow) ShaderImpl(this);
+	ShaderImpl* s = ::new(std::nothrow) ShaderImpl(this);
 
 	if (s == 0)
 		return setError(ErrorMemory);
@@ -288,5 +284,5 @@ void MainImpl::removeScene(const class Scene* scene) {
 Main* MainCreate(LPDIRECT3DDEVICE9 device)
 {
 	// return new(std::nothrow) MainImpl(device);
-	return (mainObj = new(std::nothrow) MainImpl(device));
+	return (mainObj = ::new(std::nothrow) MainImpl(device));
 }

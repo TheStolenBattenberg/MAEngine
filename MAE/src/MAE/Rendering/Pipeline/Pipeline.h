@@ -1,9 +1,9 @@
 #pragma once
 
-#include <MAE/Core/RefCounted.h>
+#include <MAE/Core/Releasable.h>
 #include <MAE/Core/Error.h>
 
-class Pipeline: RefCounted {
+class Pipeline: public Releasble {
 public:
 	enum PipelineMode: int {
 		PipelineForward  = 0,
@@ -11,7 +11,7 @@ public:
 		PipelineCustom   = 2
 	};
 
-	virtual uint release() = 0;
+	virtual void release() = 0;
 
 	virtual ErrorCode setMode(PipelineMode mode) = 0;
 };

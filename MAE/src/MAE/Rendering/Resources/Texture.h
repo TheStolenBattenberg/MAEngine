@@ -1,12 +1,12 @@
 #pragma once
 
 #include <MAE/Core/Error.h>
-#include <MAE/Core/RefCounted.h>
+#include <MAE/Core/Releasable.h>
 
 #include <d3d9.h>
 #include <string>
 
-class Texture: public RefCounted
+class Texture: public Releasable
 {
 public:
 	enum MipMaps

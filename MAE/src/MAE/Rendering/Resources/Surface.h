@@ -1,14 +1,14 @@
 #pragma once
 
 #include <MAE/Core/Error.h>
-#include <MAE/Core/RefCounted.h>
+#include <MAE/Core/Releasable.h>
 
 #include <d3d9.h>
 
-class Surface: public RefCounted
+class Surface: public Releasable
 {
 public:
-	virtual uint release() = 0;
+	virtual void release() = 0;
 
 	virtual ErrorCode createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard) = 0;
 	virtual ErrorCode createFromPointer(LPDIRECT3DSURFACE9 surf) = 0;

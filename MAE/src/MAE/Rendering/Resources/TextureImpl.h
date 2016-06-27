@@ -9,7 +9,7 @@ public:
 	TextureImpl(MainImpl* main): main(main) { };
 	~TextureImpl();
 
-	uint release();
+	void release();
 
 	ErrorCode create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool);
 	ErrorCode createFromPointer(LPDIRECT3DTEXTURE9 ptr);

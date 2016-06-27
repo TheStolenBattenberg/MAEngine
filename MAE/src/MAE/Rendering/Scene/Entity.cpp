@@ -5,11 +5,8 @@ EntityImpl::~EntityImpl() {
 	main->removeEntity(this);
 }
 
-uint EntityImpl::release() {
-	if (--count == 0)
-		delete this;
-
-	return count;
+void EntityImpl::release() {
+	::delete this;
 }
 
 ErrorCode EntityImpl::setModel(class Model* model) {

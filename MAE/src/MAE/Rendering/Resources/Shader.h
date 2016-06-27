@@ -9,9 +9,9 @@
 #include <Mat.h>
 #include <Vec.h>
 
-#include <MAE/Core/RefCounted.h>
+#include <MAE/Core/Releasable.h>
 
-class Shader: public RefCounted
+class Shader: public Releasable
 {
 public:
 	enum ShaderType: long
@@ -20,7 +20,7 @@ public:
 		ShaderTypePixel  = 1
 	};
 
-	virtual uint release() = 0;
+	virtual void release() = 0;
 
 	virtual ErrorCode compile(const std::string& vert, const std::string& pixel, std::string& error) = 0;
 	virtual ErrorCode compileASM(const std::string& vert, const std::string& pixel, std::string& error) = 0;

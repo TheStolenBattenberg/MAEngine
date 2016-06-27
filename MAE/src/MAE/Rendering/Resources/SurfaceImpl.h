@@ -8,7 +8,7 @@ public:
 	SurfaceImpl(class MainImpl* main): main(main) { };
 	~SurfaceImpl();
 
-	uint release();
+	void release();
 
 	ErrorCode createDepthStencil(uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE ms, uint msquality, bool discard);
 	ErrorCode createFromPointer(LPDIRECT3DSURFACE9 surf);

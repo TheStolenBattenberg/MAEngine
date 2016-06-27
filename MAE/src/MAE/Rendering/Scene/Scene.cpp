@@ -7,11 +7,8 @@ SceneImpl::~SceneImpl() {
 		delete entities.front();
 }
 
-uint SceneImpl::release() {
-	if (--count == 0)
-		delete this;
-
-	return count;
+void SceneImpl::release() {
+	::delete this;
 }
 
 ErrorCode SceneImpl::createEntity(Entity*& entity) {

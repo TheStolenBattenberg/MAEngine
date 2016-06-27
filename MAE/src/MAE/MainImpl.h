@@ -11,7 +11,7 @@ public:
 	MainImpl(LPDIRECT3DDEVICE9 d3ddev);
 	~MainImpl();
 
-	uint release();
+	void release();
 
 	ErrorCode checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists);
 	ErrorCode createScene(class Scene*& scene);
