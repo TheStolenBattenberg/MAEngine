@@ -36,13 +36,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	switch (fdwReason)
 	{
 	case DLL_PROCESS_DETACH:
-		if (mamain != 0)
-		{
-			MessageBox(0, "MADX9 wasn't freed. MAE_Free() should be called at the end.", "MAE", MB_OK | MB_ICONERROR);
-
-			mamain->release();
-			mamain = 0;
-		}
+		assert(("MADX9 wasn't freed. MAE_Free() should be called at the end", mamain == 0));
 		break;
 	}
 

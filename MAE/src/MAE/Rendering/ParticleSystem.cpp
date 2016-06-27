@@ -2,7 +2,6 @@
 
 #include <MAE/Main.h>
 #include <MAE/Rendering/ParticleSystem.h>
-#include <MAE/Core/Utils.h>
 #include <MAE/Main.h>
 #include <MAE/Rendering/Resources/Texture.h>
 

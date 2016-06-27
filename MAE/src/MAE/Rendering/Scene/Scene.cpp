@@ -12,7 +12,7 @@ void SceneImpl::release() {
 }
 
 ErrorCode SceneImpl::createEntity(Entity*& entity) {
-	EntityImpl* e = new(std::nothrow) EntityImpl(this);
+	EntityImpl* e = ::new(std::nothrow) EntityImpl(this);
 
 	if (e == 0)
 		return main->setError(ErrorMemory);

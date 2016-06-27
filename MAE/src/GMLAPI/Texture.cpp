@@ -4,6 +4,7 @@
 #include <MAE/Rendering/Resources/Texture.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 DLLEXPORT double MAE_TextureCreate()
 {
@@ -14,128 +15,69 @@ DLLEXPORT double MAE_TextureCreate()
 	if (ret != ErrorOk)
 		return ret;
 
-	return VectorPushBackPointer(tex, textures);
+	return ptrToDouble(tex);
 }
 
-DLLEXPORT double MADX9_TextureCreateFromFile(double index, const char* file, Texture::MipMaps mipmaps)
+DLLEXPORT double MADX9_TextureCreateFromFile(double tex, const char* file, Texture::MipMaps mipmaps)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	return tex->loadFromFile(file, mipmaps);
+	return doubleToPtr<Texture>(tex)->loadFromFile(file, mipmaps);
 }
 
-DLLEXPORT double MADX9_TextureCreateFromPointer(double index, double ptr)
+DLLEXPORT double MADX9_TextureCreateFromPointer(double tex, double ptr)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0 || DoubleToPtr(ptr) == 0)
-		return mamain->setError(ErrorInv);
-
-	return tex->createFromPointer((LPDIRECT3DTEXTURE9) DoubleToPtr(ptr));
+	return doubleToPtr<Texture>(tex)->createFromPointer(doubleToPtr<IDirect3DTexture9>(ptr));
 }
 
-DLLEXPORT double MADX9_TextureDestroy(double index)
+DLLEXPORT double MADX9_TextureDestroy(double tex)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	tex->release();
-	textures[(uint) index] = 0;
-
+	delete doubleToPtr<Texture>(tex);
 	return 1;
 }
 
-DLLEXPORT double MADX9_TextureSet(double stage, double index)
+DLLEXPORT double MADX9_TextureSet(double stage, double tex)
 {
-	if (index < 0)
-		return mamain->resetTexture((uint) stage);
+	assert(("Stage cannot be 0", stage < 0));
 
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	return mamain->setTexture((uint) stage, tex);
+	return mamain->setTexture((uint) stage, doubleToPtr<Texture>(tex));
 }
 
-DLLEXPORT double MADX9_TextureCreateFromFileInMemory(double index, const void* data, double length, Texture::MipMaps mipmaps)
+DLLEXPORT double MADX9_TextureCreateFromFileInMemory(double tex, const void* data, double length, Texture::MipMaps mipmaps)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	return tex->loadFromFileInMemory(data, (uint) length, mipmaps);
+	return doubleToPtr<Texture>(tex)->loadFromFileInMemory(data, (uint) length, mipmaps);
 }
 
-DLLEXPORT double MADX9_TextureCreateEmpty(double index, double width, double height, double levels, double usage, double format, double pool)
+DLLEXPORT double MADX9_TextureCreateEmpty(double tex, double width, double height, double levels, double usage, double format, double pool)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	return tex->create((uint) width, (uint) height, (uint) levels, (uint) usage, (D3DFORMAT) (uint) format, (D3DPOOL) (uint) pool);
+	return doubleToPtr<Texture>(tex)->create((uint) width, (uint) height, (uint) levels, (uint) usage, (D3DFORMAT) (uint) format, (D3DPOOL) (uint) pool);
 }
 
-DLLEXPORT double MADX9_TextureGenerateMipMaps(double index)
+DLLEXPORT double MADX9_TextureGenerateMipMaps(double tex)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	return tex->generateMipMaps();
+	return doubleToPtr<Texture>(tex)->generateMipMaps();
 }
 
-DLLEXPORT double MADX9_TextureGetPointer(double index)
+DLLEXPORT double MADX9_TextureGetPointer(double tex)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return PtrToDouble(0);
-
 	LPDIRECT3DTEXTURE9 t;
 
-	return tex->getTexture(t) != ErrorOk ? PtrToDouble(0) : PtrToDouble(t);
+	return doubleToPtr<Texture>(tex)->getTexture(t) != ErrorOk ? ptrToDouble<void>(nullptr) : ptrToDouble(t);
 }
 
-DLLEXPORT double MADX9_TextureGetSurfaceCount(double index)
+DLLEXPORT double MADX9_TextureGetSurfaceCount(double tex)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
 	uint count;
 
-	ErrorCode ret = tex->getSurfaceCount(count);
+	ErrorCode ret = doubleToPtr<Texture>(tex)->getSurfaceCount(count);
 
 	return ret != ErrorOk ? ret : count;
 }
 
-DLLEXPORT double MADX9_TextureSetMipMapFilter(double index, double filter)
+DLLEXPORT double MADX9_TextureSetMipMapFilter(double tex, double filter)
 {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	return tex->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);
+	return doubleToPtr<Texture>(tex)->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);
 }
 
-DLLEXPORT double MADX9_TextureUpdate(double destIndex, double srcIndex)
+DLLEXPORT double MADX9_TextureUpdate(double dest, double src)
 {
-	Texture* dest = VectorGetPointerSafe((uint) destIndex, textures);
-	Texture* src = VectorGetPointerSafe((uint) srcIndex, textures);
-
-	if (dest == 0 || src == 0)
-		return mamain->setError(ErrorInv);
-
-	return dest->update(src);
+	return doubleToPtr<Texture>(dest)->update(doubleToPtr<Texture>(src));
 }

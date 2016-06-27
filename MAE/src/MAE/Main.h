@@ -16,6 +16,7 @@
 
 #include <MAE/Core/Error.h>
 #include <MAE/Core/Releasable.h>
+#include <MAE/Core/UnorderedVector.h>
 
 class Main: public Releasable
 {
@@ -42,17 +43,17 @@ public:
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
-	std::vector<D3DLIGHT9*>          Light;
-	std::vector<D3DMATERIAL9*>       Material;
-	std::vector<class Buffer*>       Buffers;
-	std::vector<class VertexDecl*>   VertexDeclarations;
-	std::vector<class VertexBuffer*> VertexBuffers;
+	UnorderedVector<D3DLIGHT9*>          Light;
+	UnorderedVector<D3DMATERIAL9*>       Material;
+	UnorderedVector<class Buffer*>       Buffers;
+	UnorderedVector<class VertexDecl*>   VertexDeclarations;
+	UnorderedVector<class VertexBuffer*> VertexBuffers;
 
-	std::vector<class MD2Model*> MD2Models;
-	std::vector<class XModel*>   XModels;
-	std::vector<class MPMModel*> MPMModels;
+	UnorderedVector<class MD2Model*> MD2Models;
+	UnorderedVector<class XModel*>   XModels;
+	UnorderedVector<class MPMModel*> MPMModels;
 
-	std::vector<class ParticleSystem*> ParticleSys;
+	UnorderedVector<class ParticleSystem*> ParticleSys;
 
 	DWORD stFVF;
 

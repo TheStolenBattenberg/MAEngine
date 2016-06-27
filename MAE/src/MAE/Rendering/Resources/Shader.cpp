@@ -1,5 +1,4 @@
 #include <MAE/Rendering/Resources/Shader.h>
-#include <MAE/Core/Utils.h>
 #include <MAE/MainImpl.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 

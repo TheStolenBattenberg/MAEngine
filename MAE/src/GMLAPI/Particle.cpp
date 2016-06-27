@@ -4,6 +4,7 @@
 #include <MAE/Rendering/Resources/Texture.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 #include <MAE/Rendering/ParticleSystem.h>
 
 /**
@@ -13,87 +14,82 @@
 
 DLLEXPORT double MADX9_ParticleSystemCreate() 
 {
-	ParticleSystem* ps = new ParticleSystem();
-	return putInto(ps, mamain->ParticleSys);
+	auto ps = new ParticleSystem();
+
+	mamain->ParticleSys.add(ps);
+	return ptrToDouble(ps);
 }
 
-DLLEXPORT double MADX9_ParticleSystemDestroy(double index) 
+DLLEXPORT double MADX9_ParticleSystemDestroy(double ps) 
 {
-	if (!isValidIndex((uint)index, mamain->ParticleSys))
-		return 0;
+	auto ptr = doubleToPtr<ParticleSystem>(ps);
 
-	delete mamain->ParticleSys[(uint)index];
-	mamain->ParticleSys[(uint)index] = 0;
+	mamain->ParticleSys.remove(ptr);
+	delete ptr;
 
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleSystemUpdate(double index, double step) {
-	mamain->ParticleSys[(uint)index]->update((uint) step);
+DLLEXPORT double MADX9_ParticleSystemUpdate(double ps, double step) {
+	doubleToPtr<ParticleSystem>(ps)->update((uint) step);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleSystemRender(double index) {
-	mamain->ParticleSys[(uint)index]->render();
+DLLEXPORT double MADX9_ParticleSystemRender(double ps) {
+	doubleToPtr<ParticleSystem>(ps)->render();
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleSystemGetParticleCount(double index) {
-	return mamain->ParticleSys[(uint)index]->getParticleCount();
+DLLEXPORT double MADX9_ParticleSystemGetParticleCount(double ps) {
+	return doubleToPtr<ParticleSystem>(ps)->getParticleCount();
 }
 
-DLLEXPORT double MADX9_ParticleSystemSetParticleCount(double index, double count) {
-	mamain->ParticleSys[(uint)index]->setMaxParticleCount((uint)count);
+DLLEXPORT double MADX9_ParticleSystemSetParticleCount(double ps, double count) {
+	doubleToPtr<ParticleSystem>(ps)->setMaxParticleCount((uint)count);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleSystemSetTexture(double index, double texInd) {
-	Texture* tex = VectorGetPointerSafe((uint) index, textures);
-
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
-
-	mamain->ParticleSys[(uint) index]->setTexture(tex);
-
+DLLEXPORT double MADX9_ParticleSystemSetTexture(double ps, double tex) {
+	doubleToPtr<ParticleSystem>(ps)->setTexture(doubleToPtr<Texture>(tex));
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterCreate(double index) {
-	mamain->ParticleSys[(uint)index]->createEmitter();
+DLLEXPORT double MADX9_ParticleEmitterCreate(double ps) {
+	doubleToPtr<ParticleSystem>(ps)->createEmitter();
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticlePos(double index, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setPosition((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
+DLLEXPORT double MADX9_ParticleEmitterSetParticlePos(double ps, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setPosition((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticleVel(double index, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setVelocity((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
+DLLEXPORT double MADX9_ParticleEmitterSetParticleVel(double ps, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setVelocity((float)minX, (float)minY, (float)minZ, (float)maxX, (float)maxY, (float)maxZ);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticleCol(double index, double startR, double startG, double startB, double startA, double endR, double endG, double endB, double endA) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setColour((float) startR, (float) startG, (float) startB, (float) startA, (float) endR, (float) endG, (float) endB, (float) endA);
+DLLEXPORT double MADX9_ParticleEmitterSetParticleCol(double ps, double startR, double startG, double startB, double startA, double endR, double endG, double endB, double endA) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setColour((float) startR, (float) startG, (float) startB, (float) startA, (float) endR, (float) endG, (float) endB, (float) endA);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticleAcc(double index, double x, double y, double z) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setAcceleration((float)x, (float)y, (float)z);
+DLLEXPORT double MADX9_ParticleEmitterSetParticleAcc(double ps, double x, double y, double z) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setAcceleration((float)x, (float)y, (float)z);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticleSize(double index, double min, double max) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setSize((float) min, (float) max);
+DLLEXPORT double MADX9_ParticleEmitterSetParticleSize(double ps, double min, double max) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setSize((float) min, (float) max);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticleCount(double index, double min, double max) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setSpawn((uint) min, (uint) max);
+DLLEXPORT double MADX9_ParticleEmitterSetParticleCount(double ps, double min, double max) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setSpawn((uint) min, (uint) max);
 	return 1;
 }
 
-DLLEXPORT double MADX9_ParticleEmitterSetParticleLife(double index, double min, double max) {
-	mamain->ParticleSys[(uint)index]->getEmitter()->setLife((uint) min, (uint) max);
+DLLEXPORT double MADX9_ParticleEmitterSetParticleLife(double ps, double min, double max) {
+	doubleToPtr<ParticleSystem>(ps)->getEmitter()->setLife((uint) min, (uint) max);
 	return 1;
 }

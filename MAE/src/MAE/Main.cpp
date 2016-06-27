@@ -3,7 +3,6 @@
 #include <MAE/Core/Buffer.h>
 #include <MAE/Rendering/VertexBuffer.h>
 #include <MAE/Rendering/VertexDecl.h>
-#include <MAE/Core/Utils.h>
 #include <MAE/Rendering/ModelMPM.h>
 #include <MAE/Rendering/ModelX.h>
 #include <MAE/Rendering/ParticleSystem.h>
@@ -28,29 +27,21 @@ MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 	this->d3ddev = d3ddev;
 }
 
-MainImpl::~MainImpl()
-{
-	ClearVector(MD2Models);
-	ClearVector(MPMModels);
-	ClearVector(Light);
-	ClearVector(Material);
-	ClearVector(Buffers);
-	ClearVector(VertexDeclarations);
-	ClearVector(VertexBuffers);
-	ClearVector(XModels);
-	ClearVector(ParticleSys);
+MainImpl::~MainImpl() {
+	assert(("Some MD2 Models weren't freed", MD2Models.size() == 0));
+	assert(("Some MPM Models weren't freed", MPMModels.size() == 0));
+	assert(("Some Lights weren't freed", Light.size() == 0));
+	assert(("Some Materials weren't freed", Material.size() == 0));
+	assert(("Some Buffers weren't freed", Buffers.size() == 0));
+	assert(("Some Vertex Declarations weren't freed", VertexDeclarations.size() == 0));
+	assert(("Some Vertex Buffers weren't freed", VertexBuffers.size() == 0));
+	assert(("Some X Models weren't freed", XModels.size() == 0));
+	assert(("Some Particel Systems weren't freed", ParticleSys.size() == 0));
+	assert(("Some Shaders weren't freed", shaders.size() == 0));
+	assert(("Some Surfaces weren't freed", surfaces.size() == 0));
+	assert(("Some Texture weren't freed", textures.size() == 0));
 
-	while (!shaders.empty())
-		delete shaders.front();
-
-	while (!surfaces.empty())
-		delete surfaces.front();
-
-	while (!textures.empty())
-		delete textures.front();
-
-	if (VertexDeclarationParticle != 0)
-	{
+	if (VertexDeclarationParticle != 0) {
 		VertexDeclarationParticle->Release();
 		VertexDeclarationParticle = 0;
 	}
@@ -90,7 +81,7 @@ ErrorCode MainImpl::createScene(Scene*& scene) {
 	if (s == 0)
 		return setError(ErrorMemory);
 
-	scenes.push_back(s);
+	scenes.add(s);
 	scene = (Scene*) s;
 
 	return ErrorOk;
@@ -103,7 +94,7 @@ ErrorCode MainImpl::createSurface(Surface*& surf)
 	if (s == 0)
 		return this->setError(ErrorMemory);
 
-	surfaces.push_back(s);
+	surfaces.add(s);
 	surf = s;
 
 	return ErrorOk;
@@ -111,9 +102,7 @@ ErrorCode MainImpl::createSurface(Surface*& surf)
 
 void MainImpl::removeSurface(const Surface* surf)
 {
-	surfaces.remove_if([surf](Surface* s) {
-		return s == surf;
-	});
+	surfaces.remove((SurfaceImpl*) surf);
 }
 
 ErrorCode MainImpl::createTexture(Texture*& tex)
@@ -123,7 +112,7 @@ ErrorCode MainImpl::createTexture(Texture*& tex)
 	if (t == 0)
 		return this->setError(ErrorMemory);
 
-	textures.push_back(t);
+	textures.add(t);
 	tex = t;
 
 	return ErrorOk;
@@ -131,9 +120,7 @@ ErrorCode MainImpl::createTexture(Texture*& tex)
 
 void MainImpl::removeTexture(const Texture* tex)
 {
-	textures.remove_if([tex](Texture* t) {
-		return t == tex;
-	});
+	textures.remove((TextureImpl*) tex);
 }
 
 ErrorCode MainImpl::createShader(Shader*& shd)
@@ -143,7 +130,7 @@ ErrorCode MainImpl::createShader(Shader*& shd)
 	if (s == 0)
 		return setError(ErrorMemory);
 
-	shaders.push_back(s);
+	shaders.add(s);
 	shd = s;
 
 	return ErrorOk;
@@ -151,9 +138,7 @@ ErrorCode MainImpl::createShader(Shader*& shd)
 
 void MainImpl::removeShader(const Shader* shd)
 {
-	shaders.remove_if([shd](Shader* s) {
-		return s == shd;
-	});
+	shaders.remove((ShaderImpl*) shd);
 }
 
 ErrorCode MainImpl::getRenderTarget(uint ind, class Surface*& surf)
@@ -278,7 +263,7 @@ ErrorCode MainImpl::unregisterErrorFunction(void(*func)(ErrorCode))
 }
 
 void MainImpl::removeScene(const class Scene* scene) {
-	scenes.remove_if([scene](Scene* s) { return s == scene; });
+	scenes.remove((SceneImpl*) scene);
 }
 
 Main* MainCreate(LPDIRECT3DDEVICE9 device)

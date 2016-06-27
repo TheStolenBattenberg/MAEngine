@@ -1,6 +1,5 @@
 #include <MAE/Rendering/ModelMPM.h>
 
-#include <MAE/Core/Utils.h>
 #include <MAE/Main.h>
 #include <MAE/Core/Utils.h>
 
@@ -30,7 +29,7 @@ ErrorCode MPMModel::load(const std::string& model)
 
 	MPM::Header h;
 	
-	if (!ReadFromFile(f, h))
+	if (!readFromStream(f, h))
 		return ErrorReadFile;
 
 	if (h.magicNumber != MPM::MagicNumber)
@@ -44,7 +43,7 @@ ErrorCode MPMModel::load(const std::string& model)
 
 	MPM::PacketHeader ph;
 
-	if (!ReadFromFile(f, ph))
+	if (!readFromStream(f, ph))
 		return ErrorReadFile;
 
 	while (ph.id != MPM::PacketEndOfFileID)
@@ -80,7 +79,7 @@ ErrorCode MPMModel::load(const std::string& model)
 		if (f.tellg() - offs != ph.length)
 			return ErrorReadFile;
 
-		if (!ReadFromFile(f, ph))
+		if (!readFromStream(f, ph))
 			return ErrorReadFile;
 	}
 
@@ -91,7 +90,7 @@ ErrorCode MPMModel::readInstances(std::ifstream& f)
 {
 	MPM::InstHeader ih;
 
-	if (!ReadFromFile(f, ih))
+	if (!readFromStream(f, ih))
 		return ErrorReadFile;
 
 	std::vector<MPM::Inst> inst;
@@ -102,7 +101,7 @@ ErrorCode MPMModel::readInstances(std::ifstream& f)
 	{
 		MPM::Inst in;
 
-		if (!ReadFromFile(f, in))
+		if (!readFromStream(f, in))
 			return ErrorReadFile;
 
 		inst.push_back(in);
@@ -120,7 +119,7 @@ ErrorCode MPMModel::readMesh(std::ifstream& f)
 {
 	MPM::Mesh mesh;
 
-	if (!ReadFromFile(f, mesh))
+	if (!readFromStream(f, mesh))
 		return ErrorReadFile;
 
 	meshes[mesh.meshId].matInd      = mesh.matInd;
@@ -134,7 +133,7 @@ ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 {
 	MPM::PacketVertexDescHeader vh;
 
-	if (!ReadFromFile(f, vh))
+	if (!readFromStream(f, vh))
 		return ErrorReadFile;
 
 	meshes[vh.meshInd].stride = vh.vertStride;
@@ -147,7 +146,7 @@ ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 	{
 		MPM::PacketVertexDesc vd;
 
-		if (!ReadFromFile(f, vd))
+		if (!readFromStream(f, vd))
 			return ErrorReadFile;
 
 		vertexDescs.push_back(vd);
@@ -193,7 +192,7 @@ ErrorCode MPMModel::readVertexData(std::ifstream& f)
 {
 	MPM::PacketVertexDataHeader vdh;
 
-	if (!ReadFromFile(f, vdh))
+	if (!readFromStream(f, vdh))
 		return ErrorReadFile;
 
 	LPDIRECT3DVERTEXBUFFER9 vb;
@@ -220,7 +219,7 @@ ErrorCode MPMModel::readIndexData(std::ifstream& f)
 {
 	MPM::PacketVertexIndexHeader vih;
 
-	if (!ReadFromFile(f, vih))
+	if (!readFromStream(f, vih))
 		return ErrorReadFile;
 
 	uint length = vih.num * (vih.type == vih.TypeU32 ? sizeof(uint) : sizeof(ushort));

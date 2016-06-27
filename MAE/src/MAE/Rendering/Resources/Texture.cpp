@@ -1,6 +1,5 @@
 #include <MAE/Rendering/Resources/Texture.h>
 #include <MAE/Rendering/Resources/TextureImpl.h>
-#include <MAE/Core/Utils.h>
 #include <MAE/Rendering/Resources/Surface.h>
 
 TextureImpl::~TextureImpl()

@@ -2,6 +2,7 @@
 
 #include <MAE/Main.h>
 
+
 #include <list>
 #include <map>
 
@@ -38,10 +39,10 @@ public:
 private:
 	ErrorCode errCode = ErrorOk;
 
-	std::list<class SceneImpl*>   scenes;
-	std::list<class SurfaceImpl*> surfaces;
-	std::list<class TextureImpl*> textures;
-	std::list<class ShaderImpl*>  shaders;
+	UnorderedVector<class SceneImpl*>   scenes;
+	UnorderedVector<class SurfaceImpl*> surfaces;
+	UnorderedVector<class TextureImpl*> textures;
+	UnorderedVector<class ShaderImpl*>  shaders;
 
 	std::list<void(*)(ErrorCode)> functions;
 };

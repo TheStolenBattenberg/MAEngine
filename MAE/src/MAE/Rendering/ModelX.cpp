@@ -1,9 +1,6 @@
 #include <MAE/Main.h>
 #include <MAE/Rendering/ModelX.h>
 
-//TODO: Remove
-#include <MAE/Core/Utils.h>
-
 XModel::~XModel()
 {
 	for (uint i = 0; i < materialCount; ++i) {

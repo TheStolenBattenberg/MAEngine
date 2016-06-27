@@ -5,6 +5,7 @@
 #include <MAE/Core/Utils.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 #include <memory>
 
@@ -24,119 +25,87 @@ void* bufferPtr = nullptr;
 
 DLLEXPORT double MADX9_BufferCreate()
 {
-	Memory* mem = new(std::nothrow) DynamicMemory();
+	auto buf = new Buffer(new DynamicMemory());
 
-	if (mem == 0)
-		return mamain->setError(ErrorMemory);
-
-	Buffer* buf = new(std::nothrow) Buffer(mem);
-
-	if (buf == 0)
-	{
-		delete mem;
-		return mamain->setError(ErrorMemory);
-	}
-
-	return putInto(buf, mamain->Buffers);
+	mamain->Buffers.add(buf);
+	return ptrToDouble(buf);
 }
 
-DLLEXPORT double MADX9_BufferDestroy(double ind)
+DLLEXPORT double MADX9_BufferDestroy(double buf)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
+	auto ptr = doubleToPtr<Buffer>(buf);
 
-	delete mamain->Buffers[(uint) ind];
-	mamain->Buffers[(uint) ind] = nullptr;
+	mamain->Buffers.remove(ptr);
+	delete ptr;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferReserve(double ind, double amount)
+DLLEXPORT double MADX9_BufferReserve(double buf, double amount)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->reserve((uint) amount);
+	doubleToPtr<Buffer>(buf)->reserve((uint) amount);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferRemove(double ind, double offset, double length)
+DLLEXPORT double MADX9_BufferRemove(double buf, double offset, double length)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->remove((uint) offset, (uint) length);
+	doubleToPtr<Buffer>(buf)->remove((uint) offset, (uint) length);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferSeek(double ind, double offset)
+DLLEXPORT double MADX9_BufferSeek(double buf, double offset)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->seek((uint) offset);
+	doubleToPtr<Buffer>(buf)->seek((uint) offset);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferTell(double ind)
+DLLEXPORT double MADX9_BufferTell(double buf)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	return mamain->Buffers[(uint) ind]->tell();
+	return doubleToPtr<Buffer>(buf)->tell();
 }
 
-DLLEXPORT double MADX9_BufferSize(double ind)
+DLLEXPORT double MADX9_BufferSize(double buf)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	return mamain->Buffers[(uint) ind]->size();
+	return doubleToPtr<Buffer>(buf)->size();
 }
 
-DLLEXPORT double MADX9_BufferWrite(double ind, const void* data, double bufofs, double length)
+DLLEXPORT double MADX9_BufferWrite(double buf, const void* data, double bufofs, double length)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->write((ubyte*) data + (uint) bufofs, (uint) length);
+	doubleToPtr<Buffer>(buf)->write((ubyte*) data + (uint) bufofs, (uint) length);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferWriteValue(double ind, double type, double value)
+DLLEXPORT double MADX9_BufferWriteValue(double buf, double type, double value)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
 	switch ((Type) (uint) type)
 	{
 	case TypeU8:
-		mamain->Buffers[(uint) ind]->write<ubyte>((ubyte) value);
+		doubleToPtr<Buffer>(buf)->write<ubyte>((ubyte) value);
 		break;
 	case TypeU16:
-		mamain->Buffers[(uint) ind]->write<ushort>((ushort) value);
+		doubleToPtr<Buffer>(buf)->write<ushort>((ushort) value);
 		break;
 	case TypeU32:
-		mamain->Buffers[(uint) ind]->write<uint>((uint) value);
+		doubleToPtr<Buffer>(buf)->write<uint>((uint) value);
 		break;
 	case TypeS8:
-		mamain->Buffers[(uint) ind]->write<char>((char) value);
+		doubleToPtr<Buffer>(buf)->write<char>((char) value);
 		break;
 	case TypeS16:
-		mamain->Buffers[(uint) ind]->write<short>((short) value);
+		doubleToPtr<Buffer>(buf)->write<short>((short) value);
 		break;
 	case TypeS32:
-		mamain->Buffers[(uint) ind]->write<int>((int) value);
+		doubleToPtr<Buffer>(buf)->write<int>((int) value);
 		break;
 	case TypeF32:
-		mamain->Buffers[(uint) ind]->write<float>((float) value);
+		doubleToPtr<Buffer>(buf)->write<float>((float) value);
 		break;
 	case TypeF64:
-		mamain->Buffers[(uint) ind]->write<double>((double) value);
+		doubleToPtr<Buffer>(buf)->write<double>((double) value);
 		break;
 	default:
 		return ErrorInv;
@@ -145,84 +114,72 @@ DLLEXPORT double MADX9_BufferWriteValue(double ind, double type, double value)
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferRead(double ind, void* data, double bufofs, double length)
+DLLEXPORT double MADX9_BufferRead(double buf, void* data, double bufofs, double length)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->read((ubyte*) data + (uint) bufofs, (uint) length);
+	doubleToPtr<Buffer>(buf)->read((ubyte*) data + (uint) bufofs, (uint) length);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferReadValue(double ind, double type)
+DLLEXPORT double MADX9_BufferReadValue(double buf, double type)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
 	switch ((Type) (uint) type)
 	{
 	case TypeU8:
-		return mamain->Buffers[(uint) ind]->read<ubyte>();
+		return doubleToPtr<Buffer>(buf)->read<ubyte>();
 	case TypeU16:
-		return mamain->Buffers[(uint) ind]->read<ushort>();
+		return doubleToPtr<Buffer>(buf)->read<ushort>();
 	case TypeU32:
-		return mamain->Buffers[(uint) ind]->read<uint>();
+		return doubleToPtr<Buffer>(buf)->read<uint>();
 	case TypeS8:
-		return mamain->Buffers[(uint) ind]->read<char>();
+		return doubleToPtr<Buffer>(buf)->read<char>();
 	case TypeS16:
-		return mamain->Buffers[(uint) ind]->read<short>();
+		return doubleToPtr<Buffer>(buf)->read<short>();
 	case TypeS32:
-		return mamain->Buffers[(uint) ind]->read<int>();
+		return doubleToPtr<Buffer>(buf)->read<int>();
 	case TypeF32:
-		return mamain->Buffers[(uint) ind]->read<float>();
+		return doubleToPtr<Buffer>(buf)->read<float>();
 	case TypeF64:
-		return mamain->Buffers[(uint) ind]->read<double>();
+		return doubleToPtr<Buffer>(buf)->read<double>();
 	default:
 		return ErrorInv;
 	}
 }
 
-DLLEXPORT double MADX9_BufferPoke(double ind, double offset, double bufofs, double length)
+DLLEXPORT double MADX9_BufferPoke(double buf, double offset, double bufofs, double length)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->poke((uint) offset, (ubyte*) bufferPtr + (uint) bufofs, (uint) length);
+	doubleToPtr<Buffer>(buf)->poke((uint) offset, (ubyte*) bufferPtr + (uint) bufofs, (uint) length);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferPokeValue(double ind, double offset, double type, double value)
+DLLEXPORT double MADX9_BufferPokeValue(double buf, double offset, double type, double value)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
 	switch ((Type) (uint) type)
 	{
 	case TypeU8:
-		mamain->Buffers[(uint) ind]->poke<ubyte>((uint) offset, (ubyte) value);
+		doubleToPtr<Buffer>(buf)->poke<ubyte>((uint) offset, (ubyte) value);
 		break;
 	case TypeU16:
-		mamain->Buffers[(uint) ind]->poke<ushort>((uint) offset, (ushort) value);
+		doubleToPtr<Buffer>(buf)->poke<ushort>((uint) offset, (ushort) value);
 		break;
 	case TypeU32:
-		mamain->Buffers[(uint) ind]->poke<uint>((uint) offset, (uint) value);
+		doubleToPtr<Buffer>(buf)->poke<uint>((uint) offset, (uint) value);
 		break;
 	case TypeS8:
-		mamain->Buffers[(uint) ind]->poke<char>((uint) offset, (char) value);
+		doubleToPtr<Buffer>(buf)->poke<char>((uint) offset, (char) value);
 		break;
 	case TypeS16:
-		mamain->Buffers[(uint) ind]->poke<short>((uint) offset, (short) value);
+		doubleToPtr<Buffer>(buf)->poke<short>((uint) offset, (short) value);
 		break;
 	case TypeS32:
-		mamain->Buffers[(uint) ind]->poke<int>((uint) offset, (int) value);
+		doubleToPtr<Buffer>(buf)->poke<int>((uint) offset, (int) value);
 		break;
 	case TypeF32:
-		mamain->Buffers[(uint) ind]->poke<float>((uint) offset, (float) value);
+		doubleToPtr<Buffer>(buf)->poke<float>((uint) offset, (float) value);
 		break;
 	case TypeF64:
-		mamain->Buffers[(uint) ind]->poke<double>((uint) offset, (double) value);
+		doubleToPtr<Buffer>(buf)->poke<double>((uint) offset, (double) value);
 		break;
 	default:
 		return ErrorInv;
@@ -231,39 +188,33 @@ DLLEXPORT double MADX9_BufferPokeValue(double ind, double offset, double type, d
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferPeek(double ind, double offset, double bufofs, double length)
+DLLEXPORT double MADX9_BufferPeek(double buf, double offset, double bufofs, double length)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
-	mamain->Buffers[(uint) ind]->peek((uint) offset, (ubyte*) bufferPtr + (uint) bufofs, (uint) length);
+	doubleToPtr<Buffer>(buf)->peek((uint) offset, (ubyte*) bufferPtr + (uint) bufofs, (uint) length);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_BufferPeekValue(double ind, double offset, double type)
+DLLEXPORT double MADX9_BufferPeekValue(double buf, double offset, double type)
 {
-	if (!isValidIndex((uint) ind, mamain->Buffers))
-		return ErrorInv;
-
 	switch ((Type) (uint) type)
 	{
 	case TypeU8:
-		return mamain->Buffers[(uint) ind]->peek<ubyte>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<ubyte>((uint) offset);
 	case TypeU16:
-		return mamain->Buffers[(uint) ind]->peek<ushort>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<ushort>((uint) offset);
 	case TypeU32:
-		return mamain->Buffers[(uint) ind]->peek<uint>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<uint>((uint) offset);
 	case TypeS8:
-		return mamain->Buffers[(uint) ind]->peek<char>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<char>((uint) offset);
 	case TypeS16:
-		return mamain->Buffers[(uint) ind]->peek<short>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<short>((uint) offset);
 	case TypeS32:
-		return mamain->Buffers[(uint) ind]->peek<int>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<int>((uint) offset);
 	case TypeF32:
-		return mamain->Buffers[(uint) ind]->peek<float>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<float>((uint) offset);
 	case TypeF64:
-		return mamain->Buffers[(uint) ind]->peek<double>((uint) offset);
+		return doubleToPtr<Buffer>(buf)->peek<double>((uint) offset);
 	default:
 		return ErrorInv;
 	}

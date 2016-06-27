@@ -286,5 +286,5 @@ bool MANavMesh::addLink(float* v1, float* v2, int dir, float radius)
 
 MANavigation::~MANavigation()
 {
-	ClearVector(NavMeshes);
+	freeContainer(NavMeshes);
 }

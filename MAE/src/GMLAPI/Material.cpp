@@ -3,79 +3,77 @@
 #include <MAE/Core/Utils.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 DLLEXPORT double MADX9_MaterialCreate()
 {
-	return putInto((D3DMATERIAL9*) memset(new D3DMATERIAL9, 0, sizeof(D3DMATERIAL9)), mamain->Material);
+	auto mat = (D3DMATERIAL9*) memset(new D3DMATERIAL9, 0, sizeof(D3DMATERIAL9));
+
+	mamain->Material.add(mat);
+
+	return ptrToDouble(mat);
 }
 
-DLLEXPORT double MADX9_MaterialDestroy(double index)
+DLLEXPORT double MADX9_MaterialDestroy(double material)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	delete mamain->Material[(uint) index];
-	mamain->Material[(uint) index] = 0;
+	mamain->Material.remove(ptr);
+	delete ptr;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_MaterialSetDiffuse(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_MaterialSetDiffuse(double material, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	mamain->Material[(uint) index]->Diffuse = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Diffuse = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_MaterialSetAmbient(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_MaterialSetAmbient(double material, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	mamain->Material[(uint) index]->Ambient = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Ambient = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_MaterialSetSpecular(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_MaterialSetSpecular(double material, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	mamain->Material[(uint) index]->Specular = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Specular = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_MaterialSetSpecularPower(double index, double p)
+DLLEXPORT double MADX9_MaterialSetSpecularPower(double material, double p)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	mamain->Material[(uint) index]->Power = (float) p;
+	ptr->Power = (float) p;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_MaterialSetEmissive(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_MaterialSetEmissive(double material, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	mamain->Material[(uint) index]->Emissive = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Emissive = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_MaterialSet(double index)
+DLLEXPORT double MADX9_MaterialSet(double material)
 {
-	if (!isValidIndex((uint) index, mamain->Material))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DMATERIAL9>(material);
 
-	mamain->d3ddev->SetMaterial(mamain->Material[(uint) index]);
+	mamain->d3ddev->SetMaterial(ptr);
 
 	return ErrorOk;
 }

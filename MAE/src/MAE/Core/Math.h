@@ -3,6 +3,7 @@
 #include <MAE/Core/Types.h>
 #include <Windows.h>
 #include <cmath>
+#include <algorithm>
 
 #include <Vec.h>
 

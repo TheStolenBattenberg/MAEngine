@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <vector>
 #include <thread>
+#include <MAE/Core/UnorderedVector.h>
 
 class MANavMesh {
 private:
@@ -88,7 +89,7 @@ struct MANavigation {
 	dtPolyRef m_straightPathPolys[MAX_POLYS];
 	int m_nstraightPath = 0;
 
-	std::vector<MANavMesh*> NavMeshes;
+	UnorderedVector<MANavMesh*> NavMeshes;
 
 	MANavigation() {};
 	~MANavigation();

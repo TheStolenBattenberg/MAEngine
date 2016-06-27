@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\GMLAPI\Main.h" />
+    <ClInclude Include="..\src\GMLAPI\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EB1171B2-FF72-4461-AFD9-DFF0BBA2D29A}</ProjectGuid>

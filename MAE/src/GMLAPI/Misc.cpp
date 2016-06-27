@@ -4,6 +4,7 @@
 #include <MAE/Core/Utils.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 std::string retStr;
 
@@ -71,7 +72,7 @@ DLLEXPORT double MADX9_SetRenderState(double state, double value)
 
 DLLEXPORT double MADX9_FreePointer(double p)
 {
-	LPUNKNOWN ptr = (LPUNKNOWN) DoubleToPtr(p);
+	auto ptr = doubleToPtr<IUnknown>(p);
 
 	if (ptr == 0)
 		return mamain->setError(ErrorInv);
@@ -90,5 +91,5 @@ DLLEXPORT double MADX9_Clear(double colour, double alpha, double z, double stenc
 
 DLLEXPORT double MADX9_IsNullPointer(double p)
 {
-	return DoubleToPtr(p) == 0;
+	return doubleToPtr<void>(p) == 0;
 }

@@ -4,65 +4,74 @@
 #include <MAE/Core/Utils.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 DLLEXPORT double MA_NavMeshCreate()
 {
-	MANavMesh* navmesh = new MANavMesh();
-	return putInto(navmesh, manav->NavMeshes);
+	auto navmesh = new MANavMesh();
+
+	manav->NavMeshes.add(navmesh);
+	return ptrToDouble(navmesh);
 }
 
-DLLEXPORT double MA_NavMeshDestroy(double index)
+DLLEXPORT double MA_NavMeshDestroy(double navmesh)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	navmesh->waitForBuild();
-	delete navmesh;
-	manav->NavMeshes[(uint)index] = 0;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+
+	ptr->waitForBuild();
+
+	manav->NavMeshes.remove(ptr);
+	delete ptr;
+
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshClear(double index)
+DLLEXPORT double MA_NavMeshClear(double navmesh)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() == 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
 
-	navmesh->cleanup();
+	if (ptr->getBuildStatus() == 0) return -1;
+
+	ptr->cleanup();
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshBeginBuild(double index, double minx, double miny, double minz, double maxx, double maxy, double maxz)
+DLLEXPORT double MA_NavMeshBeginBuild(double navmesh, double minx, double miny, double minz, double maxx, double maxy, double maxz)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() == 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
 
-	return navmesh->beginBuild((float)minx, (float)miny, (float)minz, (float)maxx, (float)maxy, (float)maxz);
+	if (ptr->getBuildStatus() == 0) return -1;
+
+	return ptr->beginBuild((float)minx, (float)miny, (float)minz, (float)maxx, (float)maxy, (float)maxz);
 }
 
-DLLEXPORT double MA_NavMeshEndBuild(double index, double async)
+DLLEXPORT double MA_NavMeshEndBuild(double navmesh, double async)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() == 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
 
-	return navmesh->endBuild(async > 0.5);
+	if (ptr->getBuildStatus() == 0) return -1;
+
+	return ptr->endBuild(async > 0.5);
 }
 
-DLLEXPORT double MA_NavMeshWaitForBuild(double index)
+DLLEXPORT double MA_NavMeshWaitForBuild(double navmesh)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	return navmesh->waitForBuild();
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+	return ptr->waitForBuild();
 }
 
-DLLEXPORT double MA_NavMeshGetBuildStatus(double index)
+DLLEXPORT double MA_NavMeshGetBuildStatus(double navmesh)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	return navmesh->getBuildStatus();
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+	return ptr->getBuildStatus();
 }
 
 std::vector<float> vertices;
 std::vector<int> triangles;
-DLLEXPORT double MA_NavMeshAddGMModel(double index, char* filename)
+DLLEXPORT double MA_NavMeshAddGMModel(double navmesh, char* filename)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() == 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+	if (ptr->getBuildStatus() == 0) return -1;
 
 	std::string line;
 	std::ifstream file(filename);
@@ -96,7 +105,7 @@ DLLEXPORT double MA_NavMeshAddGMModel(double index, char* filename)
 	int* tris = triangles.data();
 	int ntris = triangles.size() / 3;
 
-	return navmesh->addMesh(verts, nverts, tris, ntris, matStack.data());
+	return ptr->addMesh(verts, nverts, tris, ntris, matStack.data());
 }
 
 int G_nverts = 0, G_ntris = 0;
@@ -107,78 +116,82 @@ DLLEXPORT double MA_NavSetVertexBufferSize(double nverts, double ntris)
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshAddVertexBuffer(double index, float* verts, int* tris)
+DLLEXPORT double MA_NavMeshAddVertexBuffer(double navmesh, float* verts, int* tris)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() == 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
 
-	return navmesh->addMesh(verts, G_nverts, tris, G_ntris, matStack.data());
+	if (ptr->getBuildStatus() == 0) return -1;
+
+	return ptr->addMesh(verts, G_nverts, tris, G_ntris, matStack.data());
 }
 
-DLLEXPORT double MA_NavMeshAddLink(double index, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius)
+DLLEXPORT double MA_NavMeshAddLink(double navmesh, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() == 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+
+	if (ptr->getBuildStatus() == 0) return -1;
 
 	float v1[3] = { (float)x1, (float)y1, (float)z1 };
 	float v2[3] = { (float)x2, (float)y2, (float)z2 };
-	return navmesh->addLink(v1, v2, (int)dir, (float)radius);
+	return ptr->addLink(v1, v2, (int)dir, (float)radius);
 }
 
-DLLEXPORT double MA_NavMeshDebugDraw(double index)
+DLLEXPORT double MA_NavMeshDebugDraw(double navmesh)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() <= 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
 
-	duDebugDrawNavMesh(&manav->m_debugDraw, *navmesh->m_navMesh, 0);
-	float* bmin = navmesh->m_cfg.bmin;
-	float* bmax = navmesh->m_cfg.bmax;
+	if (ptr->getBuildStatus() <= 0) return -1;
+
+	duDebugDrawNavMesh(&manav->m_debugDraw, *ptr->m_navMesh, 0);
+	float* bmin = ptr->m_cfg.bmin;
+	float* bmax = ptr->m_cfg.bmax;
 	duDebugDrawBoxWire(&manav->m_debugDraw, bmin[0], bmin[1], bmin[2], bmax[0], bmax[1], bmax[2], duRGBA(255, 255, 255, 128), 1.f);
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshSetAgentConfig(double index, double agent_height, double agent_radius, double agent_max_climb, double agent_max_slope)
+DLLEXPORT double MA_NavMeshSetAgentConfig(double navmesh, double agent_height, double agent_radius, double agent_max_climb, double agent_max_slope)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	navmesh->m_agentHeight = (float)agent_height;
-	navmesh->m_agentRadius = (float)agent_radius;
-	navmesh->m_agentMaxClimb = (float)agent_max_climb;
-	navmesh->m_agentMaxSlope = (float)agent_max_slope;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+	ptr->m_agentHeight = (float)agent_height;
+	ptr->m_agentRadius = (float)agent_radius;
+	ptr->m_agentMaxClimb = (float)agent_max_climb;
+	ptr->m_agentMaxSlope = (float)agent_max_slope;
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshSetConfig(double index, double cell_size, double cell_height, double region_min_size, double region_merge_size,
+DLLEXPORT double MA_NavMeshSetConfig(double navmesh, double cell_size, double cell_height, double region_min_size, double region_merge_size,
 	double edge_max_len, double edge_max_error, double verts_per_poly, double detail_sample_dist, double detail_sample_max_error)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	navmesh->m_cellSize = (float)cell_size;
-	navmesh->m_cellHeight = (float)cell_height;
-	navmesh->m_regionMinSize = (float)region_min_size;
-	navmesh->m_regionMergeSize = (float)region_merge_size;
-	navmesh->m_edgeMaxLen = (float)edge_max_len;
-	navmesh->m_edgeMaxError = (float)edge_max_error;
-	navmesh->m_vertsPerPoly = (float)verts_per_poly;
-	navmesh->m_detailSampleDist = (float)detail_sample_dist;
-	navmesh->m_detailSampleMaxError = (float)detail_sample_max_error;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+	ptr->m_cellSize = (float)cell_size;
+	ptr->m_cellHeight = (float)cell_height;
+	ptr->m_regionMinSize = (float)region_min_size;
+	ptr->m_regionMergeSize = (float)region_merge_size;
+	ptr->m_edgeMaxLen = (float)edge_max_len;
+	ptr->m_edgeMaxError = (float)edge_max_error;
+	ptr->m_vertsPerPoly = (float)verts_per_poly;
+	ptr->m_detailSampleDist = (float)detail_sample_dist;
+	ptr->m_detailSampleMaxError = (float)detail_sample_max_error;
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshFindNearestPoly(double index, double x, double y, double z, double ex, double ey, double ez)
+DLLEXPORT double MA_NavMeshFindNearestPoly(double navmesh, double x, double y, double z, double ex, double ey, double ez)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() <= 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+
+	if (ptr->getBuildStatus() <= 0) return -1;
 
 	float pos[3] = { (float)-x, (float)z, (float)y };
 	float extents[3] = { (float)ex, (float)ez, (float)ey };
 	dtPolyRef ref;
-	navmesh->m_navQuery->findNearestPoly(pos, extents, &navmesh->m_filter, &ref, 0);
+	ptr->m_navQuery->findNearestPoly(pos, extents, &ptr->m_filter, &ref, 0);
 	return ref;
 }
 
-DLLEXPORT double MA_NavMeshFindPath(double index, double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
+DLLEXPORT double MA_NavMeshFindPath(double navmesh, double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
 {
-	MANavMesh* navmesh = manav->NavMeshes[(uint)index];
-	if (navmesh->getBuildStatus() <= 0) return -1;
+	auto ptr = doubleToPtr<MANavMesh>(navmesh);
+	if (ptr->getBuildStatus() <= 0) return -1;
 
 	dtPolyRef startRef = (dtPolyRef)start_poly;
 	dtPolyRef endRef = (dtPolyRef)end_poly;
@@ -186,14 +199,14 @@ DLLEXPORT double MA_NavMeshFindPath(double index, double start_poly, double end_
 	float endPos[3] = { (float)-xt, (float)zt, (float)yt };
 	float epos[3];
 
-	navmesh->m_navQuery->findPath(startRef, endRef, startPos, endPos, &navmesh->m_filter, manav->m_polys, &manav->m_npolys, MANavigation::MAX_POLYS);
+	ptr->m_navQuery->findPath(startRef, endRef, startPos, endPos, &ptr->m_filter, manav->m_polys, &manav->m_npolys, MANavigation::MAX_POLYS);
 
 	rcVcopy(epos, endPos);
 	if (manav->m_polys[manav->m_npolys - 1] != endRef)
-		navmesh->m_navQuery->closestPointOnPoly(manav->m_polys[manav->m_npolys - 1], endPos, epos, 0);
+		ptr->m_navQuery->closestPointOnPoly(manav->m_polys[manav->m_npolys - 1], endPos, epos, 0);
 
 	if (manav->m_npolys) {
-		navmesh->m_navQuery->findStraightPath(startPos, epos, manav->m_polys, manav->m_npolys, manav->m_straightPath, manav->m_straightPathFlags,
+		ptr->m_navQuery->findStraightPath(startPos, epos, manav->m_polys, manav->m_npolys, manav->m_straightPath, manav->m_straightPathFlags,
 			manav->m_straightPathPolys, &manav->m_nstraightPath, MANavigation::MAX_POLYS, 0);
 	}
 

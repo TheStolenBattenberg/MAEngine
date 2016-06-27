@@ -58,8 +58,6 @@ desY = 0;
 
 global.m = MAE_ModelMPMLoad("COMMON/MODEL/tank.mpm");
 
-show_debug_message(string(global.m));
-
 </string>
           </argument>
         </arguments>
@@ -140,7 +138,7 @@ matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ModelMD2Destroy(global.m);
+            <string>MAE_ModelMPMDestroy(global.m);
 </string>
           </argument>
         </arguments>

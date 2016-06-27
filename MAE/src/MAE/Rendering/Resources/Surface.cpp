@@ -1,5 +1,4 @@
 #include <MAE/Rendering/Resources/SurfaceImpl.h>
-#include <MAE/Core/Utils.h>
 #include <MAE/MainImpl.h>
 
 #include <list>

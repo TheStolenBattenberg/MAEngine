@@ -254,9 +254,6 @@
     <ClInclude Include="..\src\MAE\Core\Types.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\Core\Utils.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Variant.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -264,6 +261,12 @@
       <Filter>Header Files\FMOD</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Releasable.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\UnorderedVector.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Utils.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,4 @@
 #include <MAE/Main.h>
-#include <MAE/Core/Utils.h>
 #include <MAE/Rendering/Mesh.h>
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Core/Math.h>

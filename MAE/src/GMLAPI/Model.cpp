@@ -4,6 +4,7 @@
 #include <MAE/Rendering/Resources/Texture.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 #include <MAE/Rendering/ModelMPM.h>
 #include <MAE/Rendering/ModelMD2.h>
@@ -13,53 +14,45 @@
  * Id .MD2 mesh.
  */
 
-DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double texInd, double normals)
+DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double tex, double normals)
 {
-	Texture* tex = VectorGetPointerSafe((uint) texInd, textures);
+	auto texPtr = doubleToPtr<Texture>(tex);
 
-	if (tex == 0)
-		return mamain->setError(ErrorInv);
+	auto MD2 = new MD2Model;
 
-	MD2Model* MD2 = new MD2Model();
-
-	if (!MD2->load(MD2ModelFile, normals >= 0.5))
-	{
+	if (!MD2->load(MD2ModelFile, normals >= 0.5)) {
 		delete MD2;
 		return -1;
 	}
 
-	MD2->setTexture(tex);
+	MD2->setTexture(texPtr);
 
-	return putInto(MD2, mamain->MD2Models);
+	mamain->MD2Models.add(MD2);
+	return ptrToDouble(MD2);
 }
 
-DLLEXPORT double MADX9_MD2Render(double index, double frame_1, double frame_2, double tween)
+DLLEXPORT double MADX9_MD2Render(double md2, double frame_1, double frame_2, double tween)
 {
-	if (!isValidIndex((uint) index, mamain->MD2Models))
-		return 0;
+	auto ptr = doubleToPtr<MD2Model>(md2);
 
-	MD2Model* MD2 = mamain->MD2Models[(uint) index];
-
-	MD2->render((uint) frame_1, (uint) frame_2, (float) tween);
+	ptr->render((uint) frame_1, (uint) frame_2, (float) tween);
 
 	return 1;
 }
 
-DLLEXPORT double MADX9_MD2GetFrames(double index)
+DLLEXPORT double MADX9_MD2GetFrames(double md2)
 {
-	if (!isValidIndex((uint) index, mamain->MD2Models))
-		return -1;
+	auto ptr = doubleToPtr<MD2Model>(md2);
 
-	return mamain->MD2Models[(uint)index]->getFrameCount();
+	return ptr->getFrameCount();
 }
 
-DLLEXPORT double MADX9_MD2Destroy(double index)
+DLLEXPORT double MADX9_MD2Destroy(double md2)
 {
-	if (!isValidIndex((uint) index, mamain->MD2Models))
-		return 0;
+	auto ptr = doubleToPtr<MD2Model>(md2);
 
-	delete mamain->MD2Models[(uint) index];
-	mamain->MD2Models[(uint) index] = 0;
+	mamain->MD2Models.remove(ptr);
+	delete ptr;
 
 	return 1;
 }
@@ -70,82 +63,68 @@ DLLEXPORT double MADX9_MD2Destroy(double index)
 
 DLLEXPORT double MADX9_XLoad(const char* XModelFile, const char* TextureDirectory)
 {
-	XModel* x = new XModel();
+	auto x = new XModel();
+
 	if (!x->load(XModelFile, TextureDirectory)) {
 		delete x;
 		return -1;
 	}
 
-	for (size_t i = 0; i < mamain->XModels.size(); ++i)
-	{
-		if (mamain->XModels[i] == 0)
-		{
-			mamain->XModels[i] = x;
-			return i;
-		}
-	}
-
-	mamain->XModels.push_back(x);
-	return mamain->XModels.size() - 1;
+	mamain->XModels.add(x);
+	return ptrToDouble(x);
 }
 
-DLLEXPORT double MADX9_XRender(double index)
+DLLEXPORT double MADX9_XRender(double x)
 {
-	if ((uint)index > mamain->XModels.size()) {
-		return 0;
-	}
+	auto ptr = doubleToPtr<XModel>(x);
 
-	XModel* x = mamain->XModels[(uint)index];
-
-	for (uint i = 0; i < x->getMaterialCount(); ++i) {
-		mamain->d3ddev->SetMaterial(&x->getMaterial(i));
-		mamain->d3ddev->SetTexture(0, x->getTexture(i));
-		x->getMesh()->DrawSubset(i);
+	for (uint i = 0; i < ptr->getMaterialCount(); ++i) {
+		mamain->d3ddev->SetMaterial(&ptr->getMaterial(i));
+		mamain->d3ddev->SetTexture(0, ptr->getTexture(i));
+		ptr->getMesh()->DrawSubset(i);
 	}
 
 	return 1;
 }
 
-DLLEXPORT double MADX9_XDestroy(double index) 
+DLLEXPORT double MADX9_XDestroy(double x) 
 {
-	if ((uint)index > mamain->XModels.size()) {
-		return 0;
-	}
+	auto ptr = doubleToPtr<XModel>(x);
 
-	delete mamain->XModels[(uint)index];
-	mamain->XModels[(uint)index] = 0;
+	mamain->XModels.remove(ptr);
+	delete ptr;
+
 	return 1;
 }
 
 DLLEXPORT double MAE_MPMLoad(const char* file)
 {
-	MPMModel* m = new MPMModel();
+	auto m = new MPMModel();
 
-	ErrorCode res = m->load(file);
+	auto res = m->load(file);
 
 	if (res != ErrorOk)
 		return res;
 
-	return putInto(m, mamain->MPMModels);
+	mamain->MPMModels.add(m);
+	return ptrToDouble(m);
 }
 
-DLLEXPORT double MAE_MPMDestroy(double ind)
+DLLEXPORT double MAE_MPMDestroy(double m)
 {
-	if (!isValidIndex((uint) ind, mamain->MPMModels))
-		return 0;
+	auto ptr = doubleToPtr<MPMModel>(m);
 
-	delete mamain->MPMModels[(uint) ind];
-	mamain->MPMModels[(uint) ind] = 0;
+	mamain->MPMModels.remove(ptr);
+	delete ptr;
 
 	return 1;
 }
 
-DLLEXPORT double MAE_MPMRender(double ind)
+DLLEXPORT double MAE_MPMRender(double m)
 {
-	if (!isValidIndex((uint) ind, mamain->MPMModels))
-		return 0;
+	auto ptr = doubleToPtr<MPMModel>(m);
 
-	mamain->MPMModels[(uint) ind]->render();
+	ptr->render();
 
 	return 1;
 }

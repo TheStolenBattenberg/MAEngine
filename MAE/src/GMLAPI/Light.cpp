@@ -3,6 +3,7 @@
 #include <MAE/Core/Utils.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Utils.h>
 
 DLLEXPORT double MADX9_LightCreate(double LightType)
 {
@@ -15,146 +16,134 @@ DLLEXPORT double MADX9_LightCreate(double LightType)
 
 	light->Type = lightTable[(uint) LightType];
 
-	return putInto(light, mamain->Light);
+	mamain->Light.add(light);
+
+	return ptrToDouble(light);
 }
 
-DLLEXPORT double MADX9_LightDestroy(double index)
+DLLEXPORT double MADX9_LightDestroy(double light)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	delete mamain->Light[(uint) index];
-	mamain->Light[(uint) index] = 0;
+	mamain->Light.remove(ptr);
+	delete ptr;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetAmbient(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_LightSetAmbient(double light, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Ambient = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Ambient = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetAttenuation0(double index, double att)
+DLLEXPORT double MADX9_LightSetAttenuation0(double light, double att)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Attenuation0 = (float) att;
+	ptr->Attenuation0 = (float) att;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetAttenuation1(double index, double att)
+DLLEXPORT double MADX9_LightSetAttenuation1(double light, double att)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Attenuation1 = (float) att;
+	ptr->Attenuation1 = (float) att;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetAttenuation2(double index, double att)
+DLLEXPORT double MADX9_LightSetAttenuation2(double light, double att)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Attenuation2 = (float) att;
+	ptr->Attenuation2 = (float) att;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetDiffuse(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_LightSetDiffuse(double light, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Diffuse = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Diffuse = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetDirection(double index, double dx, double dy, double dz)
+DLLEXPORT double MADX9_LightSetDirection(double light, double dx, double dy, double dz)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Direction = D3DXVECTOR3((float) dx, (float) dy, (float) dz);
+	ptr->Direction = D3DXVECTOR3((float) dx, (float) dy, (float) dz);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetFalloff(double index, double falloff)
+DLLEXPORT double MADX9_LightSetFalloff(double light, double falloff)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Falloff = (float) falloff;
+	ptr->Falloff = (float) falloff;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetPhi(double index, double phi)
+DLLEXPORT double MADX9_LightSetPhi(double light, double phi)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Phi = D3DXToRadian((float) phi);
+	ptr->Phi = D3DXToRadian((float) phi);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetPosition(double index, double x, double y, double z)
+DLLEXPORT double MADX9_LightSetPosition(double light, double x, double y, double z)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Position = D3DXVECTOR3((float) x, (float) y, (float) z);
+	ptr->Position = D3DXVECTOR3((float) x, (float) y, (float) z);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetRange(double index, double range)
+DLLEXPORT double MADX9_LightSetRange(double light, double range)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Range = (float) range;
+	ptr->Range = (float) range;
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetSpecular(double index, double r, double g, double b, double a)
+DLLEXPORT double MADX9_LightSetSpecular(double light, double r, double g, double b, double a)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Specular = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
+	ptr->Specular = D3DXCOLOR((float) r, (float) g, (float) b, (float) a);
 
 	return ErrorOk;
 }
 
-DLLEXPORT double MADX9_LightSetTheta(double index, double theta)
+DLLEXPORT double MADX9_LightSetTheta(double light, double theta)
 {
-	if (!isValidIndex((uint) index, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(light);
 
-	mamain->Light[(uint) index]->Theta = D3DXToRadian((float) theta);
+	ptr->Theta = D3DXToRadian((float) theta);
 
 	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_LightEnable(double index, double lightIndex)
 {
-	if (!isValidIndex((uint) lightIndex, mamain->Light))
-		return ErrorInv;
+	auto ptr = doubleToPtr<D3DLIGHT9>(lightIndex);
 
-	mamain->d3ddev->SetLight((uint) index, mamain->Light[(uint) lightIndex]);
+	mamain->d3ddev->SetLight((uint) index, ptr);
 	mamain->d3ddev->LightEnable((uint) index, 1);
 
 	return ErrorOk;

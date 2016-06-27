@@ -77,5 +77,8 @@
     <ClInclude Include="..\src\GMLAPI\Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\GMLAPI\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
