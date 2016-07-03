@@ -129,16 +129,7 @@
     <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp">
       <Filter>Source Files\Rendering\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MAE\Core\Buffer.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MAE\Core\Error.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Core\Memory.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Core\Variant.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp">
@@ -239,22 +230,13 @@
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.h">
       <Filter>Header Files\Rendering\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\Core\Buffer.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Error.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Math.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\Core\Memory.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Types.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Core\Variant.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\FMOD\CFmod.h">

@@ -2,7 +2,6 @@
 
 #include <d3d9.h>
 
-#include <MAE/Core/Memory.h>
 #include <MAE/Core/Types.h>
 
 class VertexBuffer
@@ -11,7 +10,8 @@ public:
 	VertexBuffer(uint length, uint usage, D3DPOOL pool);
 	~VertexBuffer();
 
-	Memory* createMemoryInterface(uint offset, uint size, uint flags);
+	void* map(uint offset, uint size, uint flags);
+	void unmap();
 	void set(uint num, uint offset, uint stride);
 
 private:

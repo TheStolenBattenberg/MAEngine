@@ -13,10 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\MAE\Bullet\Bullet.cpp" />
     <ClCompile Include="..\src\MAE\Bullet\BulletDebugDraw.cpp" />
-    <ClCompile Include="..\src\MAE\Core\Buffer.cpp" />
     <ClCompile Include="..\src\MAE\Core\Error.cpp" />
-    <ClCompile Include="..\src\MAE\Core\Memory.cpp" />
-    <ClCompile Include="..\src\MAE\Core\Variant.cpp" />
     <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp" />
     <ClCompile Include="..\src\MAE\Main.cpp" />
     <ClCompile Include="..\src\MAE\Navigation\Navigation.cpp" />
@@ -41,15 +38,12 @@
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />
     <ClInclude Include="..\src\MAE\Bullet\BulletDebugDraw.h" />
-    <ClInclude Include="..\src\MAE\Core\Buffer.h" />
     <ClInclude Include="..\src\MAE\Core\Error.h" />
     <ClInclude Include="..\src\MAE\Core\Math.h" />
-    <ClInclude Include="..\src\MAE\Core\Memory.h" />
     <ClInclude Include="..\src\MAE\Core\Releasable.h" />
     <ClInclude Include="..\src\MAE\Core\Types.h" />
     <ClInclude Include="..\src\MAE\Core\UnorderedVector.h" />
     <ClInclude Include="..\src\MAE\Core\Utils.h" />
-    <ClInclude Include="..\src\MAE\Core\Variant.h" />
     <ClInclude Include="..\src\MAE\FMOD\CFmod.h" />
     <ClInclude Include="..\src\MAE\Main.h" />
     <ClInclude Include="..\src\MAE\MainImpl.h" />

@@ -45,7 +45,6 @@ public:
 
 	UnorderedVector<D3DLIGHT9*>          Light;
 	UnorderedVector<D3DMATERIAL9*>       Material;
-	UnorderedVector<class Buffer*>       Buffers;
 	UnorderedVector<class VertexDecl*>   VertexDeclarations;
 	UnorderedVector<class VertexBuffer*> VertexBuffers;
 

@@ -5,9 +5,7 @@
 
 Main* mamain = 0;
 
-std::vector<Surface*> surfaces;
-std::vector<Texture*> textures;
-std::vector<Shader*>  shaders;
+UnorderedVector<Stream*> streams;
 
 DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer)
 {

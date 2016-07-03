@@ -1,10 +1,9 @@
 #include <MAE/Main.h>
 #include <MAE/Core/Utils.h>
 #include <MAE/Rendering/VertexBuffer.h>
-#include <MAE/Core/Buffer.h>
-#include <MAE/Core/Memory.h>
 
 #include <GMLAPI/Main.h>
+#include <GMLAPI/Stream.h>
 #include <GMLAPI/Utils.h>
 
 DLLEXPORT double MADX9_VertexBufferCreate(double length, double usage, double pool)
@@ -26,13 +25,18 @@ DLLEXPORT double MADX9_VertexBufferDestroy(double vb)
 	return 1;
 }
 
-DLLEXPORT double MADX9_VertexBufferLock(double vb, double offset, double size, double flags)
-{
-	auto buffer = new Buffer(doubleToPtr<VertexBuffer>(vb)->createMemoryInterface((uint) offset, (uint) size, (uint) flags));
+DLLEXPORT double MADX9_VertexBufferLock(double vb, double offset, double size, double flags) {
+	auto stream = new MemoryStream(doubleToPtr<VertexBuffer>(vb)->map((uint) offset, (uint) size, (uint) flags));
 
-	mamain->Buffers.add(buffer);
+	streams.add(stream);
 
-	return ptrToDouble(buffer);
+	return ptrToDouble(stream);
+}
+
+DLLEXPORT double MAE_VertexBufferUnmap(double vb) {
+	doubleToPtr<VertexBuffer>(vb)->unmap();
+
+	return ErrorOk;
 }
 
 DLLEXPORT double MADX9_VertexBufferSet(double vb, double num, double offset, double stride)

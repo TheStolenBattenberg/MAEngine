@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\GMLAPI\Buffer.cpp" />
     <ClCompile Include="..\src\GMLAPI\BulletBody.cpp" />
     <ClCompile Include="..\src\GMLAPI\BulletConstraint.cpp" />
     <ClCompile Include="..\src\GMLAPI\BulletMisc.cpp" />
@@ -30,9 +29,11 @@
     <ClCompile Include="..\src\GMLAPI\Texture.cpp" />
     <ClCompile Include="..\src\GMLAPI\VertexBuffer.cpp" />
     <ClCompile Include="..\src\GMLAPI\VertexDecl.cpp" />
+    <ClCompile Include="Stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\GMLAPI\Main.h" />
+    <ClInclude Include="..\src\GMLAPI\Stream.h" />
     <ClInclude Include="..\src\GMLAPI\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

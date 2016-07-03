@@ -186,23 +186,6 @@
           <script>scripts\MAE_AnimationGetFrameNext.gml</script>
           <script>scripts\MAE_AnimationGetTween.gml</script>
         </scripts>
-        <scripts name="Buffer">
-          <script>scripts\MAE_BufferCreate.gml</script>
-          <script>scripts\MAE_BufferDestroy.gml</script>
-          <script>scripts\MAE_BufferReserve.gml</script>
-          <script>scripts\MAE_BufferRemove.gml</script>
-          <script>scripts\MAE_BufferSeek.gml</script>
-          <script>scripts\MAE_BufferTell.gml</script>
-          <script>scripts\MAE_BufferSize.gml</script>
-          <script>scripts\MAE_BufferWrite.gml</script>
-          <script>scripts\MAE_BufferWriteValue.gml</script>
-          <script>scripts\MAE_BufferRead.gml</script>
-          <script>scripts\MAE_BufferReadValue.gml</script>
-          <script>scripts\MAE_BufferPoke.gml</script>
-          <script>scripts\MAE_BufferPokeValue.gml</script>
-          <script>scripts\MAE_BufferPeek.gml</script>
-          <script>scripts\MAE_BufferPeekValue.gml</script>
-        </scripts>
         <scripts name="Light">
           <script>scripts\MAE_LightCreate.gml</script>
           <script>scripts\MAE_LightCreateSimplePoint.gml</script>

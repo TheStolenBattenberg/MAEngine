@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\GMLAPI\Buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\GMLAPI\BulletBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,12 +69,18 @@
     <ClCompile Include="..\src\GMLAPI\VertexDecl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\GMLAPI\Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\GMLAPI\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GMLAPI\Stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
