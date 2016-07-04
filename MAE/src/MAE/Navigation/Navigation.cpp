@@ -1,111 +1,106 @@
 #include <MAE/Navigation/Navigation.h>
 #include <MAE/Core/Utils.h>
 
-MANavigation* manav = nullptr;
+MANavigation manav;
 
-MANavMesh::MANavMesh()
+NavMesh::NavMesh()
 {
-	m_ctx = new rcContext();
-	m_navQuery = dtAllocNavMeshQuery();
-	m_cellSize = 0.2f;
-	m_cellHeight = 0.4f;
-	m_agentHeight = 3.f;
-	m_agentRadius = 1.f;
-	m_agentMaxClimb = 1.f;
-	m_agentMaxSlope = 45.f;
-	m_regionMinSize = 16;
-	m_regionMergeSize = 20;
-	m_edgeMaxLen = 12.f;
-	m_edgeMaxError = 1.3f;
-	m_vertsPerPoly = 6.f;
-	m_detailSampleDist = 6.f;
-	m_detailSampleMaxError = 1.f;
+	context = new rcContext();
+	navQuery = dtAllocNavMeshQuery();
+	cellSize = 0.2f;
+	cellHeight = 0.4f;
+	agentHeight = 3.f;
+	agentRadius = 1.f;
+	agentMaxClimb = 1.f;
+	agentMaxSlope = 45.f;
+	regionMinSize = 16;
+	regionMergeSize = 20;
+	edgeMaxLen = 12.f;
+	edgeMaxError = 1.3f;
+	vertsPerPoly = 6.f;
+	detailSampleDist = 6.f;
+	detailSampleMaxError = 1.f;
 }
 
-MANavMesh::~MANavMesh()
+NavMesh::~NavMesh()
 {
-	delete m_ctx;
-	dtFreeNavMeshQuery(m_navQuery);
+	delete context;
+	dtFreeNavMeshQuery(navQuery);
 	cleanup();
 }
 
-void MANavMesh::cleanup()
+void NavMesh::cleanup()
 {
-	if (m_triareas) delete[] m_triareas;
-	dtFreeNavMesh(m_navMesh);
-	rcFreeHeightField(m_solid);
-	rcFreeCompactHeightfield(m_chf);
-	rcFreeContourSet(m_cset);
-	rcFreePolyMesh(m_pmesh);
-	rcFreePolyMeshDetail(m_dmesh);
-	m_navMesh = nullptr;
-	m_triareas = nullptr;
-	m_solid = nullptr;
-	m_chf = nullptr;
-	m_cset = nullptr;
-	m_pmesh = nullptr;
-	m_dmesh = nullptr;
-	m_connection_verts.clear();
-	m_connection_rad.clear();
-	m_connection_areas.clear();
-	m_connection_flags.clear();
-	m_connection_userIDs.clear();
-	m_connection_dir.clear();
-	m_meshes.clear();
+	if (triAreas) delete[] triAreas;
+	dtFreeNavMesh(navMesh);
+	rcFreeHeightField(heightfield);
+	rcFreeCompactHeightfield(compactHeightfield);
+	rcFreeContourSet(contourSet);
+	rcFreePolyMesh(polyMesh);
+	rcFreePolyMeshDetail(detailMesh);
+	navMesh = nullptr;
+	triAreas = nullptr;
+	heightfield = nullptr;
+	compactHeightfield = nullptr;
+	contourSet = nullptr;
+	polyMesh = nullptr;
+	detailMesh = nullptr;
+	connections.clear();
+	meshes.clear();
 }
 
-int MANavMesh::beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz)
+int NavMesh::beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz)
 {
 	cleanup();
 
 	float bmin[3] = { minx, minz, miny };
 	float bmax[3] = { maxx, maxz, maxy };
 
-	memset(&m_cfg, 0, sizeof(m_cfg));
-	m_cfg.cs = m_cellSize;
-	m_cfg.ch = m_cellHeight;
-	m_cfg.walkableSlopeAngle = m_agentMaxSlope;
-	m_cfg.walkableHeight = (int)ceilf(m_agentHeight / m_cfg.ch);
-	m_cfg.walkableClimb = (int)floorf(m_agentMaxClimb / m_cfg.ch);
-	m_cfg.walkableRadius = (int)ceilf(m_agentRadius / m_cfg.cs);
-	m_cfg.maxEdgeLen = (int)(m_edgeMaxLen / m_cellSize);
-	m_cfg.maxSimplificationError = m_edgeMaxError;
-	m_cfg.minRegionArea = (int)rcSqr(m_regionMinSize);
-	m_cfg.mergeRegionArea = (int)rcSqr(m_regionMergeSize);
-	m_cfg.maxVertsPerPoly = (int)m_vertsPerPoly;
-	m_cfg.detailSampleDist = m_detailSampleDist < 0.9f ? 0 : m_cellSize * m_detailSampleDist;
-	m_cfg.detailSampleMaxError = m_cellHeight * m_detailSampleMaxError;
-	rcVcopy(m_cfg.bmin, bmin);
-	rcVcopy(m_cfg.bmax, bmax);
+	memset(&config, 0, sizeof(config));
+	config.cs = cellSize;
+	config.ch = cellHeight;
+	config.walkableSlopeAngle = agentMaxSlope;
+	config.walkableHeight = (int)ceilf(agentHeight / config.ch);
+	config.walkableClimb = (int)floorf(agentMaxClimb / config.ch);
+	config.walkableRadius = (int)ceilf(agentRadius / config.cs);
+	config.maxEdgeLen = (int)(edgeMaxLen / cellSize);
+	config.maxSimplificationError = edgeMaxError;
+	config.minRegionArea = (int)rcSqr(regionMinSize);
+	config.mergeRegionArea = (int)rcSqr(regionMergeSize);
+	config.maxVertsPerPoly = (int)vertsPerPoly;
+	config.detailSampleDist = detailSampleDist < 0.9f ? 0 : cellSize * detailSampleDist;
+	config.detailSampleMaxError = cellHeight * detailSampleMaxError;
+	rcVcopy(config.bmin, bmin);
+	rcVcopy(config.bmax, bmax);
 
 	return 1;
 }
 
-int MANavMesh::addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix)
+int NavMesh::addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix)
 {
-	m_meshes.push_back({verts, nverts, tris, ntris, D3DXMATRIX(matrix) });
+	meshes.push_back({verts, nverts, tris, ntris, D3DXMATRIX(matrix) });
 	return 1;
 }
 
-int MANavMesh::endBuild(bool async)
+int NavMesh::endBuild(bool async)
 {
 	if (async) {
 		buildStatus = 0;
-		m_build_thread = std::thread(&MANavMesh::build, this);
+		buildThread = std::thread(&NavMesh::build, this);
 		return 1;
 	}
 	build();
 	return buildStatus;
 }
 
-void MANavMesh::build()
+void NavMesh::build()
 {
-	rcCalcGridSize(m_cfg.bmin, m_cfg.bmax, m_cfg.cs, &m_cfg.width, &m_cfg.height);
+	rcCalcGridSize(config.bmin, config.bmax, config.cs, &config.width, &config.height);
 
-	m_solid = rcAllocHeightfield();
-	rcCreateHeightfield(m_ctx, *m_solid, m_cfg.width, m_cfg.height, m_cfg.bmin, m_cfg.bmax, m_cfg.cs, m_cfg.ch);
+	heightfield = rcAllocHeightfield();
+	rcCreateHeightfield(context, *heightfield, config.width, config.height, config.bmin, config.bmax, config.cs, config.ch);
 
-	for (auto i : m_meshes) {
+	for (auto i : meshes) {
 		int* tris = i.tris;
 		int ntris = i.ntris;
 		float* verts = i.verts;
@@ -134,106 +129,127 @@ void MANavMesh::build()
 			vbuffer[i * 3 + 2] = vOut.y;
 		}
 
-		m_triareas = new uint8_t[ntris];
-		memset(m_triareas, 0, ntris*sizeof(uint8_t));
+		triAreas = new uint8_t[ntris];
+		memset(triAreas, 0, ntris*sizeof(uint8_t));
 
-		rcMarkWalkableTriangles(m_ctx, m_cfg.walkableSlopeAngle, vbuffer, nverts, tris, ntris, m_triareas);
-		rcRasterizeTriangles(m_ctx, vbuffer, nverts, tris, m_triareas, ntris, *m_solid, m_cfg.walkableClimb);
+		rcMarkWalkableTriangles(context, config.walkableSlopeAngle, vbuffer, nverts, tris, ntris, triAreas);
+		rcRasterizeTriangles(context, vbuffer, nverts, tris, triAreas, ntris, *heightfield, config.walkableClimb);
 
-		delete[] m_triareas;
-		m_triareas = nullptr;
+		delete[] triAreas;
+		triAreas = nullptr;
 		delete[] vbuffer;
 		if (tbuffer) delete[] tbuffer;
 	}
-	m_meshes.clear();
+	meshes.clear();
 
-	rcFilterLowHangingWalkableObstacles(m_ctx, m_cfg.walkableClimb, *m_solid);
-	rcFilterLedgeSpans(m_ctx, m_cfg.walkableHeight, m_cfg.walkableClimb, *m_solid);
-	rcFilterWalkableLowHeightSpans(m_ctx, m_cfg.walkableHeight, *m_solid);
+	rcFilterLowHangingWalkableObstacles(context, config.walkableClimb, *heightfield);
+	rcFilterLedgeSpans(context, config.walkableHeight, config.walkableClimb, *heightfield);
+	rcFilterWalkableLowHeightSpans(context, config.walkableHeight, *heightfield);
 
-	m_chf = rcAllocCompactHeightfield();
-	if (!rcBuildCompactHeightfield(m_ctx, m_cfg.walkableHeight, m_cfg.walkableClimb, *m_solid, *m_chf)) {
+	compactHeightfield = rcAllocCompactHeightfield();
+	if (!rcBuildCompactHeightfield(context, config.walkableHeight, config.walkableClimb, *heightfield, *compactHeightfield)) {
 		buildStatus = -1;
 		return;
 	}
 
-	rcFreeHeightField(m_solid);
-	m_solid = nullptr;
+	rcFreeHeightField(heightfield);
+	heightfield = nullptr;
 
-	if (!rcErodeWalkableArea(m_ctx, m_cfg.walkableRadius, *m_chf)) {
+	if (!rcErodeWalkableArea(context, config.walkableRadius, *compactHeightfield)) {
 		buildStatus = -2;
 		return;
 	}
 
-	if (!rcBuildDistanceField(m_ctx, *m_chf)) {
+	if (!rcBuildDistanceField(context, *compactHeightfield)) {
 		buildStatus = -3;
 		return;
 	}
-	if (!rcBuildRegions(m_ctx, *m_chf, 0, m_cfg.minRegionArea, m_cfg.mergeRegionArea)) {
+	if (!rcBuildRegions(context, *compactHeightfield, 0, config.minRegionArea, config.mergeRegionArea)) {
 		buildStatus = -4;
 		return;
 	}
 
-	m_cset = rcAllocContourSet();
-	if (!rcBuildContours(m_ctx, *m_chf, m_cfg.maxSimplificationError, m_cfg.maxEdgeLen, *m_cset)) {
+	contourSet = rcAllocContourSet();
+	if (!rcBuildContours(context, *compactHeightfield, config.maxSimplificationError, config.maxEdgeLen, *contourSet)) {
 		buildStatus = -5;
 		return;
 	}
 
-	m_pmesh = rcAllocPolyMesh();
-	if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh)) {
+	polyMesh = rcAllocPolyMesh();
+	if (!rcBuildPolyMesh(context, *contourSet, config.maxVertsPerPoly, *polyMesh)) {
 		buildStatus = -6;
 		return;
 	}
 
-	m_dmesh = rcAllocPolyMeshDetail();
-	if (!rcBuildPolyMeshDetail(m_ctx, *m_pmesh, *m_chf, m_cfg.detailSampleDist, m_cfg.detailSampleMaxError, *m_dmesh)) {
+	detailMesh = rcAllocPolyMeshDetail();
+	if (!rcBuildPolyMeshDetail(context, *polyMesh, *compactHeightfield, config.detailSampleDist, config.detailSampleMaxError, *detailMesh)) {
 		buildStatus = -7;
 		return;
 	}
 
-	rcFreeCompactHeightfield(m_chf);
-	m_chf = nullptr;
-	rcFreeContourSet(m_cset);
-	m_cset = nullptr;
+	rcFreeCompactHeightfield(compactHeightfield);
+	compactHeightfield = nullptr;
+	rcFreeContourSet(contourSet);
+	contourSet = nullptr;
 
-	if (m_cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON) {
+	if (config.maxVertsPerPoly > DT_VERTS_PER_POLYGON) {
 		buildStatus = -8;
 		return;
 	}
 
-	for (int i = 0; i < m_pmesh->npolys; ++i) {
-		m_pmesh->flags[i] = 1;
+	for (int i = 0; i < polyMesh->npolys; ++i) {
+		polyMesh->flags[i] = 1;
 	}
 
 	dtNavMeshCreateParams params;
 	memset(&params, 0, sizeof(params));
-	params.verts = m_pmesh->verts;
-	params.vertCount = m_pmesh->nverts;
-	params.polys = m_pmesh->polys;
-	params.polyAreas = m_pmesh->areas;
-	params.polyFlags = m_pmesh->flags;
-	params.polyCount = m_pmesh->npolys;
-	params.nvp = m_pmesh->nvp;
-	params.detailMeshes = m_dmesh->meshes;
-	params.detailVerts = m_dmesh->verts;
-	params.detailVertsCount = m_dmesh->nverts;
-	params.detailTris = m_dmesh->tris;
-	params.detailTriCount = m_dmesh->ntris;	
-	params.offMeshConVerts = m_connection_verts.data();
-	params.offMeshConRad = m_connection_rad.data();
-	params.offMeshConDir = m_connection_dir.data();
-	params.offMeshConAreas = m_connection_areas.data();
-	params.offMeshConFlags = m_connection_flags.data();
-	params.offMeshConUserID = m_connection_userIDs.data();
-	params.offMeshConCount = m_connection_flags.size();
-	params.walkableHeight = m_agentHeight;
-	params.walkableRadius = m_agentRadius;
-	params.walkableClimb = m_agentMaxClimb;
-	rcVcopy(params.bmin, m_pmesh->bmin);
-	rcVcopy(params.bmax, m_pmesh->bmax);
-	params.cs = m_cfg.cs;
-	params.ch = m_cfg.ch;
+	params.verts = polyMesh->verts;
+	params.vertCount = polyMesh->nverts;
+	params.polys = polyMesh->polys;
+	params.polyAreas = polyMesh->areas;
+	params.polyFlags = polyMesh->flags;
+	params.polyCount = polyMesh->npolys;
+	params.nvp = polyMesh->nvp;
+	params.detailMeshes = detailMesh->meshes;
+	params.detailVerts = detailMesh->verts;
+	params.detailVertsCount = detailMesh->nverts;
+	params.detailTris = detailMesh->tris;
+	params.detailTriCount = detailMesh->ntris;
+
+	std::vector<float> verts;
+	std::vector<float> rad;
+	std::vector<uint8_t> dir;
+	std::vector<uint8_t> areas;
+	std::vector<uint16_t> flags;
+	std::vector<uint32_t> userIDs;
+	for (auto i : connections) {
+		verts.push_back(i.v1[0]);
+		verts.push_back(i.v1[1]);
+		verts.push_back(i.v1[2]);
+		verts.push_back(i.v2[0]);
+		verts.push_back(i.v2[1]);
+		verts.push_back(i.v2[2]);
+		rad.push_back(i.rad);
+		dir.push_back(i.dir);
+		areas.push_back(i.area);
+		flags.push_back(i.flag);
+		userIDs.push_back(i.userID);
+	}
+	params.offMeshConVerts = verts.data();
+	params.offMeshConRad = rad.data();
+	params.offMeshConDir = dir.data();
+	params.offMeshConAreas = areas.data();
+	params.offMeshConFlags = flags.data();
+	params.offMeshConUserID = userIDs.data();
+
+	params.offMeshConCount = flags.size();
+	params.walkableHeight = agentHeight;
+	params.walkableRadius = agentRadius;
+	params.walkableClimb = agentMaxClimb;
+	rcVcopy(params.bmin, polyMesh->bmin);
+	rcVcopy(params.bmax, polyMesh->bmax);
+	params.cs = config.cs;
+	params.ch = config.ch;
 	params.buildBvTree = true;
 
 	uint8_t* navData = nullptr;
@@ -243,22 +259,22 @@ void MANavMesh::build()
 		return;
 	}
 
-	m_navMesh = dtAllocNavMesh();
-	if (!m_navMesh) {
+	navMesh = dtAllocNavMesh();
+	if (!navMesh) {
 		dtFree(navData);
 		buildStatus = -10;
 		return;
 	}
 
 	dtStatus status;
-	status = m_navMesh->init(navData, navDataSize, DT_TILE_FREE_DATA);
+	status = navMesh->init(navData, navDataSize, DT_TILE_FREE_DATA);
 	if (dtStatusFailed(status)) {
 		dtFree(navData);
 		buildStatus = -11;
 		return;
 	}
 
-	status = m_navQuery->init(m_navMesh, 2048);
+	status = navQuery->init(navMesh, 2048);
 	
 	if (dtStatusFailed(status)) {
 		buildStatus = -12;
@@ -268,23 +284,13 @@ void MANavMesh::build()
 	buildStatus = 1;
 }
 
-bool MANavMesh::addLink(float* v1, float* v2, int dir, float radius)
+bool NavMesh::addLink(float* v1, float* v2, int dir, float radius)
 {
-	m_connection_verts.push_back(-v1[0]);
-	m_connection_verts.push_back(v1[2]);
-	m_connection_verts.push_back(v1[1]);
-	m_connection_verts.push_back(-v2[0]);
-	m_connection_verts.push_back(v2[2]);
-	m_connection_verts.push_back(v2[1]);
-	m_connection_rad.push_back(radius);
-	m_connection_dir.push_back(dir);
-	m_connection_areas.push_back(1);
-	m_connection_flags.push_back(1);
-	m_connection_userIDs.push_back(1);
+	connections.push_back({ -v1[0], v1[2], v1[1], -v2[0], v2[2], v2[1], radius, (uint8_t)dir, 1, 1, 1 });
 	return 1;
 }
 
 MANavigation::~MANavigation()
 {
-	freeContainer(NavMeshes);
+	freeContainer(navMeshes);
 }

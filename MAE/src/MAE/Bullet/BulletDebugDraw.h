@@ -5,16 +5,16 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-struct Vertex
-{
-	D3DXVECTOR3 position;
-	D3DCOLOR color;
-
-	Vertex(float x, float y, float z, D3DCOLOR color) : position(x, y, z), color(color){}
-};
-
 class MABulletDebugDraw : public btIDebugDraw
 {
+	struct Vertex
+	{
+		D3DXVECTOR3 position;
+		D3DCOLOR color;
+
+		Vertex(float x, float y, float z, D3DCOLOR color) : position(x, y, z), color(color) {}
+	};
+
 	int m_debugMode = btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE | btIDebugDraw::DBG_DrawContactPoints | btIDebugDraw::DBG_DrawConstraints;
 	std::vector<Vertex> Vertices;
 

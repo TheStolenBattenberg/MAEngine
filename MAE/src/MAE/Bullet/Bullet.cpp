@@ -1,48 +1,48 @@
 #include <MAE/Bullet/Bullet.h>
 
-MABullet* mabullet = nullptr;
+MABullet mabullet;
 
-double MABullet::addShape(btCollisionShape* Shape) {
-	Shapes[ShapeCount] = Shape;
-	Shape->setUserIndex(ShapeCount);
-	ShapeCount++;
-	return ShapeCount - 1;
+double MABullet::addShape(btCollisionShape* shape) {
+	shapes[shapeCount] = shape;
+	shape->setUserIndex(shapeCount);
+	shapeCount++;
+	return shapeCount - 1;
 }
 
-double MABullet::addConstraint(btTypedConstraint* Constraint) {
-	Constraints[ConstraintCount] = Constraint;
-	Constraint->setUserConstraintId(ConstraintCount);
-	ConstraintCount++;
-	return ConstraintCount - 1;
+double MABullet::addConstraint(btTypedConstraint* constraint) {
+	constraints[constraintCount] = constraint;
+	constraint->setUserConstraintId(constraintCount);
+	constraintCount++;
+	return constraintCount - 1;
 }
 
 bool MABullet::destroyWorld()
 {
 	if (!worldExists()) return false;
-	for (auto i : Constraints)
+	for (auto i : constraints)
 	{
-		World->removeConstraint(i.second);
+		world->removeConstraint(i.second);
 		delete i.second;
 	}
-	Constraints.clear();
-	for (auto i : Bodies)
+	constraints.clear();
+	for (auto i : bodies)
 	{
-		World->removeCollisionObject(i.second->Body);
-		delete i.second->Body->getMotionState();
-		delete i.second->Body;
+		world->removeCollisionObject(i.second->body);
+		delete i.second->body->getMotionState();
+		delete i.second->body;
 		delete i.second;
 	}
-	Bodies.clear();
-	delete World;
-	delete Solver;
-	delete Dispatcher;
-	delete CollisionConfiguration;
-	delete Broadphase;
-	if (DebugDrawer) {
-		delete DebugDrawer;
-		DebugDrawer = nullptr;
+	bodies.clear();
+	delete world;
+	delete solver;
+	delete dispatcher;
+	delete collisionConfiguration;
+	delete broadphase;
+	if (debugDrawer) {
+		delete debugDrawer;
+		debugDrawer = nullptr;
 	}
-	World = nullptr;
+	world = nullptr;
 	return true;
 }
 
@@ -79,7 +79,7 @@ btVector3 MABullet::toEuler(btMatrix3x3 &tm)
 
 MABullet::~MABullet()
 {
-	for (auto i : Shapes)
+	for (auto i : shapes)
 	{
 		btBvhTriangleMeshShape* trimesh = dynamic_cast<btBvhTriangleMeshShape*>(i.second);
 		if (trimesh) delete trimesh->getMeshInterface();

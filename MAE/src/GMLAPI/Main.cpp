@@ -10,9 +10,6 @@ UnorderedVector<Stream*> streams;
 DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer)
 {
 	mamain   = MainCreate(pointer);
-	mabullet = new MABullet();
-	manav    = new MANavigation();
-
 	return 1;
 }
 
@@ -21,9 +18,6 @@ DLLEXPORT double MADX9_Free()
 	if (mamain != 0) {
 		mamain->release();
 		mamain = 0;
-
-		delete mabullet;
-		delete manav;
 	}
 
 	return 1;

@@ -10,7 +10,7 @@
 #include <thread>
 #include <MAE/Core/UnorderedVector.h>
 
-class MANavMesh {
+class NavMesh {
 private:
 	struct Mesh {
 		float* verts;
@@ -20,49 +20,53 @@ private:
 		D3DXMATRIX matrix;
 	};
 
-	std::vector<Mesh> m_meshes;
+	std::vector<Mesh> meshes;
 
-	std::vector<float> m_connection_verts;
-	std::vector<float> m_connection_rad;
-	std::vector<uint8_t> m_connection_dir;
-	std::vector<uint8_t> m_connection_areas;
-	std::vector<uint16_t> m_connection_flags;
-	std::vector<uint32_t> m_connection_userIDs;
+	struct Connection {
+		float v1[3];
+		float v2[3];
+		float rad;
+		uint8_t dir;
+		uint8_t area;
+		uint16_t flag;
+		uint32_t userID;
+	};
+	std::vector<Connection> connections;
 
-	std::thread m_build_thread;
+	std::thread buildThread;
 	volatile int buildStatus = -20;
 
 	void build();
 
 public:
-	rcContext* m_ctx;
-	rcConfig m_cfg;
-	dtNavMeshQuery* m_navQuery;
-	dtQueryFilter m_filter;
-	rcHeightfield* m_solid = nullptr;
-	rcCompactHeightfield* m_chf = nullptr;
-	rcContourSet* m_cset = nullptr;
-	rcPolyMesh* m_pmesh = nullptr;
-	rcPolyMeshDetail* m_dmesh = nullptr;
-	dtNavMesh* m_navMesh = nullptr;
-	uint8_t* m_triareas = nullptr;
+	rcContext* context;
+	rcConfig config;
+	dtNavMeshQuery* navQuery;
+	dtQueryFilter queryFilter;
+	rcHeightfield* heightfield = nullptr;
+	rcCompactHeightfield* compactHeightfield = nullptr;
+	rcContourSet* contourSet = nullptr;
+	rcPolyMesh* polyMesh = nullptr;
+	rcPolyMeshDetail* detailMesh = nullptr;
+	dtNavMesh* navMesh = nullptr;
+	uint8_t* triAreas = nullptr;
 
-	float m_cellSize;
-	float m_cellHeight;
-	float m_agentHeight;
-	float m_agentRadius;
-	float m_agentMaxClimb;
-	float m_agentMaxSlope;
-	float m_regionMinSize;
-	float m_regionMergeSize;
-	float m_edgeMaxLen;
-	float m_edgeMaxError;
-	float m_vertsPerPoly;
-	float m_detailSampleDist;
-	float m_detailSampleMaxError;
+	float cellSize;
+	float cellHeight;
+	float agentHeight;
+	float agentRadius;
+	float agentMaxClimb;
+	float agentMaxSlope;
+	float regionMinSize;
+	float regionMergeSize;
+	float edgeMaxLen;
+	float edgeMaxError;
+	float vertsPerPoly;
+	float detailSampleDist;
+	float detailSampleMaxError;
 
-	MANavMesh();
-	~MANavMesh();
+	NavMesh();
+	~NavMesh();
 	void cleanup();
 	int beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz);
 	int addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix);
@@ -70,29 +74,26 @@ public:
 	bool addLink(float* v1, float* v2, int dir, float radius);
 	inline int getBuildStatus() { return buildStatus; }
 	inline int waitForBuild() {
-		if(m_build_thread.joinable()) m_build_thread.join();
+		if(buildThread.joinable()) buildThread.join();
 		return buildStatus;
 	}
 };
 
 struct MANavigation {
-	NavMeshDebugDraw m_debugDraw;	
-	float returnVec[3];
-	
-	dtPolyRef m_startRef;
-	dtPolyRef m_endRef;
-	static const int MAX_POLYS = 256;
-	dtPolyRef m_polys[MAX_POLYS];
-	int m_npolys;
-	float m_straightPath[MAX_POLYS * 3];
-	unsigned char m_straightPathFlags[MAX_POLYS];
-	dtPolyRef m_straightPathPolys[MAX_POLYS];
-	int m_nstraightPath = 0;
+	NavMeshDebugDraw debugDraw;	
 
-	UnorderedVector<MANavMesh*> NavMeshes;
+	static const int MAX_POLYS = 256;
+	dtPolyRef polys[MAX_POLYS];
+	int numPolys;
+	float straightPath[MAX_POLYS * 3];
+	unsigned char straightPathFlags[MAX_POLYS];
+	dtPolyRef straightPathPolys[MAX_POLYS];
+	int numPathPoints = 0;
+
+	UnorderedVector<NavMesh*> navMeshes;
 
 	MANavigation() {};
 	~MANavigation();
 };
 
-extern MANavigation* manav;
+extern MANavigation manav;

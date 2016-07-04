@@ -3,55 +3,52 @@
 #include <unordered_map>
 #include <btBulletDynamicsCommon.h>
 
-struct MABody
+struct RigidBody
 {
-	btRigidBody* Body;
-	unsigned int UserIndex;
+	btRigidBody* body;
+	unsigned int userIndex;
 
-	MABody(btRigidBody* Body) : Body(Body) {}
+	RigidBody(btRigidBody* body) : body(body) {}
 };
 
-struct MAHitPoint
+struct HitResult
 {
-	btVector3 Position;
-	btVector3 Normal;
-	btScalar Fraction;
-	int BodyID;
-	int UserIndex;
+	btVector3 position;
+	btVector3 normal;
+	btScalar fraction;
+	int bodyID;
+	int userIndex;
 };
 
-ATTRIBUTE_ALIGNED16(struct) MABullet {
+struct MABullet {
+	btBroadphaseInterface* broadphase = nullptr;
+	btDefaultCollisionConfiguration* collisionConfiguration = nullptr;
+	btCollisionDispatcher* dispatcher = nullptr;
+	btSequentialImpulseConstraintSolver* solver = nullptr;
+	btDiscreteDynamicsWorld* world = nullptr;
+	btIDebugDraw* debugDrawer = nullptr;
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+	bool useMotionState;
 
-	btBroadphaseInterface* Broadphase = nullptr;
-	btDefaultCollisionConfiguration* CollisionConfiguration = nullptr;
-	btCollisionDispatcher* Dispatcher = nullptr;
-	btSequentialImpulseConstraintSolver* Solver = nullptr;
-	btDiscreteDynamicsWorld* World = nullptr;
-	btIDebugDraw* DebugDrawer = nullptr;
+	btVector3 returnVec;
+	btQuaternion returnQuat;
+	HitResult hitResult;
+	std::vector<int> overlapIDs;
 
-	bool UseMotionState;
+	std::unordered_map<int, btCollisionShape*> shapes;
+	int shapeCount = 0;
+	std::unordered_map<int, RigidBody*> bodies;
+	int bodyCount = 0;
+	std::unordered_map<int, btTypedConstraint*> constraints;
+	int constraintCount = 0;
 
-	btVector3 ReturnVec;
-	btQuaternion ReturnQuat;
-	MAHitPoint HitResult;
-	std::vector<int> OverlapResults;
-
-	std::unordered_map<int, btCollisionShape*> Shapes;
-	int ShapeCount = 0;
-	std::unordered_map<int, MABody*> Bodies;
-	int BodyCount = 0;
-	std::unordered_map<int, btTypedConstraint*> Constraints;
-	int ConstraintCount = 0;
-
-	inline bool worldExists() const { return (World != nullptr); }
-	inline bool shapeExists(double ShapeID) const { return (Shapes.count((int)ShapeID) > 0); }
-	inline bool bodyExists(double BodyID) const { return (Bodies.count((int)BodyID) > 0); }
-	inline bool constraintExists(double ConstraintID) const { return (Constraints.count((int)ConstraintID) > 0); }
-	inline btCollisionShape* getShape(double ShapeID) { return Shapes[(int)ShapeID]; }
-	inline btRigidBody* getBody(double BodyID) { return Bodies[(int)BodyID]->Body; }
-	inline btTypedConstraint* getConstraint(double ConstraintID) { return Constraints[(int)ConstraintID]; }
+	inline bool worldExists() const { return (world != nullptr); }
+	inline bool shapeExists(double ShapeID) const { return (shapes.count((int)ShapeID) > 0); }
+	inline bool bodyExists(double BodyID) const { return (bodies.count((int)BodyID) > 0); }
+	inline bool constraintExists(double ConstraintID) const { return (constraints.count((int)ConstraintID) > 0); }
+	inline btCollisionShape* getShape(double ShapeID) { return shapes[(int)ShapeID]; }
+	inline btRigidBody* getBody(double BodyID) { return bodies[(int)BodyID]->body; }
+	inline btTypedConstraint* getConstraint(double ConstraintID) { return constraints[(int)ConstraintID]; }
 	double addShape(btCollisionShape* Shape);
 	double addConstraint(btTypedConstraint* Constraint);
 	bool destroyWorld();
@@ -60,7 +57,7 @@ ATTRIBUTE_ALIGNED16(struct) MABullet {
 	~MABullet();
 };
 
-extern MABullet* mabullet;
+extern MABullet mabullet;
 
 struct MAOverlapCallback : public btCollisionWorld::ContactResultCallback {
 	MAOverlapCallback(btCollisionObject* tgtBody) : btCollisionWorld::ContactResultCallback(), body(tgtBody) {};
@@ -69,7 +66,7 @@ struct MAOverlapCallback : public btCollisionWorld::ContactResultCallback {
 	virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0, int partId0, int index0, const btCollisionObjectWrapper* colObj1, int partId1, int index1) {
 		if (colObj0->m_collisionObject == body) {
 			hasHit = true;
-			mabullet->OverlapResults.push_back(colObj1->m_collisionObject->getUserIndex());
+			mabullet.overlapIDs.push_back(colObj1->m_collisionObject->getUserIndex());
 		}
 		return 0;
 	}

@@ -26,7 +26,7 @@ void MABulletDebugDraw::debugDraw()
 	if (update)
 	{
 		Vertices.clear();
-		mabullet->World->debugDrawWorld();
+		mabullet.world->debugDrawWorld();
 		update = false;
 	}
 	if (Vertices.size() > 1)

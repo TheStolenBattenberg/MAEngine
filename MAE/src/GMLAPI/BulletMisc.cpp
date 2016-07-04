@@ -6,11 +6,11 @@ DLLEXPORT double MAB_Vec(double n)
 	switch ((int)n)
 	{
 	case 0:
-		return mabullet->ReturnVec.x();
+		return mabullet.returnVec.x();
 	case 1:
-		return mabullet->ReturnVec.y();
+		return mabullet.returnVec.y();
 	case 2:
-		return mabullet->ReturnVec.z();
+		return mabullet.returnVec.z();
 	}
 	return 0;
 }
@@ -20,13 +20,13 @@ DLLEXPORT double MAB_Quat(double n)
 	switch ((int)n)
 	{
 	case 0:
-		return mabullet->ReturnQuat.x();
+		return mabullet.returnQuat.x();
 	case 1:
-		return mabullet->ReturnQuat.y();
+		return mabullet.returnQuat.y();
 	case 2:
-		return mabullet->ReturnQuat.z();
+		return mabullet.returnQuat.z();
 	case 3:
-		return mabullet->ReturnQuat.w();
+		return mabullet.returnQuat.w();
 	}
 	return 0;
 }
@@ -36,22 +36,22 @@ DLLEXPORT double MAB_HitResult(double n)
 	switch ((int)n)
 	{
 	case 0:
-		mabullet->ReturnVec = mabullet->HitResult.Position;
+		mabullet.returnVec = mabullet.hitResult.position;
 		return 1;
 	case 1:
-		mabullet->ReturnVec = mabullet->HitResult.Normal;
+		mabullet.returnVec = mabullet.hitResult.normal;
 		return 1;
 	case 2:
-		return mabullet->HitResult.Fraction;
+		return mabullet.hitResult.fraction;
 	case 3:
-		return mabullet->HitResult.BodyID;
+		return mabullet.hitResult.bodyID;
 	case 4:
-		return mabullet->HitResult.UserIndex;
+		return mabullet.hitResult.userIndex;
 	}
 	return 0;
 }
 
 DLLEXPORT double MAB_OverlapResult(double n)
 {
-	return mabullet->OverlapResults[(int)n];
+	return mabullet.overlapIDs[(int)n];
 }
