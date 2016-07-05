@@ -69,7 +69,7 @@
     <ClCompile Include="..\src\GMLAPI\VertexDecl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stream.cpp">
+    <ClCompile Include="..\src\GMLAPI\Stream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
