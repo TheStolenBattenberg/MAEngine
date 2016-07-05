@@ -210,25 +210,8 @@ ErrorCode MainImpl::resetTexture(uint stage)
 
 ErrorCode MainImpl::setShader(Shader* shd)
 {
-	LPDIRECT3DVERTEXSHADER9 vshd;
-	LPDIRECT3DPIXELSHADER9 pshd;
-
-	ErrorCode ret;
-	
-	if ((ret = shd->getVertexShader(vshd)) != ErrorOk)
-		return ret;
-
-	if ((ret = shd->getPixelShader(pshd)) != ErrorOk)
-	{
-		vshd->Release();
-		return ret;
-	}
-
-	d3ddev->SetVertexShader(vshd);
-	d3ddev->SetPixelShader(pshd);
-
-	vshd->Release();
-	pshd->Release();
+	d3ddev->SetVertexShader(((ShaderImpl*) shd)->getVertexShader());
+	d3ddev->SetPixelShader(((ShaderImpl*) shd)->getPixelShader());
 
 	return ErrorOk;
 }

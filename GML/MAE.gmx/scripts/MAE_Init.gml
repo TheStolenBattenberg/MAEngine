@@ -34,19 +34,19 @@ if (argument[0] & INIT_RENDER)
 {
     //Shaders
     global.__MAE_ShaderCreate           = external_define(global.DLL_MAE, "MAE_ShaderCreate", dll_cdecl, ty_real, 0);
-    global.__MAE_ShaderCompileHLSL9     = external_define(global.DLL_MAE, "MAE_ShaderCompileHLSL9", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
-    global.__MAE_ShaderCompileASM       = external_define(global.DLL_MAE, "MAE_ShaderCompileASM", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
-    global.MADX9_ShaderSet              = external_define(global.DLL_MAE, "MADX9_ShaderSet", dll_cdecl, ty_real, 1, ty_real);
+    global.__MAE_ShaderCompileD3D9HLSL9 = external_define(global.DLL_MAE, "MAE_ShaderCompileD3D9HLSL9", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
+    global.__MAE_ShaderCompileD3D9ASM   = external_define(global.DLL_MAE, "MAE_ShaderCompileD3D9ASM", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
+    global.__MAE_ShaderSet              = external_define(global.DLL_MAE, "MAE_ShaderSet", dll_cdecl, ty_real, 1, ty_real);
     global.__MAE_ShaderReset            = external_define(global.DLL_MAE, "MAE_ShaderReset", dll_cdecl, ty_real, 0);
-    global.MADX9_ShaderDestroy          = external_define(global.DLL_MAE, "MADX9_ShaderDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_ShaderFindConstant     = external_define(global.DLL_MAE, "MADX9_ShaderFindConstant", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_string);
-    global.MADX9_ShaderGetSampler       = external_define(global.DLL_MAE, "MADX9_ShaderGetSampler", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MADX9_ShaderSetConstantFloat = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantFloat", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_ShaderSetConstantVec2  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantVec2", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_ShaderSetConstantVec3  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantVec3", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_ShaderSetConstantVec4  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantVec4", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_ShaderSetConstantMat3  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantMat3", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
-    global.MADX9_ShaderSetConstantMat4  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantMat4", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.__MAE_ShaderDestroy          = external_define(global.DLL_MAE, "MAE_ShaderDestroy", dll_cdecl, ty_real, 1, ty_real);
+    global.__MAE_ShaderFindConstant     = external_define(global.DLL_MAE, "MAE_ShaderFindConstant", dll_cdecl, ty_real, 2, ty_real, ty_string);
+    global.__MAE_ShaderGetSampler       = external_define(global.DLL_MAE, "MAE_ShaderSetSampler", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.__MAE_ShaderSetConstantFloat = external_define(global.DLL_MAE, "MAE_ShaderSetConstantFloat", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+    global.__MAE_ShaderSetConstantVec2  = external_define(global.DLL_MAE, "MAE_ShaderSetConstantVec2", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
+    global.__MAE_ShaderSetConstantVec3  = external_define(global.DLL_MAE, "MAE_ShaderSetConstantVec3", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.__MAE_ShaderSetConstantVec4  = external_define(global.DLL_MAE, "MAE_ShaderSetConstantVec4", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+    global.__MAE_ShaderSetConstantMat3  = external_define(global.DLL_MAE, "MAE_ShaderSetConstantMat3", dll_cdecl, ty_real, 2, ty_real, ty_real);
+    global.__MAE_ShaderSetConstantMat4  = external_define(global.DLL_MAE, "MAE_ShaderSetConstantMat4", dll_cdecl, ty_real, 2, ty_real, ty_real);
     
     //MD2
     global.MADX9_MD2Load      = external_define(global.DLL_MAE, "MADX9_MD2Load", dll_cdecl, ty_real, 3, ty_string, ty_real, ty_real);

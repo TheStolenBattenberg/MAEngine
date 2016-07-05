@@ -3,36 +3,49 @@
 #include <MAE/Rendering/Resources/Shader.h>
 
 #include <vector>
-#include <d3dx9.h>
+#include <d3d9.h>
 
-class ShaderImpl: public Shader
-{
+class ShaderImpl: public Shader {
 public:
 	ShaderImpl(class MainImpl* main): main(main) { }
 	~ShaderImpl();
 
 	void release();
 
-	ErrorCode compile(const std::string& vert, const std::string& pixel, std::string& error);
-	ErrorCode compileASM(const std::string& vert, const std::string& pixel, std::string& error);
+	void compileD3D9(const std::string& vert, const std::string& pixel);
+	void compileD3D9ASM(const std::string& vert, const std::string& pixel);
 
-	ErrorCode find(ShaderType type, const std::string& c, uint& ind);
-	ErrorCode getSampler(ShaderType type, uint c, uint& ind);
+	uint find(const std::string& c);
+	void setSampler(uint c, class Texture* sampler);
 
-	ErrorCode getVertexShader(LPDIRECT3DVERTEXSHADER9& vert);
-	ErrorCode getPixelShader(LPDIRECT3DPIXELSHADER9& pixel);
+	void setFloat(uint c, float f);
+	void setVec2(uint c, const vec2& v);
+	void setVec3(uint c, const vec3& v);
+	void setVec4(uint c, const vec4& v);
+	void setMat3(uint c, const mat3& m);
+	void setMat4(uint c, const mat4& m);
 
-	ErrorCode setFloat(ShaderType type, uint c, float f);
-	ErrorCode setVec2(ShaderType type, uint c, const vec2& v);
-	ErrorCode setVec3(ShaderType type, uint c, const vec3& v);
-	ErrorCode setVec4(ShaderType type, uint c, const vec4& v);
-	ErrorCode setMat3(ShaderType type, uint c, const mat3& m);
-	ErrorCode setMat4(ShaderType type, uint c, const mat4& m);
+	inline LPDIRECT3DVERTEXSHADER9 getVertexShader() {
+		return vshd;
+	}
+
+	inline LPDIRECT3DPIXELSHADER9 getPixelShader() {
+		return pshd;
+	}
 
 private:
+	struct Handles {
+		D3DXHANDLE vshd;
+		D3DXHANDLE pshd;
+
+		bool operator==(const Handles& a) const {
+			return vshd == a.vshd && pshd == a.pshd;
+		}
+	};
+
 	class MainImpl* main;
 
-	std::vector<D3DXHANDLE> handles;
+	std::vector<Handles> handles;
 
 	LPD3DXCONSTANTTABLE vtable = 0;
 	LPD3DXCONSTANTTABLE ptable = 0;

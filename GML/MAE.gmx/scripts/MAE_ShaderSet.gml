@@ -11,4 +11,4 @@
  *   0 on Error, 1 on success.
  */
 
-return external_call(global.MADX9_ShaderSet, argument0);
+return external_call(global.__MAE_ShaderSet, argument0);

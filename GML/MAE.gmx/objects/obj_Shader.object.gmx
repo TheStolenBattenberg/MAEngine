@@ -40,13 +40,13 @@ matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 8);
 matView = MAE_MatrixCreateLookAt(MAE_VectorCreate(3, 3, 4), MAE_VectorCreate(0, 0, 0), MAE_VectorCreate(0, 0, 1));
 matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
 
-uMatWorldView  = MAE_ShaderFindConstant(Shd_01, SHD_VERT, "uMatWorldView");
-uMatProjection = MAE_ShaderFindConstant(Shd_01, SHD_VERT, "uMatProjection");
-uMatNormal     = MAE_ShaderFindConstant(Shd_01, SHD_VERT, "uMatNormal");
+uMatWorldView  = MAE_ShaderFindConstant(Shd_01, "uMatWorldView");
+uMatProjection = MAE_ShaderFindConstant(Shd_01, "uMatProjection");
+uMatNormal     = MAE_ShaderFindConstant(Shd_01, "uMatNormal");
 
-uAmbientColour = MAE_ShaderFindConstant(Shd_01, SHD_PIXEL, "uAmbientColour");
-uLightPos      = MAE_ShaderFindConstant(Shd_01, SHD_PIXEL, "uLightPos")
-uSpecColour    = MAE_ShaderFindConstant(Shd_01, SHD_PIXEL, "uSpecColour")
+uAmbientColour = MAE_ShaderFindConstant(Shd_01, "uAmbientColour");
+uLightPos      = MAE_ShaderFindConstant(Shd_01, "uLightPos")
+uSpecColour    = MAE_ShaderFindConstant(Shd_01, "uSpecColour")
 
 
 
@@ -246,13 +246,13 @@ switch(shader)
     case "1":
         MAE_ShaderSet(Shd_01);
         {
-            MAE_ShaderSetConstantMat4(Shd_01, SHD_VERT, uMatWorldView, matView);
-            MAE_ShaderSetConstantMat4(Shd_01, SHD_VERT, uMatProjection, matProj);
-            MAE_ShaderSetConstantMat3(Shd_01, SHD_VERT, uMatNormal, matNorm);
+            MAE_ShaderSetConstantMat4(Shd_01, uMatWorldView, matView);
+            MAE_ShaderSetConstantMat4(Shd_01, uMatProjection, matProj);
+            MAE_ShaderSetConstantMat3(Shd_01, uMatNormal, matNorm);
         
-            MAE_ShaderSetConstantVec3(Shd_01, SHD_PIXEL, uAmbientColour, MAE_VectorCreate(0, 0, 0));
-            MAE_ShaderSetConstantVec3(Shd_01, SHD_PIXEL, uLightPos, MAE_VectorCreate(0, 0, -1));
-            MAE_ShaderSetConstantVec3(Shd_01, SHD_PIXEL, uSpecColour, MAE_VectorCreate(1, 1, 1));
+            MAE_ShaderSetConstantVec3(Shd_01, uAmbientColour, MAE_VectorCreate(0, 0, 0));
+            MAE_ShaderSetConstantVec3(Shd_01, uLightPos, MAE_VectorCreate(0, 0, -1));
+            MAE_ShaderSetConstantVec3(Shd_01, uSpecColour, MAE_VectorCreate(1, 1, 1));
         }
         
         draw_set_colour(c_red);
@@ -264,9 +264,9 @@ switch(shader)
     case "2":
         MAE_ShaderSet(Shd_02);
         {
-            MAE_ShaderSetConstantMat4(Shd_02, SHD_VERT, 0, matView);
+            MAE_ShaderSetConstantMat4(Shd_02, 0, matView);
             
-            MAE_ShaderSetConstantVec3(Shd_02, SHD_PIXEL, 4, MAE_VectorCreate(1, 0, 1, 1));
+            MAE_ShaderSetConstantVec3(Shd_02, 4, MAE_VectorCreate(1, 0, 1, 1));
         }
 
         draw_set_colour(c_red);

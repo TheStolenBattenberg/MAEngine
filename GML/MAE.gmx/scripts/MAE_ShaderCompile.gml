@@ -17,9 +17,9 @@
 switch(argument3)
 {
 case SHADER_HLSL9:        
-    return external_call(global.__MAE_ShaderCompileHLSL9, argument0, argument1, argument2);
+    return external_call(global.__MAE_ShaderCompileD3D9HLSL9, argument0, argument1, argument2);
 case SHADER_ASM:
-    return external_call(global.__MAE_ShaderCompileASM, argument0, argument1, argument2);
+    return external_call(global.__MAE_ShaderCompileD3D9ASM, argument0, argument1, argument2);
 case SHADER_FILE:
     show_debug_message("Unimplemented.");
     return 0;

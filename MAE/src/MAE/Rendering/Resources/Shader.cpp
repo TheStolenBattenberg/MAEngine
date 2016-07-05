@@ -2,8 +2,9 @@
 #include <MAE/MainImpl.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 
-ShaderImpl::~ShaderImpl()
-{
+#include <cassert>
+
+ShaderImpl::~ShaderImpl() {
 	main->removeShader(this);
 
 	if (vtable != 0)
@@ -23,247 +24,169 @@ void ShaderImpl::release() {
 	::delete this;
 }
 
-ErrorCode ShaderImpl::compileASM(const std::string& vert, const std::string& pixel, std::string& error)
-{
+void ShaderImpl::compileD3D9ASM(const std::string& vert, const std::string& pixel) {
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER err;
 
 	HRESULT result;
 
-	/**
-	* Assemble Vertex Shader
-	*/
-
-	result = D3DXAssembleShader(vert.c_str(), vert.length(), NULL, NULL, 0, &code, &err);
-
-	if (FAILED(result))
-	{
-		error = (char*) err->GetBufferPointer();
+	if (FAILED(D3DXAssembleShader(vert.c_str(), vert.length(), NULL, NULL, 0, &code, &err))) {
+		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
-		return main->setError(ErrorCompileVertexShader);
+		throw new std::exception(error.c_str());
 	}
 
 	result = main->d3ddev->CreateVertexShader((DWORD*) code->GetBufferPointer(), &vshd);
 	code->Release();
 
 	if (FAILED(result))
-		return main->setError(ErrorCreateVertexShader);
+		throw new std::exception("Failed to create Vertex Shader");
 
-	/**
-	* Assemble Pixel Shader
-	*/
-
-	result = D3DXAssembleShader(pixel.c_str(), pixel.length(), NULL, NULL, 0, &code, &err);
-
-	if (FAILED(result))
-	{
-		error = (char*) err->GetBufferPointer();
+	if (FAILED(D3DXAssembleShader(pixel.c_str(), pixel.length(), NULL, NULL, 0, &code, &err))) {
+		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
 		vshd->Release();
 		vshd = 0;
 
-		return main->setError(ErrorCompilePixelShader);
+		throw new std::exception(error.c_str());
 	}
 
 	result = main->d3ddev->CreatePixelShader((DWORD*) code->GetBufferPointer(), &pshd);
 	code->Release();
 
-	if (FAILED(result))
-	{
+	if (FAILED(result)) {
 		vshd->Release();
 		vshd = 0;
 
-		return main->setError(ErrorCreateVertexShader);
+		throw new std::exception("Failed to create Pixel Shader");
 	}
-
-	return ErrorOk;
 }
 
-ErrorCode ShaderImpl::compile(const std::string& vert, const std::string& pixel, std::string& error)
-{
+void ShaderImpl::compileD3D9(const std::string& vert, const std::string& pixel) {
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER err;
 
 	HRESULT result;
 
-	result = D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(main->d3ddev), 0, &code, &err, &vtable);
-
-	if (FAILED(result))
-	{
-		error = (char*) err->GetBufferPointer();
+	if (FAILED(D3DXCompileShader(vert.c_str(), vert.length(), NULL, NULL, "main", D3DXGetVertexShaderProfile(main->d3ddev), 0, &code, &err, &vtable))) {
+		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
-		return main->setError(ErrorCompileVertexShader);
+		throw new std::exception(error.c_str());
 	}
 
 	result = main->d3ddev->CreateVertexShader((DWORD*) code->GetBufferPointer(), &vshd);
-
 	code->Release();
 
 	if (FAILED(result))
-		return main->setError(ErrorCreateVertexShader);
+		throw new std::exception("Failed to create Vertex Shader");
 
-	result = D3DXCompileShader(pixel.c_str(), pixel.length(), NULL, NULL, "main", D3DXGetPixelShaderProfile(main->d3ddev), 0, &code, &err, &ptable);
-
-	if (FAILED(result))
-	{
-		error = (char*) err->GetBufferPointer();
+	if (FAILED(D3DXCompileShader(pixel.c_str(), pixel.length(), NULL, NULL, "main", D3DXGetPixelShaderProfile(main->d3ddev), 0, &code, &err, &ptable))) {
+		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
 		vshd->Release();
 		vshd = 0;
 
-		return main->setError(ErrorCompilePixelShader);
+		throw new std::exception(error.c_str());
 	}
 
 	result = main->d3ddev->CreatePixelShader((DWORD*) code->GetBufferPointer(), &pshd);
-
 	code->Release();
 
-	if (FAILED(result))
-	{
+	if (FAILED(result)) {
 		vshd->Release();
 		vshd = 0;
 
-		return main->setError(ErrorCreatePixelShader);
+		throw new std::exception("Failed to create Pixel Shader");
 	}
-
-	return ErrorOk;
 }
 
-ErrorCode ShaderImpl::find(ShaderType type, const std::string& c, uint& ind)
-{
-	auto table = type == ShaderTypeVertex ? vtable : ptable;
-
-	if (table == 0)
-		return main->setError(ErrorInv);
-
-	D3DXHANDLE h = table->GetConstantByName(0, c.c_str());
-
-	if (h == 0)
-		return main->setError(ErrorInv);
-
+uint ShaderImpl::find(const std::string& c) {
+	Handles h = {
+		vtable->GetConstantByName(0, c.c_str()),
+		ptable->GetConstantByName(0, c.c_str())
+	};
+	
 	auto it = std::find(handles.begin(), handles.end(), h);
 
-	if (it != handles.end())
-		ind = it - handles.begin();
-	else
-	{
-		ind = handles.size();
+	if (it == handles.end()) {
+		auto ind = handles.size();
 		handles.push_back(h);
+		return ind;
 	}
 
-	return ErrorOk;
+	return it - handles.begin();
 }
 
-ErrorCode ShaderImpl::getSampler(ShaderType type, uint c, uint& ind)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
+void ShaderImpl::setSampler(uint c, class Texture* sampler) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	ind = (type == ShaderTypeVertex ? vtable : ptable)->GetSamplerIndex(handles[c]);
-	
-	return ErrorOk;
+	if (handles[c].vshd)
+		main->setTexture(vtable->GetSamplerIndex(handles[c].vshd), sampler);
+
+	if (handles[c].pshd)
+		main->setTexture(vtable->GetSamplerIndex(handles[c].pshd), sampler);
 }
 
-ErrorCode ShaderImpl::getVertexShader(LPDIRECT3DVERTEXSHADER9& vert)
-{
-	if (vshd == 0)
-		return main->setError(ErrorInv);
+void ShaderImpl::setFloat(uint c, float f) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	vshd->AddRef();
-	vert = vshd;
+	if (handles[c].vshd)
+		vtable->SetFloat(main->d3ddev, handles[c].vshd, f);
 
-	return ErrorOk;
+	if (handles[c].pshd)
+		vtable->SetFloat(main->d3ddev, handles[c].pshd, f);
 }
 
-ErrorCode ShaderImpl::getPixelShader(LPDIRECT3DPIXELSHADER9& pixel)
-{
-	if (pshd == 0)
-		return main->setError(ErrorInv);
+void ShaderImpl::setVec2(uint c, const vec2& v) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	pshd->AddRef();
-	pixel = pshd;
+	if (handles[c].vshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].vshd, v.data, v.components);
 
-	return ErrorOk;
+	if (handles[c].pshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].pshd, v.data, v.components);
 }
 
-ErrorCode ShaderImpl::setFloat(ShaderType type, uint c, float f)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
+void ShaderImpl::setVec3(uint c, const vec3& v) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	HRESULT res = (type == ShaderTypeVertex ? vtable : ptable)->SetFloat(main->d3ddev, handles[c], f);
+	if (handles[c].vshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].vshd, v.data, v.components);
 
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	return ErrorOk;
+	if (handles[c].pshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].pshd, v.data, v.components);
 }
 
-ErrorCode ShaderImpl::setVec2(ShaderType type, uint c, const vec2& v)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
+void ShaderImpl::setVec4(uint c, const vec4& v) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	HRESULT res = (type == ShaderTypeVertex ? vtable : ptable)->SetFloatArray(main->d3ddev, handles[c], v.data, v.components);
+	if (handles[c].vshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].vshd, v.data, v.components);
 
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	return ErrorOk;
+	if (handles[c].pshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].pshd, v.data, v.components);
 }
 
-ErrorCode ShaderImpl::setVec3(ShaderType type, uint c, const vec3& v)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
+void ShaderImpl::setMat3(uint c, const mat3& v) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	HRESULT res = (type == ShaderTypeVertex ? vtable : ptable)->SetFloatArray(main->d3ddev, handles[c], v.data, v.components);
+	if (handles[c].vshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].vshd, v.data, v.size * v.size);
 
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	return ErrorOk;
+	if (handles[c].pshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].pshd, v.data, v.size * v.size);
 }
 
-ErrorCode ShaderImpl::setVec4(ShaderType type, uint c, const vec4& v)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
+void ShaderImpl::setMat4(uint c, const mat4& v) {
+	assert(("Invalid constant index", c < handles.size()));
 
-	HRESULT res = (type == ShaderTypeVertex ? vtable : ptable)->SetFloatArray(main->d3ddev, handles[c], v.data, v.components);
+	if (handles[c].vshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].vshd, v.data, v.size * v.size);
 
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	return ErrorOk;
-}
-
-ErrorCode ShaderImpl::setMat3(ShaderType type, uint c, const mat3& v)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
-
-	HRESULT res = (type == ShaderTypeVertex ? vtable : ptable)->SetFloatArray(main->d3ddev, handles[c], v.data, v.size * v.size);
-
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	return ErrorOk;
-}
-
-ErrorCode ShaderImpl::setMat4(ShaderType type, uint c, const mat4& v)
-{
-	if (c >= handles.size())
-		return main->setError(ErrorInv);
-
-	HRESULT res = (type == ShaderTypeVertex ? vtable : ptable)->SetFloatArray(main->d3ddev, handles[c], v.data, v.size * v.size);
-
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	return ErrorOk;
+	if (handles[c].pshd)
+		vtable->SetFloatArray(main->d3ddev, handles[c].pshd, v.data, v.size * v.size);
 }
