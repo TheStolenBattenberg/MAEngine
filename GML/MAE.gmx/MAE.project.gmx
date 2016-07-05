@@ -232,14 +232,6 @@
             <script>scripts\MAE_ParticleEmitterSetParticleColour.gml</script>
           </scripts>
         </scripts>
-        <scripts name="Region">
-          <script>scripts\MAE_RegionCreate.gml</script>
-          <script>scripts\MAE_RegionObjectIntersect.gml</script>
-          <script>scripts\MAE_RegionObjectAdd.gml</script>
-          <script>scripts\MAE_RegionObjectRemove.gml</script>
-          <script>scripts\MAE_RegionUpdate.gml</script>
-          <script>scripts\MAE_RegionDestroy.gml</script>
-        </scripts>
         <scripts name="Shader">
           <script>scripts\MAE_ShaderCompile.gml</script>
           <script>scripts\MAE_ShaderCreate.gml</script>
