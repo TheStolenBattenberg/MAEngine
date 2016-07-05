@@ -34,6 +34,9 @@
     <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexDecl.cpp" />
+    <ClCompile Include="CFmodChannel.cpp" />
+    <ClCompile Include="CFmodDSP.cpp" />
+    <ClCompile Include="CFmodSound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />

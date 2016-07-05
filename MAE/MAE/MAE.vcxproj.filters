@@ -135,6 +135,15 @@
     <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp">
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
+    <ClCompile Include="CFmodSound.cpp">
+      <Filter>Source Files\FMOD</Filter>
+    </ClCompile>
+    <ClCompile Include="CFmodDSP.cpp">
+      <Filter>Source Files\FMOD</Filter>
+    </ClCompile>
+    <ClCompile Include="CFmodChannel.cpp">
+      <Filter>Source Files\FMOD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Main.h">

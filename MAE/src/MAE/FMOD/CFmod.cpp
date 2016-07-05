@@ -1,12 +1,5 @@
 #include <MAE/FMOD/CFmod.h>
 
-bool FMODFAILED(FMOD_RESULT res) {
-	if (res != FMOD_OK) {
-		return true;
-	}
-	return false;
-}
-
 void CFmod::Init() {
 	FMOD_RESULT res = FMOD::System_Create(&m_pSystem);
 	if (FMODFAILED(res)) {
@@ -15,8 +8,9 @@ void CFmod::Init() {
 	return;
 }
 
-void CFmod::Create(uint MaxVoices) {
-	FMOD_RESULT res = m_pSystem->init(MaxVoices, FMOD_INIT_NORMAL, NULL);
+void CFmod::Create() {
+	FMOD_RESULT res = m_pSystem->init(m_iMaxSounds, FMOD_INIT_NORMAL, NULL);
+	m_iMaxSounds = m_iMaxSounds;
 	if (FMODFAILED(res)) {
 		return;
 	}
@@ -30,86 +24,46 @@ void CFmod::Update() {
 
 void CFmod::Shutdown() {
 	m_pSystem->release();
-}
-
-uint CFmod::SoundCreate(string file, uint mode) {
-	FMOD_MODE ModeSwitch[12]{
-		FMOD_LOOP_OFF,
-		FMOD_LOOP_NORMAL,
-		FMOD_LOOP_BIDI,
-		FMOD_3D_HEADRELATIVE,
-		FMOD_3D_WORLDRELATIVE,
-		FMOD_2D,
-		FMOD_3D,
-		FMOD_3D_INVERSEROLLOFF,
-		FMOD_3D_LINEARROLLOFF,
-		FMOD_3D_LINEARSQUAREROLLOFF,
-		FMOD_3D_CUSTOMROLLOFF,
-		FMOD_3D_IGNOREGEOMETRY };
-
-	FMOD::Sound* snd;
-	FMOD_RESULT res = m_pSystem->createSound(file, ModeSwitch[mode], 0, &snd);
-	if (FMODFAILED(res)) {
-		return 0;
-	}
-	m_vSound.push_back(snd);
-	return m_vSound.size() - 1;
-}
-
-void CFmod::SoundDestroy(uint index) {
-	m_vSound[index]->release();
-	m_vSound[index] = NULL;
 	return;
 }
 
-uint CFmod::SoundPlay(uint sndIndex) {
-	FMOD_RESULT res = m_pSystem->playSound(m_vSound[sndIndex], m_vGroup[0], false, &m_vChannel[m_vChannel.size()]);
-	if (FMODFAILED(res)) {
-		return 0;
-	}
-	return m_vChannel.size() - 1;
+void CFmod::Set3DSettings(float dopplerscale, float distancefactor, float rolloffscale) {
+	m_fDopplerScale   = dopplerscale;
+	m_fDistanceFactor = distancefactor;
+	m_fRolloffScale   = rolloffscale;
+	m_pSystem->set3DSettings(m_fDopplerScale, m_fDistanceFactor, m_fRolloffScale);
 }
 
-uint CFmod::DSPCreate(uint type) {
-	FMOD::DSP *dsp;
-	FMOD_DSP_DESCRIPTION DSPTYPE[28] {
-		FMOD_DSP_TYPE_CHANNELMIX,
-		FMOD_DSP_TYPE_CHORUS,
-		FMOD_DSP_TYPE_COMPRESSOR,
-		FMOD_DSP_TYPE_CONVOLUTIONREVERB,
-		FMOD_DSP_TYPE_DELAY,
-		FMOD_DSP_TYPE_DISTORTION,
-		FMOD_DSP_TYPE_ECHO,
-		FMOD_DSP_TYPE_ENVELOPEFOLLOWER,
-		FMOD_DSP_TYPE_FADER,
-		FMOD_DSP_TYPE_FLANGE,
-		FMOD_DSP_TYPE_HIGHPASS,
-		FMOD_DSP_TYPE_HIGHPASS_SIMPLE,
-		FMOD_DSP_TYPE_ITECHO,
-		FMOD_DSP_TYPE_ITLOWPASS,
-		FMOD_DSP_TYPE_LIMITER,
-		FMOD_DSP_TYPE_LOWPASS,
-		FMOD_DSP_TYPE_LOWPASS_SIMPLE,
-		FMOD_DSP_TYPE_MAX,
-		FMOD_DSP_TYPE_MIXER,
-		FMOD_DSP_TYPE_NORMALIZE,
-		FMOD_DSP_TYPE_OBJECTPAN,
-		FMOD_DSP_TYPE_PAN,
-		FMOD_DSP_TYPE_PARAMEQ,
-		FMOD_DSP_TYPE_PITCHSHIFT,
-		FMOD_DSP_TYPE_SFXREVERB,
-		FMOD_DSP_TYPE_THREE_EQ,
-		FMOD_DSP_TYPE_TRANSCEIVER,
-		FMOD_DSP_TYPE_TREMOLO
-	};
-
-	m_pSystem->createDSP(&DSPTYPE[type], &dsp);
-	m_vDSP.push_back(dsp);
-	return m_vDSP.size() - 1;
+void CFmod::SetMaxSounds(uint MaxSounds) {
+	m_iMaxSounds = MaxSounds;
 }
 
-uint CFmod::GetMaxVoices() {
-	return m_iMaxVoices;
+void CFmod::SetMaxChannels(uint MaxChannels) {
+	m_iMaxChannels = MaxChannels;
+}
+
+void CFmod::SetMaxGroups(uint MaxGroups) {
+	m_iMaxGroups = MaxGroups;
+}
+
+void CFmod::SetMaxDSPs(uint MaxDSPs) {
+	m_iMaxDSPs = MaxDSPs;
+}
+
+uint CFmod::GetMaxSounds() {
+	return m_iMaxSounds;
+}
+
+uint CFmod::GetMaxChannels() {
+	return m_iMaxChannels;
+}
+
+uint CFmod::GetMaxGroups() {
+	return m_iMaxGroups;
+}
+
+uint CFmod::GetMaxDSPs() {
+	return m_iMaxDSPs;
 }
 
 float CFmod::GetCPUUsage(uint usagefactor) {
