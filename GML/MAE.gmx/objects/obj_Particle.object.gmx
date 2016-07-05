@@ -76,7 +76,9 @@ MAE_ParticleEmitterSetParticleSize(index, 2, 16);
             <kind>1</kind>
             <string>///GUI
 sldrs = 0;
+chkbxs = 0;
 SliderDistanceFromCenter = CreateSlider(0, 16, 4);
+CheckboxDrawEnable = CreateCheckbox(true);
 </string>
           </argument>
         </arguments>
@@ -149,11 +151,13 @@ MAE_TextureDestroy(tex);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour(c_black);
+            <string>///Draw GUI
+draw_set_colour(c_black);
 draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParticleCount(index)));
 
 DrawWindow(48, 48, 128+32, 256);
 DrawSlider(64, 64+16, 128, SliderDistanceFromCenter, "Position");
+DrawCheckbox(64+64, 64+32, CheckboxDrawEnable, "Draw");
 </string>
           </argument>
         </arguments>
@@ -178,7 +182,9 @@ DrawSlider(64, 64+16, 128, SliderDistanceFromCenter, "Position");
             <kind>1</kind>
             <string>d3d_set_projection(24, 24, 24, 0, 0, 0, 0, 0, 1);
 
-MAE_ParticleSystemRender(index);
+if(UpdateCheckbox(CheckboxDrawEnable) == true) {
+    MAE_ParticleSystemRender(index);
+}
 </string>
           </argument>
         </arguments>

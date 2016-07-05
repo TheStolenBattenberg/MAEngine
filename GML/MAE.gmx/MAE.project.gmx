@@ -520,6 +520,9 @@
       <script>scripts\DrawSlider.gml</script>
       <script>scripts\UpdateSlider.gml</script>
       <script>scripts\DrawWindow.gml</script>
+      <script>scripts\CreateCheckbox.gml</script>
+      <script>scripts\DrawCheckbox.gml</script>
+      <script>scripts\UpdateCheckbox.gml</script>
     </scripts>
   </scripts>
   <shaders name="shaders">
