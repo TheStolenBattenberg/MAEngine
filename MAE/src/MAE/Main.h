@@ -43,8 +43,6 @@ public:
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
-	UnorderedVector<D3DLIGHT9*>          Light;
-	UnorderedVector<D3DMATERIAL9*>       Material;
 	UnorderedVector<class VertexDecl*>   VertexDeclarations;
 	UnorderedVector<class VertexBuffer*> VertexBuffers;
 

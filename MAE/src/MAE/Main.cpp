@@ -29,8 +29,6 @@ MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 MainImpl::~MainImpl() {
 	assert(("Some MD2 Models weren't freed", MD2Models.size() == 0));
 	assert(("Some MPM Models weren't freed", MPMModels.size() == 0));
-	assert(("Some Lights weren't freed", Light.size() == 0));
-	assert(("Some Materials weren't freed", Material.size() == 0));
 	assert(("Some Vertex Declarations weren't freed", VertexDeclarations.size() == 0));
 	assert(("Some Vertex Buffers weren't freed", VertexBuffers.size() == 0));
 	assert(("Some X Models weren't freed", XModels.size() == 0));

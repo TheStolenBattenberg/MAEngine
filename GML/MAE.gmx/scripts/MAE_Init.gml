@@ -48,28 +48,6 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_ShaderSetConstantMat3  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantMat3", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     global.MADX9_ShaderSetConstantMat4  = external_define(global.DLL_MAE, "MADX9_ShaderSetConstantMat4", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
     
-    //Materials
-    global.MADX9_MaterialCreate           = external_define(global.DLL_MAE, "MADX9_MaterialCreate", dll_cdecl, ty_real, 0);
-    global.MADX9_MaterialDestroy          = external_define(global.DLL_MAE, "MADX9_MaterialDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_MaterialSetDiffuse       = external_define(global.DLL_MAE, "MADX9_MaterialSetDiffuse", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_MaterialSetAmbient       = external_define(global.DLL_MAE, "MADX9_MaterialSetAmbient", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_MaterialSetSpecular      = external_define(global.DLL_MAE, "MADX9_MaterialSetSpecular", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_MaterialSetSpecularPower = external_define(global.DLL_MAE, "MADX9_MaterialSetSpecularPower", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_MaterialSetEmissive      = external_define(global.DLL_MAE, "MADX9_MaterialSetEmissive", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_MaterialSet              = external_define(global.DLL_MAE, "MADX9_MaterialSet", dll_cdecl, ty_real, 1, ty_real); 
-    
-    //Lights
-    global.MADX9_LightCreate          = external_define(global.DLL_MAE, "MADX9_LightCreate", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_LightDestroy         = external_define(global.DLL_MAE, "MADX9_LightDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_LightSetDiffuse      = external_define(global.DLL_MAE, "MADX9_LightSetDiffuse", dll_cdecl, ty_real, 5, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_LightSetPosition     = external_define(global.DLL_MAE, "MADX9_LightSetPosition", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_LightSetRange        = external_define(global.DLL_MAE, "MADX9_LightSetRange", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_LightSetAttenuation0 = external_define(global.DLL_MAE, "MADX9_LightSetAttenuation0", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_LightSetAttenuation1 = external_define(global.DLL_MAE, "MADX9_LightSetAttenuation1", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_LightSetAttenuation2 = external_define(global.DLL_MAE, "MADX9_LightSetAttenuation2", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_LightEnable          = external_define(global.DLL_MAE, "MADX9_LightEnable", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_LightDisable         = external_define(global.DLL_MAE, "MADX9_LightDisable", dll_cdecl, ty_real, 1, ty_real);
-    
     //MD2
     global.MADX9_MD2Load      = external_define(global.DLL_MAE, "MADX9_MD2Load", dll_cdecl, ty_real, 3, ty_string, ty_real, ty_real);
     global.MADX9_MD2Render    = external_define(global.DLL_MAE, "MADX9_MD2Render", dll_cdecl, ty_real, 4, ty_real, ty_real, ty_real, ty_real);

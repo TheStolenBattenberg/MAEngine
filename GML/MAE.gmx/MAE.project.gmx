@@ -186,27 +186,6 @@
           <script>scripts\MAE_AnimationGetFrameNext.gml</script>
           <script>scripts\MAE_AnimationGetTween.gml</script>
         </scripts>
-        <scripts name="Light">
-          <script>scripts\MAE_LightCreate.gml</script>
-          <script>scripts\MAE_LightCreateSimplePoint.gml</script>
-          <script>scripts\MAE_LightDestroy.gml</script>
-          <script>scripts\MAE_LightSetDiffuse.gml</script>
-          <script>scripts\MAE_LightSetPosition.gml</script>
-          <script>scripts\MAE_LightSetRange.gml</script>
-          <script>scripts\MAE_LightSetAttenuation.gml</script>
-          <script>scripts\MAE_LightEnable.gml</script>
-          <script>scripts\MAE_LightDisable.gml</script>
-        </scripts>
-        <scripts name="Material">
-          <script>scripts\MAE_MaterialCreate.gml</script>
-          <script>scripts\MAE_MaterialDestroy.gml</script>
-          <script>scripts\MAE_MaterialSetDiffuse.gml</script>
-          <script>scripts\MAE_MaterialSetAmbient.gml</script>
-          <script>scripts\MAE_MaterialSetSpecular.gml</script>
-          <script>scripts\MAE_MaterialSetSpecularPower.gml</script>
-          <script>scripts\MAE_MaterialSetEmissive.gml</script>
-          <script>scripts\MAE_MaterialSet.gml</script>
-        </scripts>
         <scripts name="Misc">
           <script>scripts\MAE_Clear.gml</script>
           <script>scripts\MAE_FreePointer.gml</script>
@@ -551,7 +530,6 @@
     <object>objects\obj_VecMatQuat</object>
     <object>objects\obj_Particle</object>
     <object>objects\obj_Shader</object>
-    <object>objects\obj_Light</object>
     <object>objects\obj_MD2Animation</object>
     <object>objects\obj_MPM</object>
     <object>objects\obj_XStatic</object>
@@ -563,7 +541,6 @@
     <room>rooms\rm_VecMatQuat</room>
     <room>rooms\rm_Particle</room>
     <room>rooms\rm_Shader</room>
-    <room>rooms\rm_Light</room>
     <room>rooms\rm_MD2Animation</room>
     <room>rooms\rm_XStatic</room>
     <room>rooms\rm_Physics</room>

@@ -17,9 +17,7 @@
     <ClCompile Include="..\src\GMLAPI\BulletShape.cpp" />
     <ClCompile Include="..\src\GMLAPI\BulletWorld.cpp" />
     <ClCompile Include="..\src\GMLAPI\Error.cpp" />
-    <ClCompile Include="..\src\GMLAPI\Light.cpp" />
     <ClCompile Include="..\src\GMLAPI\Main.cpp" />
-    <ClCompile Include="..\src\GMLAPI\Material.cpp" />
     <ClCompile Include="..\src\GMLAPI\Misc.cpp" />
     <ClCompile Include="..\src\GMLAPI\Model.cpp" />
     <ClCompile Include="..\src\GMLAPI\Navigation.cpp" />
