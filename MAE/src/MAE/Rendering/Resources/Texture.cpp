@@ -1,6 +1,5 @@
 #include <MAE/Rendering/Resources/Texture.h>
 #include <MAE/Rendering/Resources/TextureImpl.h>
-#include <MAE/Rendering/Resources/Surface.h>
 
 TextureImpl::~TextureImpl()
 {
@@ -59,34 +58,6 @@ ErrorCode TextureImpl::generateMipMaps()
 
 	tex->GenerateMipSubLevels();
 
-	return ErrorOk;
-}
-
-ErrorCode TextureImpl::getSurface(uint level, Surface* surf)
-{
-	if (level >= tex->GetLevelCount())
-		return main->setError(ErrorInv);
-
-	LPDIRECT3DSURFACE9 s;
-
-	HRESULT res = tex->GetSurfaceLevel(level, &s);
-
-	if (FAILED(res))
-		return main->setError(ErrorD3D9);
-
-	ErrorCode ret = surf->createFromPointer(s);
-
-	s->Release();
-
-	return ret;
-}
-
-ErrorCode TextureImpl::getSurfaceCount(uint& count)
-{
-	if (tex == 0)
-		return main->setError(ErrorInv);
-
-	count = tex->GetLevelCount();
 	return ErrorOk;
 }
 

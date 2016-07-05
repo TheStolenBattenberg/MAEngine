@@ -74,7 +74,6 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_TextureCreateEmpty            = external_define(global.DLL_MAE, "MADX9_TextureCreateEmpty", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_TextureGenerateMipMaps        = external_define(global.DLL_MAE, "MADX9_TextureGenerateMipMaps", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_TextureGetPointer             = external_define(global.DLL_MAE, "MADX9_TextureGetPointer", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_TextureGetSurfaceCount        = external_define(global.DLL_MAE, "MADX9_TextureGetSurfaceCount", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_TextureSetMipMapFilter        = external_define(global.DLL_MAE, "MADX9_TextureSetMipMapFilter", dll_cdecl, ty_real, 2, ty_real, ty_real);
     global.MADX9_TextureUpdate                 = external_define(global.DLL_MAE, "MADX9_TextureUpdate", dll_cdecl, ty_real, 2, ty_real, ty_real);
     
@@ -89,15 +88,6 @@ if (argument[0] & INIT_RENDER)
     global.MADX9_MatStackFloat8 = external_define(global.DLL_MAE, "MADX9_MatStackFloat8", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MatStackFloat9 = external_define(global.DLL_MAE, "MADX9_MatStackFloat9", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
     global.MADX9_MatStackClear  = external_define(global.DLL_MAE, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
-    
-    // Surfaces
-    global.__MAE_SurfaceCreate             = external_define(global.DLL_MAE, "MAE_SurfaceCreate", dll_cdecl, ty_real, 0);
-    global.MADX9_SurfaceCreateDepthStencil = external_define(global.DLL_MAE, "MADX9_SurfaceCreateDepthStencil", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_SurfaceCreateFromPointer  = external_define(global.DLL_MAE, "MADX9_SurfaceCreateFromPointer", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_SurfaceCreateRenderTarget = external_define(global.DLL_MAE, "MADX9_SurfaceCreateRenderTarget", dll_cdecl, ty_real, 7, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
-    global.MADX9_SurfaceDestroy            = external_define(global.DLL_MAE, "MADX9_SurfaceDestroy", dll_cdecl, ty_real, 1, ty_real);
-    global.MADX9_SurfaceUpdate             = external_define(global.DLL_MAE, "MADX9_SurfaceUpdate", dll_cdecl, ty_real, 2, ty_real, ty_real);
-    global.MADX9_SurfaceGetPointer         = external_define(global.DLL_MAE, "MADX9_SurfaceGetPointer", dll_cdecl, ty_real, 1, ty_real);
 
     // Particles
     global.MADX9_ParticleSystemCreate            = external_define(global.DLL_MAE, "MADX9_ParticleSystemCreate", dll_cdecl, ty_real, 0);

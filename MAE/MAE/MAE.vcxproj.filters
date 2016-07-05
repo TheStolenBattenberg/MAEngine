@@ -123,9 +123,6 @@
     <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp">
       <Filter>Source Files\Rendering\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\Resources\Surface.cpp">
-      <Filter>Source Files\Rendering\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp">
       <Filter>Source Files\Rendering\Resources</Filter>
     </ClCompile>
@@ -213,12 +210,6 @@
       <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Resources\ShaderImpl.h">
-      <Filter>Header Files\Rendering\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Resources\Surface.h">
-      <Filter>Header Files\Rendering\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Resources\SurfaceImpl.h">
       <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Resources\Texture.h">

@@ -247,19 +247,6 @@
           <script>scripts\MAE_ShaderSetConstantVec4.gml</script>
           <script>scripts\MAE_ShaderReset.gml</script>
         </scripts>
-        <scripts name="Surfaces">
-          <script>scripts\MAE_SurfaceCreate.gml</script>
-          <script>scripts\MAE_SurfaceCreateDepthStencil.gml</script>
-          <script>scripts\MAE_SurfaceCreateFromPointer.gml</script>
-          <script>scripts\MAE_SurfaceCreateRenderTarget.gml</script>
-          <script>scripts\MAE_SurfaceDestroy.gml</script>
-          <script>scripts\MAE_SurfaceGetPointer.gml</script>
-          <script>scripts\MAE_SurfaceResetDepthBuffer.gml</script>
-          <script>scripts\MAE_SurfaceResetRenderTarget.gml</script>
-          <script>scripts\MAE_SurfaceSetDepthBuffer.gml</script>
-          <script>scripts\MAE_SurfaceSetRenderTarget.gml</script>
-          <script>scripts\MAE_SurfaceUpdate.gml</script>
-        </scripts>
         <scripts name="Textures">
           <script>scripts\MAE_TextureCreate.gml</script>
           <script>scripts\MAE_TextureCreateEmpty.gml</script>
@@ -269,7 +256,6 @@
           <script>scripts\MAE_TextureDestroy.gml</script>
           <script>scripts\MAE_TextureGenerateMipMaps.gml</script>
           <script>scripts\MAE_TextureGetPointer.gml</script>
-          <script>scripts\MAE_TextureGetSurfaceCount.gml</script>
           <script>scripts\MAE_TextureSet.gml</script>
           <script>scripts\MAE_TextureSetMipMapFilter.gml</script>
           <script>scripts\MAE_TextureUpdate.gml</script>

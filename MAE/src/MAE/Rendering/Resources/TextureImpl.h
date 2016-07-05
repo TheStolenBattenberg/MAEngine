@@ -14,8 +14,6 @@ public:
 	ErrorCode create(uint width, uint height, uint levels, uint usage, D3DFORMAT format, D3DPOOL pool);
 	ErrorCode createFromPointer(LPDIRECT3DTEXTURE9 ptr);
 	ErrorCode generateMipMaps();
-	ErrorCode getSurface(uint level, class Surface* surf);
-	ErrorCode getSurfaceCount(uint& count);
 	ErrorCode loadFromFile(std::string file, MipMaps mipmaps);
 	ErrorCode loadFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
 	ErrorCode setMipMapFilter(D3DTEXTUREFILTERTYPE filter);

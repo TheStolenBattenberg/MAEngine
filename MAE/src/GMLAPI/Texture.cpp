@@ -63,15 +63,6 @@ DLLEXPORT double MADX9_TextureGetPointer(double tex)
 	return doubleToPtr<Texture>(tex)->getTexture(t) != ErrorOk ? ptrToDouble<void>(nullptr) : ptrToDouble(t);
 }
 
-DLLEXPORT double MADX9_TextureGetSurfaceCount(double tex)
-{
-	uint count;
-
-	ErrorCode ret = doubleToPtr<Texture>(tex)->getSurfaceCount(count);
-
-	return ret != ErrorOk ? ret : count;
-}
-
 DLLEXPORT double MADX9_TextureSetMipMapFilter(double tex, double filter)
 {
 	return doubleToPtr<Texture>(tex)->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);

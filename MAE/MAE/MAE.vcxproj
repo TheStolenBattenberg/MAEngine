@@ -28,7 +28,6 @@
     <ClCompile Include="..\src\MAE\Rendering\ParticleModifier.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\ParticleSystem.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\Resources\Surface.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Scene\Entity.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp" />
@@ -67,8 +66,6 @@
     <ClInclude Include="..\src\MAE\Rendering\Pipeline\Pipeline.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\Shader.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\ShaderImpl.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Resources\Surface.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Resources\SurfaceImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\Texture.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\TextureImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h" />

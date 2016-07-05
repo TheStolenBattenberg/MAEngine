@@ -6,7 +6,6 @@
 #include <MAE/Rendering/ModelX.h>
 #include <MAE/Rendering/ParticleSystem.h>
 #include <MAE/MainImpl.h>
-#include <MAE/Rendering/Resources/SurfaceImpl.h>
 #include <MAE/Rendering/Resources/TextureImpl.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 #include <MAE/Rendering/Scene/SceneImpl.h>
@@ -34,7 +33,6 @@ MainImpl::~MainImpl() {
 	assert(("Some X Models weren't freed", XModels.size() == 0));
 	assert(("Some Particel Systems weren't freed", ParticleSys.size() == 0));
 	assert(("Some Shaders weren't freed", shaders.size() == 0));
-	assert(("Some Surfaces weren't freed", surfaces.size() == 0));
 	assert(("Some Texture weren't freed", textures.size() == 0));
 
 	if (VertexDeclarationParticle != 0) {
@@ -83,24 +81,6 @@ ErrorCode MainImpl::createScene(Scene*& scene) {
 	return ErrorOk;
 }
 
-ErrorCode MainImpl::createSurface(Surface*& surf)
-{
-	SurfaceImpl* s = ::new(std::nothrow) SurfaceImpl(this);
-
-	if (s == 0)
-		return this->setError(ErrorMemory);
-
-	surfaces.add(s);
-	surf = s;
-
-	return ErrorOk;
-}
-
-void MainImpl::removeSurface(const Surface* surf)
-{
-	surfaces.remove((SurfaceImpl*) surf);
-}
-
 ErrorCode MainImpl::createTexture(Texture*& tex)
 {
 	TextureImpl* t = ::new(std::nothrow) TextureImpl(this);
@@ -135,50 +115,6 @@ ErrorCode MainImpl::createShader(Shader*& shd)
 void MainImpl::removeShader(const Shader* shd)
 {
 	shaders.remove((ShaderImpl*) shd);
-}
-
-ErrorCode MainImpl::getRenderTarget(uint ind, class Surface*& surf)
-{
-	LPDIRECT3DSURFACE9 s;
-
-	if (FAILED(d3ddev->GetRenderTarget(ind, &s)))
-		return setError(ErrorD3D9);
-
-	ErrorCode ret = createSurface(surf);
-
-	if (ret == ErrorOk)
-		ret = surf->createFromPointer(s);
-
-	s->Release();
-
-	return ret;
-}
-
-ErrorCode MainImpl::resetRenderTarget(uint ind)
-{
-	if (FAILED(d3ddev->SetRenderTarget(ind, nullptr)))
-		return setError(ErrorD3D9);
-
-	return ErrorOk;
-}
-
-ErrorCode MainImpl::setRenderTarget(uint ind, class Surface* surf)
-{
-	LPDIRECT3DSURFACE9 s;
-	
-	ErrorCode ret = surf->getSurf(s);
-
-	if (ret != ErrorOk)
-		return ret;
-
-	HRESULT res = d3ddev->SetRenderTarget(ind, s);
-
-	s->Release();
-
-	if (FAILED(res))
-		return setError(ErrorD3D9);
-
-	return ErrorOk;
 }
 
 ErrorCode MainImpl::setTexture(uint stage, class Texture* tex)

@@ -51,9 +51,6 @@
     <ClCompile Include="..\src\GMLAPI\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\GMLAPI\Surface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\GMLAPI\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
