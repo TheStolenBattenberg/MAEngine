@@ -258,7 +258,7 @@ switch(shader)
         draw_set_colour(c_red);
         d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
         
-        MAE_ShaderSet(-1);
+        MAE_ShaderReset();
     break;
     
     case "2":
@@ -272,7 +272,7 @@ switch(shader)
         draw_set_colour(c_red);
         d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
         
-    MAE_ShaderSet(-1);
+    MAE_ShaderReset();
     break;
 }
 

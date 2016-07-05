@@ -37,6 +37,7 @@ if (argument[0] & INIT_RENDER)
     global.__MAE_ShaderCompileHLSL9     = external_define(global.DLL_MAE, "MAE_ShaderCompileHLSL9", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
     global.__MAE_ShaderCompileASM       = external_define(global.DLL_MAE, "MAE_ShaderCompileASM", dll_cdecl, ty_real, 3, ty_real, ty_string, ty_string);
     global.MADX9_ShaderSet              = external_define(global.DLL_MAE, "MADX9_ShaderSet", dll_cdecl, ty_real, 1, ty_real);
+    global.__MAE_ShaderReset            = external_define(global.DLL_MAE, "MAE_ShaderReset", dll_cdecl, ty_real, 0);
     global.MADX9_ShaderDestroy          = external_define(global.DLL_MAE, "MADX9_ShaderDestroy", dll_cdecl, ty_real, 1, ty_real);
     global.MADX9_ShaderFindConstant     = external_define(global.DLL_MAE, "MADX9_ShaderFindConstant", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_string);
     global.MADX9_ShaderGetSampler       = external_define(global.DLL_MAE, "MADX9_ShaderGetSampler", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);

@@ -34,10 +34,12 @@ DLLEXPORT double MAE_ShaderCompileHLSL9(double s, const char* VSCode, const char
 	return doubleToPtr<Shader>(s)->compile(VSCode, PSCode, err);
 }
 
-DLLEXPORT double MADX9_ShaderSet(double s)
-{
-	// TODO: Implement reset
+DLLEXPORT double MADX9_ShaderSet(double s) {
 	return mamain->setShader(doubleToPtr<Shader>(s));
+}
+
+DLLEXPORT double MAE_ShaderReset() {
+	return mamain->resetShader();
 }
 
 DLLEXPORT double MADX9_ShaderDestroy(double s)

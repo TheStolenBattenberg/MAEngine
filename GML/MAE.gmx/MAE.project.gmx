@@ -274,6 +274,7 @@
           <script>scripts\MAE_ShaderSetConstantVec2.gml</script>
           <script>scripts\MAE_ShaderSetConstantVec3.gml</script>
           <script>scripts\MAE_ShaderSetConstantVec4.gml</script>
+          <script>scripts\MAE_ShaderReset.gml</script>
         </scripts>
         <scripts name="Surfaces">
           <script>scripts\MAE_SurfaceCreate.gml</script>
