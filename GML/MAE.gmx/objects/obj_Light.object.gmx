@@ -66,7 +66,7 @@ MAE_MaterialSetDiffuse(Mat_0, 204, 204, 204, 204);
 MAE_MaterialSetAmbient(Mat_0, 51, 51, 51, 255);
 MAE_MaterialSetSpecular(Mat_0, 0, 0, 0, 255);
 MAE_MaterialSetEmissive(Mat_0, 0, 0, 0, 255);
-MAE_MaterialSetSpecularPower(Mat_0, 0);
+MAE_MaterialSetSpecularPower(Mat_0, 0.25);
 
 
 //Creating a Advanced Light

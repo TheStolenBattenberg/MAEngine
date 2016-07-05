@@ -536,6 +536,12 @@
         <script>scripts\MAE_NavMeshFindPath.gml</script>
       </scripts>
     </scripts>
+    <scripts name="GUI">
+      <script>scripts\CreateSlider.gml</script>
+      <script>scripts\DrawSlider.gml</script>
+      <script>scripts\UpdateSlider.gml</script>
+      <script>scripts\DrawWindow.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shdLight.shader</shader>

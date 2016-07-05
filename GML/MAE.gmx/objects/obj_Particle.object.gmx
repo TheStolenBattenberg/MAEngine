@@ -58,6 +58,29 @@ MAE_ParticleEmitterSetParticleSize(index, 2, 16);
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///GUI
+sldrs = 0;
+SliderDistanceFromCenter = CreateSlider(0, 16, 4);
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="0">
       <action>
@@ -76,7 +99,10 @@ MAE_ParticleEmitterSetParticleSize(index, 2, 16);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step.
+            <string>var pos = UpdateSlider(SliderDistanceFromCenter);
+
+MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-pos, -pos, -pos), MAE_VectorCreate(pos, pos, pos));
+MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step.
 </string>
           </argument>
         </arguments>
@@ -125,6 +151,9 @@ MAE_TextureDestroy(tex);
             <kind>1</kind>
             <string>draw_set_colour(c_black);
 draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParticleCount(index)));
+
+DrawWindow(48, 48, 128+32, 256);
+DrawSlider(64, 64+16, 128, SliderDistanceFromCenter, "Position");
 </string>
           </argument>
         </arguments>
