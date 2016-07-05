@@ -36,7 +36,7 @@ rot = 0;
  * Particle System
  */
 index = MAE_ParticleSystemCreate();
-MAE_ParticleSystemSetParticleCount(index, 512);
+MAE_ParticleSystemSetParticleCount(index, 8192);
 
 tex = MAE_TextureCreate();
 
@@ -48,9 +48,9 @@ MAE_ParticleSystemSetTexture(index, tex);
  */
 MAE_ParticleEmitterCreate(index);
 MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-4, -4, -4), MAE_VectorCreate(4, 4, 4));
-MAE_ParticleEmitterSetParticleVelocity(index, MAE_VectorCreate(0, 0, +0.025), MAE_VectorCreate(0, 0, +0.025));
-MAE_ParticleEmitterSetParticleAcceleration(index, MAE_VectorCreate(0, 0, +0.0005));
-MAE_ParticleEmitterSetParticleColour(index, 255, 255, 255, 255, 255, 0, 255, 0);
+MAE_ParticleEmitterSetParticleVelocity(index, MAE_VectorCreate(0.00, 0.1, 0.00), MAE_VectorCreate(0.00, 0.1, 0.00));
+MAE_ParticleEmitterSetParticleAcceleration(index, MAE_VectorCreate(0.000, -0.0001, 0.0001));
+MAE_ParticleEmitterSetParticleColour(index, 255, 255, 255, 255, 255, 127, 39, 0);
 MAE_ParticleEmitterSetParticleCount(index, 2, 8);
 MAE_ParticleEmitterSetParticleLife(index, 256, 512);
 MAE_ParticleEmitterSetParticleSize(index, 2, 16);
@@ -77,8 +77,11 @@ MAE_ParticleEmitterSetParticleSize(index, 2, 16);
             <string>///GUI
 sldrs = 0;
 chkbxs = 0;
-SliderDistanceFromCenter = CreateSlider(0, 16, 4);
+SliderDistanceFromCenter = CreateSlider(0, 16, 1);
+SliderParticleCount      = CreateSlider(0, 16, 16);
+SliderParticleLife       = CreateSlider(0, 16, 8);
 CheckboxDrawEnable = CreateCheckbox(true);
+CheckboxUpdateEnable = CreateCheckbox(true);
 </string>
           </argument>
         </arguments>
@@ -102,9 +105,15 @@ CheckboxDrawEnable = CreateCheckbox(true);
           <argument>
             <kind>1</kind>
             <string>var pos = UpdateSlider(SliderDistanceFromCenter);
+var plife = 64*UpdateSlider(SliderParticleLife);
+var pcount = UpdateSlider(SliderParticleCount);
 
-MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-pos, -pos, -pos), MAE_VectorCreate(pos, pos, pos));
-MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step.
+if(UpdateCheckbox(CheckboxUpdateEnable)) {
+    MAE_ParticleEmitterSetParticleCount(index, pcount/4, pcount);
+    MAE_ParticleEmitterSetParticleLife(index, plife/2, plife);
+    MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-pos, -pos, -pos), MAE_VectorCreate(pos, pos, pos));
+    MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step.
+}
 </string>
           </argument>
         </arguments>
@@ -157,7 +166,11 @@ draw_text(room_width - 196, 0, "Particles: " + string(MAE_ParticleSystemGetParti
 
 DrawWindow(48, 48, 128+32, 256);
 DrawSlider(64, 64+16, 128, SliderDistanceFromCenter, "Position");
-DrawCheckbox(64+64, 64+32, CheckboxDrawEnable, "Draw");
+DrawSlider(64, 64+48, 128, SliderParticleLife, "Life");
+DrawSlider(64, 64+80, 128, SliderParticleCount, "Count");
+DrawCheckbox(64+76, 64+94, CheckboxDrawEnable, "Draw");
+DrawCheckbox(64+76, 64+114, CheckboxUpdateEnable, "Update");
+
 </string>
           </argument>
         </arguments>
@@ -180,7 +193,7 @@ DrawCheckbox(64+64, 64+32, CheckboxDrawEnable, "Draw");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_set_projection(24, 24, 24, 0, 0, 0, 0, 0, 1);
+            <string>d3d_set_projection(48, 0, 48, 0, 0, 0, 0, 0, 1);
 
 if(UpdateCheckbox(CheckboxDrawEnable) == true) {
     MAE_ParticleSystemRender(index);

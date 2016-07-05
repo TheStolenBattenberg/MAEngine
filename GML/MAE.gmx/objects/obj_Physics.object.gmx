@@ -95,6 +95,29 @@ mouse_vector = 0;
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///GUI
+chkbxs = 0;
+CheckboxDebugDraw = CreateCheckbox(false);
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="0">
       <action>
@@ -143,6 +166,7 @@ if(mouse_check_button_released(mb_left)){
     MAE_PhysConstraintDestroy(dragging_constraint);
 }
 
+debugdraw = UpdateCheckbox(CheckboxDebugDraw);
 </string>
           </argument>
         </arguments>
@@ -192,7 +216,9 @@ MAE_PhysShapeDestroyAll();
             <string>draw_set_color(c_black);
 draw_text(400, 0, "Physics Bodies: "+string(MAE_PhysWorldGetBodyCount()));
 draw_text(400, 16, "Constraints: "+string(MAE_PhysWorldGetConstraintCount()));
-draw_text(400, 32, "Press D to toggle debug draw");
+
+DrawWindow(48, 48, 128+32, 256);
+DrawCheckbox(64+112, 64-8, CheckboxDebugDraw, "Debug Draw");
 </string>
           </argument>
         </arguments>
@@ -241,29 +267,6 @@ d3d_transform_set_identity();
 d3d_set_culling(false);
 draw_set_alpha(1);
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="68">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>debugdraw = !debugdraw;
 </string>
           </argument>
         </arguments>
