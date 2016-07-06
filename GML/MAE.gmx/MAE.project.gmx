@@ -249,16 +249,10 @@
         </scripts>
         <scripts name="Textures">
           <script>scripts\MAE_TextureCreate.gml</script>
-          <script>scripts\MAE_TextureCreateEmpty.gml</script>
           <script>scripts\MAE_TextureCreateFromFile.gml</script>
           <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
-          <script>scripts\MAE_TextureCreateFromPointer.gml</script>
           <script>scripts\MAE_TextureDestroy.gml</script>
-          <script>scripts\MAE_TextureGenerateMipMaps.gml</script>
-          <script>scripts\MAE_TextureGetPointer.gml</script>
           <script>scripts\MAE_TextureSet.gml</script>
-          <script>scripts\MAE_TextureSetMipMapFilter.gml</script>
-          <script>scripts\MAE_TextureUpdate.gml</script>
         </scripts>
       </scripts>
       <scripts name="Physics">

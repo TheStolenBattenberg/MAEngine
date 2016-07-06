@@ -20,12 +20,9 @@ DLLEXPORT double MAE_TextureCreate()
 
 DLLEXPORT double MADX9_TextureCreateFromFile(double tex, const char* file, Texture::MipMaps mipmaps)
 {
-	return doubleToPtr<Texture>(tex)->loadFromFile(file, mipmaps);
-}
+	doubleToPtr<Texture>(tex)->loadFromFile(file, mipmaps);
 
-DLLEXPORT double MADX9_TextureCreateFromPointer(double tex, double ptr)
-{
-	return doubleToPtr<Texture>(tex)->createFromPointer(doubleToPtr<IDirect3DTexture9>(ptr));
+	return 1;
 }
 
 DLLEXPORT double MADX9_TextureDestroy(double tex)
@@ -43,32 +40,7 @@ DLLEXPORT double MADX9_TextureSet(double stage, double tex)
 
 DLLEXPORT double MADX9_TextureCreateFromFileInMemory(double tex, const void* data, double length, Texture::MipMaps mipmaps)
 {
-	return doubleToPtr<Texture>(tex)->loadFromFileInMemory(data, (uint) length, mipmaps);
-}
+	doubleToPtr<Texture>(tex)->loadFromFileInMemory(data, (uint) length, mipmaps);
 
-DLLEXPORT double MADX9_TextureCreateEmpty(double tex, double width, double height, double levels, double usage, double format, double pool)
-{
-	return doubleToPtr<Texture>(tex)->create((uint) width, (uint) height, (uint) levels, (uint) usage, (D3DFORMAT) (uint) format, (D3DPOOL) (uint) pool);
-}
-
-DLLEXPORT double MADX9_TextureGenerateMipMaps(double tex)
-{
-	return doubleToPtr<Texture>(tex)->generateMipMaps();
-}
-
-DLLEXPORT double MADX9_TextureGetPointer(double tex)
-{
-	LPDIRECT3DTEXTURE9 t;
-
-	return doubleToPtr<Texture>(tex)->getTexture(t) != ErrorOk ? ptrToDouble<void>(nullptr) : ptrToDouble(t);
-}
-
-DLLEXPORT double MADX9_TextureSetMipMapFilter(double tex, double filter)
-{
-	return doubleToPtr<Texture>(tex)->setMipMapFilter((D3DTEXTUREFILTERTYPE) (uint) filter);
-}
-
-DLLEXPORT double MADX9_TextureUpdate(double dest, double src)
-{
-	return doubleToPtr<Texture>(dest)->update(doubleToPtr<Texture>(src));
+	return 1;
 }

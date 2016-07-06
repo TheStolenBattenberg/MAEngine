@@ -119,18 +119,7 @@ void MainImpl::removeShader(const Shader* shd)
 
 ErrorCode MainImpl::setTexture(uint stage, class Texture* tex)
 {
-	LPDIRECT3DTEXTURE9 t;
-
-	ErrorCode ret = tex->getTexture(t);
-
-	if (ret != ErrorOk)
-		return ret;
-	
-	HRESULT res = d3ddev->SetTexture(stage, t);
-
-	t->Release();
-
-	if (FAILED(res))
+	if (FAILED(d3ddev->SetTexture(stage, ((TextureImpl*) tex)->getTexture())))
 		return setError(ErrorD3D9);
 
 	return ErrorOk;
