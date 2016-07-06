@@ -23,6 +23,7 @@ void CFmod::Update() {
 }
 
 void CFmod::Shutdown() {
+	m_pSystem->close();
 	m_pSystem->release();
 	return;
 }

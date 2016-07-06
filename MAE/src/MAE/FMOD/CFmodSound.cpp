@@ -15,8 +15,8 @@ uint CFmod::SoundCreate(string file, uint mode) {
 		FMOD_3D_CUSTOMROLLOFF,
 		FMOD_3D_IGNOREGEOMETRY };
 
-	FMOD::Sound* snd;
-	FMOD_RESULT res = m_pSystem->createSound(file, ModeSwitch[mode], 0, &snd);
+	Sound* snd;
+	FMOD_RESULT res = m_pSystem->createSound(file, ModeSwitch[mode], 0, &snd->m_pVoice);
 	if (FMODFAILED(res)) {
 		return 0;
 	}
@@ -25,21 +25,21 @@ uint CFmod::SoundCreate(string file, uint mode) {
 }
 
 void CFmod::SoundDestroy(uint sndIndex) {
-	m_vSound[sndIndex]->release();
+	m_vSound[sndIndex]->m_pVoice->release();
 	m_vSound[sndIndex] = NULL;
 	return;
 }
 
 uint CFmod::SoundPlay(uint sndIndex) {
-	FMOD_RESULT res = m_pSystem->playSound(m_vSound[sndIndex], m_vGroup[0], false, &m_vChannel[m_vChannel.size()]);
+	FMOD_RESULT res = m_pSystem->playSound(m_vSound[sndIndex]->m_pVoice, NULL, false, &m_vSound[sndIndex]->m_pSound);
 	if (FMODFAILED(res)) {
 		return 0;
 	}
-	return m_vChannel.size() - 1;
+	return 0;//m_vChannel.size() - 1;
 }
 
 void CFmod::Sound3DMinMaxDistance(uint sndIndex, float min, float max) {
-	FMOD_RESULT res = m_vSound[sndIndex]->set3DMinMaxDistance(min * m_fDistanceFactor, max * m_fDistanceFactor);
+	FMOD_RESULT res = m_vSound[sndIndex]->m_pVoice->set3DMinMaxDistance(min * m_fDistanceFactor, max * m_fDistanceFactor);
 	if (FMODFAILED(res)) {
 		return;
 	}
@@ -47,7 +47,7 @@ void CFmod::Sound3DMinMaxDistance(uint sndIndex, float min, float max) {
 }
 
 void CFmod::Sound3DConeSettings(uint sndIndex, float insideangle, float outsideangle, float outsidevolume) {
-	FMOD_RESULT res = m_vSound[sndIndex]->set3DConeSettings(insideangle, outsideangle, outsidevolume);
+	FMOD_RESULT res = m_vSound[sndIndex]->m_pVoice->set3DConeSettings(insideangle, outsideangle, outsidevolume);
 	if (FMODFAILED(res)) {
 		return;
 	}

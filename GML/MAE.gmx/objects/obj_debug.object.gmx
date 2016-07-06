@@ -94,7 +94,7 @@ if(room == rm_debug)
         1 - Maxtix, Quaternion, Vector
         2 - Particles
         3 - Shaders
-        4 - Lights
+        4 - N/A
         5 - MD2 Model Animation
         6 - X Model Static   
         7 - MPM Model
@@ -131,9 +131,9 @@ if(room == rm_debug)
     var render_time = 1000 / fps_real;  
     if(render_time &lt; 8)
     { draw_set_colour(c_lime); }else
-    if(render_time &gt; 8)
+    if(render_time &gt;= 8 &amp;&amp; render_time &lt; 16)
     { draw_set_colour(c_yellow); } else
-    if(render_time &gt; 16)
+    if(render_time &gt;= 16)
     { draw_set_colour(c_red); }
     draw_text(2, room_height-20, "MS: "+string(render_time));
       

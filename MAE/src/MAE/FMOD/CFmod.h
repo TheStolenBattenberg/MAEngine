@@ -5,6 +5,8 @@
 
 #include <MAE/Core/Types.h>
 
+#include <MAE/FMOD/CFmodHelper.h>
+
 class CFmod {
 public:
 	//General
@@ -35,6 +37,7 @@ public:
 	uint SoundPlay(uint sndIndex);
 	void Sound3DMinMaxDistance(uint sndIndex, float min, float max);
 	void Sound3DConeSettings(uint sndIndex, float insideangle, float outsideangle, float outsidevolume);
+	void SoundSetGroup(uint sndIndex, uint grpIndex);
 
 	//CFmodDSP.cpp
 	uint DSPCreate(uint type);
@@ -42,9 +45,9 @@ public:
 	void DSPActivate(uint DSPIndex, bool state);
 	
 	//CFmodChannel.cpp
-	uint ChannelAddDSP(uint channelIndex, uint dspIndex);
-	uint ChannelSetDSPPosition(uint channelIndex, uint position);
-	void Channel3DAttributes(float posx, float posy, float posz, float velx, float vely, float velz);
+	uint ChannelAddDSP(uint sndIndex, uint dspIndex);
+	uint ChannelSetDSPPosition(uint sndIndex, uint position);
+	void Channel3DAttributes(uint sndIndex, float posx, float posy, float posz, float velx, float vely, float velz);
 
 private:
 	FMOD::System* m_pSystem;
@@ -58,8 +61,7 @@ private:
 	uint m_iMaxGroups;
 	uint m_iMaxDSPs;
 
-	std::vector<FMOD::Sound*> m_vSound;
-	std::vector<FMOD::Channel*> m_vChannel;
+	std::vector<Sound*> m_vSound;
 	std::vector<FMOD::ChannelGroup*> m_vGroup;
 	std::vector<FMOD::DSP*> m_vDSP;
 };

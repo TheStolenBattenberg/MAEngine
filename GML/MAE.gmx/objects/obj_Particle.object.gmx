@@ -112,7 +112,7 @@ if(UpdateCheckbox(CheckboxUpdateEnable)) {
     MAE_ParticleEmitterSetParticleCount(index, pcount/4, pcount);
     MAE_ParticleEmitterSetParticleLife(index, plife/2, plife);
     MAE_ParticleEmitterSetParticlePosition(index, MAE_VectorCreate(-pos, -pos, -pos), MAE_VectorCreate(pos, pos, pos));
-    MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step.
+    MAE_ParticleSystemUpdate(index, 1); //Spawn new particles every step. room_speed would spawn them every second.
 }
 </string>
           </argument>

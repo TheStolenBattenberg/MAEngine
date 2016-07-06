@@ -132,13 +132,13 @@
     <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp">
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
-    <ClCompile Include="CFmodSound.cpp">
+    <ClCompile Include="..\src\MAE\FMOD\CFmodChannel.cpp">
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
-    <ClCompile Include="CFmodDSP.cpp">
+    <ClCompile Include="..\src\MAE\FMOD\CFmodDSP.cpp">
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
-    <ClCompile Include="CFmodChannel.cpp">
+    <ClCompile Include="..\src\MAE\FMOD\CFmodSound.cpp">
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Utils.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\FMOD\CFmodHelper.h">
+      <Filter>Header Files\FMOD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
