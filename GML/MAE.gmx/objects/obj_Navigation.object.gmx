@@ -106,7 +106,7 @@ draw_text(400, 0, "Build Status: "+string(MAE_NavMeshGetBuildStatus(navmesh)));
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>other</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -126,15 +126,15 @@ MAE_NavMeshDebugDraw(navmesh);
 
 if(!is_array(path)) exit;
 
-var s = 0.5;
+var s = 0.4;
 draw_set_color(c_red);
 d3d_transform_set_translation(start_pos[0], start_pos[1], start_pos[2]);
 d3d_draw_ellipsoid(-s, -s, -s, s, s, s, -1, 1, 1, 20);
 d3d_transform_set_translation(end_pos[0], end_pos[1], end_pos[2]);
 d3d_draw_ellipsoid(-s, -s, -s, s, s, s, -1, 1, 1, 20);
 d3d_transform_set_identity();
-d3d_primitive_begin(pr_linestrip);
 
+d3d_primitive_begin(pr_linestrip);
 d3d_set_hidden(false);
 var len = array_length_1d(path);
 for(var i=0; i&lt;len; i++){
@@ -166,9 +166,7 @@ d3d_set_hidden(true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>start_poly = MAE_NavMeshFindNearestPoly(navmesh, start_pos[0], start_pos[1], start_pos[2], 2, 2, 2);
-end_poly = MAE_NavMeshFindNearestPoly(navmesh, end_pos[0], end_pos[1], end_pos[2], 2, 2, 2);
-path = MAE_NavMeshFindPath(navmesh, start_poly, end_poly, start_pos[0], start_pos[1], start_pos[2], end_pos[0], end_pos[1], end_pos[2]);
+            <string>path = MAE_NavMeshFindPath(navmesh, start_pos[0], start_pos[1], start_pos[2], end_pos[0], end_pos[1], end_pos[2], 4);
 
 </string>
           </argument>

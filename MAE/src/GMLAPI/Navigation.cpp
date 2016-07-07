@@ -1,10 +1,19 @@
 #include <MAE/Navigation/Navigation.h>
-#include <DetourDebugDraw.h>
 #include <MAE/Main.h>
 #include <MAE/Core/Utils.h>
 
+#include <iostream>
+
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
+
+// TODO: Get rid of this
+struct MANavigation {
+	std::vector<NavMesh::PathPoint> path;
+	UnorderedVector<NavMesh*> navMeshes;
+};
+
+MANavigation manav;
 
 DLLEXPORT double MA_NavMeshCreate()
 {
@@ -143,10 +152,7 @@ DLLEXPORT double MA_NavMeshDebugDraw(double navmesh)
 
 	if (ptr->getBuildStatus() <= 0) return -1;
 
-	duDebugDrawNavMesh(&manav.debugDraw, *ptr->navMesh, 0);
-	float* bmin = ptr->config.bmin;
-	float* bmax = ptr->config.bmax;
-	duDebugDrawBoxWire(&manav.debugDraw, bmin[0], bmin[1], bmin[2], bmax[0], bmax[1], bmax[2], duRGBA(255, 255, 255, 128), 1.f);
+	ptr->debugDraw();
 	return 1;
 }
 
@@ -176,73 +182,30 @@ DLLEXPORT double MA_NavMeshSetConfig(double navmesh, double cell_size, double ce
 	return 1;
 }
 
-DLLEXPORT double MA_NavMeshFindNearestPoly(double navmesh, double x, double y, double z, double ex, double ey, double ez)
-{
-	auto ptr = doubleToPtr<NavMesh>(navmesh);
-
-	if (ptr->getBuildStatus() <= 0) return -1;
-
-	float pos[3] = { (float)-x, (float)z, (float)y };
-	float extents[3] = { (float)ex, (float)ez, (float)ey };
-	dtPolyRef ref;
-	ptr->navQuery->findNearestPoly(pos, extents, &ptr->queryFilter, &ref, 0);
-	return ref;
-}
-
-DLLEXPORT double MA_NavMeshFindPath(double navmesh, double start_poly, double end_poly, double xf, double yf, double zf, double xt, double yt, double zt)
+DLLEXPORT double MA_NavMeshFindPath(double navmesh, double xf, double yf, double zf, double xt, double yt, double zt, double checkSize)
 {
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 	if (ptr->getBuildStatus() <= 0) return -1;
 
-	dtPolyRef startRef = (dtPolyRef)start_poly;
-	dtPolyRef endRef = (dtPolyRef)end_poly;
-	float startPos[3] = { (float)-xf, (float)zf, (float)yf };
-	float endPos[3] = { (float)-xt, (float)zt, (float)yt };
-	float epos[3];
+	float start[3] = { (float)-xf, (float)zf, (float)yf };
+	float end[3] = { (float)-xt, (float)zt, (float)yt };
+	float extents[3] = { (float)checkSize, (float)checkSize, (float)checkSize };
 
-	ptr->navQuery->findPath(startRef, endRef, startPos, endPos, &ptr->queryFilter, manav.polys, &manav.numPolys, MANavigation::MAX_POLYS);
+	manav.path = ptr->findPath(start, end, extents);
 
-	rcVcopy(epos, endPos);
-	if (manav.polys[manav.numPolys - 1] != endRef)
-		ptr->navQuery->closestPointOnPoly(manav.polys[manav.numPolys - 1], endPos, epos, 0);
-
-	if (manav.numPolys) {
-		ptr->navQuery->findStraightPath(startPos, epos, manav.polys, manav.numPolys, manav.straightPath, manav.straightPathFlags,
-			manav.straightPathPolys, &manav.numPathPoints, MANavigation::MAX_POLYS, 0);
-	}
-
-	return manav.numPolys;
+	return manav.path.size();
 }
 
-DLLEXPORT double MA_NavGetPoly(double n)
-{
-	return manav.polys[(int)n];
-}
-
-DLLEXPORT double MA_NavGetPathLength()
-{
-	return manav.numPathPoints;
-}
-
-float returnVec[3];
-DLLEXPORT double MA_NavGetPathPoint(double n)
-{
-	returnVec[0] = manav.straightPath[(int)n * 3] * -1;
-	returnVec[1] = manav.straightPath[(int)n * 3 + 2];
-	returnVec[2] = manav.straightPath[(int)n * 3 + 1];
-	return 1;
-}
-
-DLLEXPORT double MA_NavGetVec(double n)
+DLLEXPORT double MA_NavGetPathPoint(double point, double n)
 {
 	switch ((int)n)
 	{
 	case 0:
-		return returnVec[0];
+		return manav.path[(int)point].x;
 	case 1:
-		return returnVec[1];
+		return manav.path[(int)point].y;
 	case 2:
-		return returnVec[2];
+		return manav.path[(int)point].z;
 	}
 	return 0;
 }

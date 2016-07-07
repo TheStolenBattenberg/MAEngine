@@ -4,18 +4,17 @@
 #include <d3dx9.h>
 #include <vector>
 
-struct DVertex
-{
-	D3DXVECTOR3 position;
-	D3DCOLOR color;
-
-	DVertex(float x, float y, float z, D3DCOLOR color) : position(x, y, z), color(color) {}
-};
-
 class NavMeshDebugDraw : public duDebugDraw
 {
-private:
-	std::vector<DVertex> Vertices;
+	struct Vertex
+	{
+		D3DXVECTOR3 position;
+		D3DCOLOR color;
+
+		Vertex(float x, float y, float z, D3DCOLOR color) : position(x, y, z), color(color) {}
+	};
+
+	std::vector<Vertex> Vertices;
 	duDebugDrawPrimitives DrawType;
 
 public:

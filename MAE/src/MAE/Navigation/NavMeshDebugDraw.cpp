@@ -18,22 +18,22 @@ void NavMeshDebugDraw::begin(duDebugDrawPrimitives prim, float size)
 
 void NavMeshDebugDraw::vertex(const float* pos, unsigned int color)
 {
-	Vertices.push_back(DVertex(-pos[0], pos[2], pos[1], D3DXCOLOR(color)));
+	Vertices.push_back(Vertex(-pos[0], pos[2], pos[1], D3DXCOLOR(color)));
 }
 
 void NavMeshDebugDraw::vertex(const float x, const float y, const float z, unsigned int color)
 {
-	Vertices.push_back(DVertex(-x, z, y, D3DXCOLOR(color)));
+	Vertices.push_back(Vertex(-x, z, y, D3DXCOLOR(color)));
 }
 
 void NavMeshDebugDraw::vertex(const float* pos, unsigned int color, const float* uv)
 {
-	Vertices.push_back(DVertex(-pos[0], pos[2], pos[1], D3DXCOLOR(color)));
+	Vertices.push_back(Vertex(-pos[0], pos[2], pos[1], D3DXCOLOR(color)));
 }
 
 void NavMeshDebugDraw::vertex(const float x, const float y, const float z, unsigned int color, const float u, const float v)
 {
-	Vertices.push_back(DVertex(-x, z, y, D3DXCOLOR(color)));
+	Vertices.push_back(Vertex(-x, z, y, D3DXCOLOR(color)));
 }
 
 void NavMeshDebugDraw::end()
@@ -56,5 +56,5 @@ void NavMeshDebugDraw::end()
 		count = 3;
 		break;
 	};
-	mainObj->d3ddev->DrawPrimitiveUP(D3DDrawType, Vertices.size() / count, &Vertices[0], sizeof(DVertex));
+	mainObj->d3ddev->DrawPrimitiveUP(D3DDrawType, Vertices.size() / count, &Vertices[0], sizeof(Vertex));
 }

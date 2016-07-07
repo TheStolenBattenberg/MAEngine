@@ -1,7 +1,6 @@
 #include <MAE/Navigation/Navigation.h>
 #include <MAE/Core/Utils.h>
-
-MANavigation manav;
+#include <DetourDebugDraw.h>
 
 NavMesh::NavMesh()
 {
@@ -129,8 +128,8 @@ void NavMesh::build()
 			vbuffer[i * 3 + 2] = vOut.y;
 		}
 
-		triAreas = new uint8_t[ntris];
-		memset(triAreas, 0, ntris*sizeof(uint8_t));
+		triAreas = new ubyte[ntris];
+		memset(triAreas, 0, ntris*sizeof(ubyte));
 
 		rcMarkWalkableTriangles(context, config.walkableSlopeAngle, vbuffer, nverts, tris, ntris, triAreas);
 		rcRasterizeTriangles(context, vbuffer, nverts, tris, triAreas, ntris, *heightfield, config.walkableClimb);
@@ -218,10 +217,10 @@ void NavMesh::build()
 
 	std::vector<float> verts;
 	std::vector<float> rad;
-	std::vector<uint8_t> dir;
-	std::vector<uint8_t> areas;
-	std::vector<uint16_t> flags;
-	std::vector<uint32_t> userIDs;
+	std::vector<ubyte> dir;
+	std::vector<ubyte> areas;
+	std::vector<ushort> flags;
+	std::vector<uint> userIDs;
 	for (auto i : connections) {
 		verts.push_back(i.v1[0]);
 		verts.push_back(i.v1[1]);
@@ -252,7 +251,7 @@ void NavMesh::build()
 	params.ch = config.ch;
 	params.buildBvTree = true;
 
-	uint8_t* navData = nullptr;
+	ubyte* navData = nullptr;
 	int navDataSize = 0;
 	if (!dtCreateNavMeshData(&params, &navData, &navDataSize)) {
 		buildStatus = -9;
@@ -286,11 +285,48 @@ void NavMesh::build()
 
 bool NavMesh::addLink(float* v1, float* v2, int dir, float radius)
 {
-	connections.push_back({ -v1[0], v1[2], v1[1], -v2[0], v2[2], v2[1], radius, (uint8_t)dir, 1, 1, 1 });
+	connections.push_back({ -v1[0], v1[2], v1[1], -v2[0], v2[2], v2[1], radius, (ubyte)dir, 1, 1, 1 });
 	return 1;
 }
 
-MANavigation::~MANavigation()
-{
-	freeContainer(navMeshes);
+void NavMesh::debugDraw() {
+	NavMeshDebugDraw dd;
+	duDebugDrawNavMesh(&dd, *navMesh, 0);
+	float* bmin = config.bmin;
+	float* bmax = config.bmax;
+	duDebugDrawBoxWire(&dd, bmin[0], bmin[1], bmin[2], bmax[0], bmax[1], bmax[2], duRGBA(255, 255, 255, 128), 1.f);
+}
+
+std::vector<NavMesh::PathPoint> NavMesh::findPath(float* start, float* end, float* checkExtents) {
+	dtPolyRef startRef, endRef;
+	navQuery->findNearestPoly(start, checkExtents, &queryFilter, &startRef, 0);
+	navQuery->findNearestPoly(end, checkExtents, &queryFilter, &endRef, 0);
+
+	static const int MAX_POLYS = 256;
+	dtPolyRef polys[MAX_POLYS];
+	int numPolys;
+	float straightPath[MAX_POLYS * 3];
+	ubyte straightPathFlags[MAX_POLYS];
+	dtPolyRef straightPathPolys[MAX_POLYS];
+	int numPathPoints = 0;
+
+	navQuery->findPath(startRef, endRef, start, end, &queryFilter, polys, &numPolys, MAX_POLYS);
+
+	if (polys[numPolys - 1] != endRef)
+		navQuery->closestPointOnPoly(polys[numPolys - 1], end, end, 0);
+
+	std::vector<PathPoint> path;
+	if (numPolys) {
+		navQuery->findStraightPath(start, end, polys, numPolys, straightPath, straightPathFlags,
+			straightPathPolys, &numPathPoints, MAX_POLYS, 0);
+
+		for (int i = 0; i < numPathPoints; ++i) {
+			path.push_back({ straightPath[i*3]*-1,
+							 straightPath[i*3 + 2],
+							 straightPath[i*3 + 1],
+							 polys[i] });
+		}
+	}
+
+	return path;
 }
