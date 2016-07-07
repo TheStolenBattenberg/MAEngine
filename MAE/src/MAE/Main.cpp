@@ -9,6 +9,7 @@
 #include <MAE/Rendering/Resources/TextureImpl.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 #include <MAE/Rendering/Scene/SceneImpl.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 Main* mainObj = 0;
 
@@ -48,6 +49,10 @@ MainImpl::~MainImpl() {
 
 	d3ddev = 0;
 	d3d    = 0;
+}
+
+Renderer* MainImpl::createRendererDX9(LPDIRECT3DDEVICE9 device) {
+	return ::new RendererImpl(device);
 }
 
 ErrorCode MainImpl::checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) {

@@ -14,6 +14,8 @@ public:
 
 	void release();
 
+	class Renderer* createRendererDX9(class IDirect3DDevice9* device);
+
 	ErrorCode checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists);
 	ErrorCode createScene(class Scene*& scene);
 	ErrorCode createShader(class Shader*& shd);

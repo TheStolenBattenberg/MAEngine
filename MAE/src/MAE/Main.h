@@ -23,6 +23,8 @@ class Main: public Releasable
 public:
 	virtual void release() = 0;
 
+	virtual class Renderer* createRendererDX9(struct IDirect3DDevice9* device) = 0;
+
 	virtual ErrorCode checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) = 0;
 	virtual ErrorCode createScene(class Scene*& scene) = 0;
 	virtual ErrorCode createShader(class Shader*& shd) = 0;

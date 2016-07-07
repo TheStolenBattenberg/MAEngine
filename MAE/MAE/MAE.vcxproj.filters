@@ -141,6 +141,9 @@
     <ClCompile Include="..\src\MAE\FMOD\CFmodSound.cpp">
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\Renderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Main.h">
@@ -253,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\FMOD\CFmodHelper.h">
       <Filter>Header Files\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\RendererImpl.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
