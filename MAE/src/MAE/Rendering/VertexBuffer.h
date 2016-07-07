@@ -3,17 +3,22 @@
 #include <d3d9.h>
 
 #include <MAE/Core/Types.h>
+#include <MAE/Core/Releasable.h>
 
-class VertexBuffer
-{
+class VertexBuffer: public Releasable {
 public:
-	VertexBuffer(uint length, uint usage, D3DPOOL pool);
-	~VertexBuffer();
+	enum {
+		MapWrite = 0x01,
+		MapRead  = 0x02
+	};
 
-	void* map(uint offset, uint size, uint flags);
-	void unmap();
-	void set(uint num, uint offset, uint stride);
+	virtual void release() = 0;
 
-private:
-	LPDIRECT3DVERTEXBUFFER9 vb = 0;
+	template<typename T> T* map(uint offset, uint size, uint flags) {
+		return (T*) map(offset, size, flags);
+	}
+
+	virtual void* map(uint offset, uint size, uint flags) = 0;
+	virtual void unmap() = 0;
+	virtual void upload(const void* data, uint offset, uint size) = 0;
 };

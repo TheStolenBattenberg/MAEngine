@@ -54,9 +54,6 @@
     <ClCompile Include="..\src\GMLAPI\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\GMLAPI\VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\GMLAPI\VertexDecl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

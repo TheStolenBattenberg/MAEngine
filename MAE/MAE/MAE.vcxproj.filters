@@ -263,5 +263,8 @@
     <ClInclude Include="..\src\MAE\Rendering\RendererImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexBufferImpl.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

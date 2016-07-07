@@ -1,30 +1,34 @@
-#include <MAE/Rendering/VertexBuffer.h>
-#include <MAE/Main.h>
+#include <MAE/Rendering/VertexBufferImpl.h>
 
-VertexBuffer::VertexBuffer(uint length, uint usage, D3DPOOL pool)
-{
-	// TODO: Add error checking
-	mainObj->d3ddev->CreateVertexBuffer(length, usage, 0, pool, &vb, 0);
+#include <exception>
+
+VertexBufferImpl::VertexBufferImpl(uint length, LPDIRECT3DDEVICE9 device) {
+	if (FAILED(device->CreateVertexBuffer(length, 0, 0, D3DPOOL_DEFAULT, &vb, 0)))
+		throw new std::exception("Failed to allocate VertexBuffer");
 }
 
-VertexBuffer::~VertexBuffer() {
-	if (vb != 0)
-		vb->Release();
+VertexBufferImpl::~VertexBufferImpl() {
+	vb->Release();
 }
 
-void* VertexBuffer::map(uint offset, uint size, uint flags) {
+void VertexBufferImpl::release() {
+	::delete this;
+}
+
+void* VertexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 
 	if (FAILED(vb->Lock(offset, size, &ptr, flags)))
-		return nullptr;
+		throw new std::exception("Failed to map VertexBuffer");
 
 	return ptr;
 }
 
-void VertexBuffer::unmap() {
+void VertexBufferImpl::unmap() {
 	vb->Unlock();
 }
 
-void VertexBuffer::set(uint num, uint offset, uint stride) {
-	mainObj->d3ddev->SetStreamSource(num, vb, offset, stride);
+void VertexBufferImpl::upload(const void* data, uint offset, uint size) {
+	memcpy(map(offset, size, 0), data, size);
+	unmap();
 }

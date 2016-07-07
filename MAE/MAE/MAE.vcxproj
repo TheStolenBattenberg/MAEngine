@@ -77,6 +77,7 @@
     <ClInclude Include="..\src\MAE\Rendering\Scene\Scene.h" />
     <ClInclude Include="..\src\MAE\Rendering\Scene\SceneImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h" />
+    <ClInclude Include="..\src\MAE\Rendering\VertexBufferImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexDecl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

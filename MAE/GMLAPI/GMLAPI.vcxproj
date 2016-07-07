@@ -25,7 +25,6 @@
     <ClCompile Include="..\src\GMLAPI\Shader.cpp" />
     <ClCompile Include="..\src\GMLAPI\Stream.cpp" />
     <ClCompile Include="..\src\GMLAPI\Texture.cpp" />
-    <ClCompile Include="..\src\GMLAPI\VertexBuffer.cpp" />
     <ClCompile Include="..\src\GMLAPI\VertexDecl.cpp" />
   </ItemGroup>
   <ItemGroup>
