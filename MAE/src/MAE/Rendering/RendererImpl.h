@@ -9,6 +9,9 @@ public:
 	void release();
 
 	class VertexBuffer* createVertexBuffer(uint length);
+	class VertexData* createVertexData();
+	void buildVertexData(class VertexData* vd);
+	void setVertexData(class VertexData* vd);
 
 	inline LPDIRECT3DDEVICE9 getDevice() {
 		return device;

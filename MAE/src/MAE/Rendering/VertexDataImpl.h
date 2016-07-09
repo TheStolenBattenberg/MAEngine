@@ -13,18 +13,16 @@ public:
 		uint stride;
 	};
 
-	VertexDataImpl(LPDIRECT3DDEVICE9 device): device(device) { }
 	~VertexDataImpl();
 
 	void release();
 
 	void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride);
 	void addElement(uint index, uint type, uint offset);
-	void build();
-	void set();
+	void build(LPDIRECT3DDEVICE9 device);
+	void set(LPDIRECT3DDEVICE9 device);
 
 private:
-	LPDIRECT3DDEVICE9 device;
 	LPDIRECT3DVERTEXDECLARATION9 decl;
 	StreamInfo* streamInfoArray;
 	class VertexDataBuilder* builder;

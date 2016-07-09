@@ -36,7 +36,7 @@ void VertexDataImpl::addElement(uint index, uint type, uint offset) {
 	builder->addElement((D3DDECLUSAGE) (index & 0xFFFF), index >> 16, table[type], offset);
 }
 
-void VertexDataImpl::build() {
+void VertexDataImpl::build(LPDIRECT3DDEVICE9 device) {
 	assert(("VertexDeclaration was already built", decl == nullptr));
 	assert(("StreamInfo Array was already built", streamInfoArray == nullptr));
 
@@ -47,7 +47,10 @@ void VertexDataImpl::build() {
 	builder = nullptr;
 }
 
-void VertexDataImpl::set() {
+void VertexDataImpl::set(LPDIRECT3DDEVICE9 device) {
+	assert(("VertexDeclaration isn't built", decl != nullptr));
+	assert(("StreamInfo Array isn't built", streamInfoArray != nullptr));
+
 	device->SetVertexDeclaration(decl);
 
 	for (auto i = 0; streamInfoArray[i].vb != nullptr; ++i)

@@ -21,5 +21,4 @@ public:
 
 	virtual void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride);
 	virtual void addElement(uint index, uint type, uint offset);
-	virtual void build() = 0;
 };
