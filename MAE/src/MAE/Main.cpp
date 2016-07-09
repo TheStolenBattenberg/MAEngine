@@ -1,7 +1,6 @@
 #include <MAE/Main.h>
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Rendering/VertexBuffer.h>
-#include <MAE/Rendering/VertexDecl.h>
 #include <MAE/Rendering/ModelMPM.h>
 #include <MAE/Rendering/ModelX.h>
 #include <MAE/Rendering/ParticleSystem.h>
@@ -29,7 +28,6 @@ MainImpl::MainImpl(LPDIRECT3DDEVICE9 d3ddev)
 MainImpl::~MainImpl() {
 	assert(("Some MD2 Models weren't freed", MD2Models.size() == 0));
 	assert(("Some MPM Models weren't freed", MPMModels.size() == 0));
-	assert(("Some Vertex Declarations weren't freed", VertexDeclarations.size() == 0));
 	assert(("Some X Models weren't freed", XModels.size() == 0));
 	assert(("Some Particel Systems weren't freed", ParticleSys.size() == 0));
 	assert(("Some Shaders weren't freed", shaders.size() == 0));

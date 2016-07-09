@@ -8,6 +8,8 @@ public:
 
 	void release();
 
+	class VertexBuffer* createVertexBuffer(uint length);
+
 	inline LPDIRECT3DDEVICE9 getDevice() {
 		return device;
 	}

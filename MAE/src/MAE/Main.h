@@ -41,8 +41,6 @@ public:
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
-	UnorderedVector<class VertexDecl*>   VertexDeclarations;
-	
 	UnorderedVector<class MD2Model*> MD2Models;
 	UnorderedVector<class XModel*>   XModels;
 	UnorderedVector<class MPMModel*> MPMModels;

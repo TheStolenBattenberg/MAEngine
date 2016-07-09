@@ -102,9 +102,6 @@
     <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\VertexDecl.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp">
       <Filter>Source Files\Rendering\Mesh</Filter>
     </ClCompile>
@@ -142,6 +139,9 @@
       <Filter>Source Files\FMOD</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Renderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\VertexData.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -189,9 +189,6 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\VertexDecl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h">
@@ -264,6 +261,12 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\VertexBufferImpl.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexData.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexDataImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
