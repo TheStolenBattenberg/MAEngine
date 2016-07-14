@@ -1,0 +1,63 @@
+<external>
+	<script name="MAE_NavMeshCreate()" func="real MA_NavMeshCreate()">
+	</script>
+	<script name="MAE_NavMeshDestroy(index)" func="real MA_NavMeshDestroy(real)">
+	</script>
+	<script name="MAE_NavMeshClear(index)" func="real MA_NavMeshClear(real)">
+	</script>
+	<script name="MAE_NavMeshBeginBuild(index,min_x,min_y,min_z,max_x,max_y,max_z)" func="real MA_NavMeshBeginBuild(real, real, real, real, real, real, real)">
+	</script>
+	<script name="MAE_NavMeshEndBuild(index,async)" func="real MA_NavMeshEndBuild(real, real)">
+	</script>
+	<script name="MAE_NavMeshAddGMModel(index,filename,matrix)" func="real MA_NavMeshAddGMModel(real, string)">
+		<source>
+			var matrix = $matrix$;
+			
+			external_call($MADX9_MatStackFloat8$, matrix[0], matrix[4], matrix[8],  matrix[12], matrix[1], matrix[5], matrix[9],  matrix[13]);
+			external_call($MADX9_MatStackFloat8$, matrix[2], matrix[6], matrix[10], matrix[14], matrix[3], matrix[7], matrix[11], matrix[15]);
+			
+			return external_call($MA_NavMeshAddGMModel$, $index$, $filename$);
+		</source>
+	</script>
+	<script name="MAE_NavMeshAddVertexBuffer(index,vertices,triangles,matrix)" func="real MA_NavMeshAddVertexBuffer(real, string, string)">
+		<source>
+			var matrix = $matrix$;
+			
+			external_call($MADX9_MatStackFloat8$, argument3[0], argument3[4], argument3[8],  argument3[12], argument3[1], argument3[5], argument3[9],  argument3[13]);
+			external_call($MADX9_MatStackFloat8$, argument3[2], argument3[6], argument3[10], argument3[14], argument3[3], argument3[7], argument3[11], argument3[15]);
+			
+			if($triangles$ &lt;= 0){
+				external_call($MA_NavSetVertexBufferSize$, buffer_tell($vertices$) div 12, 0);
+				return external_call($MA_NavMeshAddVertexBuffer$, $index$, buffer_get_address($vertices$), 0);
+			}
+			
+			external_call($MA_NavSetVertexBufferSize$, buffer_tell($vertices$) div 12, buffer_tell($triangles$) div 12);
+			return external_call($MA_NavMeshAddVertexBuffer$, $index$, buffer_get_address($vertices$), buffer_get_address($triangles$));
+		</source>
+	</script>
+	<script name="MAE_NavMeshAddLink(index,x1,y1,z1,x2,y2,z2,dir,radius)" func="real MA_NavMeshAddLink(real, real, real, real, real, real, real, real, real)">
+	</script>
+	<script name="MAE_NavMeshWaitForBuild(index)" func="real MA_NavMeshWaitForBuild(real)">
+	</script>
+	<script name="MAE_NavMeshGetBuildStatus(index)" func="real MA_NavMeshGetBuildStatus(real)">
+	</script>
+	<script name="MAE_NavMeshSetConfig(index,cell_size,cell_height,region_min_size,region_merge_size,edge_max_len,edge_max_error,verts_per_poly,detail_sample_dist,detail_sample_max_error)" func="real MA_NavMeshSetConfig(real, real, real, real, real, real, real, real, real, real, real)">
+	</script>
+	<script name="MAE_NavMeshSetAgentConfig(index,agent_height,agent_radius,agent_max_climb,agent_max_slope)" func="real MA_NavMeshSetAgentConfig(real, real, real, real, real)">
+	</script>
+	<script name="MAE_NavMeshDebugDraw(index)" func="real MA_NavMeshDebugDraw(real)">
+	</script>
+	<script name="MAE_NavMeshFindPath(index,start_x,start_y,start_z,end_x,end_y,end_z,check_size)" func="real MA_NavMeshFindPath(real, real, real, real, real, real, real, real)">
+		<source>
+			var result = external_call($MA_NavMeshFindPath$, $index$, $start_x$, $start_y$, $start_z$, $end_x$, $end_y$, $end_z$, $check_size$);
+			if(result &lt;= 0) return result;
+			var _path;
+			for(var i=0; i&lt;result; i++){
+				_path[i] = MAE_VectorCreate(external_call($MA_NavGetPathPoint$, i, 0),
+											external_call($MA_NavGetPathPoint$, i, 1),
+											external_call($MA_NavGetPathPoint$, i, 2));
+			}
+			return _path;
+		</source>
+	</script>
+</external>

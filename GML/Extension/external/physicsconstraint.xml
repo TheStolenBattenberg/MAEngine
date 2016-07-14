@@ -1,0 +1,288 @@
+<external>
+	<script name="MAE_PhysConstraintCreateP2P(bodyA,point_A,is_world_space_A,bodyB,point_B,is_world_space_B,disable_collision)" func="real MAB_ConstraintCreateP2P(real, real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Creates a point to point constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="PointA as a vector" />
+		<arg index="2" value="Is pointA in World space(true), or local space(false)" />
+		<arg index="3" value="BodyB" />
+		<arg index="4" value="PointB as a vector" />
+		<arg index="5" value="Is pointB in World space(true), or local space(false)" />
+		<arg index="6" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var point_A = $point_A$, point_B = $point_B$;
+			
+			return external_call($MAB_ConstraintCreateP2P$, $bodyA$, point_A[0], point_A[1], point_A[2], $is_world_space_A$, $bodyB$, point_B[0], point_B[1], point_B[2], $is_world_space_B$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateP2PWorld(body,point,is_world_space)" func="real MAB_ConstraintCreateP2P(real, real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Creates a point to point constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="PointA as a vector" />
+		<arg index="2" value="Is pointA in World space(true), or local space(false)" />
+		<arg index="3" value="BodyB" />
+		<arg index="4" value="PointB as a vector" />
+		<arg index="5" value="Is pointB in World space(true), or local space(false)" />
+		<arg index="6" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var point = $point$;
+			
+			return external_call($MAB_ConstraintCreateP2P$, $body$, point[0], point[1], point[2], $is_world_space$, -1, 0, 0, 0, 0, true);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateFixed(bodyA,bodyB)" func="real MAB_ConstraintCreateFixed(real, real)">
+		<desc value="Creates a fixed constraint between 2 physics bodies, based on their current transformations in the world. This locks the 2 bodies together. It better to use a compound shape, if possible, as that will give better results." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="BodyB" />
+		<arg value="Constraint ID" />
+	</script>
+	<script name="MAE_PhysConstraintCreateSlider(bodyA,transformA,bodyB,transformB,use_linear_reference_frameA,disable_collision)" func="real MAB_ConstraintCreateSlider(real, real, real, real)">
+		<desc value="Creates a slider constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use linear reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans1 = $transformA$, trans2 = $transformB$;
+			
+			var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);
+			var quat2 = MAE_QuaternionCreateRotationMatrix(trans2);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans1[12], trans1[13], trans1[14], quat1[0], quat1[1], quat1[2], quat1[3]);
+			external_call($MAB_ConstraintParamTransform$, 1, trans2[12], trans2[13], trans2[14], quat2[0], quat2[1], quat2[2], quat2[3]);
+			
+			return external_call($MAB_ConstraintCreateSlider$, $bodyA$, $bodyB$, $use_linear_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateSliderWorld(body,transform,use_linear_reference_frame)" func="real MAB_ConstraintCreateSlider(real, real, real, real)">
+		<desc value="Creates a slider constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use linear reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans = $transform$;
+			var quat = MAE_QuaternionCreateRotationMatrix(trans1);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans[12], trans[13], trans[14], quat[0], quat[1], quat[2], quat[3]);
+			
+			return external_call($MAB_ConstraintCreateSlider$, $body$, 0, $use_linear_reference_frame$, true);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateGear(bodyA,bodyB,axis_in_A,axis_in_B,ratio,disable_collision)" func="real MAB_ConstraintCreateGear(real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Creates a gear constraint between two bodies." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="BodyB" />
+		<arg index="2" value="Axis in A, as a vector" />
+		<arg index="3" value="Axis in B, as a vector" />
+		<arg index="4" value="Ratio" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var axisA = $axis_in_A$;
+			var axisB = $axis_in_B$;
+			
+			return external_call($MAB_ConstraintCreateGear$, $bodyA$, $bodyB$, axisA[0], axisA[1], axisA[2], axisB[0], axisB[1], axisB[2], $ratio$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateHinge(bodyA,transformA,bodyB,transformB,use_reference_frameA,disable_collision)" func="real MAB_ConstraintCreateHinge(real, real, real, real)">
+		<desc value="Creates a hinge constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans1 = $transformA$, trans2 = $transformB$;
+			
+			var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);
+			var quat2 = MAE_QuaternionCreateRotationMatrix(trans2);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans1[12], trans1[13], trans1[14], quat1[0], quat1[1], quat1[2], quat1[3]);
+			external_call($MAB_ConstraintParamTransform$, 1, trans2[12], trans2[13], trans2[14], quat2[0], quat2[1], quat2[2], quat2[3]);
+			
+			return external_call($MAB_ConstraintCreateHinge$, $bodyA$, $bodyB$, $use_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateHingeWorld(body,transform,use_reference_frameA,disable_collision)" func="real MAB_ConstraintCreateHinge(real, real, real, real)">
+		<desc value="Creates a hinge constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans = $transform$;
+			var quat = MAE_QuaternionCreateRotationMatrix(trans);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans[12], trans[13], trans[14], quat[0], quat[1], quat[2], quat[3]);
+			
+			return external_call($MAB_ConstraintCreateHinge$, $body$, 0, $use_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreate6DOF(bodyA,transformA,bodyB,transformB,use_reference_frameA,disable_collision)" func="real MAB_ConstraintCreate6DOF(real, real, real, real)">
+		<desc value="Creates a generic, 6 degrees of freedom constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use linear reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans1 = $transformA$, trans2 = $transformB$;
+			
+			var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);
+			var quat2 = MAE_QuaternionCreateRotationMatrix(trans2);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans1[12], trans1[13], trans1[14], quat1[0], quat1[1], quat1[2], quat1[3]);
+			external_call($MAB_ConstraintParamTransform$, 1, trans2[12], trans2[13], trans2[14], quat2[0], quat2[1], quat2[2], quat2[3]);
+			
+			return external_call($MAB_ConstraintCreate6DOF$, $bodyA$, $bodyB$, $use_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreate6DOFWorld(body,transform,use_reference_frameA,disable_collision)" func="real MAB_ConstraintCreate6DOF(real, real, real, real)">
+		<desc value="Creates a generic, 6 degrees of freedom constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use linear reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans = $transform$;
+			var quat = MAE_QuaternionCreateRotationMatrix(trans);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans[12], trans[13], trans[14], quat[0], quat[1], quat[2], quat[3]);
+			
+			return external_call($MAB_ConstraintCreate6DOF$, $body$, 0, $use_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateSpring6DOF(bodyA,transformA,bodyB,transformB,use_reference_frameA,disable_collision)" func="real MAB_ConstraintCreateSpring6DOF(real, real, real, real)">
+		<desc value="Creates a generic, 6 degrees of freedom spring constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use linear reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans1 = $transformA$, trans2 = $transformB$;
+			
+			var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);
+			var quat2 = MAE_QuaternionCreateRotationMatrix(trans2);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans1[12], trans1[13], trans1[14], quat1[0], quat1[1], quat1[2], quat1[3]);
+			external_call($MAB_ConstraintParamTransform$, 1, trans2[12], trans2[13], trans2[14], quat2[0], quat2[1], quat2[2], quat2[3]);
+			
+			return external_call($MAB_ConstraintCreateSpring6DOF$, $bodyA$, $bodyB$, $use_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateSpring6DOFWorld(body,transform,use_reference_frameA,disable_collision)" func="real MAB_ConstraintCreateSpring6DOF(real, real, real, real)">
+		<desc value="Creates a generic, 6 degrees of freedom spring constraint between two bodies or between a body and the world." />
+		<arg index="0" value="BodyA" />
+		<arg index="1" value="TransformA matrix" />
+		<arg index="2" value="BodyB" />
+		<arg index="3" value="TransformB matrix" />
+		<arg index="4" value="Use linear reference frame A?" />
+		<arg index="5" value="Disable collisions between the 2 bodies?" />
+		<arg value="Constraint ID" />
+		<source>
+			var trans = $transform$;
+			var quat = MAE_QuaternionCreateRotationMatrix(trans);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans[12], trans[13], trans[14], quat[0], quat[1], quat[2], quat[3]);
+			
+			return external_call($MAB_ConstraintCreateSpring6DOF$, $body$, 0, $use_reference_frameA$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateConeTwist(bodyA,transformA,bodyB,transformB,disable_collision)" func="real MAB_ConstraintCreateConeTwist(real, real, real)">
+		<source>
+			var trans1 = $transformA$, trans2 = $transformB$;
+			
+			var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);
+			var quat2 = MAE_QuaternionCreateRotationMatrix(trans2);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans1[12], trans1[13], trans1[14], quat1[0], quat1[1], quat1[2], quat1[3]);
+			external_call($MAB_ConstraintParamTransform$, 1, trans2[12], trans2[13], trans2[14], quat2[0], quat2[1], quat2[2], quat2[3]);
+			
+			return external_call($MAB_ConstraintCreateConeTwist$, $bodyA$, $bodyB$, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintCreateConeTwistWorld(body,transform,disable_collision)" func="real MAB_ConstraintCreateConeTwist(real, real, real)">
+		<source>
+			var trans = $transform$;
+			var quat = MAE_QuaternionCreateRotationMatrix(trans);
+			
+			external_call($MAB_ConstraintParamTransform$, 0, trans[12], trans[13], trans[14], quat[0], quat[1], quat[2], quat[3]);
+			
+			return external_call($MAB_ConstraintCreateConeTwist$, $body$, 0, $disable_collision$);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintDestroy(constraint)" func="real MAB_ConstraintDestroy(real)">
+		<desc value="Destroys a constraint." />
+		<arg index="0" value="Constraint" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysConstraintSetParam(constraint,param,...)" func="real MAB_ConstraintSetParam(real, real, real, real, real, real, real, real)">
+		<source>
+			if(argument_count == 3){
+				if(MAE_VectorIsVec3(argument[2])){
+					var vec = argument[2];
+					return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], vec[0], vec[1], vec[2], 0, 0, 0);
+				}
+				if(MAE_QuaternionIsQuaternion(argument[2])){
+					var quat = argument[2];
+					external_call(global.MAB_ConstraintParamTransform, 0, 0, 0, 0, quat[0], quat[1], quat[2], quat[3]);
+					return external_call(global.MAV_ConstraintSetParam, argument[0], argument[1], 0, 0, 0, 0, 0, 0);
+				}
+				return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], argument[2], 0, 0, 0, 0, 0);
+			}
+			if(argument_count == 4){
+				if(MAE_VectorIsVec3(argument[2]) &amp;&amp; MAE_VectorIsVec3(argument[3])){
+					vec1 = argument[2];
+					vec2 = argument[3];
+					return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], vec1[0], vec1[1], vec1[2], vec2[0], vec2[1], vec2[2]);
+				}
+				if(MAE_MatrixIsMat4(argument[2]) &amp;&amp; MAE_MatrixIsMat4(argument[3])){
+					var trans1 = argument[2];
+					var quat1 = MAE_QuaternionCreateRotationMatrix(trans1);
+					external_call(global.MAB_ConstraintParamTransform, 0, trans1[12], trans1[13], trans1[14], quat1[0], quat1[1], quat1[2], quat1[3]);
+					var trans2 = argument[3];
+					var quat2 = MAE_QuaternionCreateRotationMatrix(trans2);
+					external_call(global.MAB_ConstraintParamTransform, 0, trans2[12], trans2[13], trans2[14], quat2[0], quat2[1], quat2[2], quat2[3]);
+					return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], 0, 0, 0, 0, 0, 0);
+				}
+				return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], argument[2], argument[3], 0, 0, 0, 0);
+			}
+			if(argument_count == 5) return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], argument[2], argument[3], argument[4], 0, 0, 0);
+			if(argument_count == 6) return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], 0, 0);
+			if(argument_count == 7) return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], argument[6], 0);
+			if(argument_count == 8) return external_call($MAB_ConstraintSetParam$, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], argument[6], argument[7]);
+		</source>
+	</script>
+	<script name="MAE_PhysConstraintSetEnabled(constraint,enabled)" func="real MAB_ConstraintSetEnabled(real, real)">
+		<desc value="Enables or disables a constraint." />
+		<arg index="0" value="Constraint" />
+		<arg index="1" value="Enabled" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysConstraintGetAppliedImpulse(constraint)" func="real MAB_ConstraintGetAppliedImpulse(real)">
+		<desc value="Returns the applied impulse of a constraint." />
+		<arg index="0" value="Constraint" />
+		<arg value="Real" />
+	</script>
+</external>

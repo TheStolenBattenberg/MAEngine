@@ -1,0 +1,31 @@
+<external>
+	<script name="MAE_AnimationCreate()" gml="gml\Animation.gml@MAE_AnimationCreate">
+		<desc value="Creates an animation controller" />
+	</script>
+	<script name="MAE_AnimationUpdate(FPS)" gml="gml\Animation.gml@MAE_AnimationUpdate">
+		<desc value="Updates an animation" />
+		<arg index="0" value="FPS of animation" />
+	</script>
+	<script name="MAE_AnimationAdd(Frame_Start,Frame_End)" gml="gml\Animation.gml@MAE_AnimationAdd">
+		<desc value="Adds a animation" />
+		<arg index="0" value="First Frame of Animation" />
+		<arg index="1" value="Last Frame of Animation" />
+		<arg value="Animation Index" />
+	</script>
+	<script name="MAE_AnimationSet(Animation_Index)" gml="gml\Animation.gml@MAE_AnimationSet">
+		<desc value="Sets the animation" />
+		<arg index="0" value="Animation Index" />
+	</script>
+	<script name="MAE_AnimationGetFrame()" gml="gml\Animation.gml@MAE_AnimationGetFrame">
+		<desc value="Gets the current frame of the animation" />
+		<arg value="Frame" />
+	</script>
+	<script name="MAE_AnimationGetFrameNext()" gml="gml\Animation.gml@MAE_AnimationGetFrameNext">
+		<desc value="Gets the next frame of the animation" />
+		<arg value="Frame" />
+	</script>
+	<script name="MAE_AnimationGetTween()" gml="gml\Animation.gml@MAE_AnimationGetTween">
+		<desc value="Gets the tweening value of an animation" />
+		<arg value="Tween Value" />
+	</script>
+</external>

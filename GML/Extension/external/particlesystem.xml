@@ -1,0 +1,26 @@
+<external>
+	<script name="MAE_ParticleSystemCreate()" func="real MADX9_ParticleSystemCreate()">
+		<desc value="Creates a new Particle System" />
+		<arg value="Particle System ID" />
+	</script>
+	<script name="MAE_ParticleSystemDestroy(index)" func="real MADX9_ParticleSystemDestroy(real)">
+		<desc value="Destroys the Particle System" />
+		<arg index="0" value="Particle System" />
+	</script>
+	<script name="MAE_ParticleSystemUpdate(index,step)" func="real MADX9_ParticleSystemUpdate(real, real)">
+		<desc value="Updates the Particle System" />
+		<arg index="0" value="Particle System" />
+	</script>
+	<script name="MAE_ParticleSystemRender(index)" func="real MADX9_ParticleSystemRender(real)">
+		<desc value="Renders the Particle System" />
+		<arg index="0" value="Particle System" />
+	</script>
+	<script name="MAE_ParticleSystemGetParticleCount(index)" func="real MADX9_ParticleSystemGetParticleCount(real)">
+	</script>
+	<script name="MAE_ParticleSystemSetParticleCount(index,count)" func="real MADX9_ParticleSystemSetParticleCount(real, real)">
+	</script>
+	<script name="MAE_ParticleSystemSetTexture(index,texture)" func="real MADX9_ParticleSystemSetTexture(real, real)">
+		<desc value="Sets the particle texture" />
+		<arg index="0" value="Particle System" />
+	</script>
+</external>

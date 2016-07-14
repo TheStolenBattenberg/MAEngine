@@ -70,12 +70,14 @@
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)MAE\lib\$(Configuration);$(SolutionDir)RecastNavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(MAE)GML\MAE.gmx\datafiles\</OutDir>
     <TargetName>MAE</TargetName>
+    <CustomBuildAfterTargets />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)MAE\lib\$(Configuration);$(SolutionDir)RecastNavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(MAE)GML\MAE.gmx\datafiles\</OutDir>
     <TargetName>MAE</TargetName>
+    <CustomBuildAfterTargets />
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -91,6 +93,11 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>Core.lib;d3dcompiler.lib;d3dx9.lib;d3d9.lib;fmod_vc.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;RecastNavigation.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>XCOPY $(TargetPath) $(MAE)GML\Extension /I /Y
+XCOPY $(TargetPath) $(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles /I /Y</Command>
+      <Outputs>-</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -110,6 +117,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Core.lib;d3dcompiler.lib;d3dx9.lib;d3d9.lib;fmod_vc.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;RecastNavigation.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>XCOPY $(TargetPath) $(MAE)GML\Extension /I /Y
+XCOPY $(TargetPath) $(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles /I /Y</Command>
+      <Outputs>-</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

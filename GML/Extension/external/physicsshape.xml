@@ -1,0 +1,202 @@
+<external>
+	<script name="MAE_PhysShapeCreateSphere(radius)" func="real MAB_ShapeCreateSphere(real)">
+		<desc value="Creates a sphere shape." />
+		<arg index="0" value="Radius" />
+		<arg value="Shape ID" />
+	</script>
+	<script name="MAE_PhysShapeCreateBox(xsize,ysize,zsize)" func="real MAB_ShapeCreateBox(real, real, real)">
+		<desc value="Creates a box shape." />
+		<arg index="0" value="X half size" />
+		<arg index="1" value="Y half size" />
+		<arg index="2" value="Z half size" />
+		<arg value="Shape ID" />
+	</script>
+	<script name="MAE_PhysShapeCreateCapsule(radius,height,axis)" func="real MAB_ShapeCreateCapsule(real, real, real)">
+		<desc value="Creates a capsule shape." />
+		<arg index="0" value="Radius" />
+		<arg index="1" value="Height" />
+		<arg index="2" value="Up axis. Can be  0, 1, or 2, to correspond with x, y, z." />
+		<arg value="Shape ID" />
+	</script>
+	<script name="MAE_PhysShapeCreateCylinder(radius,half_height,axis)" func="real MAB_ShapeCreateCylinder(real, real, real)">
+	</script>
+	<script name="MAE_PhysShapeCreateCone(radius,height,axis)" func="real MAB_ShapeCreateCone(real, real, real)">
+		<desc value="Creates a cone shape." />
+		<arg index="0" value="Radius" />
+		<arg index="1" value="Height" />
+		<arg index="2" value="Up axis. Can be  0, 1, or 2, to correspond with x, y, z." />
+		<arg value="Shape ID" />
+	</script>
+	<script name="MAE_PhysShapeCreatePlane(nx,ny,nz,distance)" func="real MAB_ShapeCreatePlane(real, real, real, real)">
+		<desc value="Creates an a static plane shape that is solid to infinity on one side." />
+		<arg index="2" value="Distance from origin" />
+		<arg value="Shape ID" />
+	</script>
+	<script name="MAE_PhysShapeCreateCompound()" func="real MAB_ShapeCreateCompound()">
+		<desc value="Creates an empty shape that can have other shapes added to it as children. See MAE_PhysShapeAddChild()." />
+		<arg value="Shape ID" />
+	</script>
+	<script name="MAE_PhysShapeAddChild(parent_shape,child_shape,posx,posy,posz)" func="real MAB_ShapeAddChild(real, real, real, real, real, real, real, real, real)">
+		<desc value="Adds a child shape to a compound shape with an offset and rotation." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child shape" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Child index" />
+		<source>
+			return external_call($MAB_ShapeAddChild$, $parent_shape$, $child_shape$, $posx$, $posy$, $posz$, 0, 0, 0, 1);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeAddChildVector(parent_shape,child_shape,pos)" func="real MAB_ShapeAddChild(real, real, real, real, real, real, real, real, real)">
+		<desc value="Adds a child shape to a compound shape with an offset and rotation." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child shape" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Child index" />
+		<source>
+			var pos = $pos$;
+			
+			return external_call($MAB_ShapeAddChild$, $parent_shape$, $child_shape$, pos[0], pos[1], pos[2], 0, 0, 0, 1);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeAddChildQuat(parent_shape,child_shape,posx,posy,posz,rotation)" func="real MAB_ShapeAddChild(real, real, real, real, real, real, real, real, real)">
+		<desc value="Adds a child shape to a compound shape with an offset and rotation." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child shape" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Child index" />
+		<source>
+			var quat = $rotation$;
+			
+			return external_call($MAB_ShapeAddChild$, $parent_shape$, $child_shape$, $posx$, $posy$, $posz$, quat[0], quat[1], quat[2], quat[3]);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeAddChildVectorQuat(parent_shape,child_shape,pos,rotation)" func="real MAB_ShapeAddChild(real, real, real, real, real, real, real, real, real)">
+		<desc value="Adds a child shape to a compound shape with an offset and rotation." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child shape" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Child index" />
+		<source>
+			var pos = $pos$, quat = $rotation$;
+			
+			return external_call($MAB_ShapeAddChild$, $parent_shape$, $child_shape$, pos[0], pos[1], pos[2], quat[0], quat[1], quat[2], quat[3]);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeRemoveChild(parent_shape,index)" func="real MAB_ShapeRemoveChild(real, real)">
+		<desc value="Removes a child shape from a compound shape." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child index" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysShapeUpdateChildTransform(parent_shape,index,posx,posy,posz)" func="real MAB_ShapeUpdateChildTransform(real, real, real, real, real, real, real, real, real)">
+		<desc value="Changes the transform of a child of a compound shape." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child index" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Success" />
+		<source>
+			return external_call($MAB_ShapeUpdateChildTransform$, $parent_shape$, $index$, $posx$, $posy$, $posz$, 0, 0, 0, 1);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeUpdateChildTransformVector(parent_shape,index,pos)" func="real MAB_ShapeUpdateChildTransform(real, real, real, real, real, real, real, real, real)">
+		<desc value="Changes the transform of a child of a compound shape." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child index" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Success" />
+		<source>
+			var pos = $pos$;
+			
+			return external_call($MAB_ShapeUpdateChildTransform$, $parent_shape$, $index$, pos[0], pos[1], pos[2], 0, 0, 0, 1);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeUpdateChildTransformQuat(parent_shape,index,posx,posy,posz,rotation)" func="real MAB_ShapeUpdateChildTransform(real, real, real, real, real, real, real, real, real)">
+		<desc value="Changes the transform of a child of a compound shape." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child index" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Success" />
+		<source>
+			var quat = $rotation$;
+			
+			return external_call($MAB_ShapeUpdateChildTransform$, $parent_shape$, $index$, $posx$, $posy$, $posz$, quat[0], quat[1], quat[2], quat[3]);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeUpdateChildTransformVectorQuat(parent_shape,index,pos,rotation)" func="real MAB_ShapeUpdateChildTransform(real, real, real, real, real, real, real, real, real)">
+		<desc value="Changes the transform of a child of a compound shape." />
+		<arg index="0" value="Parent shape" />
+		<arg index="1" value="Child index" />
+		<arg index="2" value="Position as vector" />
+		<arg index="3" value="Rotation as quaternion" />
+		<arg value="Success" />
+		<source>
+			var pos = $pos$, quat = $rotation$;
+			
+			return external_call($MAB_ShapeUpdateChildTransform$, $parent_shape$, $index$, pos[0], pos[1], pos[2], quat[0], quat[1], quat[2], quat[3]);
+		</source>
+	</script>
+	<script name="MAE_PhysVertexBufferCreate(size=64)" gml="gml\Shape.gml@MAE_PhysVertexBufferCreate">
+	</script>
+	<script name="MAE_PhysVertexBufferAddTriangle(buffer,x1,y1,z1,x2,y2,z2,x3,y3,z3)" gml="gml\Shape.gml@MAE_PhysVertexBufferAddTriangle">
+	</script>
+	<script name="MAE_PhysVertexBufferAddVertex(buffer,x,y,z)" gml="gml\Shape.gml@MAE_PhysVertexBufferAddVertex">
+	</script>
+	<script name="MAE_PhysVertexBufferDestroy(buffer)" gml="gml\Shape.gml@MAE_PhysVertexBufferDestroy">
+	</script>
+	<script name="MAE_PhysShapeCreateTriMesh(buffer,convex = false,welding_threshold = 0)" func="real MAB_ShapeCreateTriMesh(string, real, real, real)">
+		<desc value="Creates a triangle mesh shape. If made convex, the shape can be used for a dynamic body. If it is not convex, it can be used only for static bodies." />
+		<arg index="0" value="Buffer containing triangles" />
+		<arg index="1" value="Convex" />
+		<arg index="2" value="Vertex welding threshold" />
+		<arg value="Shape ID" />
+		<source>
+			return external_call($MAB_ShapeCreateTriMesh$, buffer_get_address($buffer$), buffer_tell($buffer$) div 36, $convex$, $welding_threshold$);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeCreateConvexHull(buffer)" func="real MAB_ShapeCreateConvexHull(string, real)">
+		<desc value="Creates a convex hull shape around a point cloud. This shape can be used for dynamic bodies." />
+		<arg index="0" value="Buffer of points" />
+		<arg value="Shape ID" />
+		<source>
+			return external_call($MAB_ShapeCreateConvexHull$, buffer_get_address($buffer$), buffer_tell($buffer$) div 12);
+		</source>
+	</script>
+	<script name="MAE_PhysShapeDestroy(shape,destroy_children = false)" func="real MAB_ShapeDestroy(real, real)">
+		<desc value="Destroys a shape, and optionally destroys child shapes if the shape is a compound shape." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Destroy children" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysShapeDestroyAll()" func="real MAB_ShapeDestroyAll()">
+		<desc value="Destroys all shapes that have been created." />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysShapeSetMargin(shape,margin)" func="real MAB_ShapeSetMargin(real, real)">
+		<desc value="Sets the margin of a shape. The margin is an extra space around a shape. It is sometimes desirable to make the base shape smaller to make room for a larger margin, because this results in smoothly rounded corners." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Margin" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysShapeSetScaling(shape,scalx,scaly,scalz)" func="real MAB_ShapeSetScaling(real, real, real, real)">
+		<desc value="Sets the scaling of a shape. Please note that not all shapes support non-uniform scaling." />
+		<arg index="0" value="Shape" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysShapeSetScalingVector(shape,scale)" func="real MAB_ShapeSetScaling(real, real, real, real)">
+		<desc value="Sets the scaling of a shape. Please note that not all shapes support non-uniform scaling." />
+		<arg index="0" value="Shape" />
+		<arg value="Success" />
+		<source>
+			var scal = $scale$;
+			
+			return external_call($MAB_ShapeSetScaling$, $shape$, scal[0], scal[1], scal[2]);
+		</source>
+	</script>
+</external>

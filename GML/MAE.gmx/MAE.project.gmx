@@ -3,9 +3,9 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="15" name="datafiles">
-    <datafiles number="15" name="COMMON">
-      <datafiles number="15" name="MODEL">
+  <datafiles number="16" name="datafiles">
+    <datafiles number="16" name="COMMON">
+      <datafiles number="16" name="MODEL">
         <datafile>
           <name>tiger.x</name>
           <exists>-1</exists>
@@ -75,7 +75,7 @@
           <filename>navtest.gmmod</filename>
         </datafile>
       </datafiles>
-      <datafiles number="15" name="TEXTURE">
+      <datafiles number="16" name="TEXTURE">
         <datafile>
           <name>hobgoblin.bmp</name>
           <exists>-1</exists>
@@ -111,7 +111,7 @@
           <filename>tiger.bmp</filename>
         </datafile>
       </datafiles>
-      <datafiles number="15" name="PARTICLE">
+      <datafiles number="16" name="PARTICLE">
         <datafile>
           <name>fire.png</name>
           <exists>-1</exists>
@@ -151,7 +151,7 @@
     <datafile>
       <name>MAE.dll</name>
       <exists>-1</exists>
-      <size>1055232</size>
+      <size>4454400</size>
       <exportAction>2</exportAction>
       <exportDir></exportDir>
       <overwrite>0</overwrite>
@@ -166,7 +166,9 @@
       <filename>MAE.dll</filename>
     </datafile>
   </datafiles>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\MAE</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites"/>
   <backgrounds name="background">
@@ -175,127 +177,33 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
+    <scripts name="GUI">
+      <script>scripts\CreateSlider.gml</script>
+      <script>scripts\DrawSlider.gml</script>
+      <script>scripts\UpdateSlider.gml</script>
+      <script>scripts\DrawWindow.gml</script>
+      <script>scripts\CreateCheckbox.gml</script>
+      <script>scripts\DrawCheckbox.gml</script>
+      <script>scripts\UpdateCheckbox.gml</script>
+    </scripts>
     <scripts name="MAE">
-      <scripts name="Render">
-        <scripts name="Animation">
-          <script>scripts\MAE_AnimationCreate.gml</script>
-          <script>scripts\MAE_AnimationUpdate.gml</script>
-          <script>scripts\MAE_AnimationAdd.gml</script>
-          <script>scripts\MAE_AnimationSet.gml</script>
-          <script>scripts\MAE_AnimationGetFrame.gml</script>
-          <script>scripts\MAE_AnimationGetFrameNext.gml</script>
-          <script>scripts\MAE_AnimationGetTween.gml</script>
-        </scripts>
-        <scripts name="Misc">
-          <script>scripts\MAE_Clear.gml</script>
-          <script>scripts\MAE_FreePointer.gml</script>
-          <script>scripts\MAE_IsNullPointer.gml</script>
-          <script>scripts\MAE_SetRenderState.gml</script>
-          <script>scripts\MAE_SetSamplerState.gml</script>
-        </scripts>
-        <scripts name="Model">
-          <scripts name="MD2">
-            <script>scripts\MAE_ModelMD2Load.gml</script>
-            <script>scripts\MAE_ModelMD2Frames.gml</script>
-            <script>scripts\MAE_ModelMD2Render.gml</script>
-            <script>scripts\MAE_ModelMD2Destroy.gml</script>
-          </scripts>
-          <scripts name="X">
-            <script>scripts\MAE_ModelXLoad.gml</script>
-            <script>scripts\MAE_ModelXRender.gml</script>
-            <script>scripts\MAE_ModelXDestroy.gml</script>
-          </scripts>
-          <scripts name="MPM">
-            <script>scripts\MAE_ModelMPMLoad.gml</script>
-            <script>scripts\MAE_ModelMPMDestroy.gml</script>
-            <script>scripts\MAE_ModelMPMRender.gml</script>
-          </scripts>
-        </scripts>
-        <scripts name="Particles">
-          <scripts name="System">
-            <script>scripts\MAE_ParticleSystemCreate.gml</script>
-            <script>scripts\MAE_ParticleSystemDestroy.gml</script>
-            <script>scripts\MAE_ParticleSystemUpdate.gml</script>
-            <script>scripts\MAE_ParticleSystemRender.gml</script>
-            <script>scripts\MAE_ParticleSystemGetParticleCount.gml</script>
-            <script>scripts\MAE_ParticleSystemSetParticleCount.gml</script>
-            <script>scripts\MAE_ParticleSystemSetTexture.gml</script>
-          </scripts>
-          <scripts name="Emitter">
-            <script>scripts\MAE_ParticleEmitterCreate.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticleCount.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticleLife.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticleSize.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticlePosition.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticleAcceleration.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticleVelocity.gml</script>
-            <script>scripts\MAE_ParticleEmitterSetParticleColour.gml</script>
-          </scripts>
-        </scripts>
-        <scripts name="Shader">
-          <script>scripts\MAE_ShaderCompile.gml</script>
-          <script>scripts\MAE_ShaderCreate.gml</script>
-          <script>scripts\MAE_ShaderDestroy.gml</script>
-          <script>scripts\MAE_ShaderFindConstant.gml</script>
-          <script>scripts\MAE_ShaderSetSampler.gml</script>
-          <script>scripts\MAE_ShaderSet.gml</script>
-          <script>scripts\MAE_ShaderSetConstantFloat.gml</script>
-          <script>scripts\MAE_ShaderSetConstantMat3.gml</script>
-          <script>scripts\MAE_ShaderSetConstantMat4.gml</script>
-          <script>scripts\MAE_ShaderSetConstantVec2.gml</script>
-          <script>scripts\MAE_ShaderSetConstantVec3.gml</script>
-          <script>scripts\MAE_ShaderSetConstantVec4.gml</script>
-          <script>scripts\MAE_ShaderReset.gml</script>
-        </scripts>
-        <scripts name="Textures">
-          <script>scripts\MAE_TextureCreate.gml</script>
-          <script>scripts\MAE_TextureCreateFromFile.gml</script>
-          <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
-          <script>scripts\MAE_TextureDestroy.gml</script>
-          <script>scripts\MAE_TextureSet.gml</script>
-        </scripts>
+      <scripts name="Navigation">
+        <script>scripts\MAE_NavMeshCreate.gml</script>
+        <script>scripts\MAE_NavMeshDestroy.gml</script>
+        <script>scripts\MAE_NavMeshClear.gml</script>
+        <script>scripts\MAE_NavMeshBeginBuild.gml</script>
+        <script>scripts\MAE_NavMeshEndBuild.gml</script>
+        <script>scripts\MAE_NavMeshAddGMModel.gml</script>
+        <script>scripts\MAE_NavMeshAddVertexBuffer.gml</script>
+        <script>scripts\MAE_NavMeshAddLink.gml</script>
+        <script>scripts\MAE_NavMeshWaitForBuild.gml</script>
+        <script>scripts\MAE_NavMeshGetBuildStatus.gml</script>
+        <script>scripts\MAE_NavMeshSetConfig.gml</script>
+        <script>scripts\MAE_NavMeshSetAgentConfig.gml</script>
+        <script>scripts\MAE_NavMeshDebugDraw.gml</script>
+        <script>scripts\MAE_NavMeshFindPath.gml</script>
       </scripts>
       <scripts name="Physics">
-        <scripts name="World">
-          <script>scripts\MAE_PhysWorldCreate.gml</script>
-          <script>scripts\MAE_PhysWorldDestroy.gml</script>
-          <script>scripts\MAE_PhysWorldStep.gml</script>
-          <script>scripts\MAE_PhysWorldExists.gml</script>
-          <script>scripts\MAE_PhysWorldSetGravity.gml</script>
-          <script>scripts\MAE_PhysWorldGetGravity.gml</script>
-          <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
-          <script>scripts\MAE_PhysWorldGetConstraintCount.gml</script>
-          <script>scripts\MAE_PhysWorldDebugDraw.gml</script>
-          <script>scripts\MAE_PhysWorldRaycast.gml</script>
-          <script>scripts\MAE_PhysWorldSweep.gml</script>
-          <script>scripts\MAE_PhysWorldOverlap.gml</script>
-          <script>scripts\MAE_PhysWorldHitBody.gml</script>
-          <script>scripts\MAE_PhysWorldHitPosition.gml</script>
-          <script>scripts\MAE_PhysWorldHitNormal.gml</script>
-          <script>scripts\MAE_PhysWorldHitFraction.gml</script>
-        </scripts>
-        <scripts name="Shape">
-          <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
-          <script>scripts\MAE_PhysShapeCreateBox.gml</script>
-          <script>scripts\MAE_PhysShapeCreateCapsule.gml</script>
-          <script>scripts\MAE_PhysShapeCreateCylinder.gml</script>
-          <script>scripts\MAE_PhysShapeCreateCone.gml</script>
-          <script>scripts\MAE_PhysShapeCreatePlane.gml</script>
-          <script>scripts\MAE_PhysShapeCreateCompound.gml</script>
-          <script>scripts\MAE_PhysShapeAddChild.gml</script>
-          <script>scripts\MAE_PhysShapeRemoveChild.gml</script>
-          <script>scripts\MAE_PhysShapeUpdateChildTransform.gml</script>
-          <script>scripts\MAE_PhysVertexBufferCreate.gml</script>
-          <script>scripts\MAE_PhysVertexBufferAddTriangle.gml</script>
-          <script>scripts\MAE_PhysVertexBufferAddVertex.gml</script>
-          <script>scripts\MAE_PhysVertexBufferDestroy.gml</script>
-          <script>scripts\MAE_PhysShapeCreateTriMesh.gml</script>
-          <script>scripts\MAE_PhysShapeCreateConvexHull.gml</script>
-          <script>scripts\MAE_PhysShapeDestroy.gml</script>
-          <script>scripts\MAE_PhysShapeDestroyAll.gml</script>
-          <script>scripts\MAE_PhysShapeSetMargin.gml</script>
-          <script>scripts\MAE_PhysShapeSetScaling.gml</script>
-        </scripts>
         <scripts name="Body">
           <script>scripts\MAE_PhysBodyCreate.gml</script>
           <script>scripts\MAE_PhysBodyDestroy.gml</script>
@@ -324,13 +232,22 @@
           <script>scripts\MAE_PhysBodyGetGroup.gml</script>
           <script>scripts\MAE_PhysBodyGetMask.gml</script>
           <script>scripts\MAE_PhysBodySetPosition.gml</script>
+          <script>scripts\MAE_PhysBodySetPositionVector.gml</script>
           <script>scripts\MAE_PhysBodySetRotation.gml</script>
+          <script>scripts\MAE_PhysBodySetRotationVec.gml</script>
+          <script>scripts\MAE_PhysBodySetRotationQuat.gml</script>
           <script>scripts\MAE_PhysBodySetLinearVelocity.gml</script>
+          <script>scripts\MAE_PhysBodySetLinearVelocityVector.gml</script>
           <script>scripts\MAE_PhysBodySetAngularVelocity.gml</script>
+          <script>scripts\MAE_PhysBodySetAngularVelocityVector.gml</script>
           <script>scripts\MAE_PhysBodySetLinearFactor.gml</script>
+          <script>scripts\MAE_PhysBodySetLinearFactorVector.gml</script>
           <script>scripts\MAE_PhysBodySetAngularFactor.gml</script>
+          <script>scripts\MAE_PhysBodySetAngularFactorVector.gml</script>
           <script>scripts\MAE_PhysBodySetAnisotropicFriction.gml</script>
+          <script>scripts\MAE_PhysBodySetAnisotropicFrictionVector.gml</script>
           <script>scripts\MAE_PhysBodySetGravity.gml</script>
+          <script>scripts\MAE_PhysBodySetGravityVector.gml</script>
           <script>scripts\MAE_PhysBodySetDamping.gml</script>
           <script>scripts\MAE_PhysBodySetFriction.gml</script>
           <script>scripts\MAE_PhysBodySetRestitution.gml</script>
@@ -346,23 +263,162 @@
           <script>scripts\MAE_PhysBodyApplyCentralImpulse.gml</script>
           <script>scripts\MAE_PhysBodyApplyCentralForce.gml</script>
           <script>scripts\MAE_PhysBodyApplyImpulse.gml</script>
+          <script>scripts\MAE_PhysBodyApplyImpulseVector.gml</script>
           <script>scripts\MAE_PhysBodyApplyForce.gml</script>
           <script>scripts\MAE_PhysBodyApplyTorque.gml</script>
+          <script>scripts\MAE_PhysBodyApplyTorqueVector.gml</script>
           <script>scripts\MAE_PhysBodyApplyTorqueImpulse.gml</script>
+          <script>scripts\MAE_PhysBodyApplyTorqueImpulseVector.gml</script>
         </scripts>
         <scripts name="Constraint">
           <script>scripts\MAE_PhysConstraintCreateP2P.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateP2PWorld.gml</script>
           <script>scripts\MAE_PhysConstraintCreateFixed.gml</script>
           <script>scripts\MAE_PhysConstraintCreateSlider.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateSliderWorld.gml</script>
           <script>scripts\MAE_PhysConstraintCreateGear.gml</script>
           <script>scripts\MAE_PhysConstraintCreateHinge.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateHingeWorld.gml</script>
           <script>scripts\MAE_PhysConstraintCreate6DOF.gml</script>
+          <script>scripts\MAE_PhysConstraintCreate6DOFWorld.gml</script>
           <script>scripts\MAE_PhysConstraintCreateSpring6DOF.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateSpring6DOFWorld.gml</script>
           <script>scripts\MAE_PhysConstraintCreateConeTwist.gml</script>
+          <script>scripts\MAE_PhysConstraintCreateConeTwistWorld.gml</script>
           <script>scripts\MAE_PhysConstraintDestroy.gml</script>
           <script>scripts\MAE_PhysConstraintSetParam.gml</script>
           <script>scripts\MAE_PhysConstraintSetEnabled.gml</script>
           <script>scripts\MAE_PhysConstraintGetAppliedImpulse.gml</script>
+        </scripts>
+        <scripts name="Shape">
+          <script>scripts\MAE_PhysShapeCreateSphere.gml</script>
+          <script>scripts\MAE_PhysShapeCreateBox.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCapsule.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCylinder.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCone.gml</script>
+          <script>scripts\MAE_PhysShapeCreatePlane.gml</script>
+          <script>scripts\MAE_PhysShapeCreateCompound.gml</script>
+          <script>scripts\MAE_PhysShapeAddChild.gml</script>
+          <script>scripts\MAE_PhysShapeAddChildVector.gml</script>
+          <script>scripts\MAE_PhysShapeAddChildQuat.gml</script>
+          <script>scripts\MAE_PhysShapeAddChildVectorQuat.gml</script>
+          <script>scripts\MAE_PhysShapeRemoveChild.gml</script>
+          <script>scripts\MAE_PhysShapeUpdateChildTransform.gml</script>
+          <script>scripts\MAE_PhysShapeUpdateChildTransformVector.gml</script>
+          <script>scripts\MAE_PhysShapeUpdateChildTransformQuat.gml</script>
+          <script>scripts\MAE_PhysShapeUpdateChildTransformVectorQuat.gml</script>
+          <script>scripts\MAE_PhysVertexBufferCreate.gml</script>
+          <script>scripts\MAE_PhysVertexBufferAddTriangle.gml</script>
+          <script>scripts\MAE_PhysVertexBufferAddVertex.gml</script>
+          <script>scripts\MAE_PhysVertexBufferDestroy.gml</script>
+          <script>scripts\MAE_PhysShapeCreateTriMesh.gml</script>
+          <script>scripts\MAE_PhysShapeCreateConvexHull.gml</script>
+          <script>scripts\MAE_PhysShapeDestroy.gml</script>
+          <script>scripts\MAE_PhysShapeDestroyAll.gml</script>
+          <script>scripts\MAE_PhysShapeSetMargin.gml</script>
+          <script>scripts\MAE_PhysShapeSetScaling.gml</script>
+          <script>scripts\MAE_PhysShapeSetScalingVector.gml</script>
+        </scripts>
+        <scripts name="World">
+          <script>scripts\MAE_PhysWorldCreate.gml</script>
+          <script>scripts\MAE_PhysWorldDestroy.gml</script>
+          <script>scripts\MAE_PhysWorldStep.gml</script>
+          <script>scripts\MAE_PhysWorldExists.gml</script>
+          <script>scripts\MAE_PhysWorldSetGravity.gml</script>
+          <script>scripts\MAE_PhysWorldSetGravityVector.gml</script>
+          <script>scripts\MAE_PhysWorldGetGravity.gml</script>
+          <script>scripts\MAE_PhysWorldGetBodyCount.gml</script>
+          <script>scripts\MAE_PhysWorldGetConstraintCount.gml</script>
+          <script>scripts\MAE_PhysWorldDebugDraw.gml</script>
+          <script>scripts\MAE_PhysWorldRaycast.gml</script>
+          <script>scripts\MAE_PhysWorldRaycastVector.gml</script>
+          <script>scripts\MAE_PhysWorldSweep.gml</script>
+          <script>scripts\MAE_PhysWorldSweepVector.gml</script>
+          <script>scripts\MAE_PhysWorldOverlap.gml</script>
+          <script>scripts\MAE_PhysWorldOverlapVector.gml</script>
+          <script>scripts\MAE_PhysWorldOverlapQuat.gml</script>
+          <script>scripts\MAE_PhysWorldOverlapVectorQuat.gml</script>
+          <script>scripts\MAE_PhysWorldHitBody.gml</script>
+          <script>scripts\MAE_PhysWorldHitPosition.gml</script>
+          <script>scripts\MAE_PhysWorldHitNormal.gml</script>
+          <script>scripts\MAE_PhysWorldHitFraction.gml</script>
+        </scripts>
+      </scripts>
+      <scripts name="Private">
+        <script>scripts\MAE_Init.gml</script>
+        <script>scripts\MAE_Free.gml</script>
+      </scripts>
+      <scripts name="Render">
+        <scripts name="Animation">
+          <script>scripts\MAE_AnimationCreate.gml</script>
+          <script>scripts\MAE_AnimationUpdate.gml</script>
+          <script>scripts\MAE_AnimationAdd.gml</script>
+          <script>scripts\MAE_AnimationSet.gml</script>
+          <script>scripts\MAE_AnimationGetFrame.gml</script>
+          <script>scripts\MAE_AnimationGetFrameNext.gml</script>
+          <script>scripts\MAE_AnimationGetTween.gml</script>
+        </scripts>
+        <scripts name="Model">
+          <scripts name="MD2">
+            <script>scripts\MAE_ModelMD2Load.gml</script>
+            <script>scripts\MAE_ModelMD2Frames.gml</script>
+            <script>scripts\MAE_ModelMD2Render.gml</script>
+            <script>scripts\MAE_ModelMD2Destroy.gml</script>
+          </scripts>
+          <scripts name="MPM">
+            <script>scripts\MAE_ModelMPMLoad.gml</script>
+            <script>scripts\MAE_ModelMPMDestroy.gml</script>
+            <script>scripts\MAE_ModelMPMRender.gml</script>
+          </scripts>
+          <scripts name="X">
+            <script>scripts\MAE_ModelXLoad.gml</script>
+            <script>scripts\MAE_ModelXRender.gml</script>
+            <script>scripts\MAE_ModelXDestroy.gml</script>
+          </scripts>
+        </scripts>
+        <scripts name="Particles">
+          <scripts name="Emitter">
+            <script>scripts\MAE_ParticleEmitterCreate.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleCount.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleLife.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleSize.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticlePosition.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleAcceleration.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleVelocity.gml</script>
+            <script>scripts\MAE_ParticleEmitterSetParticleColour.gml</script>
+          </scripts>
+          <scripts name="System">
+            <script>scripts\MAE_ParticleSystemCreate.gml</script>
+            <script>scripts\MAE_ParticleSystemDestroy.gml</script>
+            <script>scripts\MAE_ParticleSystemUpdate.gml</script>
+            <script>scripts\MAE_ParticleSystemRender.gml</script>
+            <script>scripts\MAE_ParticleSystemGetParticleCount.gml</script>
+            <script>scripts\MAE_ParticleSystemSetParticleCount.gml</script>
+            <script>scripts\MAE_ParticleSystemSetTexture.gml</script>
+          </scripts>
+        </scripts>
+        <scripts name="Texture">
+          <script>scripts\MAE_TextureCreate.gml</script>
+          <script>scripts\MAE_TextureCreateFromFile.gml</script>
+          <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
+          <script>scripts\MAE_TextureDestroy.gml</script>
+          <script>scripts\MAE_TextureSet.gml</script>
+        </scripts>
+        <scripts name="Shader">
+          <script>scripts\MAE_ShaderCompileHLSL.gml</script>
+          <script>scripts\MAE_ShaderCompileASM.gml</script>
+          <script>scripts\MAE_ShaderCreate.gml</script>
+          <script>scripts\MAE_ShaderDestroy.gml</script>
+          <script>scripts\MAE_ShaderFindConstant.gml</script>
+          <script>scripts\MAE_ShaderSetSampler.gml</script>
+          <script>scripts\MAE_ShaderSet.gml</script>
+          <script>scripts\MAE_ShaderSetConstantFloat.gml</script>
+          <script>scripts\MAE_ShaderSetConstantMat3.gml</script>
+          <script>scripts\MAE_ShaderSetConstantMat4.gml</script>
+          <script>scripts\MAE_ShaderSetConstantVec2.gml</script>
+          <script>scripts\MAE_ShaderSetConstantVec3.gml</script>
+          <script>scripts\MAE_ShaderSetConstantVec4.gml</script>
+          <script>scripts\MAE_ShaderReset.gml</script>
         </scripts>
       </scripts>
       <scripts name="Utilities">
@@ -459,42 +515,7 @@
           </scripts>
           <script>scripts\MAE_ViewportCreate.gml</script>
         </scripts>
-        <scripts name="Error">
-          <script>scripts\MAE_ErrorSetFlags.gml</script>
-          <script>scripts\MAE_ErrorPop.gml</script>
-          <script>scripts\MAE_ErrorGetString.gml</script>
-        </scripts>
       </scripts>
-      <scripts name="Private">
-        <script>scripts\MAE_Init.gml</script>
-        <script>scripts\MAE_Free.gml</script>
-      </scripts>
-      <scripts name="Navigation">
-        <script>scripts\MAE_NavMeshCreate.gml</script>
-        <script>scripts\MAE_NavMeshDestroy.gml</script>
-        <script>scripts\MAE_NavMeshClear.gml</script>
-        <script>scripts\MAE_NavMeshBeginBuild.gml</script>
-        <script>scripts\MAE_NavMeshEndBuild.gml</script>
-        <script>scripts\MAE_NavMeshAddGMModel.gml</script>
-        <script>scripts\MAE_NavMeshAddVertexBuffer.gml</script>
-        <script>scripts\MAE_NavMeshAddLink.gml</script>
-        <script>scripts\MAE_NavMeshWaitForBuild.gml</script>
-        <script>scripts\MAE_NavMeshGetBuildStatus.gml</script>
-        <script>scripts\MAE_NavMeshSetConfig.gml</script>
-        <script>scripts\MAE_NavMeshSetAgentConfig.gml</script>
-        <script>scripts\MAE_NavMeshDebugDraw.gml</script>
-        <script>scripts\MAE_NavMeshFindNearestPoly.gml</script>
-        <script>scripts\MAE_NavMeshFindPath.gml</script>
-      </scripts>
-    </scripts>
-    <scripts name="GUI">
-      <script>scripts\CreateSlider.gml</script>
-      <script>scripts\DrawSlider.gml</script>
-      <script>scripts\UpdateSlider.gml</script>
-      <script>scripts\DrawWindow.gml</script>
-      <script>scripts\CreateCheckbox.gml</script>
-      <script>scripts\DrawCheckbox.gml</script>
-      <script>scripts\UpdateCheckbox.gml</script>
     </scripts>
   </scripts>
   <shaders name="shaders">

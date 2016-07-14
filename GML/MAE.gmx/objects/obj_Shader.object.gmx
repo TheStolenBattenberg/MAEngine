@@ -86,7 +86,7 @@ keyboard_lastchar = "1";
 
 Shd_02 = MAE_ShaderCreate();
 
-MAE_ShaderCompile(Shd_02,
+MAE_ShaderCompileASM(Shd_02,
 "
 vs.1.1
 
@@ -103,8 +103,7 @@ ps.1.4
 texld r0, t0
 
 mul r0, r0, v0
-",
-SHADER_ASM);
+");
 </string>
           </argument>
         </arguments>
@@ -130,7 +129,7 @@ SHADER_ASM);
             <string>///HLSL9 Shader
 Shd_01 = MAE_ShaderCreate();
 
-MAE_ShaderCompile(Shd_01,
+MAE_ShaderCompileHLSL(Shd_01,
 "
 uniform float4x4 uMatWorldView  : register(c0);
 uniform float4x4 uMatProjection : register(c4);
@@ -191,8 +190,7 @@ PS_OUTPUT main(PS_INPUT input) {
     
     return output;
 }
-", 
-SHADER_HLSL9);
+");
 </string>
           </argument>
         </arguments>

@@ -1,0 +1,185 @@
+<external>
+	<folder name="Vector">
+		<script name="MAE_VectorCreate(...)" gml="gml\Vector.gml@MAE_VectorCreate">
+			<desc value="Creates a vector." />
+		</script>
+		<script name="MAE_VectorCreateAngle2D(yaw)" gml="gml\Vector.gml@MAE_VectorCreateAngle2D">
+		</script>
+		<script name="MAE_VectorCreateAngle3D(yaw,pitch)" gml="gml\Vector.gml@MAE_VectorCreateAngle3D">
+		</script>
+		<script name="MAE_VectorIsVec2(n)" gml="gml\Vector.gml@MAE_VectorIsVec2">
+			<desc value="Checks if the ID given is a Vector2." />
+		</script>
+		<script name="MAE_VectorIsVec3(n)" gml="gml\Vector.gml@MAE_VectorIsVec3">
+			<desc value="Checks if the ID given is a Vector3." />
+		</script>
+		<script name="MAE_VectorIsVec4(n)" gml="gml\Vector.gml@MAE_VectorIsVec4">
+			<desc value="Checks if the ID given is a Vector4." />
+		</script>
+		<script name="MAE_ToVec2(...)" gml="gml\Vector.gml@MAE_ToVec2">
+		</script>
+		<script name="MAE_ToVec3(...)" gml="gml\Vector.gml@MAE_ToVec3">
+		</script>
+		<script name="MAE_ToVec4(...)" gml="gml\Vector.gml@MAE_ToVec4">
+		</script>
+		<script name="MAE_VectorAdd(v1,v2)" gml="gml\Vector.gml@MAE_VectorAdd">
+			<desc value="Adds second vector to first vector." />
+		</script>
+		<script name="MAE_VectorSubtract(v1,v2)" gml="gml\Vector.gml@MAE_VectorSubtract">
+			<desc value="Subtracts second vector from first vector." />
+		</script>
+		<script name="MAE_VectorDivide(ref_v,quot)" gml="gml\Vector.gml@MAE_VectorDivide">
+		</script>
+		<script name="MAE_VectorMultiply(ref_v,factor)" gml="gml\Vector.gml@MAE_VectorMultiply">
+		</script>
+		<script name="MAE_VectorCross(v1,v2)" gml="gml\Vector.gml@MAE_VectorCross">
+		</script>
+		<script name="MAE_VectorDistance(v1,v2)" gml="gml\Vector.gml@MAE_VectorDistance">
+		</script>
+		<script name="MAE_VectorDot(v1,v2)" gml="gml\Vector.gml@MAE_VectorDot">
+		</script>
+		<script name="MAE_VectorDup(v)" gml="gml\Vector.gml@MAE_VectorDup">
+		</script>
+		<script name="MAE_VectorGet(v,index)" gml="gml\Vector.gml@MAE_VectorGet">
+		</script>
+		<script name="MAE_VectorMagnitude(v)" gml="gml\Vector.gml@MAE_VectorMagnitude">
+		</script>
+		<script name="MAE_VectorMagnitudeSquared(v)" gml="gml\Vector.gml@MAE_VectorMagnitudeSquared">
+		</script>
+		<script name="MAE_VectorMultiplyMatrix(v,m)" gml="gml\Vector.gml@MAE_VectorMultiplyMatrix">
+		</script>
+		<script name="MAE_VectorNorm(ref_v)" gml="gml\Vector.gml@MAE_VectorNorm">
+		</script>
+		<script name="MAE_VectorProject(v,m,viewport)" gml="gml\Vector.gml@MAE_VectorProject">
+		</script>
+		<script name="MAE_VectorReflect(v,n)" gml="gml\Vector.gml@MAE_VectorReflect">
+		</script>
+		<script name="MAE_VectorSet(ref_v,index,val)" gml="gml\Vector.gml@MAE_VectorSet">
+			<desc value="Sets a value inside a vector." />
+		</script>
+		<script name="MAE_VectorUnproject(v,m,viewport)" gml="gml\Vector.gml@MAE_VectorUnproject">
+		</script>
+		<script name="MAE_VectorUnprojectInverse(v,m,viewport)" gml="gml\Vector.gml@MAE_VectorUnprojectInverse">
+		</script>
+	</folder>
+	<folder name="Matrix">
+		<script name="MAE_MatrixCreate(dimension)" gml="gml\Matrix.gml@MAE_MatrixCreate">
+		</script>
+		<script name="MAE_MatrixCreateIdentity(dimension)" gml="gml\Matrix.gml@MAE_MatrixCreateIdentity">
+		</script>
+		<script name="MAE_MatrixCreateLookAt(from_vector,at_vector,up_vector)" gml="gml\Matrix.gml@MAE_MatrixCreateLookAt">
+		</script>
+		<script name="MAE_MatrixCreateNormalMatrix(matrix)" gml="gml\Matrix.gml@MAE_MatrixCreateNormalMatrix">
+		</script>
+		<script name="MAE_MatrixCreateOrtho(x1,y1,x2,y2,znear,zfar)" gml="gml\Matrix.gml@MAE_MatrixCreateOrtho">
+		</script>
+		<script name="MAE_MatrixCreatePerspective(fov,aspect,znear,zfar)" gml="gml\Matrix.gml@MAE_MatrixCreatePerspective">
+		</script>
+		<script name="MAE_MatrixCreateRotation(dim,x,y,z,order = EULER_XYZ)" gml="gml\Matrix.gml@MAE_MatrixCreateRotation">
+		</script>
+		<script name="MAE_MatrixCreateRotationQuaternion(dim,q)" gml="gml\Matrix.gml@MAE_MatrixCreateRotationQuaternion">
+		</script>
+		<script name="MAE_MatrixCreateRotationVector(dim,v,angle)" gml="gml\Matrix.gml@MAE_MatrixCreateRotationVector">
+		</script>
+		<script name="MAE_MatrixCreateRotationX(dim,angle)" gml="gml\Matrix.gml@MAE_MatrixCreateRotationX">
+		</script>
+		<script name="MAE_MatrixCreateRotationY(dim,angle)" gml="gml\Matrix.gml@MAE_MatrixCreateRotationY">
+		</script>
+		<script name="MAE_MatrixCreateRotationZ(dim,angle)" gml="gml\Matrix.gml@MAE_MatrixCreateRotationZ">
+		</script>
+		<script name="MAE_MatrixCreateScaling(dim,v)" gml="gml\Matrix.gml@MAE_MatrixCreateScaling">
+		</script>
+		<script name="MAE_MatrixCreateTranslation(v)" gml="gml\Matrix.gml@MAE_MatrixCreateTranslation">
+		</script>
+		<script name="MAE_MatrixDet(m)" gml="gml\Matrix.gml@MAE_MatrixDet">
+		</script>
+		<script name="MAE_MatrixDivide(ref_m,quot)" gml="gml\Matrix.gml@MAE_MatrixDivide">
+		</script>
+		<script name="MAE_MatrixDup(m)" gml="gml\Matrix.gml@MAE_MatrixDup">
+		</script>
+		<script name="MAE_MatrixGet(m,i,j)" gml="gml\Matrix.gml@MAE_MatrixGet">
+		</script>
+		<script name="MAE_MatrixGetDimension(m)" gml="gml\Matrix.gml@MAE_MatrixGetDimension">
+		</script>
+		<script name="MAE_MatrixGetMatrix(index)" gml="gml\Matrix.gml@MAE_MatrixGetMatrix">
+		</script>
+		<script name="MAE_MatrixInverse(m)" gml="gml\Matrix.gml@MAE_MatrixInverse">
+		</script>
+		<script name="MAE_MatrixMultiply(ref_m,factor)" gml="gml\Matrix.gml@MAE_MatrixMultiply">
+		</script>
+		<script name="MAE_MatrixMultiplyMatrix(m1,m2)" gml="gml\Matrix.gml@MAE_MatrixMultiplyMatrix">
+		</script>
+		<script name="MAE_MatrixRotate(m,x,y,z,order = EULER_XYZ)" gml="gml\Matrix.gml@MAE_MatrixRotate">
+		</script>
+		<script name="MAE_MatrixRotateQuaternion(m,q)" gml="gml\Matrix.gml@MAE_MatrixRotateQuaternion">
+		</script>
+		<script name="MAE_MatrixRotateVector(m,v,angle)" gml="gml\Matrix.gml@MAE_MatrixRotateVector">
+		</script>
+		<script name="MAE_MatrixRotateX(m,angle)" gml="gml\Matrix.gml@MAE_MatrixRotateX">
+		</script>
+		<script name="MAE_MatrixRotateY(m,angle)" gml="gml\Matrix.gml@MAE_MatrixRotateY">
+		</script>
+		<script name="MAE_MatrixRotateZ(m,angle)" gml="gml\Matrix.gml@MAE_MatrixRotateZ">
+		</script>
+		<script name="MAE_MatrixScale(m,v)" gml="gml\Matrix.gml@MAE_MatrixScale">
+		</script>
+		<script name="MAE_MatrixSet(ref_m,i,j,val)" gml="gml\Matrix.gml@MAE_MatrixSet">
+		</script>
+		<script name="MAE_MatrixTranslate(m,v)" gml="gml\Matrix.gml@MAE_MatrixTranslate">
+		</script>
+		<script name="MAE_MatrixTranspose(m)" gml="gml\Matrix.gml@MAE_MatrixTranspose">
+		</script>
+		<script name="MAE_MatrixToMat2(m)" gml="gml\Matrix.gml@MAE_MatrixToMat2">
+		</script>
+		<script name="MAE_MatrixToMat3(m)" gml="gml\Matrix.gml@MAE_MatrixToMat3">
+		</script>
+		<script name="MAE_MatrixToMat4(m)" gml="gml\Matrix.gml@MAE_MatrixToMat4">
+		</script>
+		<script name="MAE_MatrixIsMat2(n)" gml="gml\Matrix.gml@MAE_MatrixIsMat2">
+		</script>
+		<script name="MAE_MatrixIsMat3(n)" gml="gml\Matrix.gml@MAE_MatrixIsMat3">
+		</script>
+		<script name="MAE_MatrixIsMat4(n)" gml="gml\Matrix.gml@MAE_MatrixIsMat4">
+		</script>
+	</folder>
+	<folder name="Quaternion">
+		<script name="MAE_QuaternionCreate(x,y,z,w)" gml="gml\Quaternion.gml@MAE_QuaternionCreate">
+		</script>
+		<script name="MAE_QuaternionCreateIdentity()" gml="gml\Quaternion.gml@MAE_QuaternionCreateIdentity">
+		</script>
+		<script name="MAE_QuaternionCreateRotation(x,y,z,order = EULER_XYZ)" gml="gml\Quaternion.gml@MAE_QuaternionCreateRotation">
+		</script>
+		<script name="MAE_QuaternionCreateRotationMatrix(m)" gml="gml\Quaternion.gml@MAE_QuaternionCreateRotationMatrix">
+		</script>
+		<script name="MAE_QuaternionCreateRotationVector(v,angle)" gml="gml\Quaternion.gml@MAE_QuaternionCreateRotationVector">
+		</script>
+		<script name="MAE_QuaternionDup(q)" gml="gml\Quaternion.gml@MAE_QuaternionDup">
+		</script>
+		<script name="MAE_QuaternionGet(q,index)" gml="gml\Quaternion.gml@MAE_QuaternionGet">
+		</script>
+		<script name="MAE_QuaternionGetRotation(q,refvec,order = EULER_XYZ)" gml="gml\Quaternion.gml@MAE_QuaternionGetRotation">
+		</script>
+		<script name="MAE_QuaternionInvert(ref_q)" gml="gml\Quaternion.gml@MAE_QuaternionInvert">
+		</script>
+		<script name="MAE_QuaternionIsQuaternion(n)" gml="gml\Quaternion.gml@MAE_QuaternionIsQuaternion">
+		</script>
+		<script name="MAE_QuaternionMagnitude(q)" gml="gml\Quaternion.gml@MAE_QuaternionMagnitude">
+		</script>
+		<script name="MAE_QuaternionMagnitudeSquared(q)" gml="gml\Quaternion.gml@MAE_QuaternionMagnitudeSquared">
+		</script>
+		<script name="MAE_QuaternionMultiply(q1,q2)" gml="gml\Quaternion.gml@MAE_QuaternionMultiply">
+		</script>
+		<script name="MAE_QuaternionNorm(ref_q)" gml="gml\Quaternion.gml@MAE_QuaternionNorm">
+		</script>
+		<script name="MAE_QuaternionRotate(q,x,y,z,order = EULER_XYZ)" gml="gml\Quaternion.gml@MAE_QuaternionRotate">
+		</script>
+		<script name="MAE_QuaternionRotateMatrix(q,m)" gml="gml\Quaternion.gml@MAE_QuaternionRotateMatrix">
+		</script>
+		<script name="MAE_QuaternionRotateVector(q,v,angle)" gml="gml\Quaternion.gml@MAE_QuaternionRotateVector">
+		</script>
+		<script name="MAE_QuaternionSet(ref_q,index,val)" gml="gml\Quaternion.gml@MAE_QuaternionSet">
+		</script>
+	</folder>
+	<script name="MAE_ViewportCreate(x,y,width,height)" gml="gml\Math.gml@MAE_ViewportCreate">
+	</script>
+</external>

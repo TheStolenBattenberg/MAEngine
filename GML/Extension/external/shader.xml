@@ -1,0 +1,127 @@
+<external>
+	<script name="MAE_ShaderCompileHLSL(index,vertshd,pixelshd)" func="real MAE_ShaderCompileD3D9HLSL9(real, string, string)">
+		<desc value="Creates a shader from strings" />
+		<arg index="0" value="Shader ID" />
+		<arg index="1" value="Vertex Shader Code" />
+		<arg index="2" value="Pixel Shader Code" />
+		<arg value="-1 on Error, shader index on success" />
+	</script>
+	<script name="MAE_ShaderCompileASM(index,vertshd,pixelshd)" func="real MAE_ShaderCompileD3D9ASM(real, string, string)">
+		<desc value="Creates a shader from strings" />
+		<arg index="0" value="Shader ID" />
+		<arg index="1" value="Vertex Shader Code" />
+		<arg index="2" value="Pixel Shader Code" />
+		<arg value="-1 on Error, shader index on success" />
+	</script>
+	<script name="MAE_ShaderCreate()" func="real MAE_ShaderCreate()">
+		<desc value="Creates a shader" />
+		<arg value="Shader ID" />
+	</script>
+	<script name="MAE_ShaderDestroy(shader_index)" func="real MAE_ShaderDestroy(real)">
+		<desc value="Destroys a shader." />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg value="0 on Error, 1 on success." />
+	</script>
+	<script name="MAE_ShaderFindConstant(shader_index,name)" func="real MAE_ShaderFindConstant(real, string)">
+		<desc value="Finds a constant by string." />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Name of the constant" />
+		<arg value="-1 on Error, constant index on success." />
+	</script>
+	<script name="MAE_ShaderSetSampler(shader_index,constant,sampler)" func="real MAE_ShaderSetSampler(real, real, real)">
+		<desc value="Sets a sampler." />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Sampler" />
+		<arg value="-1 on Error, constant index on success." />
+	</script>
+	<script name="MAE_ShaderSet(shader_index)" func="real MAE_ShaderSet(real)">
+		<desc value="Sets a shader." />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg value="0 on Error, 1 on success." />
+	</script>
+	<script name="MAE_ShaderSetConstantFloat(index,c,val)" func="real MAE_ShaderSetConstantFloat(real, real, real)">
+		<desc value="Sets a constant to a float value" />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Value to be set" />
+		<arg value="0 on Error, 1 on success." />
+	</script>
+	<script name="MAE_ShaderSetConstantMat3(index,c,mat)" func="real MAE_ShaderSetConstantMat3(real, real)">
+		<desc value="Sets a constant to a mat3 value" />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Value to be set" />
+		<arg value="0 on Error, 1 on success." />
+		<source>
+			var mat = $mat$;
+			
+			external_call($MADX9_MatStackFloat9$, mat[0], mat[3], mat[6], mat[1], mat[4], mat[7], mat[2], mat[5], mat[8]);
+			
+			var r = external_call($MAE_ShaderSetConstantMat3$, $index$, $c$);
+			
+			external_call($MADX9_MatStackClear$);
+			
+			return r;
+		</source>
+	</script>
+	<script name="MAE_ShaderSetConstantMat4(index,c,mat)" func="real MAE_ShaderSetConstantMat4(real, real)">
+		<desc value="Sets a constant to a mat4 value" />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Value to be set" />
+		<arg value="0 on Error, 1 on success." />
+		<source>
+			var mat = $mat$;
+			
+			external_call($MADX9_MatStackFloat8$, mat[0], mat[4], mat[8], mat[12], mat[1], mat[5], mat[9], mat[13]);
+			external_call($MADX9_MatStackFloat8$, mat[2], mat[6], mat[10], mat[14], mat[3], mat[7], mat[11], mat[15]);
+			
+			var r = external_call($MAE_ShaderSetConstantMat4$, $index$, $c$);
+			
+			external_call($MADX9_MatStackClear$);
+			
+			return r;
+		</source>
+	</script>
+	<script name="MAE_ShaderSetConstantVec2(index,c,vec)" func="real MAE_ShaderSetConstantVec2(real, real, real, real)">
+		<desc value="Sets a constant to a vec2 value" />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Value to be set" />
+		<arg value="0 on Error, 1 on success." />
+		<source>
+			var vec = $vec$;
+			
+			return external_call($MAE_ShaderSetConstantVec2$, $index$, $c$, vec[0], vec[1]);
+		</source>
+	</script>
+	<script name="MAE_ShaderSetConstantVec3(index,c,vec)" func="real MAE_ShaderSetConstantVec3(real, real, real, real, real)">
+		<desc value="Sets a constant to a vec3 value" />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Value to be set" />
+		<arg value="0 on Error, 1 on success." />
+		<source>
+			var vec = $vec$;
+			
+			return external_call($MAE_ShaderSetConstantVec3$, $index$, $c$, vec[0], vec[1], vec[2]);
+		</source>
+	</script>
+	<script name="MAE_ShaderSetConstantVec4(index,c,vec)" func="real MAE_ShaderSetConstantVec4(real, real, real, real, real, real)">
+		<desc value="Sets a constant to a vec4 value" />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Index of the constant" />
+		<arg index="2" value="Value to be set" />
+		<arg value="0 on Error, 1 on success." />
+		<source>
+			var vec = $vec$;
+			
+			return external_call($MAE_ShaderSetConstantVec4$, $index$, $c$, vec[0], vec[1], vec[2], vec[3]);
+		</source>
+	</script>
+	<script name="MAE_ShaderReset()" func="real MAE_ShaderReset()">
+		<desc value="Resets a shader." />
+		<arg value="0 on Error, 1 on success." />
+	</script>
+</external>

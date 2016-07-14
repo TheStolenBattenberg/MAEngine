@@ -145,13 +145,13 @@ if(mouse_check_button_pressed(mb_left)){
     var ray_dist = 200;
     var ray_start = camera_pos;
     var ray_end = MAE_VectorAdd(ray_start, MAE_VectorMultiply(mouse_vector, ray_dist));
-    if(MAE_PhysWorldRaycast(ray_start, ray_end)){
+    if(MAE_PhysWorldRaycastVector(ray_start, ray_end)){
         dragging_body = MAE_PhysWorldHitBody();
         if(!MAE_PhysBodyIsDynamic(dragging_body)) dragging_body = -1;
         else{
             dragging_distance = MAE_PhysWorldHitFraction() * ray_dist;
             MAE_PhysBodyActivate(dragging_body);
-            dragging_constraint = MAE_PhysConstraintCreateP2P(dragging_body, MAE_PhysWorldHitPosition(), true);
+            dragging_constraint = MAE_PhysConstraintCreateP2PWorld(dragging_body, MAE_PhysWorldHitPosition(), true);
             MAE_PhysConstraintSetParam(dragging_constraint, PARAM.P2P_IMPULSE_CLAMP, 5);
         }
     }

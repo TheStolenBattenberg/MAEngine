@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Init(INIT_ALL);
+            <string>MAE_Init();
 
 /**
  * TSB:&gt; I'm testing with this atm, please don't remove it. Remove the space between the slash if you

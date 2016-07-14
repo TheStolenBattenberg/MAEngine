@@ -1,0 +1,170 @@
+<extension title="MAE" defdll="MAE">
+	<folder name="MAE">
+		<folder name="Navigation">
+			<external path="external\navigation.xml" />
+		</folder>
+		<folder name="Physics">
+			<folder name="Body">
+				<external path="external\physicsbody.xml" />
+			</folder>
+			<folder name="Constraint">
+				<external path="external\physicsconstraint.xml" />
+			</folder>
+			<folder name="Shape">
+				<external path="external\physicsshape.xml" />
+			</folder>
+			<folder name="World">
+				<external path="external\physicsworld.xml" />
+			</folder>
+		</folder>
+		<folder name="Private">
+			<script name="MAE_Init(DLL = &quot;MAE.dll&quot;)" func="real MADX9_Init(string)">
+				<desc value="Initializes the Engine" />
+				<arg index="0" value="Filename of the DLL" />
+				<arg value="Returns true on success" />
+				<source method="JS">
+					emitLn(getEnumDefs());
+					rerouteDLL("MAE", getParam("DLL"));
+					emitLn(getDLLDefs());
+					emitLn("global._MAEDLL = ", getParam("DLL"), ";");
+					emitLn();
+					emitLn("return ", getCall("MADX9_Init", "window_device()"), ";");
+				</source>
+			</script>
+			<script name="MAE_Free()" func="real MADX9_Free()">
+				<desc value="Frees the Engine" />
+				<source>
+					external_call($MADX9_Free$);
+					external_free(global._MAEDLL);
+				</source>
+			</script>
+		</folder>
+		<folder name="Render">
+			<folder name="Animation">
+				<external path="external\animation.xml" />
+			</folder>
+			<folder name="Model">
+				<external path="external\model.xml" />
+			</folder>
+			<folder name="Particles" >
+				<folder name="Emitter">
+					<external path="external\particleemitter.xml" />
+				</folder>
+				<folder name="System">
+					<external path="external\particlesystem.xml" />
+				</folder>
+			</folder>
+			<folder name="Texture">
+				<external path="external\texture.xml" />
+			</folder>
+			<folder name="Shader">
+				<external path="external\shader.xml" />
+			</folder>
+		</folder>
+		<folder name="Utilities">
+			<folder name="Math">
+				<external path="external\math.xml" />
+			</folder>
+		</folder>
+	</folder>
+	<datafile name="MAE.dll" path="MAE.dll" />
+	<function func="real MADX9_MatStackFloat8(real, real, real, real, real, real, real, real)" />
+	<function func="real MADX9_MatStackFloat9(real, real, real, real, real, real, real, real, real)" />
+	<function func="real MADX9_MatStackClear()" />
+	<function func="real MA_NavSetVertexBufferSize(real, real)" />
+	<function func="real MA_NavGetPathPoint(real, real)" />
+	<function func="real MAB_Vec(real)" />
+	<function func="real MAB_Quat(real)" />
+	<function func="real MAB_HitResult(real)" />
+	<function func="real MAB_OverlapResult(real)" />
+	<function func="real MAB_ConstraintParamTransform(real, real, real, real, real, real, real, real)" />
+	<enum name="PARAM">
+		<entry name="BREAKING_IMPULSE_THRESHOLD" />
+		<entry name="USE_FRAME_OFFSET" />
+		<entry name="FRAMES" />
+		<entry name="SOLVER_ITERATIONS" />
+		<entry name="P2P_IMPULSE_CLAMP" />
+		<entry name="P2P_DAMPING" />
+		<entry name="P2P_TAU" />
+		<entry name="P2P_PIVOTA" />
+		<entry name="P2P_PIVOTB" />
+		<entry name="SLIDER_DAMPING_DIR_ANG" />
+		<entry name="SLIDER_DAMPING_DIR_LIN" />
+		<entry name="SLIDER_DAMPING_LIM_ANG" />
+		<entry name="SLIDER_DAMPING_LIM_LIN" />
+		<entry name="SLIDER_DAMPING_ORTHO_ANG" />
+		<entry name="SLIDER_DAMPING_ORTHO_LIN" />
+		<entry name="SLIDER_LOWER_ANG_LIMIT" />
+		<entry name="SLIDER_LOWER_LIN_LIMIT" />
+		<entry name="SLIDER_MAX_ANG_MOTOR_FORCE" />
+		<entry name="SLIDER_MAX_LIN_MOTOR_FORCE" />
+		<entry name="SLIDER_POWERED_ANG_MOTOR" />
+		<entry name="SLIDER_POWERED_LIN_MOTOR" />
+		<entry name="SLIDER_RESTITUTION_DIR_ANG" />
+		<entry name="SLIDER_RESTITUTION_DIR_LIN" />
+		<entry name="SLIDER_RESTITUTION_LIM_ANG" />
+		<entry name="SLIDER_RESTITUTION_LIM_LIN" />
+		<entry name="SLIDER_RESTITUTION_ORTHO_ANG" />
+		<entry name="SLIDER_RESTITUTION_ORTHO_LIN" />
+		<entry name="SLIDER_SOFTNESS_DIR_ANG" />
+		<entry name="SLIDER_SOFTNESS_DIR_LIN" />
+		<entry name="SLIDER_SOFTNESS_LIM_ANG" />
+		<entry name="SLIDER_SOFTNESS_LIM_LIN" />
+		<entry name="SLIDER_SOFTNESS_ORTHO_ANG" />
+		<entry name="SLIDER_SOFTNESS_ORTHO_LIN" />
+		<entry name="SLIDER_TARGET_ANG_MOTOR_VELOCITY" />
+		<entry name="SLIDER_TARGET_LIN_MOTOR_VELOCITY" />
+		<entry name="SLIDER_UPPER_ANG_LIMIT" />
+		<entry name="SLIDER_UPPER_LIN_LIMIT" />
+		<entry name="GEAR_AXIS_A" />
+		<entry name="GEAR_AXIS_B" />
+		<entry name="GEAR_RATIO" />
+		<entry name="HINGE_ANGULAR_ONLY" />
+		<entry name="HINGE_AXIS" />
+		<entry name="HINGE_LIMITS" />
+		<entry name="HINGE_MAX_MOTOR_IMPULSE" />
+		<entry name="HINGE_MOTOR_TARGET" />
+		<entry name="HINGE_MOTOR_ENABLED" />
+		<entry name="DOF_ANGULAR_LOWER_LIMIT" />
+		<entry name="DOF_ANGULAR_UPPER_LIMIT" />
+		<entry name="DOF_AXIS" />
+		<entry name="DOF_LIMITS" />
+		<entry name="DOF_LINEAR_LOWER_LIMIT" />
+		<entry name="DOF_LINEAR_UPPER_LIMIT" />
+		<entry name="DOF_SPRING_ENABLED" />
+		<entry name="DOF_SPRING_DAMPING" />
+		<entry name="DOF_SPRING_STIFFNESS" />
+		<entry name="CONE_ANGULAR_ONLY" />
+		<entry name="CONE_DAMPING" />
+		<entry name="CONE_FIX_THRESH" />
+		<entry name="CONE_LIMITS" />
+		<entry name="CONE_MAX_MOTOR_IMPULSE" />
+		<entry name="CONE_MAX_MOTOR_IMPULSE_NORMALIZED" />
+		<entry name="CONE_MOTOR_TARGET" />
+		<entry name="CONE_MOTOR_TARGET_CONSTRAINT_SPACE" />
+		<entry name="CONE_MOTOR_ENABLED" />
+	</enum>
+	<layout>
+		<desc>
+			emitLn("///", fullName, ";");
+			emitLn();
+			emitLn("/**");
+			emitLn(" * Description:");
+			emitLn(" *   ", desc);
+			emitLn(" *");
+			emitLn(" * Arguments:");
+			
+			if (argDesc.length > 0)
+				for (var i = 0; i &lt; argDesc.length; ++i)
+					emitLn(" *   [", i + 1, "] - ", argDesc[i]);
+			else
+				emitLn(" *   [-]");
+			
+			emitLn(" *");
+			emitLn(" * Returns:");
+			emitLn(" *   ", retDesc == "" ? "[-]" : retDesc);
+			emitLn(" */");
+			emitLn();
+		</desc>
+	</layout>
+</extension>

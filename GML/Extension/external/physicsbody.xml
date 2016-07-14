@@ -1,0 +1,521 @@
+<external>
+	<script name="MAE_PhysBodyCreate(shape,mass,xrot,yrot,zrot,x,y,z)" func="real MAB_BodyCreate(real, real, real, real, real, real, real, real)">
+		<desc value="Creates a rigid body and adds it to the world." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Mass (0 for static body)" />
+		<arg value="Body ID" />
+	</script>
+	<script name="MAE_PhysBodyDestroy(body)" func="real MAB_BodyDestroy(real)">
+		<desc value="Destroys a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyGetPosition(body)" func="real MAB_BodyGetPosition(real)">
+		<desc value="Gets the position of the body in the world." />
+		<arg index="0" value="Body" />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_BodyGetPosition$, $body$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetRotationEuler(body)" func="real MAB_BodyGetRotationEuler(real)">
+		<desc value="Gets the rotation of the physics body in euler angles. Rotation order is XYZ." />
+		<arg index="0" value="Body" />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_BodyGetRotationEuler$, $body$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetRotationQuat(body)" func="real MAB_BodyGetRotationQuat(real)">
+		<desc value="Gets the rotation of the physics body as a quaternion." />
+		<arg index="0" value="Body" />
+		<arg value="Quaternion." />
+		<source>
+			external_call($MAB_BodyGetRotationQuat$, $body$);
+			
+			return MAE_QuaternionCreate(external_call($MAB_Quat$, 0),
+										external_call($MAB_Quat$, 1),
+										external_call($MAB_Quat$, 2),
+										external_call($MAB_Quat$, 3));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetRotationMatrix(body)" gml="gml\Body.gml@MAE_PhysBodyGetRotationMatrix">
+		<desc value="Gets the rotation of a physics body as a matrix." />
+		<arg index="0" value="Body" />
+		<arg value="4x4 Matrix" />
+	</script>
+	<script name="MAE_PhysBodyGetTransform(body)" gml="gml\Body.gml@MAE_PhysBodyGetTransform">
+		<desc value="Gets the transformation of a physics body as a matrix. This matrix holds both the position and rotation. This is the easiest way to get the transformation of a body for rendering." />
+		<arg index="0" value="Body" />
+		<arg value="4x4 Matrix" />
+	</script>
+	<script name="MAE_PhysBodyGetLinearVelocity(body)" func="real MAB_BodyGetLinearVelocity(real)">
+		<desc value="Gets the linear velocity of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_BodyGetLinearVelocity$, $body$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetAngularVelocity(body)" func="real MAB_BodyGetAngularVelocity(real)">
+		<desc value="Gets the angular velocity of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_BodyGetAngularVelocity$, $body$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetAnisotropicFriction(body)" func="real MAB_BodyGetAnisotropicFriction(real)">
+		<desc value="Gets the anisotropic friction of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_BodyGetAnisotropicFriction$, $body$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetGravity(body)" func="real MAB_BodyGetGravity(real)">
+		<desc value="Gets the gravity force of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_BodyGetGravity$, $body$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysBodyGetAngularDamping(body)" func="real MAB_BodyGetAngularDamping(real)">
+		<desc value="Gets the angular damping of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysBodyGetLinearDamping(body)" func="real MAB_BodyGetLinearDamping(real)">
+		<desc value="Gets the linear damping of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysBodyGetFriction(body)" func="real MAB_BodyGetFriction(real)">
+		<desc value="Gets the friction value of a physics body that is used during collisions." />
+		<arg index="0" value="Body" />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysBodyGetRestitution(body)" func="real MAB_BodyGetRestitution(real)">
+		<desc value="Gets the restitution, or bounciness, value of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysBodyGetRollingFriction(body)" func="real MAB_BodyGetRollingFriction(real)">
+		<desc value="Gets the rolling friction value of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysBodyGetUserIndex(body)" func="real MAB_BodyGetUserIndex(real)">
+		<desc value="Gets the user index of a physics body. If you have not set this, it will default to 0. The user index is for your own use, and can be any integer of your choosing." />
+		<arg index="0" value="Body" />
+		<arg value="Integer" />
+	</script>
+	<script name="MAE_PhysBodyGetDeactivationTime(body)" func="real MAB_BodyGetDeactivationTime(real)">
+		<desc value="Gets the deactivation time of a physics body. When a body has stopped moving, it will wait this amount of time before sleeping." />
+		<arg index="0" value="Body" />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysBodyGetIgnore(body,other_body)" func="real MAB_BodyGetIgnore(real)">
+		<desc value="Checks if this body is ignoring collisions with the other one. See MAE_PhysBodySetIgnore() to make a body ignore another." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Other body." />
+		<arg value="1 if ignoring, 0 otherwise." />
+	</script>
+	<script name="MAE_PhysBodyIsStatic(body)" func="real MAB_BodyIsStatic(real)">
+		<desc value="Checks if the body is static." />
+		<arg index="0" value="Body" />
+		<arg value="1 if static, 0 otherwise." />
+	</script>
+	<script name="MAE_PhysBodyIsKinematic(body)" func="real MAB_BodyIsKinematic(real)">
+		<desc value="Checks if the body is kinematic." />
+		<arg index="0" value="Body" />
+		<arg value="1 if kinematic, 0 otherwise." />
+	</script>
+	<script name="MAE_PhysBodyIsDynamic(body)" gml="gml\Body.gml@MAE_PhysBodyIsDynamic">
+		<desc value="Checks if the body is dynamic." />
+		<arg index="0" value="Body" />
+		<arg value="1 if dynamic, 0 otherwise." />
+	</script>
+	<script name="MAE_PhysBodyIsActive(body)" func="real MAB_BodyIsActive(real)">
+		<desc value="Checks if the body is active. (not sleeping)" />
+		<arg index="0" value="Body" />
+		<arg value="1 if active, 0 otherwise." />
+	</script>
+	<script name="MAE_PhysBodyGetShape(body)" func="real MAB_BodyGetShape(real)">
+		<desc value="Gets the shape of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="ShapeID" />
+	</script>
+	<script name="MAE_PhysBodyGetGroup(body)" func="real MAB_BodyGetGroup(real)">
+		<desc value="Gets the collision group of the body." />
+		<arg index="0" value="Body" />
+		<arg value="Integer" />
+	</script>
+	<script name="MAE_PhysBodyGetMask(body)" func="real MAB_BodyGetMask(real)">
+		<desc value="Gets the collision mask of the body." />
+		<arg index="0" value="Body" />
+		<arg value="Integer" />
+	</script>
+	<script name="MAE_PhysBodySetPosition(body,posx,posy,posz)" func="real MAB_BodySetPosition(real, real, real, real)">
+		<desc value="Sets the position of the physics body in the world." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Position as a vector" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetPositionVector(body,pos)" func="real MAB_BodySetPosition(real, real, real, real)">
+		<desc value="Sets the position of the physics body in the world." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Position as a vector" />
+		<arg value="Success" />
+		<source>
+			var pos = $pos$;
+			
+			return external_call($MAB_BodySetPosition$, $body$, pos[0], pos[1], pos[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetRotation(body,x,y,z)" func="real MAB_BodySetRotationEuler(real, real, real, real)">
+		<desc value="Sets the rotation of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Rotation. Can be a vector of euler angles or a quaternion." />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetRotationVec(body,rot)" func="real MAB_BodySetRotationEuler(real, real, real, real)">
+		<desc value="Sets the rotation of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Rotation. Can be a vector of euler angles or a quaternion." />
+		<arg value="Success" />
+		<source>
+			var vec = $rot$;
+			
+			return external_call($MAB_BodySetRotationEuler$, $body$, vec[0], vec[1], vec[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetRotationQuat(body,rot)" func="real MAB_BodySetRotationQuat(real, real, real, real, real)">
+		<desc value="Sets the rotation of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Rotation. Can be a vector of euler angles or a quaternion." />
+		<arg value="Success" />
+		<source>
+			var quat = $rot$;
+			
+			return external_call($MAB_BodySetRotationQuat$, $body$, quat[0], quat[1], quat[2], quat[3]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetLinearVelocity(body,velx,vely,velz)" func="real MAB_BodySetLinearVelocity(real, real, real, real)">
+		<desc value="Sets the linear velocity of the physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Velocity vector" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetLinearVelocityVector(body,velocity)" func="real MAB_BodySetLinearVelocity(real, real, real, real)">
+		<desc value="Sets the linear velocity of the physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Velocity vector" />
+		<arg value="Success" />
+		<source>
+			var velocity = $velocity$;
+			
+			return external_call($MAB_BodySetLinearVelocity$, $body$, velocity[0], velocity[1], velocity[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetAngularVelocity(body,velx,vely,velz)" func="real MAB_BodySetAngularVelocity(real, real, real, real)">
+		<desc value="Sets the angular velocity of the physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Velocity vector" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetAngularVelocityVector(body,velocity)" func="real MAB_BodySetAngularVelocity(real, real, real, real)">
+		<desc value="Sets the angular velocity of the physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Velocity vector" />
+		<arg value="Success" />
+		<source>
+			var velocity = $velocity$;
+			
+			return external_call($MAB_BodySetAngularVelocity$, $body$, velocity[0], velocity[1], velocity[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetLinearFactor(body,x,y,z)" func="real MAB_BodySetLinearFactor(real, real, real, real)">
+		<desc value="Sets the linear factor of a physics body. This can be used to restrict movement per axis. You could limit the physics engine to a 2D plane, for example." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetLinearFactorVector(body,factor)" func="real MAB_BodySetLinearFactor(real, real, real, real)">
+		<desc value="Sets the linear factor of a physics body. This can be used to restrict movement per axis. You could limit the physics engine to a 2D plane, for example." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+		<source>
+			var factor = $factor$;
+			
+			return external_call($MAB_BodySetLinearFactor$, $body$, factor[0], factor[1], factor[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetAngularFactor(body,x,y,z)" func="real MAB_BodySetAngularFactor(real, real, real, real, real)">
+		<desc value="Sets the angular factor of a physics body. This can be used to restrict movement per axis. You could limit the physics engine to a 2D plane, for example." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetAngularFactorVector(body,factor)" func="real MAB_BodySetAngularFactor(real, real, real, real, real)">
+		<desc value="Sets the angular factor of a physics body. This can be used to restrict movement per axis. You could limit the physics engine to a 2D plane, for example." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+		<source>
+			var factor = $factor$;
+			
+			return external_call($MAB_BodySetAngularFactor$, $body$, factor[0], factor[1], factor[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetAnisotropicFriction(body,x,y,z)" func="real MAB_BodySetAnisotropicFriction(real, real, real, real)">
+		<desc value="Sets the ansitropic friction of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetAnisotropicFrictionVector(body,friction)" func="real MAB_BodySetAnisotropicFriction(real, real, real, real)">
+		<desc value="Sets the ansitropic friction of a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+		<source>
+			var vec = $friction$;
+			
+			return external_call($MAB_BodySetAnisotropicFriction$, $body$, vec[0], vec[1], vec[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetGravity(body,x,y,z)" func="real MAB_BodySetGravity(real, real, real, real)">
+		<desc value="Overrides the world gravity on a body with a different gravity force." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetGravityVector(body,gravity)" func="real MAB_BodySetGravity(real, real, real, real)">
+		<desc value="Overrides the world gravity on a body with a different gravity force." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+		<source>
+			var vec = $gravity$;
+			
+			return external_call($MAB_BodySetGravity$, $body$, vec[0], vec[1], vec[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodySetDamping(body,linear_damping,angular_damping)" func="real MAB_BodySetDamping(real, real, real)">
+		<desc value="Sets the damping of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Linear damping" />
+		<arg index="2" value="Angular damping" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetFriction(body,friction)" func="real MAB_BodySetFriction(real, real)">
+		<desc value="Sets the collision friction of a body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Friction" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetRestitution(body,restitution)" func="real MAB_BodySetRestitution(real, real)">
+		<desc value="Sets the restitution, or bounciness, of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Restitution" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetRollingFriction(body,friction)" func="real MAB_BodySetRollingFriction(real, real)">
+		<desc value="Sets the rolling friction of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Friction" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetUserIndex(body,number)" func="real MAB_BodySetUserIndex(real, real)">
+		<desc value="Gives a physics body a user defined index. It can be any unsigned integer of your choice. This is useful to link a GM instance with a physics body. After a collision check, you could then easily check which instance was hit." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Number" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetShape(body,shape)" func="real MAB_BodySetShape(real, real)">
+		<desc value="Sets the shape of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Shape" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetIgnore(body,other_body,ignore)" func="real MAB_BodySetIgnore(real, real, real)">
+		<desc value="This function lets you tell 2 physics bodies to ignore collisions with each other." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Other body" />
+		<arg index="2" value="Ignore collisions with other body?" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetGroupMask(body,group,mask)" func="real MAB_BodySetGroupMask(real, real, real)">
+		<desc value="Sets collision group and mask of a physics body. The group and mask are bitmasks. Interally, they are stored as signed ints, so you can have up to 15 groups and 15 masks. To check if 2 bodies can collide, a bitwise AND is performed between bodyA's mask, and bodyB's group. The collision masks must match both ways for there to be a collision." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Group" />
+		<arg index="2" value="Mask" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodySetDeactivationTime(body,time)" func="real MAB_BodySetDeactivationTime(real, real)">
+		<desc value="Sets the amount of time a body will wait before sleeping when it isn't moving." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Time" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyDisableDeactivation(body)" func="real MAB_BodyDisableDeactivation(real)">
+		<desc value="Disables sleeping for a body. If you call this, the body will never sleep." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyActivate(body)" func="real MAB_BodyActivate(real)">
+		<desc value="If a body is sleeping, this function will activate it." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyDeactivate(body)" func="real MAB_BodyDeactivate(real)">
+		<desc value="Deactivates a physics body." />
+		<arg index="0" value="Body" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyApplyCentralImpulse(body,relative,impx,impy,impz)" func="real MAB_BodyApplyCentralImpulse(real, real, real, real, real)">
+		<desc value="Applies an impulse to the center of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Impulse as a vector" />
+		<arg value="Success" />
+		<source>
+			return external_call($MAB_BodyApplyCentralImpulse$, $body$, $impx$, $impy$, $impz$, $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyCentralImpulse(body,relative,impulse)" func="real MAB_BodyApplyCentralImpulse(real, real, real, real, real)">
+		<desc value="Applies an impulse to the center of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Impulse as a vector" />
+		<arg value="Success" />
+		<source>
+			var impulse = $impulse$;
+			
+			return external_call($MAB_BodyApplyCentralImpulse$, $body$, impulse[0], impulse[1], impulse[2], $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyCentralForce(body,relative,forcex,forcey,forcez)" func="real MAB_BodyApplyCentralForce(real, real, real, real, real)">
+		<desc value="Applies a force to the center of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Force as a vector" />
+		<arg value="Success" />
+		<source>
+			return external_call($MAB_BodyApplyCentralForce$, $body$, $forcex$, $forcey$, $forcez$, $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyCentralForce(body,relative,force)" func="real MAB_BodyApplyCentralForce(real, real, real, real, real)">
+		<desc value="Applies a force to the center of a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Force as a vector" />
+		<arg value="Success" />
+		<source>
+			var force = $force$;
+			
+			return external_call($MAB_BodyApplyCentralForce$, $body$, force[0], force[1], force[2], $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyImpulse(body,posx,posy,posz,impx,impy,impz)" func="real MAB_BodyApplyImpulse(real, real, real, real, real, real, real)">
+		<desc value="Applies an impulse to a physics body at the specified point in local space." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Position as a vector" />
+		<arg index="2" value="Force as a vector" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyApplyImpulseVector(body,position,impulse)" func="real MAB_BodyApplyImpulse(real, real, real, real, real, real, real)">
+		<desc value="Applies an impulse to a physics body at the specified point in local space." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Position as a vector" />
+		<arg index="2" value="Force as a vector" />
+		<arg value="Success" />
+		<source>
+			var position = $position$, impulse = $impulse$;
+			
+			return external_call($MAB_BodyApplyImpulse$, $body$, position[0], position[1], position[2], impulse[0], impulse[1], impulse[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyForce(body,posx,posy,posz,forcex,forcey,forcez)" func="real MAB_BodyApplyForce(real, real, real, real, real, real, real)">
+		<desc value="Applies a force to a physics body at the specified point in local space." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Position as a vector" />
+		<arg index="2" value="Force as a vector" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysBodyApplyForce(body,position,force)" func="real MAB_BodyApplyForce(real, real, real, real, real, real, real)">
+		<desc value="Applies a force to a physics body at the specified point in local space." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Position as a vector" />
+		<arg index="2" value="Force as a vector" />
+		<arg value="Success" />
+		<source>
+			var position = $position$, force = $force$;
+			
+			return external_call($MAB_BodyApplyForce$, $body$, position[0], position[1], position[2], force[0], force[1], force[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyTorque(body,relative,torquex,torquey,torquez)" func="real MAB_BodyApplyTorque(real, real, real, real, real)">
+		<desc value="Applies torque to a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Torque vector" />
+		<arg value="Success" />
+		<source>
+			return external_call(global.MAB_BodyApplyTorque, $body$, $torquex$, $torquey$, $torquez$, $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyTorqueVector(body,relative,torque)" func="real MAB_BodyApplyTorque(real, real, real, real, real)">
+		<desc value="Applies torque to a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Torque vector" />
+		<arg value="Success" />
+		<source>
+			var torque = $torque$;
+			
+			return external_call($MAB_BodyApplyTorque$, $body$, torque[0], torque[1], torque[2], $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyTorqueImpulse(body,relative,impx,impy,impz)" func="real MAB_BodyApplyTorqueImpulse(real, real, real, real, real)">
+		<desc value="Applies torque impulse to a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Torque vector" />
+		<arg value="Success" />
+		<source>
+			return external_call($MAB_BodyApplyTorqueImpulse$, $body$, $impx$, $impy$, $impz$, $relative$);
+		</source>
+	</script>
+	<script name="MAE_PhysBodyApplyTorqueImpulseVector(body,relative,impulse)" func="real MAB_BodyApplyTorqueImpulse(real, real, real, real, real)">
+		<desc value="Applies torque impulse to a physics body." />
+		<arg index="0" value="Body" />
+		<arg index="1" value="Local space(true), or world space(false)" />
+		<arg index="2" value="Torque vector" />
+		<arg value="Success" />
+		<source>
+			var impulse = $impulse$;
+			
+			return external_call($MAB_BodyApplyTorqueImpulse$, $body$, impulse[0], impulse[1], impulse[2], $relative$);
+		</source>
+	</script>
+</external>

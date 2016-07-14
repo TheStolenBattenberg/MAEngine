@@ -19,6 +19,6 @@ public:
 		return (index << 16) | usage;
 	}
 
-	virtual void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride);
-	virtual void addElement(uint index, uint type, uint offset);
+	virtual void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride) = 0;
+	virtual void addElement(uint index, uint type, uint offset) = 0;
 };

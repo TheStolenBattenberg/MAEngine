@@ -1,0 +1,179 @@
+<external>
+	<script name="MAE_PhysWorldCreate(use_interpolation = false)" func="real MAB_WorldCreate(real)">
+		<desc value="Creates the physics world. You have the option to interpolate the transformations of physics bodies between frames. This is useful if you are using a variable frame rate with a fixed timestep." />
+		<arg index="0" value="(optional) Use interpolation?" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysWorldDestroy()" func="real MAB_WorldDestroy(real)">
+		<desc value="Destroys the physics world and everything in it. Shapes are not destroyed." />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysWorldStep(timestep,max_sub_steps,fixed_timestep)" func="real MAB_WorldStep(real, real, real)">
+		<desc value="Steps the simulation by a specified amount of time. Typically the timestep is the amount of time between calls. The physics engine will advance the simulation with increments of fixed_timestep, using sub-steps if necessary. The physics engine has an internal clock that will keep track of any leftover time and apply it the next frame. It is important that timestep is always less than max_sub_steps fixed_timestep, otherwise the simulation will loose time. You don't have to use a fixed timestep. If you set the last 2 parameters to 0 the simulation will simply advance by timestep." />
+		<arg index="0" value="The amount of time to simulate, in seconds." />
+		<arg index="1" value="The maximum number of substeps, must be larger than 1 to enable interpolation." />
+		<arg index="2" value="The amount of time each step will simulate. Pass in 0 to disable substepping." />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysWorldExists()" func="real MAB_WorldExists()">
+		<desc value="Checks if the physics world exists." />
+		<arg value="1 if the world exists. 0 if it does not." />
+	</script>
+	<script name="MAE_PhysWorldSetGravity(x,y,z)" func="real MAB_WorldSetGravity(real, real, real)">
+		<desc value="Sets the gravity of the physics world" />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysWorldSetGravityVector(v)">
+		<desc value="Sets the gravity of the physics world" />
+		<arg value="Success" />
+		<source>
+			var v = $v$;
+			
+			return external_call($MAB_WorldSetGravity$, v[0], v[1], v[2]);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldGetGravity()" func="real MAB_WorldGetGravity()">
+		<desc value="Gets the gravity of the physics world." />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_WorldGetGravity$);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysWorldGetBodyCount()" func="real MAB_WorldGetBodyCount()">
+		<desc value="Returns the number of physics bodies that are in the physics world." />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysWorldGetConstraintCount()" func="real MAB_WorldGetConstraintCount()">
+		<desc value="Returns the number of constraints that are in the physics world." />
+		<arg value="Real" />
+	</script>
+	<script name="MAE_PhysWorldDebugDraw()" func="real MAB_WorldDebugDraw()">
+		<desc value="Draws a debug wireframe representation of the physics world, including physics bodies, constraints, and collision points. Call this function in a draw event." />
+		<arg value="Success" />
+	</script>
+	<script name="MAE_PhysWorldRaycast(startx,starty,startz,endx,endy,endz,group = -1,mask = -1)" func="real MAB_WorldRaycast(real, real, real, real, real, real, real, real)">
+		<desc value="Checks for collisions by casting a ray between 2 points, with an optional collision mask. Use the MAE_PhysWorldHit functions to get more information about the collision." />
+		<arg index="0" value="Starting point as a vector" />
+		<arg index="1" value="End point as a vector" />
+		<arg value="1 on collision, 0 if nothing was hit." />
+	</script>
+	<script name="MAE_PhysWorldRaycastVector(start,end,group = -1,mask = -1)">
+		<desc value="Checks for collisions by casting a ray between 2 points, with an optional collision mask. Use the MAE_PhysWorldHit functions to get more information about the collision." />
+		<arg index="0" value="Starting point as a vector" />
+		<arg index="1" value="End point as a vector" />
+		<arg value="1 on collision, 0 if nothing was hit." />
+		<source>
+			var startVec = $start$, endVec = $end$;
+			
+			return external_call($MAB_WorldRaycast$, startVec[0], startVec[1], startVec[2], endVec[0], endVec[1], endVec[2], $group$, $mask$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldSweep(shape,startx,starty,startz,endx,endy,endz,group = -1,mask = -1)" func="real MAB_WorldSweep(real, real, real, real, real, real, real, real, real)">
+		<desc value="Checks for collisions by casting a convex shape between 2 points, with an optional collision mask. Behaves like a raycast, but casts a shape instead of a point. The shape must be a convex shape. Use the MAE_PhysWorldHit  functions to get more information about the collision." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Starting point as a vector" />
+		<arg index="2" value="End point as a vector" />
+		<arg value="1 on collision, 0 if nothing was hit." />
+	</script>
+	<script name="MAE_PhysWorldSweepVector(shape,start,end,group = -1,mask = -1)" >
+		<desc value="Checks for collisions by casting a convex shape between 2 points, with an optional collision mask. Behaves like a raycast, but casts a shape instead of a point. The shape must be a convex shape. Use the MAE_PhysWorldHit  functions to get more information about the collision." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Starting point as a vector" />
+		<arg index="2" value="End point as a vector" />
+		<arg value="1 on collision, 0 if nothing was hit." />
+		<source>
+			var startVec = $start$, endVec = $end$;
+			
+			return external_call($MAB_WorldSweep$, $shape$, startVec[0], startVec[1], startVec[2], endVec[0], endVec[1], endVec[2], $group$, $mask$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldOverlap(shape,x,y,z,group = -1,mask = -1)" func="real MAB_WorldOverlap(real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Checks for overlaps in the world with a shape, with an optional collision mask. Use the MAE_PhysWorldHitBody(n) to get the ID's of all the bodies in the world that overlapped." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Position as a vector" />
+		<arg value="The number of overlaps." />
+		<source>
+			return external_call($MAB_WorldOverlap$, $x$, $y$, $z$, 0, 0, 0, 1, $group$, $mask$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldOverlapVector(shape,vec,group = -1,mask = -1)" func="real MAB_WorldOverlap(real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Checks for overlaps in the world with a shape, with an optional collision mask. Use the MAE_PhysWorldHitBody(n) to get the ID's of all the bodies in the world that overlapped." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Position as a vector" />
+		<arg value="The number of overlaps." />
+		<source>
+			var vec = $vec$;
+			
+			return external_call($MAB_WorldOverlap$, vec[0], vec[1], vec[2], 0, 0, 0, 1, $group$, $mask$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldOverlapQuat(shape,x,y,z,quaternion,group = -1,mask = -1)" func="real MAB_WorldOverlap(real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Checks for overlaps in the world with a shape, with an optional collision mask. Use the MAE_PhysWorldHitBody(n) to get the ID's of all the bodies in the world that overlapped." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Position as a vector" />
+		<arg index="2" value="Rotation as a quaternion." />
+		<arg value="The number of overlaps." />
+		<source>
+			var quat = $quaternion$;
+			
+			return external_call($MAB_WorldOverlap$, $x$, $y$, $z$, quat[0], quat[1], quat[2], quat[3], $group$, $mask$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldOverlapVectorQuat(shape,vec,quaternion,group = -1,mask = -1)" func="real MAB_WorldOverlap(real, real, real, real, real, real, real, real, real, real)">
+		<desc value="Checks for overlaps in the world with a shape, with an optional collision mask. Use the MAE_PhysWorldHitBody(n) to get the ID's of all the bodies in the world that overlapped." />
+		<arg index="0" value="Shape" />
+		<arg index="1" value="Position as a vector" />
+		<arg index="2" value="Rotation as a quaternion." />
+		<arg value="The number of overlaps." />
+		<source>
+			var vec = $vec$;
+			var quat = $quaternion$;
+			
+			return external_call($MAB_WorldOverlap$, vec[0], vec[1], vec[2], quat[0], quat[1], quat[2], quat[3], $group$, $mask$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldHitBody(n = -1)">
+		<desc value="Returns the id of the hit body of a collision check. " />
+		<arg index="0" value="Optional. Only for overlap checks, returns body n that was overlapped." />
+		<arg value="Body ID" />
+		<source>
+			if($n$ &lt; 0)
+				return external_call($MAB_HitResult$, 3);
+			
+			return external_call($MAB_OverlapResult$, $n$);
+		</source>
+	</script>
+	<script name="MAE_PhysWorldHitPosition()">
+		<desc value="Returns the hit point of a sweep or raycast." />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_HitResult$, 0);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysWorldHitNormal()">
+		<desc value="Returns the surface normal at the hit point of a sweep or raycast." />
+		<arg value="Vector" />
+		<source>
+			external_call($MAB_HitResult$, 1);
+			
+			return MAE_VectorCreate(external_call($MAB_Vec$, 0),
+									external_call($MAB_Vec$, 1),
+									external_call($MAB_Vec$, 2));
+		</source>
+	</script>
+	<script name="MAE_PhysWorldHitFraction()">
+		<desc value="Returns the time of the collision of a sweep or raycast. To get the distance to the collision, multiply the distance between the start and end point of the raycast by this." />
+		<arg value="Real between 0 and 1" />
+		<source>
+			return external_call($MAB_HitResult$, 2);
+		</source>
+	</script>
+</external>

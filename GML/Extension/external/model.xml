@@ -1,0 +1,49 @@
+<external>
+	<folder name="MD2">
+		<script name="MAE_ModelMD2Load(model,texture,normals)" func="real MADX9_MD2Load(string, real, real)">
+			<desc value="Loads MD2 Model and Texture." />
+			<arg index="0" value="MD2 File." />
+			<arg index="1" value="Texture index." />
+			<arg index="2" value="Generate normals" />
+			<arg value="0 on Error, 1 on success. " />
+		</script>
+		<script name="MAE_ModelMD2Frames(index)" func="real MADX9_MD2GetFrames(real)">
+			<desc value="Returns the total number of frames in a loaded MD2 Model." />
+			<arg index="0" value="MD2 Index." />
+			<arg value="0 on Error, 1 on success. " />
+		</script>
+		<script name="MAE_ModelMD2Render(index,frame,frame,tween)" func="real MADX9_MD2Render(real, real, real, real)">
+			<desc value="Draws an MD2 model to the 3D scene." />
+			<arg index="0" value="MD2 Index." />
+			<arg index="1" value="First Frame." />
+			<arg index="2" value="Second Frame." />
+			<arg index="3" value="Tween Value." />
+			<arg value="0 on Error, 1 on success. " />
+		</script>
+		<script name="MAE_ModelMD2Destroy(index)" func="real MADX9_MD2Destroy(real)">
+			<desc value="Removes a previously created MD2 model from memory." />
+			<arg index="0" value="MD2 Index." />
+			<arg value="0 on Error, 1 on success. " />
+		</script>
+	</folder>
+	<folder name="MPM">
+		<script name="MAE_ModelMPMLoad(file)" func="real MAE_MPMLoad(string)">
+		</script>
+		<script name="MAE_ModelMPMDestroy(ind)" func="real MAE_MPMDestroy(real)">
+		</script>
+		<script name="MAE_ModelMPMRender(ind)" func="real MAE_MPMRender(real)">
+		</script>
+	</folder>
+	<folder name="X">
+		<script name="MAE_ModelXLoad(model,basedir)" func="real MADX9_XLoad(string, string)">
+			<desc value="Loads X Model and its textures." />
+			<arg index="0" value="X File." />
+			<arg index="1" value="Texture base directory." />
+			<arg value="0 on Error, 1 on success. " />
+		</script>
+		<script name="MAE_ModelXRender(index)" func="real MADX9_XRender(real)">
+		</script>
+		<script name="MAE_ModelXDestroy(index)" func="real MADX9_XDestroy(real)">
+		</script>
+	</folder>
+</external>

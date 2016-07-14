@@ -1,0 +1,33 @@
+<external>
+	<script name="MAE_ParticleEmitterCreate(index)" func="real MADX9_ParticleEmitterCreate(real)">
+	</script>
+	<script name="MAE_ParticleEmitterSetParticleCount(index,min,max)" func="real MADX9_ParticleEmitterSetParticleCount(real, real, real)">
+	</script>
+	<script name="MAE_ParticleEmitterSetParticleLife(index,min,max)" func="real MADX9_ParticleEmitterSetParticleLife(real, real, real)">
+	</script>
+	<script name="MAE_ParticleEmitterSetParticleSize(index,min,max)" func="real MADX9_ParticleEmitterSetParticleSize(real, real, real)">
+	</script>
+	<script name="MAE_ParticleEmitterSetParticlePosition(index,min,max)" func="real MADX9_ParticleEmitterSetParticlePos(real, real, real, real, real, real, real)">
+		<source>
+			var minVec = $min$, maxVec = $max$;
+			
+			return external_call($MADX9_ParticleEmitterSetParticlePos$, $index$, minVec[0], minVec[1], minVec[2], maxVec[0], maxVec[1], maxVec[2]);
+		</source>
+	</script>
+	<script name="MAE_ParticleEmitterSetParticleAcceleration(index,acceleration)" func="real MADX9_ParticleEmitterSetParticleAcc(real, real, real, real)">
+		<source>
+			var acceleration = $acceleration$;
+			
+			return external_call($MADX9_ParticleEmitterSetParticleAcc$, $index$, acceleration[0], acceleration[1], acceleration[2]);
+		</source>
+	</script>
+	<script name="MAE_ParticleEmitterSetParticleVelocity(index,min,max)" func="real MADX9_ParticleEmitterSetParticleVel(real, real, real, real, real, real, real)">
+		<source>
+			var minVec = $min$, maxVec = $max$;
+			
+			return external_call($MADX9_ParticleEmitterSetParticleVel$, $index$, minVec[0], minVec[1], minVec[2], maxVec[0], maxVec[1], maxVec[2]);
+		</source>
+	</script>
+	<script name="MAE_ParticleEmitterSetParticleColour(index,rStart,gStart,bStart,aStart,rEnd,gEnd,bEnd,aEnd)" func="real MADX9_ParticleEmitterSetParticleCol(real, real, real, real, real, real, real, real, real)">
+	</script>
+</external>
