@@ -52,9 +52,6 @@
     <Filter Include="Source Files\Rendering\Scene">
       <UniqueIdentifier>{53b0db05-53a6-4192-94dd-7105737f70f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{a0c336d8-38f7-4eb8-9954-f78d117535c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Rendering\Resources">
       <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
     </Filter>
@@ -122,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp">
       <Filter>Source Files\Rendering\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Core\Error.cpp">
-      <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp">
       <Filter>Source Files\FMOD</Filter>
@@ -229,9 +223,6 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.h">
       <Filter>Header Files\Rendering\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Core\Error.h">
-      <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Math.h">
       <Filter>Header Files\Core</Filter>

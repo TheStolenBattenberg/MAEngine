@@ -3,16 +3,13 @@
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Core/Math.h>
 
-namespace MD2Type
-{
-	enum
-	{
+namespace MD2Type {
+	enum {
 		Version     = 0x00000008ul,
 		MagicNumber = 0x32504449ul
 	};
 
-	struct Header
-	{
+	struct Header {
 		uint magicNumber;
 		uint version;
 
@@ -35,36 +32,31 @@ namespace MD2Type
 		uint ofsEnd;
 	};
 
-	struct Vertex
-	{
+	struct Vertex {
 		ubyte vertex[3];
 		ubyte normInd;
 	};
 
-	struct Frame
-	{
+	struct Frame {
 		float  scale[3];
 		float  translate[3];
 		char   name[16];
 		Vertex verticies[1];
 	};
 
-	struct Triangle
-	{
+	struct Triangle {
 		short vertInd[3];
 		short texInd[3];
 	};
 
 	typedef short IndexBuffer[3];
 
-	struct Texcoord
-	{
+	struct Texcoord {
 		short s, t;
 	};
 };
 
-Normal MD2Normals[] =
-{
+Normal MD2Normals[] = {
 	{-0.525731f,  0.000000f,  0.850651f},
 	{-0.442863f,  0.238856f,  0.864188f},
 	{-0.295242f,  0.000000f,  0.955423f},
@@ -229,8 +221,7 @@ Normal MD2Normals[] =
 	{-0.688191f, -0.587785f, -0.425325f}
 };
 
-MD2Model::~MD2Model()
-{
+MD2Model::~MD2Model() {
 	for (uint i = 0; i < vertBufs.size(); ++i)
 		if (vertBufs[i] != 0)
 			vertBufs[i]->Release();
@@ -245,14 +236,13 @@ MD2Model::~MD2Model()
 		decl->Release();
 }
 
-ErrorCode MD2Model::load(std::string model, bool normals)
-{
+void MD2Model::load(std::string model, bool normals) {
 	this->normals = normals;
 
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
 	if (!f)
-		return mainObj->setError(ErrorReadFile);
+		throw new std::exception("Failed to read from file");
 	
 	/**
 	* Load and validate MD2 Header
@@ -263,7 +253,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	f.read((char*)&h, sizeof(h));
 
 	if (h.magicNumber != MD2Type::MagicNumber || h.version != MD2Type::Version || h.frameSize == 0)
-		return mainObj->setError(ErrorReadFile);
+		throw new std::exception("Failed to read from file");
 
 	triCount  = h.numTris;
 	vertCount = h.numVert;
@@ -281,23 +271,19 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 
 	MD2Type::Frame* CurrentFrame;
 
-	for (uint frame = 0; frame < h.numFrames; ++frame)
-	{
+	for (uint frame = 0; frame < h.numFrames; ++frame) {
 		CurrentFrame = (MD2Type::Frame*) &FrameBuffer[h.frameSize * frame];
 
 		LPDIRECT3DVERTEXBUFFER9 vb;
 
 		HRESULT result = mainObj->d3ddev->CreateVertexBuffer(h.numVert * (normals ? sizeof(VertNorm) : sizeof(Vertex)), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
-		if (FAILED(result))
-		{
+		if (FAILED(result)) {
 			delete[] FrameBuffer;
-
-			return mainObj->setError(ErrorCreateVertexBuffer);
+			throw new std::exception("Failed to create VertexBuffer");
 		}
 
-		if (normals)
-		{
+		if (normals) {
 			VertNorm* Vertices;
 			vb->Lock(0, 0, (void**) &Vertices, 0);
 
@@ -310,8 +296,7 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 
 			vb->Unlock();
 		}
-		else
-		{
+		else {
 			Vertex* Vertices;
 			vb->Lock(0, 0, (void**) &Vertices, 0);
 
@@ -341,18 +326,15 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 	*/
 	HRESULT result = mainObj->d3ddev->CreateIndexBuffer(h.numTris * sizeof(MD2Type::IndexBuffer), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf, 0);
 
-	if (FAILED(result))
-	{
+	if (FAILED(result)) {
 		delete[] TriangleBuffer;
-		
-		return mainObj->setError(ErrorCreateIndexBuffer);
+		throw new std::exception("Failed to create IndexBuffer");
 	}
 
 	MD2Type::IndexBuffer* IndexBuffer;
 	indBuf->Lock(0, 0, (void**)&IndexBuffer, 0);
 
-	for (uint i = 0; i < h.numTris; ++i)
-	{
+	for (uint i = 0; i < h.numTris; ++i) {
 		IndexBuffer[i][0] = TriangleBuffer[i].vertInd[0];
 		IndexBuffer[i][1] = TriangleBuffer[i].vertInd[1];
 		IndexBuffer[i][2] = TriangleBuffer[i].vertInd[2];
@@ -371,21 +353,18 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 
 	result = mainObj->d3ddev->CreateVertexBuffer(h.numVert * sizeof(TexCoord), 0, 0, D3DPOOL_DEFAULT, &texBuf, 0);
 
-	if (FAILED(result))
-	{
+	if (FAILED(result)) {
 		delete[] CoordBuffer;
 		delete[] TriangleBuffer;
 		
-		return mainObj->setError(ErrorCreateVertexBuffer);
+		throw new std::exception("Failed to create VertexBuffer");
 	}
 
 	TexCoord* VertexTextureBuffer;
 	texBuf->Lock(0, 0, (void**)&VertexTextureBuffer, 0);
 
-	for (uint t = 0; t < h.numTris; ++t)
-	{
-		for (uint i = 0; i < 3; ++i)
-		{
+	for (uint t = 0; t < h.numTris; ++t) {
+		for (uint i = 0; i < 3; ++i) {
 			VertexTextureBuffer[TriangleBuffer[t].vertInd[i]].s = (float)CoordBuffer[TriangleBuffer[t].texInd[i]].s / h.skinWidth;
 			VertexTextureBuffer[TriangleBuffer[t].vertInd[i]].t = (float)CoordBuffer[TriangleBuffer[t].texInd[i]].t / h.skinHeight;
 		}
@@ -398,10 +377,8 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 
 	f.close();
 
-	if (normals)
-	{
-		D3DVERTEXELEMENT9 elem[] =
-		{
+	if (normals) {
+		D3DVERTEXELEMENT9 elem[] = {
 			{0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
 			{0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0},
 			{1, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
@@ -413,12 +390,10 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 		HRESULT res = mainObj->d3ddev->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-			return mainObj->setError(ErrorCreateVertexDecl);
+			throw new std::exception("Failed to create VertexDeclaration");
 	}
-	else
-	{
-		D3DVERTEXELEMENT9 elem[] =
-		{
+	else {
+		D3DVERTEXELEMENT9 elem[] = {
 			{0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
 			{1, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
 			{2, 0, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
@@ -428,24 +403,19 @@ ErrorCode MD2Model::load(std::string model, bool normals)
 		HRESULT res = mainObj->d3ddev->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-			return mainObj->setError(ErrorCreateVertexDecl);
+			throw new std::exception("Failed to create VertexDeclaration");
 	}
-
-	return ErrorOk;
 }
 
-void MD2Model::setTexture(Texture* texture)
-{
+void MD2Model::setTexture(Texture* texture) {
 	tex = texture;
 }
 
-uint MD2Model::getFrameCount()
-{
+uint MD2Model::getFrameCount() {
 	return vertBufs.size();
 }
 
-void MD2Model::render(uint frame1, uint frame2, float tween)
-{
+void MD2Model::render(uint frame1, uint frame2, float tween) {
 	mainObj->setTexture(0, tex);
 
 	mainObj->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);

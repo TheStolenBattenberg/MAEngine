@@ -14,7 +14,7 @@ class MD2Model
 public:
 	~MD2Model();
 
-	ErrorCode load(std::string model, bool normals);
+	void load(std::string model, bool normals);
 	void setTexture(Texture* tex);
 	void render(uint frame1, uint frame2, float tween);
 	uint getFrameCount();

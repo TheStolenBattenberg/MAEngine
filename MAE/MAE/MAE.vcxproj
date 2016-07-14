@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\MAE\Bullet\Bullet.cpp" />
     <ClCompile Include="..\src\MAE\Bullet\BulletDebugDraw.cpp" />
-    <ClCompile Include="..\src\MAE\Core\Error.cpp" />
     <ClCompile Include="..\src\MAE\FMOD\CFmod.cpp" />
     <ClCompile Include="..\src\MAE\FMOD\CFmodChannel.cpp" />
     <ClCompile Include="..\src\MAE\FMOD\CFmodDSP.cpp" />
@@ -41,7 +40,6 @@
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />
     <ClInclude Include="..\src\MAE\Bullet\BulletDebugDraw.h" />
-    <ClInclude Include="..\src\MAE\Core\Error.h" />
     <ClInclude Include="..\src\MAE\Core\Math.h" />
     <ClInclude Include="..\src\MAE\Core\Releasable.h" />
     <ClInclude Include="..\src\MAE\Core\Types.h" />

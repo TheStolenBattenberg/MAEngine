@@ -11,12 +11,8 @@ public:
 
 	void release();
 
-	ErrorCode createEntity(class Entity*& entity);
-
-	void removeEntity(class Entity* entity);
+	class Entity* createEntity();
 
 private:
 	class MainImpl* main;
-
-	std::list<class EntityImpl*> entities;
 };

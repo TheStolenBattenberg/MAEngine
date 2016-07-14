@@ -13,5 +13,5 @@ public:
 
 	virtual void release() = 0;
 
-	virtual ErrorCode setMode(PipelineMode mode) = 0;
+	virtual uint setMode(PipelineMode mode) = 0;
 };

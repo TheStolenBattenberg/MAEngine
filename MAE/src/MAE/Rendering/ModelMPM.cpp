@@ -5,10 +5,8 @@
 
 #include <fstream>
 
-MPMModel::~MPMModel()
-{
-	for (auto i : meshes)
-	{
+MPMModel::~MPMModel() {
+	for (auto i : meshes) {
 		if (i.decl != 0)
 			i.decl->Release();
 		
@@ -23,20 +21,19 @@ MPMModel::~MPMModel()
 	instances.clear();
 }
 
-ErrorCode MPMModel::load(const std::string& model)
-{
+void MPMModel::load(const std::string& model) {
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
 	MPM::Header h;
 	
 	if (!readFromStream(f, h))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
 	if (h.magicNumber != MPM::MagicNumber)
-		return ErrorReadFile;
+		throw new std::exception("Invalid header");
 
 	if (h.compVersion > MPM::Version)
-		return ErrorReadFile;
+		throw new std::exception("Invalid header");
 
 	for (uint i = 0; i < h.numMeshes; ++i)
 		meshes.push_back({0, 0, 0, 0, 0, 0, 0});
@@ -44,65 +41,54 @@ ErrorCode MPMModel::load(const std::string& model)
 	MPM::PacketHeader ph;
 
 	if (!readFromStream(f, ph))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
-	while (ph.id != MPM::PacketEndOfFileID)
-	{
+	while (ph.id != MPM::PacketEndOfFileID) {
 		auto offs = f.tellg();
 
-		ErrorCode err = ErrorOk;
-
-		switch (ph.id)
-		{
+		switch (ph.id) {
 		case MPM::PacketInstID:
-			err = readInstances(f);
+			readInstances(f);
 			break;
 		case MPM::PacketMeshID:
-			err = readMesh(f);
+			readMesh(f);
 			break;
 		case MPM::PacketVertexDescID:
-			err = readVertexDesc(f);
+			readVertexDesc(f);
 			break;
 		case MPM::PacketVertexDataID:
-			err = readVertexData(f);
+			readVertexData(f);
 			break;
 		case MPM::PacketVertexIndexDataID:
-			err = readIndexData(f);
+			readIndexData(f);
 			break;
 		default:
 			f.seekg(ph.length, std::ios_base::cur);
 		}
 
-		if (err != ErrorOk)
-			return err;
-
 		if (f.tellg() - offs != ph.length)
-			return ErrorReadFile;
+			throw new std::exception("Failed to read from file");
 
 		if (!readFromStream(f, ph))
-			return ErrorReadFile;
+			throw new std::exception("Failed to read from file");
 	}
-
-	return ErrorOk;
 }
 
-ErrorCode MPMModel::readInstances(std::ifstream& f)
-{
+void MPMModel::readInstances(std::ifstream& f) {
 	MPM::InstHeader ih;
 
 	if (!readFromStream(f, ih))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
 	std::vector<MPM::Inst> inst;
 
 	inst.reserve(ih.num);
 
-	for (uint i = 0; i < ih.num; ++i)
-	{
+	for (uint i = 0; i < ih.num; ++i) {
 		MPM::Inst in;
 
 		if (!readFromStream(f, in))
-			return ErrorReadFile;
+			throw new std::exception("Failed to read from file");
 
 		inst.push_back(in);
 	}
@@ -111,30 +97,24 @@ ErrorCode MPMModel::readInstances(std::ifstream& f)
 
 	for (auto i : inst)
 		instances.push_back({i.meshInd, mat4::compose(i.scal, i.rot, i.trans)});
-
-	return ErrorOk;
 }
 
-ErrorCode MPMModel::readMesh(std::ifstream& f)
-{
+void MPMModel::readMesh(std::ifstream& f) {
 	MPM::Mesh mesh;
 
 	if (!readFromStream(f, mesh))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
 	meshes[mesh.meshId].matInd      = mesh.matInd;
 	meshes[mesh.meshId].numPrim     = (mesh.numIndices == 0 ? mesh.numVertices : mesh.numIndices) / 3;
 	meshes[mesh.meshId].numVertices = mesh.numVertices;
-
-	return ErrorOk;
 }
 
-ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
-{
+void MPMModel::readVertexDesc(std::ifstream& f) {
 	MPM::PacketVertexDescHeader vh;
 
 	if (!readFromStream(f, vh))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
 	meshes[vh.meshInd].stride = vh.vertStride;
 
@@ -142,12 +122,11 @@ ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 
 	vertexDescs.reserve(vh.num);
 
-	for (uint i = 0; i < vh.num; ++i)
-	{
+	for (uint i = 0; i < vh.num; ++i) {
 		MPM::PacketVertexDesc vd;
 
 		if (!readFromStream(f, vd))
-			return ErrorReadFile;
+			throw new std::exception("Failed to read from file");
 
 		vertexDescs.push_back(vd);
 	}
@@ -183,24 +162,21 @@ ErrorCode MPMModel::readVertexDesc(std::ifstream& f)
 	HRESULT res = mainObj->d3ddev->CreateVertexDeclaration(elements.data(), &meshes[vh.meshInd].decl);
 
 	if (FAILED(res))
-		return mainObj->setError(ErrorCreateVertexDecl);
-	
-	return ErrorOk;
+		throw new std::exception("Failed to create VertexDeclaration");
 }
 
-ErrorCode MPMModel::readVertexData(std::ifstream& f)
-{
+void MPMModel::readVertexData(std::ifstream& f) {
 	MPM::PacketVertexDataHeader vdh;
 
 	if (!readFromStream(f, vdh))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
 	LPDIRECT3DVERTEXBUFFER9 vb;
 
 	HRESULT res = mainObj->d3ddev->CreateVertexBuffer(vdh.length, 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 	if (FAILED(res))
-		return mainObj->setError(ErrorCreateVertexBuffer);
+		throw new std::exception("Failed to create VertexBuffer");
 
 	void* data;
 
@@ -211,16 +187,13 @@ ErrorCode MPMModel::readVertexData(std::ifstream& f)
 	vb->Unlock();
 
 	meshes[vdh.meshInd].vb = vb;
-
-	return ErrorOk;
 }
 
-ErrorCode MPMModel::readIndexData(std::ifstream& f)
-{
+void MPMModel::readIndexData(std::ifstream& f) {
 	MPM::PacketVertexIndexHeader vih;
 
 	if (!readFromStream(f, vih))
-		return ErrorReadFile;
+		throw new std::exception("Failed to read from file");
 
 	uint length = vih.num * (vih.type == vih.TypeU32 ? sizeof(uint) : sizeof(ushort));
 
@@ -229,7 +202,7 @@ ErrorCode MPMModel::readIndexData(std::ifstream& f)
 	HRESULT res = mainObj->d3ddev->CreateIndexBuffer(length, 0, vih.type == vih.TypeU32 ? D3DFMT_INDEX32 : D3DFMT_INDEX16, D3DPOOL_DEFAULT, &ib, 0);
 
 	if (FAILED(res))
-		return mainObj->setError(ErrorCreateIndexBuffer);
+		throw new std::exception("Failed to create IndexBuffer");
 
 	void* data;
 
@@ -240,15 +213,11 @@ ErrorCode MPMModel::readIndexData(std::ifstream& f)
 	ib->Unlock();
 
 	meshes[vih.meshInd].ib = ib;
-
-	return ErrorOk;
 }
 
-void MPMModel::render()
-{
-	for (auto i : instances)
-	{
-		Mesh& mesh = meshes[i.meshInd];
+void MPMModel::render() {
+	for (auto i : instances) {
+		auto& mesh = meshes[i.meshInd];
 
 		mainObj->d3ddev->SetTransform(D3DTS_WORLDMATRIX(1), (D3DMATRIX*) &i.transform.data);
 
@@ -257,8 +226,7 @@ void MPMModel::render()
 
 		if (mesh.ib == 0)
 			mainObj->d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, mesh.numPrim);
-		else
-		{
+		else {
 			mainObj->d3ddev->SetIndices(mesh.ib);
 			mainObj->d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, mesh.numVertices, 0, mesh.numPrim);
 		}

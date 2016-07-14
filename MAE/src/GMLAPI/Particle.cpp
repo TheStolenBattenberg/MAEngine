@@ -51,7 +51,7 @@ DLLEXPORT double MADX9_ParticleSystemSetParticleCount(double ps, double count) {
 
 DLLEXPORT double MADX9_ParticleSystemSetTexture(double ps, double tex) {
 	doubleToPtr<ParticleSystem>(ps)->setTexture(doubleToPtr<Texture>(tex));
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MADX9_ParticleEmitterCreate(double ps) {

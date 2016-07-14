@@ -5,30 +5,27 @@
  */
 
 #include <MAE/Core/Types.h>
-#include <MAE/Core/Error.h>
 
 #include <d3d9.h>
 #include <vector>
 #include <Mat.h>
 #include <MPM.h>
 
-class MPMModel
-{
+class MPMModel {
 public:
 	~MPMModel();
 
-	ErrorCode load(const std::string& model);
+	void load(const std::string& model);
 	void render();
 
 private:
-	ErrorCode readInstances(std::ifstream& f);
-	ErrorCode readMesh(std::ifstream& f);
-	ErrorCode readVertexDesc(std::ifstream& f);
-	ErrorCode readVertexData(std::ifstream& f);
-	ErrorCode readIndexData(std::ifstream& f);
+	void readInstances(std::ifstream& f);
+	void readMesh(std::ifstream& f);
+	void readVertexDesc(std::ifstream& f);
+	void readVertexData(std::ifstream& f);
+	void readIndexData(std::ifstream& f);
 
-	struct Mesh
-	{
+	struct Mesh {
 		uint matInd;
 
 		uint numVertices;
@@ -41,8 +38,7 @@ private:
 		LPDIRECT3DINDEXBUFFER9       ib;
 	};
 
-	struct Inst
-	{
+	struct Inst {
 		uint meshInd;
 		mat4 transform;
 	};

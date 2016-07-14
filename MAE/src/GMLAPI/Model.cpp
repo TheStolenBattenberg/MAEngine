@@ -14,25 +14,18 @@
  * Id .MD2 mesh.
  */
 
-DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double tex, double normals)
-{
+DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double tex, double normals) {
 	auto texPtr = doubleToPtr<Texture>(tex);
+	auto MD2 = new MD2Model();
 
-	auto MD2 = new MD2Model;
-
-	if (!MD2->load(MD2ModelFile, normals >= 0.5)) {
-		delete MD2;
-		return -1;
-	}
-
+	MD2->load(MD2ModelFile, normals >= 0.5);
 	MD2->setTexture(texPtr);
 
 	mamain->MD2Models.add(MD2);
 	return ptrToDouble(MD2);
 }
 
-DLLEXPORT double MADX9_MD2Render(double md2, double frame_1, double frame_2, double tween)
-{
+DLLEXPORT double MADX9_MD2Render(double md2, double frame_1, double frame_2, double tween) {
 	auto ptr = doubleToPtr<MD2Model>(md2);
 
 	ptr->render((uint) frame_1, (uint) frame_2, (float) tween);
@@ -40,15 +33,13 @@ DLLEXPORT double MADX9_MD2Render(double md2, double frame_1, double frame_2, dou
 	return 1;
 }
 
-DLLEXPORT double MADX9_MD2GetFrames(double md2)
-{
+DLLEXPORT double MADX9_MD2GetFrames(double md2) {
 	auto ptr = doubleToPtr<MD2Model>(md2);
 
 	return ptr->getFrameCount();
 }
 
-DLLEXPORT double MADX9_MD2Destroy(double md2)
-{
+DLLEXPORT double MADX9_MD2Destroy(double md2) {
 	auto ptr = doubleToPtr<MD2Model>(md2);
 
 	mamain->MD2Models.remove(ptr);
@@ -61,8 +52,7 @@ DLLEXPORT double MADX9_MD2Destroy(double md2)
  * Microsoft .X mesh.
  */
 
-DLLEXPORT double MADX9_XLoad(const char* XModelFile, const char* TextureDirectory)
-{
+DLLEXPORT double MADX9_XLoad(const char* XModelFile, const char* TextureDirectory) {
 	auto x = new XModel();
 
 	if (!x->load(XModelFile, TextureDirectory)) {
@@ -74,8 +64,7 @@ DLLEXPORT double MADX9_XLoad(const char* XModelFile, const char* TextureDirector
 	return ptrToDouble(x);
 }
 
-DLLEXPORT double MADX9_XRender(double x)
-{
+DLLEXPORT double MADX9_XRender(double x) {
 	auto ptr = doubleToPtr<XModel>(x);
 
 	for (uint i = 0; i < ptr->getMaterialCount(); ++i) {
@@ -87,8 +76,7 @@ DLLEXPORT double MADX9_XRender(double x)
 	return 1;
 }
 
-DLLEXPORT double MADX9_XDestroy(double x) 
-{
+DLLEXPORT double MADX9_XDestroy(double x) {
 	auto ptr = doubleToPtr<XModel>(x);
 
 	mamain->XModels.remove(ptr);
@@ -97,21 +85,16 @@ DLLEXPORT double MADX9_XDestroy(double x)
 	return 1;
 }
 
-DLLEXPORT double MAE_MPMLoad(const char* file)
-{
+DLLEXPORT double MAE_MPMLoad(const char* file) {
 	auto m = new MPMModel();
 
-	auto res = m->load(file);
-
-	if (res != ErrorOk)
-		return res;
+	m->load(file);
 
 	mamain->MPMModels.add(m);
 	return ptrToDouble(m);
 }
 
-DLLEXPORT double MAE_MPMDestroy(double m)
-{
+DLLEXPORT double MAE_MPMDestroy(double m) {
 	auto ptr = doubleToPtr<MPMModel>(m);
 
 	mamain->MPMModels.remove(ptr);
@@ -120,8 +103,7 @@ DLLEXPORT double MAE_MPMDestroy(double m)
 	return 1;
 }
 
-DLLEXPORT double MAE_MPMRender(double m)
-{
+DLLEXPORT double MAE_MPMRender(double m) {
 	auto ptr = doubleToPtr<MPMModel>(m);
 
 	ptr->render();

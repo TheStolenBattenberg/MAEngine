@@ -12,14 +12,7 @@
 std::vector<float> matStack;
 
 DLLEXPORT double MAE_ShaderCreate() {
-	Shader* s;
-
-	auto ret = mamain->createShader(s);
-
-	if (ret != ErrorOk)
-		return ret;
-
-	return ptrToDouble(s);
+	return ptrToDouble(mamain->createShader());
 }
 
 DLLEXPORT double MAE_ShaderCompileD3D9ASM(double s, const char* VSCode, const char* PSCode) {
@@ -35,17 +28,21 @@ DLLEXPORT double MAE_ShaderCompileD3D9HLSL9(double s, const char* VSCode, const 
 }
 
 DLLEXPORT double MAE_ShaderSet(double s) {
-	return mamain->setShader(doubleToPtr<Shader>(s));
+	mamain->setShader(doubleToPtr<Shader>(s));
+
+	return 1;
 }
 
 DLLEXPORT double MAE_ShaderReset() {
-	return mamain->resetShader();
+	mamain->setShader(nullptr);
+
+	return 1;
 }
 
 DLLEXPORT double MAE_ShaderDestroy(double s) {
 	delete doubleToPtr<Shader>(s);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_ShaderFindConstant(double s, const char* c) {
@@ -106,7 +103,7 @@ DLLEXPORT double MADX9_MatStackFloat8(double v1, double v2, double v3, double v4
 	matStack.push_back((float) v7);
 	matStack.push_back((float) v8);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MADX9_MatStackFloat9(double v1, double v2, double v3, double v4, double v5, double v6, double v7, double v8, double v9) {
@@ -122,11 +119,11 @@ DLLEXPORT double MADX9_MatStackFloat9(double v1, double v2, double v3, double v4
 	matStack.push_back((float) v8);
 	matStack.push_back((float) v9);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MADX9_MatStackClear() {
 	matStack.clear();
 
-	return ErrorOk;
+	return 1;
 }

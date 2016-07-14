@@ -52,120 +52,46 @@ Renderer* MainImpl::createRendererDX9(LPDIRECT3DDEVICE9 device) {
 	return ::new RendererImpl(device);
 }
 
-ErrorCode MainImpl::checkFormat(D3DFORMAT adapdterFmt, uint usage, D3DRESOURCETYPE type, D3DFORMAT fmt, bool& exists) {
-	exists = SUCCEEDED(d3d->CheckDeviceFormat(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, adapdterFmt, usage, type, fmt));
-
-	return ErrorOk;
-}
-
-ErrorCode MainImpl::setError(ErrorCode code)
-{
-	for (auto i : functions)
-		i(code);
-
-	return errCode = code;
-}
-
-ErrorCode MainImpl::getError()
-{
-	return errCode;
-}
-
-ErrorCode MainImpl::createScene(Scene*& scene) {
-	SceneImpl* s = ::new(std::nothrow) SceneImpl(this);
-
-	if (s == 0)
-		return setError(ErrorMemory);
-
+Scene* MainImpl::createScene() {
+	auto s = ::new SceneImpl(this);
 	scenes.add(s);
-	scene = (Scene*) s;
-
-	return ErrorOk;
+	return s;
 }
 
-ErrorCode MainImpl::createTexture(Texture*& tex)
-{
-	TextureImpl* t = ::new(std::nothrow) TextureImpl(this);
-
-	if (t == 0)
-		return this->setError(ErrorMemory);
-
+Texture* MainImpl::createTexture() {
+	auto t = ::new TextureImpl(this);
 	textures.add(t);
-	tex = t;
-
-	return ErrorOk;
+	return t;
 }
 
-void MainImpl::removeTexture(const Texture* tex)
-{
+void MainImpl::removeTexture(const Texture* tex) {
 	textures.remove((TextureImpl*) tex);
 }
 
-ErrorCode MainImpl::createShader(Shader*& shd)
-{
-	ShaderImpl* s = ::new(std::nothrow) ShaderImpl(this);
-
-	if (s == 0)
-		return setError(ErrorMemory);
-
+Shader* MainImpl::createShader() {
+	auto s = ::new ShaderImpl(this);
 	shaders.add(s);
-	shd = s;
-
-	return ErrorOk;
+	return s;
 }
 
-void MainImpl::removeShader(const Shader* shd)
-{
+void MainImpl::removeShader(const Shader* shd) {
 	shaders.remove((ShaderImpl*) shd);
 }
 
-ErrorCode MainImpl::setTexture(uint stage, class Texture* tex)
-{
-	if (FAILED(d3ddev->SetTexture(stage, ((TextureImpl*) tex)->getTexture())))
-		return setError(ErrorD3D9);
-
-	return ErrorOk;
+void MainImpl::setTexture(uint stage, class Texture* tex) {
+	if (FAILED(d3ddev->SetTexture(stage, tex != nullptr ? ((TextureImpl*) tex)->getTexture() : nullptr)))
+		throw new std::exception("Failed to set texture");
 }
 
-ErrorCode MainImpl::resetTexture(uint stage)
-{
-	if (FAILED(d3ddev->SetTexture(stage, 0)))
-		return setError(ErrorD3D9);
-
-	return ErrorOk;
-}
-
-ErrorCode MainImpl::setShader(Shader* shd)
-{
-	d3ddev->SetVertexShader(((ShaderImpl*) shd)->getVertexShader());
-	d3ddev->SetPixelShader(((ShaderImpl*) shd)->getPixelShader());
-
-	return ErrorOk;
-}
-
-ErrorCode MainImpl::resetShader()
-{
-	d3ddev->SetVertexShader(0);
-	d3ddev->SetPixelShader(0);
-
-	return ErrorOk;
-}
-
-ErrorCode MainImpl::onError(void(*func)(ErrorCode))
-{
-	if (std::find(functions.begin(), functions.end(), func) == functions.end())
-		return ErrorOk;
-
-	functions.push_back(func);
-
-	return ErrorOk;
-}
-
-ErrorCode MainImpl::unregisterErrorFunction(void(*func)(ErrorCode))
-{
-	functions.remove_if([func](void(*f)(ErrorCode)) { return func == f; });
-
-	return ErrorOk;
+void MainImpl::setShader(Shader* shd) {
+	if (shd == nullptr) {
+		d3ddev->SetVertexShader(nullptr);
+		d3ddev->SetPixelShader(nullptr);
+	}
+	else {
+		d3ddev->SetVertexShader(((ShaderImpl*) shd)->getVertexShader());
+		d3ddev->SetPixelShader(((ShaderImpl*) shd)->getPixelShader());
+	}
 }
 
 void MainImpl::removeScene(const class Scene* scene) {

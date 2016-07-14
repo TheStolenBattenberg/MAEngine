@@ -21,13 +21,13 @@ DLLEXPORT double MAE_StreamDestroy(double stream) {
 	streams.remove(ptr);
 	delete ptr;
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamRead(double stream, void* dest, double offset, double length) {
 	doubleToPtr<Stream>(stream)->read((ubyte*) dest + (uint) offset, (uint) length);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamReadValue(double stream, double type) {
@@ -58,7 +58,7 @@ DLLEXPORT double MAE_StreamReadValue(double stream, double type) {
 DLLEXPORT double MAE_StreamWrite(double stream, const void* src, double offset, double length) {
 	doubleToPtr<Stream>(stream)->write((ubyte*) src + (uint) offset, (uint) length);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamWriteValue(double stream, double type, double value) {
@@ -91,13 +91,13 @@ DLLEXPORT double MAE_StreamWriteValue(double stream, double type, double value) 
 		break;
 	}
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamPeek(double stream, double strofs, double offset, double length) {
 	doubleToPtr<Stream>(stream)->peek((uint) strofs, (ubyte*) bufferPtr + (uint) offset, (uint) length);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamPeekValue(double stream, double strofs, double type) {
@@ -128,7 +128,7 @@ DLLEXPORT double MAE_StreamPeekValue(double stream, double strofs, double type) 
 DLLEXPORT double MAE_StreamPoke(double stream, double strofs, double offset, double length) {
 	doubleToPtr<Stream>(stream)->poke((uint) strofs, (ubyte*) bufferPtr + (uint) offset, (uint) length);
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamPokeValue(double stream, double strofs, double type, double value) {
@@ -161,7 +161,7 @@ DLLEXPORT double MAE_StreamPokeValue(double stream, double strofs, double type, 
 		break;
 	}
 
-	return ErrorOk;
+	return 1;
 }
 
 DLLEXPORT double MAE_StreamTell(double stream) {
@@ -171,5 +171,5 @@ DLLEXPORT double MAE_StreamTell(double stream) {
 DLLEXPORT double MAE_StreamSeek(double stream, double pos) {
 	doubleToPtr<Stream>(stream)->seek((uint) pos);
 
-	return ErrorOk;
+	return 1;
 }

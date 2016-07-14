@@ -1,6 +1,6 @@
 #pragma once
 
-#include <MAE/Core/Error.h>
+#include <MAE/Core/Types.h>
 #include <MAE/Core/Releasable.h>
 
 #include <string>
