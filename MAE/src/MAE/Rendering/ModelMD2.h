@@ -16,7 +16,7 @@ public:
 
 	void load(std::string model, bool normals);
 	void setTexture(Texture* tex);
-	void render(uint frame1, uint frame2, float tween);
+	void render(Renderer* renderer, uint frame1, uint frame2, float tween);
 	uint getFrameCount();
 
 private:

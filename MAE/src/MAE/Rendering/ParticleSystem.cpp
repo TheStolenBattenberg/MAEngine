@@ -4,6 +4,7 @@
 #include <MAE/Rendering/ParticleSystem.h>
 #include <MAE/Main.h>
 #include <MAE/Rendering/Resources/Texture.h>
+#include <MAE/Rendering/Renderer.h>
 
 ParticleSystem::ParticleSystem() {
 	if (mainObj->VertexDeclarationParticle == 0) {
@@ -109,7 +110,7 @@ void ParticleSystem::update(uint time) {
 	}
 }
 
-void ParticleSystem::render() {
+void ParticleSystem::render(Renderer* renderer) {
 	mainObj->d3ddev->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	mainObj->d3ddev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	mainObj->d3ddev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -130,7 +131,7 @@ void ParticleSystem::render() {
 	mainObj->d3ddev->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*)&v);
 
 	if (texture != 0)
-		mainObj->setTexture(0, texture);
+		renderer->setTexture(0, texture);
 
 	mainObj->d3ddev->SetVertexDeclaration(mainObj->VertexDeclarationParticle);
 	mainObj->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));

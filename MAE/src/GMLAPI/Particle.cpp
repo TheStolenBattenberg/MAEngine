@@ -36,7 +36,7 @@ DLLEXPORT double MADX9_ParticleSystemUpdate(double ps, double step) {
 }
 
 DLLEXPORT double MADX9_ParticleSystemRender(double ps) {
-	doubleToPtr<ParticleSystem>(ps)->render();
+	doubleToPtr<ParticleSystem>(ps)->render(renderer);
 	return 1;
 }
 

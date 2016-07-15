@@ -5,19 +5,15 @@
 
 class TextureImpl: public Texture {
 public:
-	TextureImpl(MainImpl* main): main(main) { };
+	TextureImpl(LPDIRECT3DTEXTURE9 tex): tex(tex) { };
 	~TextureImpl();
 
 	void release();
-
-	void loadFromFile(std::string file, MipMaps mipmaps);
-	void loadFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
 
 	inline LPDIRECT3DTEXTURE9 getTexture() {
 		return tex;
 	}
 
 private:
-	MainImpl* main;
-	LPDIRECT3DTEXTURE9 tex = 0;
+	LPDIRECT3DTEXTURE9 tex;
 };

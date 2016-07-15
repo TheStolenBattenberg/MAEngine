@@ -2,6 +2,7 @@
 #include <MAE/Rendering/Mesh.h>
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Core/Math.h>
+#include <MAE/Rendering/Renderer.h>
 
 namespace MD2Type {
 	enum {
@@ -415,8 +416,8 @@ uint MD2Model::getFrameCount() {
 	return vertBufs.size();
 }
 
-void MD2Model::render(uint frame1, uint frame2, float tween) {
-	mainObj->setTexture(0, tex);
+void MD2Model::render(Renderer* renderer, uint frame1, uint frame2, float tween) {
+	renderer->setTexture(0, tex);
 
 	mainObj->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);
 	mainObj->d3ddev->SetRenderState(D3DRS_TWEENFACTOR, *(DWORD*) &tween);

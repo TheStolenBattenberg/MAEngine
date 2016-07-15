@@ -3,17 +3,14 @@
 #include <MAE/Rendering/Resources/Shader.h>
 
 #include <vector>
-#include <d3d9.h>
+#include <d3dx9.h>
 
 class ShaderImpl: public Shader {
 public:
-	ShaderImpl(class MainImpl* main): main(main) { }
+	ShaderImpl(class RendererImpl* device, const char* vshd, const char* pshd);
 	~ShaderImpl();
 
 	void release();
-
-	void compileD3D9(const std::string& vert, const std::string& pixel);
-	void compileD3D9ASM(const std::string& vert, const std::string& pixel);
 
 	uint find(const std::string& c);
 	void setSampler(uint c, class Texture* sampler);
@@ -43,9 +40,9 @@ private:
 		}
 	};
 
-	class MainImpl* main;
-
 	std::vector<Handles> handles;
+
+	class RendererImpl* renderer;
 
 	LPD3DXCONSTANTTABLE vtable = 0;
 	LPD3DXCONSTANTTABLE ptable = 0;

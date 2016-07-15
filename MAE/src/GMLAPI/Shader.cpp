@@ -2,6 +2,7 @@
 #include <MAE/Core/Types.h>
 #include <MAE/Rendering/Resources/Shader.h>
 #include <MAE/Core/Utils.h>
+#include <MAE/Rendering/Renderer.h>
 
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
@@ -11,30 +12,18 @@
 
 std::vector<float> matStack;
 
-DLLEXPORT double MAE_ShaderCreate() {
-	return ptrToDouble(mamain->createShader());
-}
-
-DLLEXPORT double MAE_ShaderCompileD3D9ASM(double s, const char* VSCode, const char* PSCode) {
-	doubleToPtr<Shader>(s)->compileD3D9ASM(VSCode, PSCode);
-
-	return 1;
-}
-
-DLLEXPORT double MAE_ShaderCompileD3D9HLSL9(double s, const char* VSCode, const char* PSCode) {
-	doubleToPtr<Shader>(s)->compileD3D9(VSCode, PSCode);
-
-	return 1;
+DLLEXPORT double MAE_ShaderCreate(const char* VSCode, const char* PSCode) {
+	return ptrToDouble(renderer->createShader(VSCode, PSCode));
 }
 
 DLLEXPORT double MAE_ShaderSet(double s) {
-	mamain->setShader(doubleToPtr<Shader>(s));
+	renderer->setShader(doubleToPtr<Shader>(s));
 
 	return 1;
 }
 
 DLLEXPORT double MAE_ShaderReset() {
-	mamain->setShader(nullptr);
+	renderer->setShader(nullptr);
 
 	return 1;
 }

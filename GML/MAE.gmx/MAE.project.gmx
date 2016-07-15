@@ -398,15 +398,12 @@
           </scripts>
         </scripts>
         <scripts name="Texture">
-          <script>scripts\MAE_TextureCreate.gml</script>
           <script>scripts\MAE_TextureCreateFromFile.gml</script>
           <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
           <script>scripts\MAE_TextureDestroy.gml</script>
           <script>scripts\MAE_TextureSet.gml</script>
         </scripts>
         <scripts name="Shader">
-          <script>scripts\MAE_ShaderCompileHLSL.gml</script>
-          <script>scripts\MAE_ShaderCompileASM.gml</script>
           <script>scripts\MAE_ShaderCreate.gml</script>
           <script>scripts\MAE_ShaderDestroy.gml</script>
           <script>scripts\MAE_ShaderFindConstant.gml</script>

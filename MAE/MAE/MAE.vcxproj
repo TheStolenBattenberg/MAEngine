@@ -115,14 +115,12 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)recastnavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
-    <TargetName>Core</TargetName>
     <OutDir>$(ProjectDir)lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)recastnavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
-    <TargetName>Core</TargetName>
     <OutDir>$(ProjectDir)lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -1,23 +1,17 @@
 <external>
-	<script name="MAE_TextureCreate()" func="real MAE_TextureCreate()">
-		<desc value="Creates a texture" />
-		<arg value="-1 on Error, texture index on success." />
-	</script>
-	<script name="MAE_TextureCreateFromFile(index,file,mipmaps = MIPMAPS_NONE)" func="real MADX9_TextureCreateFromFile(real, string, real)">
+	<script name="MAE_TextureCreateFromFile(file,mipmaps = MIPMAPS_NONE)" func="real MADX9_TextureCreateFromFile(string, real)">
 		<desc value="Creates a texture from a file" />
-		<arg index="0" value="Index of the texture" />
-		<arg index="1" value="File to be loaded" />
-		<arg index="2" value="Mip Map Type (MIPMAPS_ )" />
+		<arg index="0" value="File to be loaded" />
+		<arg index="1" value="Mip Map Type (MIPMAPS_ )" />
 		<arg value="-1 on Error, texture index on success." />
 	</script>
-	<script name="MAE_TextureCreateFromFileInMemory(index,buffer,mipmaps = MIPMAPS_NONE)" func="real MADX9_TextureCreateFromFileInMemory(real, string, real, real)">
+	<script name="MAE_TextureCreateFromFileInMemory(buffer,mipmaps = MIPMAPS_NONE)" func="real MADX9_TextureCreateFromFileInMemory(string, real, real)">
 		<desc value="Creates a texture from a file in memory" />
-		<arg index="0" value="Index of the texture" />
-		<arg index="1" value="Buffer which contains the file" />
-		<arg index="2" value="Mip Map Type (MIPMAPS_ )" />
+		<arg index="0" value="Buffer which contains the file" />
+		<arg index="1" value="Mip Map Type (MIPMAPS_ )" />
 		<arg value="-1 on Error, texture index on success." />
 		<source>
-			return external_call($MADX9_TextureCreateFromFileInMemory$, $index$, buffer_get_address($buffer$), buffer_get_size($buffer$), $mipmaps$);
+			return external_call($MADX9_TextureCreateFromFileInMemory$, buffer_get_address($buffer$), buffer_get_size($buffer$), $mipmaps$);
 		</source>
 	</script>
 	<script name="MAE_TextureDestroy(ind)" func="real MADX9_TextureDestroy(real)">

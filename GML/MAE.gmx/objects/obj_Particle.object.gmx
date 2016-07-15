@@ -38,9 +38,7 @@ rot = 0;
 index = MAE_ParticleSystemCreate();
 MAE_ParticleSystemSetParticleCount(index, 8192);
 
-tex = MAE_TextureCreate();
-
-MAE_TextureCreateFromFile(tex, "COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
+tex = MAE_TextureCreateFromFile("COMMON\PARTICLE\smoke.png", MIPMAPS_NONE);
 MAE_ParticleSystemSetTexture(index, tex);
 
 /**

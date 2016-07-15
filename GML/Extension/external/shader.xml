@@ -1,21 +1,9 @@
 <external>
-	<script name="MAE_ShaderCompileHLSL(index,vertshd,pixelshd)" func="real MAE_ShaderCompileD3D9HLSL9(real, string, string)">
+	<script name="MAE_ShaderCreate(vertshd,pixelshd)" func="real MAE_ShaderCreate(string, string)">
 		<desc value="Creates a shader from strings" />
-		<arg index="0" value="Shader ID" />
-		<arg index="1" value="Vertex Shader Code" />
-		<arg index="2" value="Pixel Shader Code" />
+		<arg index="0" value="Vertex Shader Code" />
+		<arg index="1" value="Pixel Shader Code" />
 		<arg value="-1 on Error, shader index on success" />
-	</script>
-	<script name="MAE_ShaderCompileASM(index,vertshd,pixelshd)" func="real MAE_ShaderCompileD3D9ASM(real, string, string)">
-		<desc value="Creates a shader from strings" />
-		<arg index="0" value="Shader ID" />
-		<arg index="1" value="Vertex Shader Code" />
-		<arg index="2" value="Pixel Shader Code" />
-		<arg value="-1 on Error, shader index on success" />
-	</script>
-	<script name="MAE_ShaderCreate()" func="real MAE_ShaderCreate()">
-		<desc value="Creates a shader" />
-		<arg value="Shader ID" />
 	</script>
 	<script name="MAE_ShaderDestroy(shader_index)" func="real MAE_ShaderDestroy(real)">
 		<desc value="Destroys a shader." />

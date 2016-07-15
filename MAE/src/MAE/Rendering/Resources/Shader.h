@@ -12,9 +12,6 @@ class Shader: public Releasable {
 public:
 	virtual void release() = 0;
 
-	virtual void compileD3D9(const std::string& vert, const std::string& pixel) = 0;
-	virtual void compileD3D9ASM(const std::string& vert, const std::string& pixel) = 0;
-
 	virtual uint find(const std::string& c) = 0;
 	virtual void setSampler(uint c, class Texture* sampler) = 0;
 

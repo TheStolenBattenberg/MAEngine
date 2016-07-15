@@ -31,7 +31,6 @@ application_surface_draw_enable(true);
 
 
 event_user(0); //HLSL9 Light Shader.
-event_user(1); //ASM Comic Toon Shader.
 
 var screenWidth  = 1024;
 var screenHeight = 768;
@@ -40,70 +39,18 @@ matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 8);
 matView = MAE_MatrixCreateLookAt(MAE_VectorCreate(3, 3, 4), MAE_VectorCreate(0, 0, 0), MAE_VectorCreate(0, 0, 1));
 matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
 
-uMatWorldView  = MAE_ShaderFindConstant(Shd_01, "uMatWorldView");
-uMatProjection = MAE_ShaderFindConstant(Shd_01, "uMatProjection");
-uMatNormal     = MAE_ShaderFindConstant(Shd_01, "uMatNormal");
+uMatWorldView  = MAE_ShaderFindConstant(shd, "uMatWorldView");
+uMatProjection = MAE_ShaderFindConstant(shd, "uMatProjection");
+uMatNormal     = MAE_ShaderFindConstant(shd, "uMatNormal");
 
-uAmbientColour = MAE_ShaderFindConstant(Shd_01, "uAmbientColour");
-uLightPos      = MAE_ShaderFindConstant(Shd_01, "uLightPos")
-uSpecColour    = MAE_ShaderFindConstant(Shd_01, "uSpecColour")
+uAmbientColour = MAE_ShaderFindConstant(shd, "uAmbientColour");
+uLightPos      = MAE_ShaderFindConstant(shd, "uLightPos")
+uSpecColour    = MAE_ShaderFindConstant(shd, "uSpecColour")
 
 
 
 shader = "1";
 keyboard_lastchar = "1";
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="11">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///ASM Shader
-
-/**
- *
- * The only reason ASM Shaders are a part of MAE is because of Ultimate3D, an old 3D extension for GM.
- * It'd be nice to let people convert their old projects, if they so wish.
- * There was also an old DLL for GM8 or 7, which allowed ASM shaders.
- *
- */
-
-Shd_02 = MAE_ShaderCreate();
-
-MAE_ShaderCompileASM(Shd_02,
-"
-vs.1.1
-
-dcl_position v0
-dcl_texcoord0 v7
-
-m4x4 oPos, v0, c0
-
-mov oT0, v7
-",
-"
-ps.1.4
-
-texld r0, t0
-
-mul r0, r0, v0
-");
 </string>
           </argument>
         </arguments>
@@ -127,9 +74,7 @@ mul r0, r0, v0
           <argument>
             <kind>1</kind>
             <string>///HLSL9 Shader
-Shd_01 = MAE_ShaderCreate();
-
-MAE_ShaderCompileHLSL(Shd_01,
+shd = MAE_ShaderCreate(
 "
 uniform float4x4 uMatWorldView  : register(c0);
 uniform float4x4 uMatProjection : register(c4);
@@ -213,8 +158,7 @@ PS_OUTPUT main(PS_INPUT input) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ShaderDestroy(Shd_01);
-MAE_ShaderDestroy(Shd_02);
+            <string>MAE_ShaderDestroy(shd);
 </string>
           </argument>
         </arguments>
@@ -237,43 +181,21 @@ MAE_ShaderDestroy(Shd_02);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>shader = keyboard_lastchar;
-
-switch(shader)
+            <string>MAE_ShaderSet(shd);
 {
-    case "1":
-        MAE_ShaderSet(Shd_01);
-        {
-            MAE_ShaderSetConstantMat4(Shd_01, uMatWorldView, matView);
-            MAE_ShaderSetConstantMat4(Shd_01, uMatProjection, matProj);
-            MAE_ShaderSetConstantMat3(Shd_01, uMatNormal, matNorm);
-        
-            MAE_ShaderSetConstantVec3(Shd_01, uAmbientColour, MAE_VectorCreate(0, 0, 0));
-            MAE_ShaderSetConstantVec3(Shd_01, uLightPos, MAE_VectorCreate(0, 0, -1));
-            MAE_ShaderSetConstantVec3(Shd_01, uSpecColour, MAE_VectorCreate(1, 1, 1));
-        }
-        
-        draw_set_colour(c_red);
-        d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
-        
-        MAE_ShaderReset();
-    break;
-    
-    case "2":
-        MAE_ShaderSet(Shd_02);
-        {
-            MAE_ShaderSetConstantMat4(Shd_02, 0, matView);
-            
-            MAE_ShaderSetConstantVec3(Shd_02, 4, MAE_VectorCreate(1, 0, 1, 1));
-        }
+    MAE_ShaderSetConstantMat4(shd, uMatWorldView, matView);
+    MAE_ShaderSetConstantMat4(shd, uMatProjection, matProj);
+    MAE_ShaderSetConstantMat3(shd, uMatNormal, matNorm);
 
-        draw_set_colour(c_red);
-        d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
-        
-    MAE_ShaderReset();
-    break;
+    MAE_ShaderSetConstantVec3(shd, uAmbientColour, MAE_VectorCreate(0, 0, 0));
+    MAE_ShaderSetConstantVec3(shd, uLightPos, MAE_VectorCreate(0, 0, -1));
+    MAE_ShaderSetConstantVec3(shd, uSpecColour, MAE_VectorCreate(1, 1, 1));
 }
 
+draw_set_colour(c_red);
+d3d_draw_block(-1, -1, -1, 1, 1, 1, -1, 1, 1);
+
+MAE_ShaderReset();
 </string>
           </argument>
         </arguments>

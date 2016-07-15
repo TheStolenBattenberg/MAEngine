@@ -28,7 +28,7 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double tex, double norm
 DLLEXPORT double MADX9_MD2Render(double md2, double frame_1, double frame_2, double tween) {
 	auto ptr = doubleToPtr<MD2Model>(md2);
 
-	ptr->render((uint) frame_1, (uint) frame_2, (float) tween);
+	ptr->render(renderer, (uint) frame_1, (uint) frame_2, (float) tween);
 
 	return 1;
 }

@@ -20,7 +20,7 @@ public:
 	ParticleEmitter* getEmitter();
 
 	void update(uint time);
-	void render();
+	void render(Renderer* renderer);
 
 	void setTexture(Texture* tex);
 

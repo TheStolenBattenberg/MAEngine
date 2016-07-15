@@ -12,3 +12,4 @@
 extern Main* mamain;
 extern std::vector<float> matStack;
 extern UnorderedVector<Stream*> streams;
+extern class Renderer* renderer;

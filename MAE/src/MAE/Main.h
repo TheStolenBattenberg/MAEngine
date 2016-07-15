@@ -24,12 +24,6 @@ public:
 
 	virtual class Renderer* createRendererDX9(LPDIRECT3DDEVICE9 device) = 0;
 
-	virtual class Scene* createScene() = 0;
-	virtual class Shader* createShader() = 0;
-	virtual class Texture* createTexture() = 0;
-	virtual void setShader(class Shader* shd) = 0;
-	virtual void setTexture(uint stage, class Texture* tex) = 0;
-
 	LPDIRECT3D9       d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
 
