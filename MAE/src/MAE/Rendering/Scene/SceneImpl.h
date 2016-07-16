@@ -1,6 +1,7 @@
 #pragma once
 
 #include <MAE/Rendering/Scene/Scene.h>
+#include <MAE/Rendering/Scene/Entity.h>
 
 #include <list>
 
@@ -10,5 +11,5 @@ public:
 
 	void release();
 
-	class Entity* createEntity();
+	Entity* createEntity();
 };

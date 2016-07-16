@@ -20,6 +20,7 @@
     <ClCompile Include="..\src\MAE\Main.cpp" />
     <ClCompile Include="..\src\MAE\Navigation\Navigation.cpp" />
     <ClCompile Include="..\src\MAE\Navigation\NavMeshDebugDraw.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp" />
@@ -52,6 +53,8 @@
     <ClInclude Include="..\src\MAE\Navigation\Navigation.h" />
     <ClInclude Include="..\src\MAE\Navigation\NavMeshDebugDraw.h" />
     <ClInclude Include="..\src\MAE\Rendering\Batch.h" />
+    <ClInclude Include="..\src\MAE\Rendering\IndexBuffer.h" />
+    <ClInclude Include="..\src\MAE\Rendering\IndexBufferImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h" />

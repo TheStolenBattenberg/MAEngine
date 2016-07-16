@@ -26,6 +26,6 @@ DLLEXPORT double MAE_VertexBufferUnmap(double vb) {
 }
 
 DLLEXPORT double MAE_VertexBufferUpload(double vb, const void* data, double offset, double size) {
-	doubleToPtr<VertexBuffer>(vb)->upload(data, (double) offset, (double) size);
+	doubleToPtr<VertexBuffer>(vb)->upload(data, (uint) offset, (uint) size);
 	return 1;
 }

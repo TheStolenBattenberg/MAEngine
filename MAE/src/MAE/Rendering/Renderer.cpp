@@ -1,5 +1,6 @@
 #include <MAE/Rendering/RendererImpl.h>
 
+#include <MAE/Rendering/IndexBufferImpl.h>
 #include <MAE/Rendering/VertexBufferImpl.h>
 #include <MAE/Rendering/VertexDataImpl.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
@@ -12,6 +13,10 @@ void RendererImpl::release() {
 
 void RendererImpl::buildVertexData(VertexData* vd) {
 	((VertexDataImpl*) vd)->build(device);
+}
+
+IndexBuffer* RendererImpl::createIndexBuffer(uint length, uint format) {
+	return ::new IndexBufferImpl(length, format, device);
 }
 
 Scene* RendererImpl::createScene() {

@@ -18,7 +18,7 @@ void VertexBufferImpl::release() {
 void* VertexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 
-	if (FAILED(vb->Lock(offset, size, &ptr, flags)))
+	if (FAILED(vb->Lock(offset, size, &ptr, 0)))
 		throw new std::exception("Failed to map VertexBuffer");
 
 	return ptr;

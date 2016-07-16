@@ -1,0 +1,39 @@
+#include <MAE/Rendering/IndexBufferImpl.h>
+
+#include <exception>
+#include <cassert>
+
+IndexBufferImpl::IndexBufferImpl(uint length, uint fmt, LPDIRECT3DDEVICE9 device) {
+	D3DFORMAT table[] = {D3DFMT_INDEX16, D3DFMT_INDEX32};
+
+	assert(("Unknown format", fmt <= 1));
+
+	if (FAILED(device->CreateIndexBuffer(length, 0, table[fmt], D3DPOOL_DEFAULT, &ib, 0)))
+		throw new std::exception("Failed to allocate VertexBuffer");
+}
+
+IndexBufferImpl::~IndexBufferImpl() {
+	ib->Release();
+}
+
+void IndexBufferImpl::release() {
+	::delete this;
+}
+
+void* IndexBufferImpl::map(uint offset, uint size, uint flags) {
+	void* ptr;
+
+	if (FAILED(ib->Lock(offset, size, &ptr, 0)))
+		throw new std::exception("Failed to map VertexBuffer");
+
+	return ptr;
+}
+
+void IndexBufferImpl::unmap() {
+	ib->Unlock();
+}
+
+void IndexBufferImpl::upload(const void* data, uint offset, uint size) {
+	memcpy(map(offset, size, 0), data, size);
+	unmap();
+}

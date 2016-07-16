@@ -9,6 +9,7 @@ public:
 	void release();
 
 	void buildVertexData(class VertexData* vd);
+	class IndexBuffer* createIndexBuffer(uint length, uint format);
 	class Scene* createScene();
 	class Shader* createShader(const char* vshd, const char* pshd);
 	class Texture* createTextureFromFile(const char* file, MipMaps mipmaps);

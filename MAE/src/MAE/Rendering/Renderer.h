@@ -6,6 +6,11 @@
 
 class Renderer: public Releasable {
 public:
+	enum IndexBufferFmt {
+		IndexBuffer16 = 0,
+		IndexBuffer32 = 1
+	};
+
 	enum MipMaps {
 		MipMapsNone     = 0x00,
 		MipMapsGenerate = 0x01,
@@ -23,6 +28,7 @@ public:
 	virtual void release() = 0;
 
 	virtual void buildVertexData(class VertexData* vd) = 0;
+	virtual class IndexBuffer* createIndexBuffer(uint length, uint format) = 0;
 	virtual class Scene* createScene() = 0;
 	virtual class Shader* createShader(const char* vshd, const char* pshd) = 0;
 	virtual class Texture* createTextureFromFile(const char* file, MipMaps mipmaps) = 0;
