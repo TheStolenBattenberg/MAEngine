@@ -2,7 +2,7 @@
 #include <MAE/Rendering/Mesh.h>
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Core/Math.h>
-#include <MAE/Rendering/Renderer.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 namespace MD2Type {
 	enum {
@@ -238,6 +238,8 @@ MD2Model::~MD2Model() {
 }
 
 void MD2Model::load(std::string model, bool normals) {
+	auto device = ((RendererImpl*) renderer)->getDevice();
+
 	this->normals = normals;
 
 	std::ifstream f(model, std::ios::in | std::ios::binary);
@@ -277,7 +279,7 @@ void MD2Model::load(std::string model, bool normals) {
 
 		LPDIRECT3DVERTEXBUFFER9 vb;
 
-		HRESULT result = mainObj->d3ddev->CreateVertexBuffer(h.numVert * (normals ? sizeof(VertNorm) : sizeof(Vertex)), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
+		HRESULT result = device->CreateVertexBuffer(h.numVert * (normals ? sizeof(VertNorm) : sizeof(Vertex)), 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 		if (FAILED(result)) {
 			delete[] FrameBuffer;
@@ -325,7 +327,7 @@ void MD2Model::load(std::string model, bool normals) {
 	/**
 	* Load index data
 	*/
-	HRESULT result = mainObj->d3ddev->CreateIndexBuffer(h.numTris * sizeof(MD2Type::IndexBuffer), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf, 0);
+	HRESULT result = device->CreateIndexBuffer(h.numTris * sizeof(MD2Type::IndexBuffer), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indBuf, 0);
 
 	if (FAILED(result)) {
 		delete[] TriangleBuffer;
@@ -352,7 +354,7 @@ void MD2Model::load(std::string model, bool normals) {
 	f.seekg(h.ofsST, std::ios::beg);
 	f.read((char*)CoordBuffer, h.numST * sizeof(*CoordBuffer));
 
-	result = mainObj->d3ddev->CreateVertexBuffer(h.numVert * sizeof(TexCoord), 0, 0, D3DPOOL_DEFAULT, &texBuf, 0);
+	result = device->CreateVertexBuffer(h.numVert * sizeof(TexCoord), 0, 0, D3DPOOL_DEFAULT, &texBuf, 0);
 
 	if (FAILED(result)) {
 		delete[] CoordBuffer;
@@ -388,7 +390,7 @@ void MD2Model::load(std::string model, bool normals) {
 			D3DDECL_END()
 		};
 
-		HRESULT res = mainObj->d3ddev->CreateVertexDeclaration(elem, &decl);
+		HRESULT res = device->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
 			throw new std::exception("Failed to create VertexDeclaration");
@@ -401,7 +403,7 @@ void MD2Model::load(std::string model, bool normals) {
 			D3DDECL_END()
 		};
 
-		HRESULT res = mainObj->d3ddev->CreateVertexDeclaration(elem, &decl);
+		HRESULT res = device->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
 			throw new std::exception("Failed to create VertexDeclaration");
@@ -416,20 +418,22 @@ uint MD2Model::getFrameCount() {
 	return vertBufs.size();
 }
 
-void MD2Model::render(Renderer* renderer, uint frame1, uint frame2, float tween) {
+void MD2Model::render(uint frame1, uint frame2, float tween) {
+	auto device = ((RendererImpl*) renderer)->getDevice();
+
 	renderer->setTexture(0, tex);
 
-	mainObj->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);
-	mainObj->d3ddev->SetRenderState(D3DRS_TWEENFACTOR, *(DWORD*) &tween);
-	mainObj->d3ddev->SetVertexDeclaration(decl);
+	device->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_TWEENING);
+	device->SetRenderState(D3DRS_TWEENFACTOR, *(DWORD*) &tween);
+	device->SetVertexDeclaration(decl);
 
-	mainObj->d3ddev->SetIndices(indBuf);
-	mainObj->d3ddev->SetStreamSource(0, vertBufs[clamp(frame1, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
-	mainObj->d3ddev->SetStreamSource(1, vertBufs[clamp(frame2, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
-	mainObj->d3ddev->SetStreamSource(2, texBuf, 0, sizeof(TexCoord));
+	device->SetIndices(indBuf);
+	device->SetStreamSource(0, vertBufs[clamp(frame1, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
+	device->SetStreamSource(1, vertBufs[clamp(frame2, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
+	device->SetStreamSource(2, texBuf, 0, sizeof(TexCoord));
 
-	mainObj->d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertCount, 0, triCount);
+	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertCount, 0, triCount);
 
-	mainObj->d3ddev->SetVertexDeclaration(NULL);
-	mainObj->d3ddev->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);
+	device->SetVertexDeclaration(NULL);
+	device->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);
 }

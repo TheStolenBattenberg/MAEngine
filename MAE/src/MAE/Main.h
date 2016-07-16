@@ -32,12 +32,6 @@ public:
 	UnorderedVector<class MPMModel*> MPMModels;
 
 	UnorderedVector<class ParticleSystem*> ParticleSys;
-
-	DWORD stFVF;
-
-	LPDIRECT3DVERTEXDECLARATION9 VertexDeclarationParticle = 0;
 };
-
-extern Main* mainObj; // TODO: Remove
 
 Main* MainCreate(LPDIRECT3DDEVICE9 device);

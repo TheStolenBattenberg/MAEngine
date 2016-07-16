@@ -4,21 +4,21 @@
 #include <MAE/Rendering/ParticleSystem.h>
 #include <MAE/Main.h>
 #include <MAE/Rendering/Resources/Texture.h>
-#include <MAE/Rendering/Renderer.h>
+#include <MAE/Rendering/RendererImpl.h>
 
-ParticleSystem::ParticleSystem() {
-	if (mainObj->VertexDeclarationParticle == 0) {
-		D3DVERTEXELEMENT9 part_decl_ve[] = {
-			{ 0, 0,  D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
-			{ 0, 12, D3DDECLTYPE_FLOAT4,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,    0 },
-			{ 0, 28, D3DDECLTYPE_FLOAT1,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_PSIZE,    0 },
-			D3DDECL_END()
-		};
+ParticleSystem::ParticleSystem(Renderer* renderer): renderer(renderer) {
+	D3DVERTEXELEMENT9 part_decl_ve[] = {
+		{ 0, 0,  D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+		{ 0, 12, D3DDECLTYPE_FLOAT4,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,    0 },
+		{ 0, 28, D3DDECLTYPE_FLOAT1,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_PSIZE,    0 },
+		D3DDECL_END()
+	};
 
-		mainObj->d3ddev->CreateVertexDeclaration(part_decl_ve, &mainObj->VertexDeclarationParticle);
-	}
+	auto device = ((RendererImpl*) renderer)->getDevice();
 
-	HRESULT res = mainObj->d3ddev->CreateVertexBuffer(sizeof(ParticlePoint), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
+	device->CreateVertexDeclaration(part_decl_ve, &decl);
+
+	HRESULT res = device->CreateVertexBuffer(sizeof(ParticlePoint), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 
 	// TODO: Add proper error checking
 }
@@ -31,6 +31,9 @@ ParticleSystem::~ParticleSystem() {
 	if (psVertexBuffer != 0) {
 		psVertexBuffer->Release();
 	}
+
+	if (decl != nullptr)
+		decl->Release();
 
 	psBuffer.clear();
 }
@@ -110,41 +113,43 @@ void ParticleSystem::update(uint time) {
 	}
 }
 
-void ParticleSystem::render(Renderer* renderer) {
-	mainObj->d3ddev->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	mainObj->d3ddev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	mainObj->d3ddev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	mainObj->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, false);
+void ParticleSystem::render() {
+	auto device = ((RendererImpl*) renderer)->getDevice();
 
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, true);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	device->SetRenderState(D3DRS_ZWRITEENABLE, false);
+
+	device->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
+	device->SetRenderState(D3DRS_POINTSCALEENABLE, true);
 
 	float v;
 	v = psEmitter->getMinSize();
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*)&v);
+	device->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*)&v);
 	v = psEmitter->getMaxSize();
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*)&v);
+	device->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*)&v);
 	v = 0.0f;
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSCALE_A, *(DWORD*)&v);
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSCALE_B, *(DWORD*)&v);
+	device->SetRenderState(D3DRS_POINTSCALE_A, *(DWORD*)&v);
+	device->SetRenderState(D3DRS_POINTSCALE_B, *(DWORD*)&v);
 	v = 1.0f;
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*)&v);
+	device->SetRenderState(D3DRS_POINTSCALE_C, *(DWORD*)&v);
 
 	if (texture != 0)
 		renderer->setTexture(0, texture);
 
-	mainObj->d3ddev->SetVertexDeclaration(mainObj->VertexDeclarationParticle);
-	mainObj->d3ddev->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));
-	mainObj->d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
-	mainObj->d3ddev->SetVertexDeclaration(NULL);
+	device->SetVertexDeclaration(decl);
+	device->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));
+	device->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
+	device->SetVertexDeclaration(NULL);
 
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
-	mainObj->d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, false);
+	device->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
+	device->SetRenderState(D3DRS_POINTSCALEENABLE, false);
 
-	mainObj->d3ddev->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-	mainObj->d3ddev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-	mainObj->d3ddev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
-	mainObj->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, true);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+	device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+	device->SetRenderState(D3DRS_ZWRITEENABLE, true);
 }
 
 uint ParticleSystem::getParticleCount() {
@@ -156,7 +161,7 @@ void ParticleSystem::setMaxParticleCount(uint max) {
 	if (psVertexBuffer != 0) {
 		psVertexBuffer->Release();
 	}
-	HRESULT res = mainObj->d3ddev->CreateVertexBuffer(sizeof(ParticlePoint) * max, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
+	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateVertexBuffer(sizeof(ParticlePoint) * max, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &psVertexBuffer, 0);
 
 	// TODO: Add proper error checking
 }

@@ -1,5 +1,6 @@
 #include <MAE/Bullet/BulletDebugDraw.h>
 #include <MAE/Main.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 void MABulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
 {
@@ -21,7 +22,7 @@ void MABulletDebugDraw::drawContactPoint(const btVector3& PointOnB, const btVect
 	Vertices.push_back(Vertex(to.x(), to.y(), to.z(), D3DXCOLOR(color.x(), color.y(), color.z(), 1.0f)));
 }
 
-void MABulletDebugDraw::debugDraw()
+void MABulletDebugDraw::debugDraw(Renderer* renderer)
 {
 	if (update)
 	{
@@ -31,7 +32,9 @@ void MABulletDebugDraw::debugDraw()
 	}
 	if (Vertices.size() > 1)
 	{
-		mainObj->d3ddev->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
-		mainObj->d3ddev->DrawPrimitiveUP(D3DPT_LINELIST, Vertices.size() / 2, &Vertices[0], sizeof(Vertex));
+		auto device = ((RendererImpl*) renderer)->getDevice();
+
+		device->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+		device->DrawPrimitiveUP(D3DPT_LINELIST, Vertices.size() / 2, &Vertices[0], sizeof(Vertex));
 	}
 }

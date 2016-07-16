@@ -30,11 +30,6 @@ MainImpl::~MainImpl() {
 	assert(("Some X Models weren't freed", XModels.size() == 0));
 	assert(("Some Particel Systems weren't freed", ParticleSys.size() == 0));
 
-	if (VertexDeclarationParticle != 0) {
-		VertexDeclarationParticle->Release();
-		VertexDeclarationParticle = 0;
-	}
-
 	if (d3ddev != 0)
 		d3ddev->Release();
 

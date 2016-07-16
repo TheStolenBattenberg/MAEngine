@@ -152,7 +152,7 @@ DLLEXPORT double MA_NavMeshDebugDraw(double navmesh)
 
 	if (ptr->getBuildStatus() <= 0) return -1;
 
-	ptr->debugDraw();
+	ptr->debugDraw(renderer);
 	return 1;
 }
 

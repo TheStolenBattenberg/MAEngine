@@ -8,6 +8,7 @@
 
 class XModel {
 public:
+	XModel(class Renderer* renderer): renderer(renderer) { }
 	~XModel();
 
 	bool load(std::string filename, std::string texturedir);
@@ -18,6 +19,8 @@ public:
 
 	DWORD getMaterialCount();
 private:
+	class Renderer* renderer;
+
 	DWORD materialCount;
 
 	LPD3DXMESH          mesh = NULL;

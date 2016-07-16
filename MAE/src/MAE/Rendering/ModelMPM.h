@@ -13,6 +13,7 @@
 
 class MPMModel {
 public:
+	MPMModel(class Renderer* renderer): renderer(renderer) { }
 	~MPMModel();
 
 	void load(const std::string& model);
@@ -42,6 +43,8 @@ private:
 		uint meshInd;
 		mat4 transform;
 	};
+
+	class Renderer* renderer;
 
 	std::vector<Mesh> meshes;
 	std::vector<Inst> instances;

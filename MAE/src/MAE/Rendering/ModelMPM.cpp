@@ -2,6 +2,7 @@
 
 #include <MAE/Main.h>
 #include <MAE/Core/Utils.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 #include <fstream>
 
@@ -159,7 +160,7 @@ void MPMModel::readVertexDesc(std::ifstream& f) {
 
 	elements.push_back(D3DDECL_END());
 
-	HRESULT res = mainObj->d3ddev->CreateVertexDeclaration(elements.data(), &meshes[vh.meshInd].decl);
+	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateVertexDeclaration(elements.data(), &meshes[vh.meshInd].decl);
 
 	if (FAILED(res))
 		throw new std::exception("Failed to create VertexDeclaration");
@@ -173,7 +174,7 @@ void MPMModel::readVertexData(std::ifstream& f) {
 
 	LPDIRECT3DVERTEXBUFFER9 vb;
 
-	HRESULT res = mainObj->d3ddev->CreateVertexBuffer(vdh.length, 0, 0, D3DPOOL_DEFAULT, &vb, 0);
+	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateVertexBuffer(vdh.length, 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 	if (FAILED(res))
 		throw new std::exception("Failed to create VertexBuffer");
@@ -199,7 +200,7 @@ void MPMModel::readIndexData(std::ifstream& f) {
 
 	LPDIRECT3DINDEXBUFFER9 ib;
 
-	HRESULT res = mainObj->d3ddev->CreateIndexBuffer(length, 0, vih.type == vih.TypeU32 ? D3DFMT_INDEX32 : D3DFMT_INDEX16, D3DPOOL_DEFAULT, &ib, 0);
+	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateIndexBuffer(length, 0, vih.type == vih.TypeU32 ? D3DFMT_INDEX32 : D3DFMT_INDEX16, D3DPOOL_DEFAULT, &ib, 0);
 
 	if (FAILED(res))
 		throw new std::exception("Failed to create IndexBuffer");
@@ -216,22 +217,24 @@ void MPMModel::readIndexData(std::ifstream& f) {
 }
 
 void MPMModel::render() {
+	auto device = ((RendererImpl*) renderer)->getDevice();
+
 	for (auto i : instances) {
 		auto& mesh = meshes[i.meshInd];
 
-		mainObj->d3ddev->SetTransform(D3DTS_WORLDMATRIX(1), (D3DMATRIX*) &i.transform.data);
+		device->SetTransform(D3DTS_WORLDMATRIX(1), (D3DMATRIX*) &i.transform.data);
 
-		mainObj->d3ddev->SetVertexDeclaration(mesh.decl);
-		mainObj->d3ddev->SetStreamSource(0, mesh.vb, 0, mesh.stride);
+		device->SetVertexDeclaration(mesh.decl);
+		device->SetStreamSource(0, mesh.vb, 0, mesh.stride);
 
 		if (mesh.ib == 0)
-			mainObj->d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, mesh.numPrim);
+			device->DrawPrimitive(D3DPT_TRIANGLELIST, 0, mesh.numPrim);
 		else {
-			mainObj->d3ddev->SetIndices(mesh.ib);
-			mainObj->d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, mesh.numVertices, 0, mesh.numPrim);
+			device->SetIndices(mesh.ib);
+			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, mesh.numVertices, 0, mesh.numPrim);
 		}
 	}
 
 	mat4 m;
-	mainObj->d3ddev->SetTransform(D3DTS_WORLDMATRIX(1), (D3DMATRIX*) &m.data);
+	device->SetTransform(D3DTS_WORLDMATRIX(1), (D3DMATRIX*) &m.data);
 }

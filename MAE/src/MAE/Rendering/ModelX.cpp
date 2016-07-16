@@ -1,5 +1,6 @@
 #include <MAE/Main.h>
 #include <MAE/Rendering/ModelX.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 XModel::~XModel()
 {
@@ -21,10 +22,12 @@ XModel::~XModel()
 }
 
 bool XModel::load(std::string filename, std::string texturedir) {
+	auto device = ((RendererImpl*) renderer)->getDevice();
+
 	LPD3DXBUFFER materialBuffer;
 
 	HRESULT res;
-	res = D3DXLoadMeshFromX(filename.c_str(), D3DXMESH_SYSTEMMEM, mainObj->d3ddev, NULL, &materialBuffer, NULL, &materialCount, &mesh);
+	res = D3DXLoadMeshFromX(filename.c_str(), D3DXMESH_SYSTEMMEM, device, NULL, &materialBuffer, NULL, &materialCount, &mesh);
 
 	if (FAILED(res)) {
 		// TODO: Add proper error checking
@@ -47,7 +50,7 @@ bool XModel::load(std::string filename, std::string texturedir) {
 		if (xMaterials[i].pTextureFilename != NULL && lstrlen(xMaterials[i].pTextureFilename) > 0) {
 			std::string file = texturedir + '/' + xMaterials[i].pTextureFilename;
 
-			res = D3DXCreateTextureFromFile(mainObj->d3ddev, file.c_str(), &textures[i]);
+			res = D3DXCreateTextureFromFile(device, file.c_str(), &textures[i]);
 
 			// TODO: Add proper error checking
 		}

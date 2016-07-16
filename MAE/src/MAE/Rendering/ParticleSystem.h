@@ -12,7 +12,7 @@
 
 class ParticleSystem {
 public:
-	ParticleSystem();
+	ParticleSystem(class Renderer* renderer);
 	~ParticleSystem();
 
 	void createEmitter();
@@ -20,7 +20,7 @@ public:
 	ParticleEmitter* getEmitter();
 
 	void update(uint time);
-	void render(Renderer* renderer);
+	void render();
 
 	void setTexture(Texture* tex);
 
@@ -28,6 +28,8 @@ public:
 
 	void setMaxParticleCount(uint max);
 private:
+	class Renderer* renderer;
+
 	std::vector<ParticleModifier*> psMods;
 	ParticleEmitter*   psEmitter = NULL;
 
@@ -39,4 +41,6 @@ private:
 
 	//D3D...
 	LPDIRECT3DVERTEXBUFFER9 psVertexBuffer = 0;
+
+	LPDIRECT3DVERTEXDECLARATION9 decl;
 };

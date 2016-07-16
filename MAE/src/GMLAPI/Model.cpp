@@ -16,7 +16,7 @@
 
 DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double tex, double normals) {
 	auto texPtr = doubleToPtr<Texture>(tex);
-	auto MD2 = new MD2Model();
+	auto MD2 = new MD2Model(renderer);
 
 	MD2->load(MD2ModelFile, normals >= 0.5);
 	MD2->setTexture(texPtr);
@@ -28,7 +28,7 @@ DLLEXPORT double MADX9_MD2Load(const char* MD2ModelFile, double tex, double norm
 DLLEXPORT double MADX9_MD2Render(double md2, double frame_1, double frame_2, double tween) {
 	auto ptr = doubleToPtr<MD2Model>(md2);
 
-	ptr->render(renderer, (uint) frame_1, (uint) frame_2, (float) tween);
+	ptr->render((uint) frame_1, (uint) frame_2, (float) tween);
 
 	return 1;
 }
@@ -53,7 +53,7 @@ DLLEXPORT double MADX9_MD2Destroy(double md2) {
  */
 
 DLLEXPORT double MADX9_XLoad(const char* XModelFile, const char* TextureDirectory) {
-	auto x = new XModel();
+	auto x = new XModel(renderer);
 
 	if (!x->load(XModelFile, TextureDirectory)) {
 		delete x;
@@ -86,7 +86,7 @@ DLLEXPORT double MADX9_XDestroy(double x) {
 }
 
 DLLEXPORT double MAE_MPMLoad(const char* file) {
-	auto m = new MPMModel();
+	auto m = new MPMModel(renderer);
 
 	m->load(file);
 

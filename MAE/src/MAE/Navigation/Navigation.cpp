@@ -289,8 +289,8 @@ bool NavMesh::addLink(float* v1, float* v2, int dir, float radius)
 	return 1;
 }
 
-void NavMesh::debugDraw() {
-	NavMeshDebugDraw dd;
+void NavMesh::debugDraw(class Renderer* renderer) {
+	NavMeshDebugDraw dd(renderer);
 	duDebugDrawNavMesh(&dd, *navMesh, 0);
 	float* bmin = config.bmin;
 	float* bmax = config.bmax;

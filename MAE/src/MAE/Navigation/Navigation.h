@@ -76,7 +76,7 @@ public:
 	int addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix);
 	int endBuild(bool async);
 	bool addLink(float* v1, float* v2, int dir, float radius);
-	void debugDraw();
+	void debugDraw(class Renderer* renderer);
 	std::vector<PathPoint> findPath(float* start, float* end, float* checkExtents);
 	inline int getBuildStatus() {
 		return buildStatus;

@@ -31,5 +31,5 @@ public:
 	virtual void setDebugMode(int debugMode) { m_debugMode = debugMode; }
 	virtual int  getDebugMode() const { return m_debugMode; }
 
-	void debugDraw();
+	void debugDraw(class Renderer* renderer);
 };

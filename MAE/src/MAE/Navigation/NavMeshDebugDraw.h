@@ -17,7 +17,11 @@ class NavMeshDebugDraw : public duDebugDraw
 	std::vector<Vertex> Vertices;
 	duDebugDrawPrimitives DrawType;
 
+	class Renderer* renderer;
+
 public:
+	NavMeshDebugDraw(class Renderer* renderer): renderer(renderer) { }
+
 	virtual void depthMask(bool state);
 	virtual void texture(bool state);
 	virtual void begin(duDebugDrawPrimitives prim, float size = 1.0f);

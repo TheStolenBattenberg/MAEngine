@@ -2,6 +2,8 @@
 #include <MAE/Bullet/BulletDebugDraw.h>
 #include <MAE/Main.h>
 
+#include <GMLAPI/Main.h>
+
 DLLEXPORT double MAB_WorldCreate(double UseMotionState)
 {
 	if (mabullet.worldExists()) return 0;
@@ -73,7 +75,7 @@ DLLEXPORT double MAB_WorldDebugDraw()
 		mabullet.world->setDebugDrawer(DebugDrawer);
 	}
 	MABulletDebugDraw* DebugDrawer = static_cast<MABulletDebugDraw*>(mabullet.debugDrawer);
-	DebugDrawer->debugDraw();
+	DebugDrawer->debugDraw(renderer);
 	return 1;
 }
 

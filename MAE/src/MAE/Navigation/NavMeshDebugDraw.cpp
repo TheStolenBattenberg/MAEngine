@@ -1,9 +1,10 @@
 #include <MAE/Navigation/NavMeshDebugDraw.h>
 #include <MAE/Main.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 void NavMeshDebugDraw::depthMask(bool state)
 {
-	mainObj->d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, (DWORD)state);
+	((RendererImpl*) renderer)->getDevice()->SetRenderState(D3DRS_ZWRITEENABLE, (DWORD)state);
 }
 
 void NavMeshDebugDraw::texture(bool state)
@@ -38,7 +39,9 @@ void NavMeshDebugDraw::vertex(const float x, const float y, const float z, unsig
 
 void NavMeshDebugDraw::end()
 {
-	mainObj->d3ddev->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+	auto device = ((RendererImpl*) renderer)->getDevice();
+
+	device->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 	int count = 0;
 	D3DPRIMITIVETYPE D3DDrawType;
 	switch (DrawType)
@@ -56,5 +59,5 @@ void NavMeshDebugDraw::end()
 		count = 3;
 		break;
 	};
-	mainObj->d3ddev->DrawPrimitiveUP(D3DDrawType, Vertices.size() / count, &Vertices[0], sizeof(Vertex));
+	device->DrawPrimitiveUP(D3DDrawType, Vertices.size() / count, &Vertices[0], sizeof(Vertex));
 }

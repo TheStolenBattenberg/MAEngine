@@ -12,14 +12,17 @@
 class MD2Model
 {
 public:
+	MD2Model(class Renderer* renderer): renderer(renderer) { }
 	~MD2Model();
 
 	void load(std::string model, bool normals);
 	void setTexture(Texture* tex);
-	void render(Renderer* renderer, uint frame1, uint frame2, float tween);
+	void render(uint frame1, uint frame2, float tween);
 	uint getFrameCount();
 
 private:
+	class Renderer* renderer;
+
 	uint vertCount = 0;
 	uint triCount = 0;
 

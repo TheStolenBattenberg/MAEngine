@@ -14,7 +14,7 @@
 
 DLLEXPORT double MADX9_ParticleSystemCreate() 
 {
-	auto ps = new ParticleSystem();
+	auto ps = new ParticleSystem(renderer);
 
 	mamain->ParticleSys.add(ps);
 	return ptrToDouble(ps);
@@ -36,7 +36,7 @@ DLLEXPORT double MADX9_ParticleSystemUpdate(double ps, double step) {
 }
 
 DLLEXPORT double MADX9_ParticleSystemRender(double ps) {
-	doubleToPtr<ParticleSystem>(ps)->render(renderer);
+	doubleToPtr<ParticleSystem>(ps)->render();
 	return 1;
 }
 
