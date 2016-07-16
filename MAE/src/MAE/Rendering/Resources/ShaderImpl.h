@@ -12,9 +12,9 @@ public:
 
 	void release();
 
-	uint find(const std::string& c);
+	uint find(const char* c);
 	void setSampler(uint c, class Texture* sampler);
-
+	uint getLocation(const char* str);
 	void setFloat(uint c, float f);
 	void setVec2(uint c, const vec2& v);
 	void setVec3(uint c, const vec3& v);

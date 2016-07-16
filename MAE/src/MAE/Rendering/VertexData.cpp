@@ -24,7 +24,7 @@ void VertexDataImpl::setVertexBuffer(VertexBuffer* vb, uint offset, uint stride)
 	builder->setVertexBuffer(((VertexBufferImpl*) vb)->getVertexBuffer(), offset, stride);
 }
 
-void VertexDataImpl::addElement(uint index, uint type, uint offset) {
+void VertexDataImpl::addElement(uint location, uint type, uint offset) {
 	assert(("VertexData: setVertexBuffer must be called before adding any Element", builder != nullptr));
 	assert(("Invalid type", type >= TypeMax));
 
@@ -33,7 +33,7 @@ void VertexDataImpl::addElement(uint index, uint type, uint offset) {
 		D3DDECLTYPE_FLOAT3, D3DDECLTYPE_FLOAT4
 	};
 
-	builder->addElement((D3DDECLUSAGE) (index & 0xFFFF), index >> 16, table[type], offset);
+	builder->addElement((D3DDECLUSAGE) (location & 0xFFFF), location >> 16, table[type], offset);
 }
 
 void VertexDataImpl::build(LPDIRECT3DDEVICE9 device) {

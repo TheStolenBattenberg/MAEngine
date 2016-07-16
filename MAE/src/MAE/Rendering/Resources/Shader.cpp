@@ -64,10 +64,10 @@ void ShaderImpl::release() {
 	::delete this;
 }
 
-uint ShaderImpl::find(const std::string& c) {
+uint ShaderImpl::find(const char* c) {
 	Handles h = {
-		vtable->GetConstantByName(0, c.c_str()),
-		ptable->GetConstantByName(0, c.c_str())
+		vtable->GetConstantByName(0, c),
+		ptable->GetConstantByName(0, c)
 	};
 	
 	auto it = std::find(handles.begin(), handles.end(), h);
@@ -89,6 +89,38 @@ void ShaderImpl::setSampler(uint c, class Texture* sampler) {
 
 	if (handles[c].pshd)
 		renderer->setTexture(vtable->GetSamplerIndex(handles[c].pshd), sampler);
+}
+
+uint ShaderImpl::getLocation(const char* str) {
+	struct { const char* name; uint usage; } table[] = {
+		{ "BINORMAL",     D3DDECLUSAGE_BINORMAL },
+		{ "BLENDINDICES", D3DDECLUSAGE_BLENDINDICES },
+		{ "BLENDWEIGHT",  D3DDECLUSAGE_BLENDWEIGHT },
+		{ "COLOR",        D3DDECLUSAGE_COLOR },
+		{ "NORMAL",       D3DDECLUSAGE_NORMAL },
+		{ "POSITION",     D3DDECLUSAGE_POSITION },
+		{ "POSITIONT",    D3DDECLUSAGE_POSITIONT },
+		{ "PSIZE",        D3DDECLUSAGE_PSIZE },
+		{ "TANGENT",      D3DDECLUSAGE_TANGENT },
+		{ "TEXCOORD",     D3DDECLUSAGE_TEXCOORD }
+	};
+
+	auto end = str;
+
+	for (; *end != 0 && isalpha(*end); ++end) { }
+
+	auto ind = strtol(end, nullptr, 10);
+
+	uint usage = 0;
+
+	for (auto i : table) {
+		if (strncmp(str, i.name, end - str) == 0) {
+			usage = i.usage;
+			break;
+		}
+	}
+
+	return (ind << 16) | usage;
 }
 
 void ShaderImpl::setFloat(uint c, float f) {

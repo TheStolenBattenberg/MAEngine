@@ -18,7 +18,7 @@ public:
 	void release();
 
 	void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride);
-	void addElement(uint index, uint type, uint offset);
+	void addElement(uint location, uint type, uint offset);
 	void build(LPDIRECT3DDEVICE9 device);
 	void set(LPDIRECT3DDEVICE9 device);
 

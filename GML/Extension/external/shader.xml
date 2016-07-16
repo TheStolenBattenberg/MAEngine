@@ -16,6 +16,12 @@
 		<arg index="1" value="Name of the constant" />
 		<arg value="-1 on Error, constant index on success." />
 	</script>
+	<script name="MAE_ShaderGetLocation(shader_index,str)" func="real MAE_ShaderGetLocation(real, string)">
+		<desc value="Finds a constant by string." />
+		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />
+		<arg index="1" value="Name of the location" />
+		<arg value="-1 on Error, constant index on success." />
+	</script>
 	<script name="MAE_ShaderSetSampler(shader_index,constant,sampler)" func="real MAE_ShaderSetSampler(real, real, real)">
 		<desc value="Sets a sampler." />
 		<arg index="0" value="Index to the shader created by MAE_ShaderCreate" />

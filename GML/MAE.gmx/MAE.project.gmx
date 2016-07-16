@@ -407,6 +407,7 @@
           <script>scripts\MAE_ShaderCreate.gml</script>
           <script>scripts\MAE_ShaderDestroy.gml</script>
           <script>scripts\MAE_ShaderFindConstant.gml</script>
+          <script>scripts\MAE_ShaderGetLocation.gml</script>
           <script>scripts\MAE_ShaderSetSampler.gml</script>
           <script>scripts\MAE_ShaderSet.gml</script>
           <script>scripts\MAE_ShaderSetConstantFloat.gml</script>

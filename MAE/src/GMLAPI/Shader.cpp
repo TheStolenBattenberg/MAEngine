@@ -38,6 +38,10 @@ DLLEXPORT double MAE_ShaderFindConstant(double s, const char* c) {
 	return doubleToPtr<Shader>(s)->find(c);
 }
 
+DLLEXPORT double MAE_ShaderGetLocation(double s, const char* str) {
+	return doubleToPtr<Shader>(s)->getLocation(str);
+}
+
 DLLEXPORT double MAE_ShaderSetSampler(double s, double c, double tex) {
 	doubleToPtr<Shader>(s)->setSampler((uint) c, doubleToPtr<class Texture>(tex));
 

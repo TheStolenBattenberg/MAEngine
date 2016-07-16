@@ -4,7 +4,7 @@
   <version>1.0.0</version>
   <packageID></packageID>
   <ProductID></ProductID>
-  <date>07/15/16</date>
+  <date>07/16/16</date>
   <license>Free to use, also for commercial games.</license>
   <description></description>
   <helpfile></helpfile>
@@ -210,6 +210,7 @@
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderCreate</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderDestroy</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderFindConstant</Resource>
+    <Resource>Scripts\MAE\Render\Shader\MAE_ShaderGetLocation</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderSetSampler</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderSet</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderSetConstantFloat</Resource>

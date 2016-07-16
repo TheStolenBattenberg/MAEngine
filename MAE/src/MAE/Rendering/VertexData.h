@@ -15,10 +15,6 @@ public:
 
 	virtual void release() = 0;
 
-	inline uint getIndexDX9(uint usage, uint index) {
-		return (index << 16) | usage;
-	}
-
 	virtual void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride) = 0;
-	virtual void addElement(uint index, uint type, uint offset) = 0;
+	virtual void addElement(uint location, uint type, uint offset) = 0;
 };

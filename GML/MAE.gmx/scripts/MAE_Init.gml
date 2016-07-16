@@ -231,6 +231,7 @@ global._MADX9_TextureSet = external_define(_DLL, "MADX9_TextureSet", dll_cdecl, 
 global._MAE_ShaderCreate = external_define(_DLL, "MAE_ShaderCreate", dll_cdecl, ty_real, 2, ty_string, ty_string);
 global._MAE_ShaderDestroy = external_define(_DLL, "MAE_ShaderDestroy", dll_cdecl, ty_real, 1, ty_real);
 global._MAE_ShaderFindConstant = external_define(_DLL, "MAE_ShaderFindConstant", dll_cdecl, ty_real, 2, ty_real, ty_string);
+global._MAE_ShaderGetLocation = external_define(_DLL, "MAE_ShaderGetLocation", dll_cdecl, ty_real, 2, ty_real, ty_string);
 global._MAE_ShaderSetSampler = external_define(_DLL, "MAE_ShaderSetSampler", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
 global._MAE_ShaderSet = external_define(_DLL, "MAE_ShaderSet", dll_cdecl, ty_real, 1, ty_real);
 global._MAE_ShaderSetConstantFloat = external_define(_DLL, "MAE_ShaderSetConstantFloat", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
