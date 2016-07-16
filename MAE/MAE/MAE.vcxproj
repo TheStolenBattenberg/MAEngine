@@ -51,6 +51,7 @@
     <ClInclude Include="..\src\MAE\MainImpl.h" />
     <ClInclude Include="..\src\MAE\Navigation\Navigation.h" />
     <ClInclude Include="..\src\MAE\Navigation\NavMeshDebugDraw.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Batch.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h" />

@@ -260,5 +260,8 @@
     <ClInclude Include="..\src\MAE\Rendering\VertexDataImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Batch.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
