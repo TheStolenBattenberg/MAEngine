@@ -4,7 +4,7 @@
 
 VertexBufferImpl::VertexBufferImpl(uint length, LPDIRECT3DDEVICE9 device) {
 	if (FAILED(device->CreateVertexBuffer(length, 0, 0, D3DPOOL_DEFAULT, &vb, 0)))
-		throw new std::exception("Failed to allocate VertexBuffer");
+		throw std::exception("Failed to allocate VertexBuffer");
 }
 
 VertexBufferImpl::~VertexBufferImpl() {
@@ -19,7 +19,7 @@ void* VertexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 
 	if (FAILED(vb->Lock(offset, size, &ptr, 0)))
-		throw new std::exception("Failed to map VertexBuffer");
+		throw std::exception("Failed to map VertexBuffer");
 
 	return ptr;
 }

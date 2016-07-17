@@ -31,7 +31,7 @@ Texture* RendererImpl::createTextureFromFile(const char* file, MipMaps mipmaps) 
 	LPDIRECT3DTEXTURE9 tex;
 
 	if (FAILED(D3DXCreateTextureFromFileEx(device, file, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex)))
-		throw new std::exception("Failed to load texture");
+		throw std::exception("Failed to load texture");
 
 	return ::new TextureImpl(tex);
 }
@@ -40,7 +40,7 @@ Texture* RendererImpl::createTextureFromFileInMemory(const void* data, uint leng
 	LPDIRECT3DTEXTURE9 tex;
 
 	if (FAILED(D3DXCreateTextureFromFileInMemoryEx(device, data, length, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex)))
-		throw new std::exception("Failed to load texture");
+		throw std::exception("Failed to load texture");
 
 	return ::new TextureImpl(tex);
 }

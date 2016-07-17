@@ -92,7 +92,7 @@ LPDIRECT3DVERTEXDECLARATION9 VertexDataBuilder::buildDecl(LPDIRECT3DDEVICE9 devi
 	LPDIRECT3DVERTEXDECLARATION9 decl;
 
 	if (FAILED(device->CreateVertexDeclaration(elements.data(), &decl)))
-		throw new std::exception("Failed to create VertexDeclaration");
+		throw std::exception("Failed to create VertexDeclaration");
 
 	return decl;
 }

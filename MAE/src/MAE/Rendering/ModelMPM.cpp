@@ -28,13 +28,13 @@ void MPMModel::load(const std::string& model) {
 	MPM::Header h;
 	
 	if (!readFromStream(f, h))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	if (h.magicNumber != MPM::MagicNumber)
-		throw new std::exception("Invalid header");
+		throw std::exception("Invalid header");
 
 	if (h.compVersion > MPM::Version)
-		throw new std::exception("Invalid header");
+		throw std::exception("Invalid header");
 
 	for (uint i = 0; i < h.numMeshes; ++i)
 		meshes.push_back({0, 0, 0, 0, 0, 0, 0});
@@ -42,7 +42,7 @@ void MPMModel::load(const std::string& model) {
 	MPM::PacketHeader ph;
 
 	if (!readFromStream(f, ph))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	while (ph.id != MPM::PacketEndOfFileID) {
 		auto offs = f.tellg();
@@ -68,10 +68,10 @@ void MPMModel::load(const std::string& model) {
 		}
 
 		if (f.tellg() - offs != ph.length)
-			throw new std::exception("Failed to read from file");
+			throw std::exception("Failed to read from file");
 
 		if (!readFromStream(f, ph))
-			throw new std::exception("Failed to read from file");
+			throw std::exception("Failed to read from file");
 	}
 }
 
@@ -79,7 +79,7 @@ void MPMModel::readInstances(std::ifstream& f) {
 	MPM::InstHeader ih;
 
 	if (!readFromStream(f, ih))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	std::vector<MPM::Inst> inst;
 
@@ -89,7 +89,7 @@ void MPMModel::readInstances(std::ifstream& f) {
 		MPM::Inst in;
 
 		if (!readFromStream(f, in))
-			throw new std::exception("Failed to read from file");
+			throw std::exception("Failed to read from file");
 
 		inst.push_back(in);
 	}
@@ -104,7 +104,7 @@ void MPMModel::readMesh(std::ifstream& f) {
 	MPM::Mesh mesh;
 
 	if (!readFromStream(f, mesh))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	meshes[mesh.meshId].matInd      = mesh.matInd;
 	meshes[mesh.meshId].numPrim     = (mesh.numIndices == 0 ? mesh.numVertices : mesh.numIndices) / 3;
@@ -115,7 +115,7 @@ void MPMModel::readVertexDesc(std::ifstream& f) {
 	MPM::PacketVertexDescHeader vh;
 
 	if (!readFromStream(f, vh))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	meshes[vh.meshInd].stride = vh.vertStride;
 
@@ -127,7 +127,7 @@ void MPMModel::readVertexDesc(std::ifstream& f) {
 		MPM::PacketVertexDesc vd;
 
 		if (!readFromStream(f, vd))
-			throw new std::exception("Failed to read from file");
+			throw std::exception("Failed to read from file");
 
 		vertexDescs.push_back(vd);
 	}
@@ -163,21 +163,21 @@ void MPMModel::readVertexDesc(std::ifstream& f) {
 	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateVertexDeclaration(elements.data(), &meshes[vh.meshInd].decl);
 
 	if (FAILED(res))
-		throw new std::exception("Failed to create VertexDeclaration");
+		throw std::exception("Failed to create VertexDeclaration");
 }
 
 void MPMModel::readVertexData(std::ifstream& f) {
 	MPM::PacketVertexDataHeader vdh;
 
 	if (!readFromStream(f, vdh))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	LPDIRECT3DVERTEXBUFFER9 vb;
 
 	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateVertexBuffer(vdh.length, 0, 0, D3DPOOL_DEFAULT, &vb, 0);
 
 	if (FAILED(res))
-		throw new std::exception("Failed to create VertexBuffer");
+		throw std::exception("Failed to create VertexBuffer");
 
 	void* data;
 
@@ -194,7 +194,7 @@ void MPMModel::readIndexData(std::ifstream& f) {
 	MPM::PacketVertexIndexHeader vih;
 
 	if (!readFromStream(f, vih))
-		throw new std::exception("Failed to read from file");
+		throw std::exception("Failed to read from file");
 
 	uint length = vih.num * (vih.type == vih.TypeU32 ? sizeof(uint) : sizeof(ushort));
 
@@ -203,7 +203,7 @@ void MPMModel::readIndexData(std::ifstream& f) {
 	HRESULT res = ((RendererImpl*) renderer)->getDevice()->CreateIndexBuffer(length, 0, vih.type == vih.TypeU32 ? D3DFMT_INDEX32 : D3DFMT_INDEX16, D3DPOOL_DEFAULT, &ib, 0);
 
 	if (FAILED(res))
-		throw new std::exception("Failed to create IndexBuffer");
+		throw std::exception("Failed to create IndexBuffer");
 
 	void* data;
 

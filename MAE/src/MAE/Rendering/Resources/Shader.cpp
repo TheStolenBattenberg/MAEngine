@@ -16,14 +16,14 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
-		throw new std::exception(error.c_str());
+		throw std::exception(error.c_str());
 	}
 
 	result = renderer->getDevice()->CreateVertexShader((DWORD*) code->GetBufferPointer(), &vshd);
 	code->Release();
 
 	if (FAILED(result))
-		throw new std::exception("Failed to create Vertex Shader");
+		throw std::exception("Failed to create Vertex Shader");
 
 	if (FAILED(D3DXCompileShader(pixelshd, strlen(pixelshd), NULL, NULL, "main", D3DXGetPixelShaderProfile(renderer->getDevice()), 0, &code, &err, &ptable))) {
 		std::string error = (char*) err->GetBufferPointer();
@@ -32,7 +32,7 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 		vshd->Release();
 		vshd = 0;
 
-		throw new std::exception(error.c_str());
+		throw std::exception(error.c_str());
 	}
 
 	result = renderer->getDevice()->CreatePixelShader((DWORD*) code->GetBufferPointer(), &pshd);
@@ -42,7 +42,7 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 		vshd->Release();
 		vshd = 0;
 
-		throw new std::exception("Failed to create Pixel Shader");
+		throw std::exception("Failed to create Pixel Shader");
 	}
 }
 
