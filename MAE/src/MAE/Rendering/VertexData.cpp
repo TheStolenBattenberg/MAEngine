@@ -1,6 +1,7 @@
 #include <MAE/Rendering/VertexDataImpl.h>
 
 #include <MAE/Rendering/IndexBufferImpl.h>
+#include <MAE/Rendering/VertexBufferImpl.h>
 #include <MAE/Rendering/VertexDataBuilderImpl.h>
 
 #include <algorithm>
@@ -57,6 +58,18 @@ VertexDataImpl::~VertexDataImpl() {
 
 void VertexDataImpl::release() {
 	::delete this;
+}
+
+void VertexDataImpl::replaceVertexBuffer(VertexBuffer* old, VertexBuffer* replacement) {
+	auto vb = ((VertexBufferImpl*) old)->getVertexBuffer();
+
+	for (auto i = streamInfoArray; i->vb != nullptr; ++i)
+		if (i->vb == vb)
+			i->vb = ((VertexBufferImpl*) replacement)->getVertexBuffer();
+}
+
+void VertexDataImpl::setIndexBuffer(IndexBuffer* ib) {
+	this->ib = ((IndexBufferImpl*) ib)->getIndexBuffer();
 }
 
 void VertexDataImpl::set(LPDIRECT3DDEVICE9 device) {

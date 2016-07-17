@@ -12,6 +12,9 @@ public:
 
 	void release();
 
+	void replaceVertexBuffer(class VertexBuffer* old, class VertexBuffer* replacement);
+	void setIndexBuffer(class IndexBuffer* ib);
+
 	void set(LPDIRECT3DDEVICE9 device);
 
 	inline uint getNumVertices() {

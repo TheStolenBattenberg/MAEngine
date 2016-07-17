@@ -60,7 +60,7 @@
     <ClCompile Include="..\src\GMLAPI\IndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VertexDataBuilder.cpp">
+    <ClCompile Include="..\src\GMLAPI\VertexDataBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
