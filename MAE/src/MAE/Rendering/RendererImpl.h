@@ -16,6 +16,9 @@ public:
 	class Texture* createTextureFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
 	class VertexBuffer* createVertexBuffer(uint length);
 	class VertexData* createVertexData();
+	void draw(uint type, uint index, uint count);
+	void drawIndexed(uint type, uint count);
+	void setIndexBuffer(class IndexBuffer* ib);
 	void setShader(class Shader* shd);
 	void setTexture(uint stage, class Texture* tex);
 	void setVertexData(class VertexData* vd);
@@ -26,4 +29,6 @@ public:
 
 private:
 	LPDIRECT3DDEVICE9 device;
+
+	class VertexDataImpl* vd = 0;
 };

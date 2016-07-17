@@ -18,7 +18,14 @@ public:
 		return (T*) map(offset, size, flags);
 	}
 
+	inline uint getSize() {
+		return size;
+	}
+
 	virtual void* map(uint offset, uint size, uint flags) = 0;
 	virtual void unmap() = 0;
 	virtual void upload(const void* data, uint offset, uint size) = 0;
+
+protected:
+	uint size;
 };

@@ -3,7 +3,7 @@
 #include <exception>
 
 VertexBufferImpl::VertexBufferImpl(uint length, LPDIRECT3DDEVICE9 device) {
-	if (FAILED(device->CreateVertexBuffer(length, 0, 0, D3DPOOL_DEFAULT, &vb, 0)))
+	if (FAILED(device->CreateVertexBuffer(size = length, 0, 0, D3DPOOL_DEFAULT, &vb, 0)))
 		throw std::exception("Failed to allocate VertexBuffer");
 }
 

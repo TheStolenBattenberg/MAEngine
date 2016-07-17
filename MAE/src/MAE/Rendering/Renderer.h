@@ -12,9 +12,18 @@ public:
 	};
 
 	enum MipMaps {
-		MipMapsNone     = 0x00,
-		MipMapsGenerate = 0x01,
-		MipMapsFromFile = 0x02
+		MipMapsNone     = 0,
+		MipMapsGenerate = 1,
+		MipMapsFromFile = 2
+	};
+
+	enum PrimitveType {
+		PrimitveTypePointList     = 0,
+		PrimitveTypeLineList      = 1,
+		PrimitveTypeLineStrip     = 2,
+		PrimitveTypeTriangleList  = 3,
+		PrimitveTypeTriangleStrip = 4,
+		PrimitveTypeTriangleFan   = 5
 	};
 
 	inline class Shader* createShader(const std::string& vshd, const std::string& pshd) {
@@ -35,6 +44,9 @@ public:
 	virtual class Texture* createTextureFromFileInMemory(const void* data, uint length, MipMaps mipmaps) = 0;
 	virtual class VertexBuffer* createVertexBuffer(uint length) = 0;
 	virtual class VertexData* createVertexData() = 0;
+	virtual void draw(uint type, uint index, uint count) = 0;
+	virtual void drawIndexed(uint type, uint count) = 0;
+	virtual void setIndexBuffer(class IndexBuffer* ib) = 0;
 	virtual void setShader(class Shader* shd) = 0;
 	virtual void setTexture(uint stage, class Texture* tex) = 0;
 	virtual void setVertexData(class VertexData* vd) = 0;

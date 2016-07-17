@@ -21,7 +21,7 @@ void VertexDataImpl::setVertexBuffer(VertexBuffer* vb, uint offset, uint stride)
 	if (builder == nullptr)
 		builder = new VertexDataBuilder();
 
-	builder->setVertexBuffer(((VertexBufferImpl*) vb)->getVertexBuffer(), offset, stride);
+	builder->setVertexBuffer((VertexBufferImpl*) vb, offset, stride);
 }
 
 void VertexDataImpl::addElement(uint location, uint type, uint offset) {
@@ -42,6 +42,7 @@ void VertexDataImpl::build(LPDIRECT3DDEVICE9 device) {
 
 	decl = builder->buildDecl(device);
 	streamInfoArray = builder->buildStreamInfoArray();
+	numVertices = builder->getNumVertices();
 
 	delete builder;
 	builder = nullptr;
@@ -57,13 +58,19 @@ void VertexDataImpl::set(LPDIRECT3DDEVICE9 device) {
 		device->SetStreamSource(i, streamInfoArray[i].vb, streamInfoArray[i].offset, streamInfoArray[i].stride);
 }
 
-void VertexDataBuilder::setVertexBuffer(LPDIRECT3DVERTEXBUFFER9 vb, uint offset, uint stride) {
+VertexDataBuilder::VertexDataBuilder() {
+	numVertices = std::numeric_limits<uint>::max();
+}
+
+void VertexDataBuilder::setVertexBuffer(VertexBufferImpl* vb, uint offset, uint stride) {
 	auto it = std::find_if(entries.begin(), entries.end(), [vb, offset, stride](BufferEntry entry) {
-		return entry.vb == vb && entry.offset == offset && entry.stride == stride;
+		return entry.vb == vb->getVertexBuffer() && entry.offset == offset && entry.stride == stride;
 	});
 
 	if (it == entries.end()) {
-		entries.push_back({ vb, offset, stride });
+		numVertices = std::min(numVertices, (vb->getSize() - offset) / stride);
+
+		entries.push_back({ vb->getVertexBuffer(), offset, stride });
 		it = entries.end() - 1;
 	}
 

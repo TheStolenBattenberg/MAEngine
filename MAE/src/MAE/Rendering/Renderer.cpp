@@ -53,6 +53,42 @@ VertexData* RendererImpl::createVertexData() {
 	return ::new VertexDataImpl();
 }
 
+void RendererImpl::draw(uint type, uint index, uint count) {
+	D3DPRIMITIVETYPE table[] = {
+		D3DPT_POINTLIST,
+		D3DPT_LINELIST,
+		D3DPT_LINESTRIP,
+		D3DPT_TRIANGLELIST,
+		D3DPT_TRIANGLESTRIP,
+		D3DPT_TRIANGLEFAN
+	};
+
+	assert(("Invalid type", type < sizeof(table)));
+
+	device->DrawPrimitive(table[type], index, count);
+}
+
+void RendererImpl::drawIndexed(uint type, uint count) {
+	D3DPRIMITIVETYPE table[] = {
+		D3DPT_POINTLIST,
+		D3DPT_LINELIST,
+		D3DPT_LINESTRIP,
+		D3DPT_TRIANGLELIST,
+		D3DPT_TRIANGLESTRIP,
+		D3DPT_TRIANGLEFAN
+	};
+
+	assert(("Invalid type", type < sizeof(table)));
+	assert(("No VertexData set", vd != nullptr));
+
+	device->DrawIndexedPrimitive(table[type], 0, 0, vd->getNumVertices(), 0, count);
+}
+
+void RendererImpl::setIndexBuffer(IndexBuffer* ib) {
+	if (FAILED(device->SetIndices(((IndexBufferImpl*) ib)->getIndexBuffer())))
+		throw std::exception("Failed to set IndexBuffer");
+}
+
 void RendererImpl::setShader(Shader* shd) {
 	if (shd != nullptr) {
 		device->SetVertexShader(((ShaderImpl*) shd)->getVertexShader());
@@ -69,5 +105,5 @@ void RendererImpl::setTexture(uint stage, Texture* tex) {
 }
 
 void RendererImpl::setVertexData(VertexData* vd) {
-	((VertexDataImpl*) vd)->set(device);
+	(this->vd = (VertexDataImpl*) vd)->set(device);
 }
