@@ -18,7 +18,7 @@ void error(const char* msg) {
 }
 
 DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer) {
-	mamain   = MainCreate(pointer);
+	mamain   = MainCreate();
 	renderer = mamain->createRendererDX9(pointer);
 
 	return 1;

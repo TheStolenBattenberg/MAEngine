@@ -4,6 +4,8 @@
 #include <MAE/Core/Math.h>
 #include <MAE/Rendering/RendererImpl.h>
 
+#include <fstream>
+
 namespace MD2Type {
 	enum {
 		Version     = 0x00000008ul,

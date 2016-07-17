@@ -2,6 +2,7 @@
 #include <MAE/Core/Types.h>
 #include <MAE/Core/Utils.h>
 #include <MAE/Rendering/Resources/Texture.h>
+#include <MAE/Rendering/RendererImpl.h>
 
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
@@ -72,9 +73,11 @@ DLLEXPORT double MADX9_XRender(double x) {
 	TRYBEG();
 	auto ptr = doubleToPtr<XModel>(x);
 
+	auto device = ((RendererImpl*) renderer)->getDevice();
+
 	for (uint i = 0; i < ptr->getMaterialCount(); ++i) {
-		mamain->d3ddev->SetMaterial(&ptr->getMaterial(i));
-		mamain->d3ddev->SetTexture(0, ptr->getTexture(i));
+		device->SetMaterial(&ptr->getMaterial(i));
+		device->SetTexture(0, ptr->getTexture(i));
 		ptr->getMesh()->DrawSubset(i);
 	}
 

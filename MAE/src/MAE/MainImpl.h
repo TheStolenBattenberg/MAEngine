@@ -2,14 +2,8 @@
 
 #include <MAE/Main.h>
 
-
-#include <list>
-#include <map>
-
-class MainImpl: public Main
-{
+class MainImpl: public Main {
 public:
-	MainImpl(LPDIRECT3DDEVICE9 d3ddev);
 	~MainImpl();
 
 	void release();

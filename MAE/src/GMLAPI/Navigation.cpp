@@ -2,10 +2,11 @@
 #include <MAE/Main.h>
 #include <MAE/Core/Utils.h>
 
-#include <iostream>
-
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
+
+#include <iostream>
+#include <fstream>
 
 // TODO: Get rid of this
 struct MANavigation {

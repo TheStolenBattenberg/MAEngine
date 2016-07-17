@@ -5,6 +5,7 @@
 */
 
 #include <MAE/Core/Types.h>
+#include <d3dx9.h>
 
 class XModel {
 public:

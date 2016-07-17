@@ -15,64 +15,64 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourAlloc.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\DebugDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourCommon.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\DetourDebugDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNavMesh.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\RecastDebugDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNavMeshBuilder.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\DebugUtils\Source\RecastDump.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNavMeshQuery.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourAlloc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Detour\Source\DetourNode.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourCommon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\Recast.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNavMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastAlloc.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNavMeshBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastArea.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNavMeshQuery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastContour.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Detour\Source\DetourNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastFilter.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\Recast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastLayers.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastAlloc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastMesh.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastMeshDetail.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastContour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastRasterization.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\Recast\Source\RecastRegion.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastLayers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\DebugDraw.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\DetourDebugDraw.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastMeshDetail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\RecastDebugDraw.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastRasterization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Libraries\recastnavigation\DebugUtils\Source\RecastDump.cpp">
+    <ClCompile Include="$(MAE)\Libraries\recastnavigation\Recast\Source\RecastRegion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
