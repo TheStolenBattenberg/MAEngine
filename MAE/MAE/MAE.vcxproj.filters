@@ -141,6 +141,9 @@
     <ClCompile Include="..\src\MAE\Rendering\IndexBuffer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Main.h">
@@ -270,6 +273,12 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\IndexBufferImpl.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilder.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilderImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>

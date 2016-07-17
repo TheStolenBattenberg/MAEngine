@@ -37,6 +37,7 @@
     <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexData.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />
@@ -81,6 +82,8 @@
     <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexBufferImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexData.h" />
+    <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilder.h" />
+    <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilderImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexDataImpl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

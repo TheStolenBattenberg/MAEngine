@@ -1,89 +1,19 @@
 #include <MAE/Rendering/VertexDataImpl.h>
 
-#include <MAE/Rendering/VertexBufferImpl.h>
+#include <MAE/Rendering/IndexBufferImpl.h>
+#include <MAE/Rendering/VertexDataBuilderImpl.h>
 
 #include <algorithm>
 #include <cassert>
 
-VertexDataImpl::~VertexDataImpl() {
-	decl->Release();
-	delete streamInfoArray;
+VertexDataImpl::VertexDataImpl(LPDIRECT3DDEVICE9 device, VertexDataBuilderImpl* vdb) {
+	assert(("VertexDataBuilder must not be empty", !vdb->getEntries().empty()));
+	assert(("VertexDataBuilder must not be empty", !vdb->getEntries()[0].elements.empty()));
 
-	if (builder != nullptr)
-		delete builder;
-}
+	auto& entries = vdb->getEntries();
 
-void VertexDataImpl::release() {
-	::delete this;
-}
+	// Build VertexDeclaration
 
-void VertexDataImpl::setVertexBuffer(VertexBuffer* vb, uint offset, uint stride) {
-	if (builder == nullptr)
-		builder = new VertexDataBuilder();
-
-	builder->setVertexBuffer((VertexBufferImpl*) vb, offset, stride);
-}
-
-void VertexDataImpl::addElement(uint location, uint type, uint offset) {
-	assert(("VertexData: setVertexBuffer must be called before adding any Element", builder != nullptr));
-	assert(("Invalid type", type >= TypeMax));
-
-	D3DDECLTYPE table[] = {
-		D3DDECLTYPE_FLOAT1, D3DDECLTYPE_FLOAT2,
-		D3DDECLTYPE_FLOAT3, D3DDECLTYPE_FLOAT4
-	};
-
-	builder->addElement((D3DDECLUSAGE) (location & 0xFFFF), location >> 16, table[type], offset);
-}
-
-void VertexDataImpl::build(LPDIRECT3DDEVICE9 device) {
-	assert(("VertexDeclaration was already built", decl == nullptr));
-	assert(("StreamInfo Array was already built", streamInfoArray == nullptr));
-
-	decl = builder->buildDecl(device);
-	streamInfoArray = builder->buildStreamInfoArray();
-	numVertices = builder->getNumVertices();
-
-	delete builder;
-	builder = nullptr;
-}
-
-void VertexDataImpl::set(LPDIRECT3DDEVICE9 device) {
-	assert(("VertexDeclaration isn't built", decl != nullptr));
-	assert(("StreamInfo Array isn't built", streamInfoArray != nullptr));
-
-	device->SetVertexDeclaration(decl);
-
-	for (auto i = 0; streamInfoArray[i].vb != nullptr; ++i)
-		device->SetStreamSource(i, streamInfoArray[i].vb, streamInfoArray[i].offset, streamInfoArray[i].stride);
-}
-
-VertexDataBuilder::VertexDataBuilder() {
-	numVertices = std::numeric_limits<uint>::max();
-}
-
-void VertexDataBuilder::setVertexBuffer(VertexBufferImpl* vb, uint offset, uint stride) {
-	auto it = std::find_if(entries.begin(), entries.end(), [vb, offset, stride](BufferEntry entry) {
-		return entry.vb == vb->getVertexBuffer() && entry.offset == offset && entry.stride == stride;
-	});
-
-	if (it == entries.end()) {
-		numVertices = std::min(numVertices, (vb->getSize() - offset) / stride);
-
-		entries.push_back({ vb->getVertexBuffer(), offset, stride });
-		it = entries.end() - 1;
-	}
-
-	curEntry = &*it;
-}
-
-void VertexDataBuilder::addElement(D3DDECLUSAGE usage, uint usageIndex, D3DDECLTYPE type, uint offset) {
-	assert(("No VertexBuffer was set", curEntry != nullptr));
-
-	curEntry->elements.push_back({ usage, usageIndex, type, offset });
-}
-
-LPDIRECT3DVERTEXDECLARATION9 VertexDataBuilder::buildDecl(LPDIRECT3DDEVICE9 device) {
 	std::vector<D3DVERTEXELEMENT9> elements;
 
 	for (uint i = 0; i < entries.size(); ++i)
@@ -101,16 +31,40 @@ LPDIRECT3DVERTEXDECLARATION9 VertexDataBuilder::buildDecl(LPDIRECT3DDEVICE9 devi
 	if (FAILED(device->CreateVertexDeclaration(elements.data(), &decl)))
 		throw std::exception("Failed to create VertexDeclaration");
 
-	return decl;
-}
+	// Create StreamInfo array
 
-VertexDataImpl::StreamInfo* VertexDataBuilder::buildStreamInfoArray() {
 	auto arr = new VertexDataImpl::StreamInfo[entries.size() + 1];
 
 	for (uint i = 0; i < entries.size(); ++i)
 		arr[i] = { entries[i].vb, entries[i].offset, entries[i].stride };
-	
+
 	arr[entries.size()] = { nullptr, 0, 0 };
 
-	return arr;
+	// Count how many vertices can be accessed
+
+	numVertices = std::numeric_limits<uint>::max();
+
+	for (auto& i : entries)
+		numVertices = std::min(numVertices, (i.size - i.offset) / i.stride);
+
+	ib = vdb->getIndexBuffer();
+}
+
+VertexDataImpl::~VertexDataImpl() {
+	decl->Release();
+	delete streamInfoArray;
+}
+
+void VertexDataImpl::release() {
+	::delete this;
+}
+
+void VertexDataImpl::set(LPDIRECT3DDEVICE9 device) {
+	device->SetVertexDeclaration(decl);
+
+	if (ib != nullptr)
+		device->SetIndices(ib);
+
+	for (auto i = 0; streamInfoArray[i].vb != nullptr; ++i)
+		device->SetStreamSource(i, streamInfoArray[i].vb, streamInfoArray[i].offset, streamInfoArray[i].stride);
 }

@@ -12,13 +12,13 @@ public:
 	class IndexBuffer* createIndexBuffer(uint length, uint format);
 	class Scene* createScene();
 	class Shader* createShader(const char* vshd, const char* pshd);
-	class Texture* createTextureFromFile(const char* file, MipMaps mipmaps);
-	class Texture* createTextureFromFileInMemory(const void* data, uint length, MipMaps mipmaps);
+	class Texture* createTextureFromFile(const char* file, uint mipmaps);
+	class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps);
 	class VertexBuffer* createVertexBuffer(uint length);
-	class VertexData* createVertexData();
+	class VertexData* createVertexData(class VertexDataBuilder* vdb);
+	class VertexDataBuilder* createVertexDataBuilder();
 	void draw(uint type, uint index, uint count);
 	void drawIndexed(uint type, uint count);
-	void setIndexBuffer(class IndexBuffer* ib);
 	void setShader(class Shader* shd);
 	void setTexture(uint stage, class Texture* tex);
 	void setVertexData(class VertexData* vd);

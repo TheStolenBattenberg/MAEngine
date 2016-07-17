@@ -9,7 +9,7 @@
 
 DLLEXPORT double MADX9_TextureCreateFromFile(const char* file, double mipmaps) {
 	TRYBEG();
-	return ptrToDouble(renderer->createTextureFromFile(file, (Renderer::MipMaps) (uint) mipmaps));
+	return ptrToDouble(renderer->createTextureFromFile(file, (uint) mipmaps));
 	TRYEND(0);
 }
 
@@ -30,6 +30,6 @@ DLLEXPORT double MADX9_TextureSet(double stage, double tex) {
 
 DLLEXPORT double MADX9_TextureCreateFromFileInMemory(const void* data, double length, double mipmaps) {
 	TRYBEG();
-	return ptrToDouble(renderer->createTextureFromFileInMemory(data, (uint) length, (Renderer::MipMaps) (uint) mipmaps));
+	return ptrToDouble(renderer->createTextureFromFileInMemory(data, (uint) length, (uint) mipmaps));
 	TRYEND(0);
 }
