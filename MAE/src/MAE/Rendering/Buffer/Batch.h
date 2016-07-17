@@ -2,7 +2,7 @@
 
 #include <MAE/Core/Types.h>
 #include <MAE/Rendering/Renderer.h>
-#include <MAE/Rendering/VertexBuffer.h>
+#include <MAE/Rendering/Buffer/VertexBuffer.h>
 #include <MAE/Rendering/VertexData.h>
 
 enum BatchFlags {

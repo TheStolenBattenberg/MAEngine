@@ -1,7 +1,7 @@
 #include <MAE/Rendering/VertexDataBuilderImpl.h>
 
-#include <MAE/Rendering/IndexBufferImpl.h>
-#include <MAE/Rendering/VertexBufferImpl.h>
+#include <MAE/Rendering/Buffer/IndexBufferImpl.h>
+#include <MAE/Rendering/Buffer/VertexBufferImpl.h>
 
 #include <algorithm>
 #include <cassert>

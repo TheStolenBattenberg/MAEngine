@@ -1,4 +1,4 @@
-#include <MAE/Rendering/VertexBufferImpl.h>
+#include <MAE/Rendering/Buffer/VertexBufferImpl.h>
 
 #include <exception>
 

@@ -20,7 +20,8 @@
     <ClCompile Include="..\src\MAE\Main.cpp" />
     <ClCompile Include="..\src\MAE\Navigation\Navigation.cpp" />
     <ClCompile Include="..\src\MAE\Navigation\NavMeshDebugDraw.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\IndexBuffer.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="..\src\MAE\Rendering\Buffer\VertexBuffer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp" />
@@ -35,7 +36,6 @@
     <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Scene\Entity.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexData.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp" />
   </ItemGroup>
@@ -53,9 +53,11 @@
     <ClInclude Include="..\src\MAE\MainImpl.h" />
     <ClInclude Include="..\src\MAE\Navigation\Navigation.h" />
     <ClInclude Include="..\src\MAE\Navigation\NavMeshDebugDraw.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Batch.h" />
-    <ClInclude Include="..\src\MAE\Rendering\IndexBuffer.h" />
-    <ClInclude Include="..\src\MAE\Rendering\IndexBufferImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\Batch.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\IndexBuffer.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\IndexBufferImpl.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBuffer.h" />
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBufferImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h" />
@@ -79,8 +81,6 @@
     <ClInclude Include="..\src\MAE\Rendering\Scene\EntityImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Scene\Scene.h" />
     <ClInclude Include="..\src\MAE\Rendering\Scene\SceneImpl.h" />
-    <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h" />
-    <ClInclude Include="..\src\MAE\Rendering\VertexBufferImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexData.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilder.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilderImpl.h" />

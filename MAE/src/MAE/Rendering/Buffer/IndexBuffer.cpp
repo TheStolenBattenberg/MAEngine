@@ -1,4 +1,4 @@
-#include <MAE/Rendering/IndexBufferImpl.h>
+#include <MAE/Rendering/Buffer/IndexBufferImpl.h>
 
 #include <exception>
 #include <cassert>

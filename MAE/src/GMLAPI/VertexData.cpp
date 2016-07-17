@@ -1,8 +1,8 @@
 #include <MAE/Rendering/VertexData.h>
 
-#include <MAE/Rendering/IndexBuffer.h>
+#include <MAE/Rendering/Buffer/IndexBuffer.h>
 #include <MAE/Rendering/Renderer.h>
-#include <MAE/Rendering/VertexBuffer.h>
+#include <MAE/Rendering/Buffer/VertexBuffer.h>
 #include <MAE/Rendering/VertexDataBuilder.h>
 
 #include <GMLAPI/Main.h>

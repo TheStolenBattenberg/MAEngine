@@ -1,6 +1,6 @@
 #pragma once
 
-#include <MAE/Rendering/IndexBuffer.h>
+#include <MAE/Rendering/Buffer/IndexBuffer.h>
 
 #include <d3d9.h>
 

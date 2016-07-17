@@ -61,6 +61,12 @@
     <Filter Include="Source Files\FMOD">
       <UniqueIdentifier>{e64661df-6d07-4551-9e44-715f95116f15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Rendering\Buffer">
+      <UniqueIdentifier>{5fa0d48a-0ee4-49f3-af16-e9c4a28fb7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Buffer">
+      <UniqueIdentifier>{1a9ff146-45af-4a1c-9812-d26f4db0f976}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MAE\Main.cpp">
@@ -94,9 +100,6 @@
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\ParticleSystem.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\VertexBuffer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp">
@@ -135,14 +138,17 @@
     <ClCompile Include="..\src\MAE\Rendering\Renderer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\VertexData.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\IndexBuffer.cpp">
-      <Filter>Source Files\Rendering</Filter>
+    <ClCompile Include="..\src\MAE\Rendering\Buffer\VertexBuffer.cpp">
+      <Filter>Source Files\Rendering\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp">
-      <Filter>Source Files\Rendering</Filter>
+    <ClCompile Include="..\src\MAE\Rendering\Buffer\IndexBuffer.cpp">
+      <Filter>Source Files\Rendering\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +192,6 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\ParticleSystem.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\VertexBuffer.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h">
@@ -257,22 +260,10 @@
     <ClInclude Include="..\src\MAE\Rendering\RendererImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\VertexBufferImpl.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\VertexData.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\VertexDataImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Batch.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\IndexBuffer.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\IndexBufferImpl.h">
+    <ClInclude Include="..\src\MAE\Rendering\VertexData.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilder.h">
@@ -280,6 +271,21 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilderImpl.h">
       <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\Batch.h">
+      <Filter>Header Files\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\IndexBuffer.h">
+      <Filter>Header Files\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\IndexBufferImpl.h">
+      <Filter>Header Files\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBuffer.h">
+      <Filter>Header Files\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBufferImpl.h">
+      <Filter>Header Files\Rendering\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

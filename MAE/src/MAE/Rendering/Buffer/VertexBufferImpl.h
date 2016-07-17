@@ -1,6 +1,6 @@
 #pragma once
 
-#include <MAE/Rendering/VertexBuffer.h>
+#include <MAE/Rendering/Buffer/VertexBuffer.h>
 
 #include <d3d9.h>
 

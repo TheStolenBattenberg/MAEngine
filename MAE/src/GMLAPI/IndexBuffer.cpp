@@ -1,5 +1,5 @@
 #include <MAE/Rendering/Renderer.h>
-#include <MAE/Rendering/IndexBuffer.h>
+#include <MAE/Rendering/Buffer/IndexBuffer.h>
 
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
