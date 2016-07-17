@@ -1,8 +1,11 @@
 #include <MAE/Bullet/Bullet.h>
 #include <MAE/Main.h>
 
+#include <GMLAPI/Main.h>
+
 DLLEXPORT double MAB_Vec(double n)
 {
+	TRYBEG();
 	switch ((int)n)
 	{
 	case 0:
@@ -13,10 +16,12 @@ DLLEXPORT double MAB_Vec(double n)
 		return mabullet.returnVec.z();
 	}
 	return 0;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_Quat(double n)
 {
+	TRYBEG();
 	switch ((int)n)
 	{
 	case 0:
@@ -29,10 +34,12 @@ DLLEXPORT double MAB_Quat(double n)
 		return mabullet.returnQuat.w();
 	}
 	return 0;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_HitResult(double n)
 {
+	TRYBEG();
 	switch ((int)n)
 	{
 	case 0:
@@ -49,9 +56,12 @@ DLLEXPORT double MAB_HitResult(double n)
 		return mabullet.hitResult.userIndex;
 	}
 	return 0;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_OverlapResult(double n)
 {
+	TRYBEG();
 	return mabullet.overlapIDs[(int)n];
+	TRYEND(0);
 }

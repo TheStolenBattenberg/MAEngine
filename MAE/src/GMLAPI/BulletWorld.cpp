@@ -6,6 +6,7 @@
 
 DLLEXPORT double MAB_WorldCreate(double UseMotionState)
 {
+	TRYBEG();
 	if (mabullet.worldExists()) return 0;
 
 	mabullet.collisionConfiguration = new btDefaultCollisionConfiguration();
@@ -20,54 +21,70 @@ DLLEXPORT double MAB_WorldCreate(double UseMotionState)
 	mabullet.world->setGravity(btVector3(0.f, 0.f, -10.f));
 
 	return 1;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldDestroy()
 {
+	TRYBEG();
 	return mabullet.destroyWorld();
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldExists()
 {
+	TRYBEG();
 	return mabullet.worldExists();
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldStep(double TimeStep, double MaxSubSteps, double FixedTimeStep)
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return 0;
 	mabullet.world->stepSimulation((btScalar)TimeStep, (int)MaxSubSteps, (btScalar)FixedTimeStep);
 	if (mabullet.debugDrawer) static_cast<MABulletDebugDraw*>(mabullet.debugDrawer)->update = true;
 	return 1;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldSetGravity(double X, double Y, double Z)
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return 0;
 	mabullet.world->setGravity(btVector3((btScalar)X, (btScalar)Y, (btScalar)Z));
 	return 1;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldGetGravity()
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return 0;
 	mabullet.returnVec = mabullet.world->getGravity();
 	return 1;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldGetBodyCount()
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return 0;
 	return mabullet.world->getNumCollisionObjects();
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldGetConstraintCount()
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return 0;
 	return mabullet.world->getNumConstraints();
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldDebugDraw()
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return 0;
 	if (!mabullet.debugDrawer) {
 		MABulletDebugDraw* DebugDrawer = new MABulletDebugDraw;
@@ -77,10 +94,12 @@ DLLEXPORT double MAB_WorldDebugDraw()
 	MABulletDebugDraw* DebugDrawer = static_cast<MABulletDebugDraw*>(mabullet.debugDrawer);
 	DebugDrawer->debugDraw(renderer);
 	return 1;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_WorldRaycast(double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return -1;
 	btVector3 start = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
 	btVector3 end = btVector3((btScalar)XT, (btScalar)YT, (btScalar)ZT);
@@ -98,6 +117,7 @@ DLLEXPORT double MAB_WorldRaycast(double X, double Y, double Z, double XT, doubl
 		return 1;
 	}
 	return 0;
+	TRYEND(-1);
 }
 /*
 DLLEXPORT double MAB_WorldRaycastSingle(double BodyID, double X, double Y, double Z, double XT, double YT, double ZT)
@@ -126,6 +146,7 @@ DLLEXPORT double MAB_WorldRaycastSingle(double BodyID, double X, double Y, doubl
 
 DLLEXPORT double MAB_WorldSweep(double ShapeID, double X, double Y, double Z, double XT, double YT, double ZT, double Group, double Mask)
 {
+	TRYBEG();
 	//TODO: Fix this function because it doesn't work for some reason
 	if (!mabullet.worldExists()) return -1;
 	if (!mabullet.shapeExists(ShapeID)) return -2;
@@ -148,10 +169,12 @@ DLLEXPORT double MAB_WorldSweep(double ShapeID, double X, double Y, double Z, do
 		return 1;
 	}
 	return 0;
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_WorldOverlap(double ShapeID, double X, double Y, double Z, double RX, double RY, double RZ, double RW, double Group, double Mask)
 {
+	TRYBEG();
 	if (!mabullet.worldExists()) return -1;
 	if (!mabullet.shapeExists(ShapeID)) return -2;
 	btTransform trans;
@@ -168,4 +191,5 @@ DLLEXPORT double MAB_WorldOverlap(double ShapeID, double X, double Y, double Z, 
 	mabullet.world->removeCollisionObject(obj);
 	delete obj;
 	return mabullet.overlapIDs.size();
+	TRYEND(-1);
 }

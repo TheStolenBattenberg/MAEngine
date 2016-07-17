@@ -1,10 +1,13 @@
 #include <MAE/Bullet/Bullet.h>
 #include <MAE/Main.h>
 
+#include <GMLAPI/Main.h>
+
 btTransform ConstraintTransformA, ConstraintTransformB;
 
 DLLEXPORT double MAB_ConstraintCreateP2P(double BodyA, double AX, double AY, double AZ, double WorldA, double BodyB, double BX, double BY, double BZ, double WorldB, double DisableCollision)
 {
+	TRYBEG();
 	btPoint2PointConstraint* constraint;
 	btVector3 pointA = btVector3((btScalar)AX, (btScalar)AY, (btScalar)AZ);
 	btVector3 pointB = btVector3((btScalar)BX, (btScalar)BY, (btScalar)BZ);
@@ -14,19 +17,23 @@ DLLEXPORT double MAB_ConstraintCreateP2P(double BodyA, double AX, double AY, dou
 	else constraint = new btPoint2PointConstraint(*mabullet.getBody(BodyA), *mabullet.getBody(BodyB), pointA, pointB);
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreateFixed(double BodyA, double BodyB)
 {
+	TRYBEG();
 	btFixedConstraint* constraint;
 	btTransform trans = mabullet.getBody(BodyA)->getWorldTransform().inverse() * mabullet.getBody(BodyB)->getWorldTransform();
 	constraint = new btFixedConstraint(*mabullet.getBody(BodyA), *mabullet.getBody(BodyB), btTransform::getIdentity(), trans.inverse());
 	mabullet.world->addConstraint(constraint, true);
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreateSlider(double BodyA, double BodyB, double LinearReferenceFrameA, double DisableCollision)
 {
+	TRYBEG();
 	btSliderConstraint* constraint;
 	btRigidBody* bodyA = mabullet.getBody(BodyA);
 	if (BodyB > 0) {
@@ -38,10 +45,12 @@ DLLEXPORT double MAB_ConstraintCreateSlider(double BodyA, double BodyB, double L
 	}
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreateGear(double BodyA, double BodyB, double AX, double AY, double AZ, double BX, double BY, double BZ, double Ratio, double DisableCollision)
 {
+	TRYBEG();
 	btGearConstraint* constraint;
 	btRigidBody* bodyA = mabullet.getBody(BodyA);
 	btRigidBody* bodyB = mabullet.getBody(BodyB);
@@ -50,10 +59,12 @@ DLLEXPORT double MAB_ConstraintCreateGear(double BodyA, double BodyB, double AX,
 	constraint = new btGearConstraint(*bodyA, *bodyB, axisInA, axisInB, (btScalar)Ratio);
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreateHinge(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
 {
+	TRYBEG();
 	btHingeConstraint* constraint;
 	btRigidBody* bodyA = mabullet.getBody(BodyA);
 	if (BodyB > 0) {
@@ -65,10 +76,12 @@ DLLEXPORT double MAB_ConstraintCreateHinge(double BodyA, double BodyB, double Us
 	}
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreate6DOF(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
 {
+	TRYBEG();
 	btGeneric6DofConstraint* constraint;
 	btRigidBody* bodyA = mabullet.getBody(BodyA);
 	if (BodyB > 0) {
@@ -80,10 +93,12 @@ DLLEXPORT double MAB_ConstraintCreate6DOF(double BodyA, double BodyB, double Use
 	}
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreateSpring6DOF(double BodyA, double BodyB, double UseReferenceFrameA, double DisableCollision)
 {
+	TRYBEG();
 	btGeneric6DofSpringConstraint* constraint;
 	btRigidBody* bodyA = mabullet.getBody(BodyA);
 	if (BodyB > 0) {
@@ -95,10 +110,12 @@ DLLEXPORT double MAB_ConstraintCreateSpring6DOF(double BodyA, double BodyB, doub
 	}
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintCreateConeTwist(double BodyA, double BodyB, double DisableCollision)
 {
+	TRYBEG();
 	btConeTwistConstraint* constraint;
 	btRigidBody* bodyA = mabullet.getBody(BodyA);
 	if (BodyB > 0) {
@@ -110,15 +127,18 @@ DLLEXPORT double MAB_ConstraintCreateConeTwist(double BodyA, double BodyB, doubl
 	}
 	mabullet.world->addConstraint(constraint, (DisableCollision > 0));
 	return mabullet.addConstraint(constraint);
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintParamTransform(double n, double X, double Y, double Z, double RX, double RY, double RZ, double RW)
 {
+	TRYBEG();
 	btVector3 vec = btVector3((btScalar)X, (btScalar)Y, (btScalar)Z);
 	btQuaternion quat = btQuaternion((btScalar)RX, (btScalar)RY, (btScalar)RZ, (btScalar)RW);	
 	if(n == 0) ConstraintTransformA = btTransform(quat, vec);
 	else ConstraintTransformB = btTransform(quat, vec);
 	return 1;
+	TRYEND(0);
 }
 
 enum PARAM {
@@ -190,6 +210,7 @@ enum PARAM {
 
 DLLEXPORT double MAB_ConstraintSetParam(double ConstraintID, double Param, double Value, double Value2, double Value3, double Value4, double Value5, double Value6)
 {
+	TRYBEG();
 	if (!mabullet.constraintExists(ConstraintID)) return 0;
 	btTypedConstraint* constraint = mabullet.getConstraint(ConstraintID);
 
@@ -481,28 +502,36 @@ DLLEXPORT double MAB_ConstraintSetParam(double ConstraintID, double Param, doubl
 		return -1;
 	}
 	return 1;
+
+	TRYEND(-1);
 }
 
 DLLEXPORT double MAB_ConstraintSetEnabled(double ConstraintID, double enabled)
 {
+	TRYBEG();
 	if (!mabullet.constraintExists(ConstraintID)) return 0;
 	if(enabled) mabullet.getConstraint(ConstraintID)->setEnabled(true);
 	mabullet.getConstraint(ConstraintID)->setEnabled(false);
 	return 1;
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_ConstraintGetAppliedImpulse(double ConstraintID)
 {
+	TRYBEG();
 	if (!mabullet.constraintExists(ConstraintID)) return 0;
 	return mabullet.getConstraint(ConstraintID)->getAppliedImpulse();
+	TRYEND(0);
 }
 
 DLLEXPORT double MAB_ConstraintDestroy(double ConstraintID)
 {
+	TRYBEG();
 	if (!mabullet.constraintExists(ConstraintID)) return 0;
 	btTypedConstraint* constraint = mabullet.getConstraint(ConstraintID);
 	mabullet.world->removeConstraint(constraint);
 	mabullet.constraints.erase(constraint->getUserConstraintId());
 	delete constraint;
 	return 1;
+	TRYEND(0);
 }

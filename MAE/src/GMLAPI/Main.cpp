@@ -10,6 +10,13 @@ Renderer* renderer = 0;
 
 UnorderedVector<Stream*> streams;
 
+void error(const char* msg) {
+	MessageBox(nullptr, msg, "MAE", MB_OK | MB_ICONERROR);
+
+	puts(msg);
+	fflush(stdout);
+}
+
 DLLEXPORT double MADX9_Init(LPDIRECT3DDEVICE9 pointer) {
 	mamain   = MainCreate(pointer);
 	renderer = mamain->createRendererDX9(pointer);
