@@ -56,10 +56,6 @@ VertexDataImpl::~VertexDataImpl() {
 	delete streamInfoArray;
 }
 
-void VertexDataImpl::release() {
-	::delete this;
-}
-
 void VertexDataImpl::replaceVertexBuffer(VertexBuffer* old, VertexBuffer* replacement) {
 	auto vb = ((VertexBufferImpl*) old)->getVertexBuffer();
 

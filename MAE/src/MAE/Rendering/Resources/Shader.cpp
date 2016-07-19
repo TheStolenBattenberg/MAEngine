@@ -60,10 +60,6 @@ ShaderImpl::~ShaderImpl() {
 		pshd->Release();
 }
 
-void ShaderImpl::release() {
-	::delete this;
-}
-
 uint ShaderImpl::find(const char* c) {
 	Handles h = {
 		vtable->GetConstantByName(0, c),

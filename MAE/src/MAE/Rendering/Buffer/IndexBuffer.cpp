@@ -16,10 +16,6 @@ IndexBufferImpl::~IndexBufferImpl() {
 	ib->Release();
 }
 
-void IndexBufferImpl::release() {
-	::delete this;
-}
-
 void* IndexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 

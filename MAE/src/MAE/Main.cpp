@@ -8,14 +8,10 @@ MainImpl::~MainImpl() {
 	assert(("Some Particel Systems weren't freed", ParticleSys.size() == 0));
 }
 
-void MainImpl::release() {
-	::delete this;
-}
-
 Renderer* MainImpl::createRendererDX9(LPDIRECT3DDEVICE9 device) {
-	return ::new RendererImpl(device);
+	return new RendererImpl(device);
 }
 
 Main* MainCreate() {
-	return ::new MainImpl();
+	return new MainImpl();
 }

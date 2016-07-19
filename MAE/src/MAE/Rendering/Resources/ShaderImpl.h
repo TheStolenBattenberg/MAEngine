@@ -10,8 +10,6 @@ public:
 	ShaderImpl(class RendererImpl* device, const char* vshd, const char* pshd);
 	~ShaderImpl();
 
-	void release();
-
 	uint find(const char* c);
 	void setSampler(uint c, class Texture* sampler);
 	uint getLocation(const char* str);

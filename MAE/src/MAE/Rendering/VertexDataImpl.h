@@ -10,8 +10,6 @@ public:
 	VertexDataImpl(LPDIRECT3DDEVICE9 device, class VertexDataBuilderImpl* vdb);
 	~VertexDataImpl();
 
-	void release();
-
 	void replaceVertexBuffer(class VertexBuffer* old, class VertexBuffer* replacement);
 	void setIndexBuffer(class IndexBuffer* ib);
 

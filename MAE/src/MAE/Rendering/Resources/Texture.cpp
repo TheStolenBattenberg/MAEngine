@@ -3,7 +3,3 @@
 TextureImpl::~TextureImpl() {
 	tex->Release();
 }
-
-void TextureImpl::release() {
-	::delete this;
-}

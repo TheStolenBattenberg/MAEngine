@@ -3,25 +3,18 @@
 #include <MAE/Rendering/Buffer/IndexBufferImpl.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 #include <MAE/Rendering/Resources/TextureImpl.h>
-#include <MAE/Rendering/Scene/SceneImpl.h>
 #include <MAE/Rendering/Buffer/VertexBufferImpl.h>
 #include <MAE/Rendering/VertexDataBuilderImpl.h>
 #include <MAE/Rendering/VertexDataImpl.h>
 
-void RendererImpl::release() {
-	::delete this;
-}
+RendererImpl::~RendererImpl() { }
 
 IndexBuffer* RendererImpl::createIndexBuffer(uint length, uint format) {
-	return ::new IndexBufferImpl(length, format, device);
-}
-
-Scene* RendererImpl::createScene() {
-	return ::new SceneImpl();
+	return new IndexBufferImpl(length, format, device);
 }
 
 Shader* RendererImpl::createShader(const char* vshd, const char* pshd) {
-	return ::new ShaderImpl(this, vshd, pshd);
+	return new ShaderImpl(this, vshd, pshd);
 }
 
 Texture* RendererImpl::createTextureFromFile(const char* file, uint mipmaps) {
@@ -30,7 +23,7 @@ Texture* RendererImpl::createTextureFromFile(const char* file, uint mipmaps) {
 	if (FAILED(D3DXCreateTextureFromFileEx(device, file, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex)))
 		throw std::exception("Failed to load texture");
 
-	return ::new TextureImpl(tex);
+	return new TextureImpl(tex);
 }
 
 Texture* RendererImpl::createTextureFromFileInMemory(const void* data, uint length, uint mipmaps) {
@@ -39,19 +32,40 @@ Texture* RendererImpl::createTextureFromFileInMemory(const void* data, uint leng
 	if (FAILED(D3DXCreateTextureFromFileInMemoryEx(device, data, length, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex)))
 		throw std::exception("Failed to load texture");
 
-	return ::new TextureImpl(tex);
+	return new TextureImpl(tex);
 }
 
 VertexBuffer* RendererImpl::createVertexBuffer(uint length) {
-	return ::new VertexBufferImpl(length, device);
+	return new VertexBufferImpl(length, device);
 }
 
 VertexData* RendererImpl::createVertexData(VertexDataBuilder* vdb) {
-	return ::new VertexDataImpl(device, (VertexDataBuilderImpl*) vdb);
+	return new VertexDataImpl(device, (VertexDataBuilderImpl*) vdb);
+}
+
+VertexData* RendererImpl::createVertexDataFromArray(const uint* data, VertexBuffer** vbArr) {
+	auto builder = new VertexDataBuilderImpl();
+
+	for (; *data != DataEnd; ++data) {
+		switch (*data) {
+		case DataVB:
+			builder->setVertexBuffer(vbArr[data[1]], data[2], data[3]);
+			data += 3;
+			break;
+		case DataElem:
+			builder->addElement(data[1], data[2], data[3]);
+			data += 3;
+			break;
+		}
+	}
+
+	auto vd = new VertexDataImpl(device, builder);
+	delete builder;
+	return vd;
 }
 
 VertexDataBuilder* RendererImpl::createVertexDataBuilder() {
-	return ::new VertexDataBuilderImpl();
+	return new VertexDataBuilderImpl();
 }
 
 void RendererImpl::draw(uint type, uint index, uint count) {

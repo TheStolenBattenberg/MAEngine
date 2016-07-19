@@ -6,10 +6,12 @@
 #include <Mat.h>
 #include <Vec.h>
 
-#include <MAE/Core/Releasable.h>
+#include <MAE/Core/Deletable.h>
 
-class Shader: public Releasable {
+class Shader: public Deletable {
 public:
+	virtual ~Shader() { };
+
 	inline uint find(const std::string& c) {
 		return find(c.c_str());
 	}
@@ -17,8 +19,6 @@ public:
 	inline uint getLocation(const std::string& str) {
 		return getLocation(str.c_str());
 	}
-
-	virtual void release() = 0;
 
 	virtual uint find(const char* c) = 0;
 	virtual void setSampler(uint c, class Texture* sampler) = 0;

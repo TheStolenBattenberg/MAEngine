@@ -23,7 +23,7 @@ public:
 		std::vector<Element> elements;
 	};
 
-	void release();
+	~VertexDataBuilderImpl();
 
 	void setIndexBuffer(class IndexBuffer* ib);
 	void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride);

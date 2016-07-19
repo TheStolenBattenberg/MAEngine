@@ -3,16 +3,16 @@
 #include <d3d9.h>
 
 #include <MAE/Core/Types.h>
-#include <MAE/Core/Releasable.h>
+#include <MAE/Core/Deletable.h>
 
-class VertexBuffer: public Releasable {
+class VertexBuffer: public Deletable {
 public:
 	enum {
 		MapWrite = 0x01,
 		MapRead  = 0x02
 	};
 
-	virtual void release() = 0;
+	virtual ~VertexBuffer() { };
 
 	template<typename T> T* map(uint offset, uint size, uint flags) {
 		return (T*) map(offset, size, flags);

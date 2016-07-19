@@ -1,11 +1,11 @@
 #pragma once
 
 #include <MAE/Core/Types.h>
-#include <MAE/Core/Releasable.h>
+#include <MAE/Core/Deletable.h>
 
 #include <string>
 
-class Texture: public Releasable {
+class Texture: public Deletable {
 public:
-	virtual void release() = 0;
+	virtual ~Texture() { };
 };

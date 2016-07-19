@@ -8,8 +8,6 @@ public:
 	TextureImpl(LPDIRECT3DTEXTURE9 tex): tex(tex) { };
 	~TextureImpl();
 
-	void release();
-
 	inline LPDIRECT3DTEXTURE9 getTexture() {
 		return tex;
 	}

@@ -34,8 +34,6 @@
     <ClCompile Include="..\src\MAE\Rendering\Renderer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Resources\Texture.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\Scene\Entity.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexData.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp" />
   </ItemGroup>
@@ -43,7 +41,7 @@
     <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />
     <ClInclude Include="..\src\MAE\Bullet\BulletDebugDraw.h" />
     <ClInclude Include="..\src\MAE\Core\Math.h" />
-    <ClInclude Include="..\src\MAE\Core\Releasable.h" />
+    <ClInclude Include="..\src\MAE\Core\Deletable.h" />
     <ClInclude Include="..\src\MAE\Core\Types.h" />
     <ClInclude Include="..\src\MAE\Core\UnorderedVector.h" />
     <ClInclude Include="..\src\MAE\Core\Utils.h" />
@@ -70,17 +68,12 @@
     <ClInclude Include="..\src\MAE\Rendering\ParticleEmitter.h" />
     <ClInclude Include="..\src\MAE\Rendering\ParticleModifier.h" />
     <ClInclude Include="..\src\MAE\Rendering\ParticleSystem.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Pipeline\Pipeline.h" />
     <ClInclude Include="..\src\MAE\Rendering\Renderer.h" />
     <ClInclude Include="..\src\MAE\Rendering\RendererImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\Shader.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\ShaderImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\Texture.h" />
     <ClInclude Include="..\src\MAE\Rendering\Resources\TextureImpl.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Scene\EntityImpl.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Scene\Scene.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Scene\SceneImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexData.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilder.h" />
     <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilderImpl.h" />

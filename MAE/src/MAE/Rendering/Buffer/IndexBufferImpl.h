@@ -9,8 +9,6 @@ public:
 	IndexBufferImpl(uint length, uint fmt, LPDIRECT3DDEVICE9 device);
 	~IndexBufferImpl();
 
-	void release();
-
 	void* map(uint offset, uint size, uint flags);
 	void unmap();
 	void upload(const void* data, uint offset, uint size);

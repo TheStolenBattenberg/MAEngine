@@ -9,8 +9,6 @@ public:
 	VertexBufferImpl(uint length, LPDIRECT3DDEVICE9 device);
 	~VertexBufferImpl();
 
-	void release();
-
 	void* map(uint offset, uint size, uint flags);
 	void unmap();
 	void upload(const void* data, uint offset, uint size);

@@ -6,16 +6,16 @@ class RendererImpl: public Renderer {
 public:
 	RendererImpl(LPDIRECT3DDEVICE9 device): device(device) { }
 
-	void release();
+	~RendererImpl();
 
 	void buildVertexData(class VertexData* vd);
 	class IndexBuffer* createIndexBuffer(uint length, uint format);
-	class Scene* createScene();
 	class Shader* createShader(const char* vshd, const char* pshd);
 	class Texture* createTextureFromFile(const char* file, uint mipmaps);
 	class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps);
 	class VertexBuffer* createVertexBuffer(uint length);
 	class VertexData* createVertexData(class VertexDataBuilder* vdb);
+	class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr);
 	class VertexDataBuilder* createVertexDataBuilder();
 	void draw(uint type, uint index, uint count);
 	void drawIndexed(uint type, uint count);

@@ -11,10 +11,6 @@ VertexBufferImpl::~VertexBufferImpl() {
 	vb->Release();
 }
 
-void VertexBufferImpl::release() {
-	::delete this;
-}
-
 void* VertexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 

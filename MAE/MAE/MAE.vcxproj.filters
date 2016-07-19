@@ -31,12 +31,6 @@
     <Filter Include="Header Files\Core">
       <UniqueIdentifier>{e656e179-349c-4aa1-a010-5e65865f2750}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Rendering\Scene">
-      <UniqueIdentifier>{7f5dd442-58a6-4f08-b5ea-567758b21182}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Rendering\Pipeline">
-      <UniqueIdentifier>{dff53498-9e8b-4deb-b28b-6bcfd509a56a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Rendering\Resources">
       <UniqueIdentifier>{7e362ae9-3c2f-4738-bdae-0d43980f57ea}</UniqueIdentifier>
     </Filter>
@@ -48,9 +42,6 @@
     </Filter>
     <Filter Include="Source Files\Rendering\Mesh">
       <UniqueIdentifier>{14422170-4622-454f-850f-1d8f419110de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Rendering\Scene">
-      <UniqueIdentifier>{53b0db05-53a6-4192-94dd-7105737f70f1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Rendering\Resources">
       <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
@@ -110,12 +101,6 @@
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp">
       <Filter>Source Files\Rendering\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\Scene\Entity.cpp">
-      <Filter>Source Files\Rendering\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\Scene\Scene.cpp">
-      <Filter>Source Files\Rendering\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp">
       <Filter>Source Files\Rendering\Resources</Filter>
@@ -194,21 +179,6 @@
     <ClInclude Include="..\src\MAE\Rendering\ParticleSystem.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Scene\Entity.h">
-      <Filter>Header Files\Rendering\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Scene\EntityImpl.h">
-      <Filter>Header Files\Rendering\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Scene\Scene.h">
-      <Filter>Header Files\Rendering\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Scene\SceneImpl.h">
-      <Filter>Header Files\Rendering\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Pipeline\Pipeline.h">
-      <Filter>Header Files\Rendering\Pipeline</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Resources\Shader.h">
       <Filter>Header Files\Rendering\Resources</Filter>
     </ClInclude>
@@ -241,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\FMOD\CFmod.h">
       <Filter>Header Files\FMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Core\Releasable.h">
-      <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Core\UnorderedVector.h">
       <Filter>Header Files\Core</Filter>
@@ -286,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBufferImpl.h">
       <Filter>Header Files\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MAE\Core\Deletable.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

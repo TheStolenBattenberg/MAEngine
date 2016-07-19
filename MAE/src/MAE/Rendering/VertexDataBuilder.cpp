@@ -6,9 +6,7 @@
 #include <algorithm>
 #include <cassert>
 
-void VertexDataBuilderImpl::release() {
-	::delete this;
-}
+VertexDataBuilderImpl::~VertexDataBuilderImpl() { }
 
 void VertexDataBuilderImpl::setIndexBuffer(IndexBuffer* ib) {
 	this->ib = ((IndexBufferImpl*) ib)->getIndexBuffer();
