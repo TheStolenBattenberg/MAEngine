@@ -1,10 +1,10 @@
 #pragma once
 
 #include <stdint.h>
-#include <Vec.h>
-#include <Mat.h>
-#include <Color.h>
-#include <Quat.h>
+#include <MAE/Core/Vec.h>
+#include <MAE/Core/Mat.h>
+#include <MAE/Core/Color.h>
+#include <MAE/Core/Quat.h>
 
 /**
  * MAE Packet Model

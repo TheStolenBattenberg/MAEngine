@@ -8,7 +8,7 @@
 
 #include <d3d9.h>
 #include <vector>
-#include <Mat.h>
+#include <MAE/Core/Mat.h>
 #include <MPM.h>
 
 class MPMModel {

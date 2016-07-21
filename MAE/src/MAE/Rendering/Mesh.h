@@ -2,7 +2,7 @@
 
 #include <MAE/Core/Types.h>
 
-#include <Vec.h>
+#include <MAE/Core/Vec.h>
 
 typedef vec3 Vertex;
 typedef vec3 Normal;

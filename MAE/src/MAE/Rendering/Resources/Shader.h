@@ -3,8 +3,8 @@
 #include <MAE/Core/Types.h>
 
 #include <string>
-#include <Mat.h>
-#include <Vec.h>
+#include <MAE/Core/Mat.h>
+#include <MAE/Core/Vec.h>
 
 #include <MAE/Core/Deletable.h>
 

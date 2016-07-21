@@ -5,7 +5,7 @@
 #include <cmath>
 #include <algorithm>
 
-#include <Vec.h>
+#include <MAE/Core/Vec.h>
 
 const double PI = 3.1415926535897932384626433832795;
 

@@ -40,11 +40,15 @@
   <ItemGroup>
     <ClInclude Include="..\src\MAE\Bullet\Bullet.h" />
     <ClInclude Include="..\src\MAE\Bullet\BulletDebugDraw.h" />
+    <ClInclude Include="..\src\MAE\Core\Color.h" />
+    <ClInclude Include="..\src\MAE\Core\Mat.h" />
     <ClInclude Include="..\src\MAE\Core\Math.h" />
     <ClInclude Include="..\src\MAE\Core\Deletable.h" />
+    <ClInclude Include="..\src\MAE\Core\Quat.h" />
     <ClInclude Include="..\src\MAE\Core\Types.h" />
     <ClInclude Include="..\src\MAE\Core\UnorderedVector.h" />
     <ClInclude Include="..\src\MAE\Core\Utils.h" />
+    <ClInclude Include="..\src\MAE\Core\Vec.h" />
     <ClInclude Include="..\src\MAE\FMOD\CFmodHelper.h" />
     <ClInclude Include="..\src\MAE\FMOD\CFmod.h" />
     <ClInclude Include="..\src\MAE\Main.h" />
@@ -113,13 +117,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(SolutionDir)src;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)recastnavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(MAE)Tools\UtilHeaders;$(SolutionDir)src;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(MAE)Libraries\bullet3\src;$(MAE)Libraries\FMOD\inc;$(MAE)Libraries\recastnavigation\DebugUtils\Include;$(MAE)Libraries\recastnavigation\Detour\Include;$(MAE)Libraries\recastnavigation\DetourTileCache\Include;$(MAE)Libraries\recastnavigation\Recast\Include;$(MAE)Specifications;$(SolutionDir)src;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(MAE)Libraries\bullet3\msvc\2015\lib\$(Configuration);$(MAE)Libraries\FMOD\lib;$(SolutionDir)recastnavigation\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)lib\$(Configuration)\</OutDir>
   </PropertyGroup>

@@ -8,8 +8,8 @@
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
 
-#include <Vec.h>
-#include <Mat.h>
+#include <MAE/Core/Vec.h>
+#include <MAE/Core/Mat.h>
 
 std::vector<float> matStack;
 
