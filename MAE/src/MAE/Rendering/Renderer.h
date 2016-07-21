@@ -50,9 +50,8 @@ public:
 	virtual class VertexData* createVertexData(class VertexDataBuilder* vdb) = 0;
 	virtual class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr, class IndexBuffer* ib = nullptr) = 0;
 	virtual class VertexDataBuilder* createVertexDataBuilder() = 0;
-	virtual void draw(uint type, uint index, uint count) = 0;
-	virtual void drawIndexed(uint type, uint count) = 0;
+	virtual void draw(class VertexData* vd, uint type, uint index, uint count) = 0;
+	virtual void drawIndexed(class VertexData* vd, uint type, uint count) = 0;
 	virtual void setShader(class Shader* shd) = 0;
 	virtual void setTexture(uint stage, class Texture* tex) = 0;
-	virtual void setVertexData(class VertexData* vd) = 0;
 };

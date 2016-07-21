@@ -17,11 +17,10 @@ public:
 	class VertexData* createVertexData(class VertexDataBuilder* vdb);
 	class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr, class IndexBuffer* ib = nullptr);
 	class VertexDataBuilder* createVertexDataBuilder();
-	void draw(uint type, uint index, uint count);
-	void drawIndexed(uint type, uint count);
+	void draw(class VertexData* vd, uint type, uint index, uint count);
+	void drawIndexed(class VertexData* vd, uint type, uint count);
 	void setShader(class Shader* shd);
 	void setTexture(uint stage, class Texture* tex);
-	void setVertexData(class VertexData* vd);
 
 	inline LPDIRECT3DDEVICE9 getDevice() {
 		return device;
@@ -29,6 +28,4 @@ public:
 
 private:
 	LPDIRECT3DDEVICE9 device;
-
-	class VertexDataImpl* vd = 0;
 };

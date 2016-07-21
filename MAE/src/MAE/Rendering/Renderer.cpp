@@ -14,10 +14,14 @@ IndexBuffer* RendererImpl::createIndexBuffer(uint length, uint format) {
 }
 
 Shader* RendererImpl::createShader(const char* vshd, const char* pshd) {
+	assert(("Invalid string", vshd != nullptr && pshd != nullptr));
+
 	return new ShaderImpl(this, vshd, pshd);
 }
 
 Texture* RendererImpl::createTextureFromFile(const char* file, uint mipmaps) {
+	assert(("Invalid string", file != nullptr));
+
 	LPDIRECT3DTEXTURE9 tex;
 
 	if (FAILED(D3DXCreateTextureFromFileEx(device, file, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex)))
@@ -27,6 +31,8 @@ Texture* RendererImpl::createTextureFromFile(const char* file, uint mipmaps) {
 }
 
 Texture* RendererImpl::createTextureFromFileInMemory(const void* data, uint length, uint mipmaps) {
+	assert(("Invalid data", data != nullptr));
+
 	LPDIRECT3DTEXTURE9 tex;
 
 	if (FAILED(D3DXCreateTextureFromFileInMemoryEx(device, data, length, 0, 0, mipmaps == MipMapsGenerate ? 0 : (mipmaps == MipMapsFromFile ? D3DX_FROM_FILE : 1), 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, 0, 0, &tex)))
@@ -44,6 +50,9 @@ VertexData* RendererImpl::createVertexData(VertexDataBuilder* vdb) {
 }
 
 VertexData* RendererImpl::createVertexDataFromArray(const uint* data, VertexBuffer** vbArr, IndexBuffer* ib) {
+	assert(("Invalid data", data != nullptr));
+	assert(("Invalid vbArr", vbArr != nullptr));
+
 	auto builder = new VertexDataBuilderImpl();
 
 	for (; *data != DataEnd; ++data) {
@@ -71,7 +80,7 @@ VertexDataBuilder* RendererImpl::createVertexDataBuilder() {
 	return new VertexDataBuilderImpl();
 }
 
-void RendererImpl::draw(uint type, uint index, uint count) {
+void RendererImpl::draw(VertexData* vd, uint type, uint index, uint count) {
 	D3DPRIMITIVETYPE table[] = {
 		D3DPT_POINTLIST,
 		D3DPT_LINELIST,
@@ -82,11 +91,13 @@ void RendererImpl::draw(uint type, uint index, uint count) {
 	};
 
 	assert(("Invalid type", type < sizeof(table)));
+	assert(("Invalid VertexData", vd != nullptr));
 
+	((VertexDataImpl*) vd)->set(device);
 	device->DrawPrimitive(table[type], index, count);
 }
 
-void RendererImpl::drawIndexed(uint type, uint count) {
+void RendererImpl::drawIndexed(VertexData* vd, uint type, uint count) {
 	D3DPRIMITIVETYPE table[] = {
 		D3DPT_POINTLIST,
 		D3DPT_LINELIST,
@@ -97,9 +108,10 @@ void RendererImpl::drawIndexed(uint type, uint count) {
 	};
 
 	assert(("Invalid type", type < sizeof(table)));
-	assert(("No VertexData set", vd != nullptr));
+	assert(("Invalid VertexData", vd != nullptr));
 
-	device->DrawIndexedPrimitive(table[type], 0, 0, vd->getNumVertices(), 0, count);
+	((VertexDataImpl*) vd)->set(device);
+	device->DrawIndexedPrimitive(table[type], 0, 0, ((VertexDataImpl*) vd)->getNumVertices(), 0, count);
 }
 
 void RendererImpl::setShader(Shader* shd) {
@@ -115,8 +127,4 @@ void RendererImpl::setShader(Shader* shd) {
 
 void RendererImpl::setTexture(uint stage, Texture* tex) {
 	device->SetTexture(stage, tex == nullptr ? nullptr : ((TextureImpl*) tex)->getTexture());
-}
-
-void RendererImpl::setVertexData(VertexData* vd) {
-	(this->vd = (VertexDataImpl*) vd)->set(device);
 }

@@ -34,10 +34,3 @@ DLLEXPORT double MAE_VertexDataSetIndexBuffer(double vd, double ib) {
 	return 1;
 	TRYEND(0);
 }
-
-DLLEXPORT double MAE_VertexDataSet(double vd) {
-	TRYBEG();
-	renderer->setVertexData(doubleToPtr<VertexData>(vd));
-	return 1;
-	TRYEND(0);
-}

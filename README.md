@@ -10,13 +10,12 @@ MA-Engine, or 'MAE' for short, is a 3D Engine developed for use in Game Maker: S
 - A Physics and Collision capable world, featuring Bullet Dynamics
 - Fast 3D Model Loading and drawing
 - MD2 3D Model Support
--   + MD2 Morph Target Animation
 - 3D Particles
 - Proprietary 3D model format
--   + Morph Target Animation
--   + Skeletal Animation
--   + Internal Shaders
-- Pure HLSL9 Shader & ASM shader support
+	- Morph Target Animation
+	- Skeletal Animation
+	- Internal Shaders
+- Pure HLSL9 Shader support
 
 ## Credits
 - TheStolenBattenberg (General, DirectX, GML API & Functions)
