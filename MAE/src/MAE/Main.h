@@ -8,7 +8,7 @@
 
 class Main: public Deletable {
 public:
-	virtual ~Main() { };
+	virtual ~Main() { }
 
 	virtual class Renderer* createRendererDX9(LPDIRECT3DDEVICE9 device) = 0;
 

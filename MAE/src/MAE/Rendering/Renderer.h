@@ -32,7 +32,7 @@ public:
 		DataElem = 2
 	};
 
-	virtual ~Renderer() { };
+	virtual ~Renderer() { }
 
 	inline class Shader* createShader(const std::string& vshd, const std::string& pshd) {
 		return createShader(vshd.c_str(), pshd.c_str());
@@ -48,7 +48,7 @@ public:
 	virtual class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps) = 0;
 	virtual class VertexBuffer* createVertexBuffer(uint length) = 0;
 	virtual class VertexData* createVertexData(class VertexDataBuilder* vdb) = 0;
-	virtual class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr) = 0;
+	virtual class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr, class IndexBuffer* ib = nullptr) = 0;
 	virtual class VertexDataBuilder* createVertexDataBuilder() = 0;
 	virtual void draw(uint type, uint index, uint count) = 0;
 	virtual void drawIndexed(uint type, uint count) = 0;

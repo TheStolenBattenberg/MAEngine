@@ -12,7 +12,7 @@ public:
 		TypeVec4  = 3
 	};
 
-	virtual ~VertexDataBuilder() { };
+	virtual ~VertexDataBuilder() { }
 
 	virtual void setIndexBuffer(class IndexBuffer* ib) = 0;
 	virtual void setVertexBuffer(class VertexBuffer* vb, uint offset, uint stride) = 0;

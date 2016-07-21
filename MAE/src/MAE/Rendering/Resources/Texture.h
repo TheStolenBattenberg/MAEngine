@@ -7,5 +7,5 @@
 
 class Texture: public Deletable {
 public:
-	virtual ~Texture() { };
+	virtual ~Texture() { }
 };

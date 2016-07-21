@@ -12,7 +12,7 @@ public:
 		MapRead  = 0x02
 	};
 
-	virtual ~VertexBuffer() { };
+	virtual ~VertexBuffer() { }
 
 	template<typename T> T* map(uint offset, uint size, uint flags) {
 		return (T*) map(offset, size, flags);

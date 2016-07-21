@@ -43,7 +43,7 @@ VertexData* RendererImpl::createVertexData(VertexDataBuilder* vdb) {
 	return new VertexDataImpl(device, (VertexDataBuilderImpl*) vdb);
 }
 
-VertexData* RendererImpl::createVertexDataFromArray(const uint* data, VertexBuffer** vbArr) {
+VertexData* RendererImpl::createVertexDataFromArray(const uint* data, VertexBuffer** vbArr, IndexBuffer* ib) {
 	auto builder = new VertexDataBuilderImpl();
 
 	for (; *data != DataEnd; ++data) {
@@ -58,6 +58,9 @@ VertexData* RendererImpl::createVertexDataFromArray(const uint* data, VertexBuff
 			break;
 		}
 	}
+
+	if (ib != nullptr)
+		builder->setIndexBuffer(ib);
 
 	auto vd = new VertexDataImpl(device, builder);
 	delete builder;

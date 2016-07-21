@@ -5,7 +5,7 @@
 
 class TextureImpl: public Texture {
 public:
-	TextureImpl(LPDIRECT3DTEXTURE9 tex): tex(tex) { };
+	TextureImpl(LPDIRECT3DTEXTURE9 tex): tex(tex) { }
 	~TextureImpl();
 
 	inline LPDIRECT3DTEXTURE9 getTexture() {

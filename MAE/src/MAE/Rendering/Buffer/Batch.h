@@ -10,14 +10,28 @@ enum BatchFlags {
 	BatchFlagIgnoreSize     = 0x02 // TODO: Implement
 };
 
-template<uint flags = 0> class Batch {
+class BatchInterface {
 public:
 	typedef void RenderFunc(Renderer*, VertexBuffer*, VertexData*);
+
+	virtual ~BatchInterface() { }
+
+	template<typename T> void add(const T& data) {
+		add(&data, sizeof(data));
+	}
+
+	virtual void add(const void* data, uint length) = 0;
+	virtual void begin() = 0;
+	virtual void end() = 0;
+
+	RenderFunc renderFunc;
+};
+
+template<uint flags = 0> class Batch: public BatchInterface {
+public:
 	typedef VertexData* BuildDataFunc(Renderer*, VertexBuffer*);
 
-	Batch(Renderer* renderer, BuildDataFunc buildDataFunc, uint size):
-		renderer(renderer), size(size), buildDataFunc(buildDataFunc) {
-
+	Batch(Renderer* renderer, BuildDataFunc buildDataFunc, uint size): renderer(renderer), size(size) {
 		vd = buildDataFunc(vb = renderer->createVertexBuffer(size));
 
 		if (flags & BatchFlagNoDoubleBuffer == 0)
@@ -29,10 +43,6 @@ public:
 
 		if (flags & BatchFlagNoDoubleBuffer == 0)
 			delete vbBack;
-	}
-
-	template<typename T> void add(const T& data) {
-		add(&data, sizeof(data));
 	}
 
 	template<typename T> void setSize(uint count) {
@@ -76,18 +86,20 @@ public:
 
 		this->size = size;
 
-		vd = buildDataFunc(vb = renderer->createVertexBuffer(size));
+		auto old = vb;
+		vd->replaceVertexBuffer(old, vb = renderer->createVertexBuffer(size));
+		delete old;
 
-		if (flags & BatchFlagNoDoubleBuffer == 0)
-			vdBack = buildDataFunc(vbBack = renderer->createVertexBuffer(size));
+		if (flags & BatchFlagNoDoubleBuffer == 0) {
+			auto old = vbBack;
+			vdBack->replaceVertexBuffer(old, vbBack = renderer->createVertexBuffer(size));
+			delete old;
+		}
 	}
 
 	inline uint getSize() {
 		return size;
 	}
-
-	RenderFunc renderFunc;
-	BuildDataFunc buildDataFunc;
 
 private:
 	void flush() {

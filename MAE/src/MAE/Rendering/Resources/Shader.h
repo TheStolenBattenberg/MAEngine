@@ -10,7 +10,7 @@
 
 class Shader: public Deletable {
 public:
-	virtual ~Shader() { };
+	virtual ~Shader() { }
 
 	inline uint find(const std::string& c) {
 		return find(c.c_str());

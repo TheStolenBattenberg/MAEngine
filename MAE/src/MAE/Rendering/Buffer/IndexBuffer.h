@@ -10,7 +10,7 @@ public:
 		MapRead  = 0x02
 	};
 
-	virtual ~IndexBuffer() { };
+	virtual ~IndexBuffer() { }
 
 	template<typename T> T* map(uint offset, uint size, uint flags) {
 		return (T*) map(offset, size, flags);
