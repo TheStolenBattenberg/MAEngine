@@ -49,7 +49,6 @@
     <ClInclude Include="..\src\MAE\Core\UnorderedVector.h" />
     <ClInclude Include="..\src\MAE\Core\Utils.h" />
     <ClInclude Include="..\src\MAE\Core\Vec.h" />
-    <ClInclude Include="..\src\MAE\FMOD\CFmodHelper.h" />
     <ClInclude Include="..\src\MAE\FMOD\CFmod.h" />
     <ClInclude Include="..\src\MAE\Main.h" />
     <ClInclude Include="..\src\MAE\MainImpl.h" />

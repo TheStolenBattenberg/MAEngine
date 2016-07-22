@@ -16,6 +16,7 @@
     <ClCompile Include="..\src\GMLAPI\BulletMisc.cpp" />
     <ClCompile Include="..\src\GMLAPI\BulletShape.cpp" />
     <ClCompile Include="..\src\GMLAPI\BulletWorld.cpp" />
+    <ClCompile Include="..\src\GMLAPI\Fmod.cpp" />
     <ClCompile Include="..\src\GMLAPI\IndexBuffer.cpp" />
     <ClCompile Include="..\src\GMLAPI\Main.cpp" />
     <ClCompile Include="..\src\GMLAPI\Model.cpp" />

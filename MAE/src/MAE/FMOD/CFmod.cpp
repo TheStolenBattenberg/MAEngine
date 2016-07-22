@@ -1,97 +1,58 @@
 #include <MAE/FMOD/CFmod.h>
 
-void CFmod::Init() {
-	FMOD_RESULT res = FMOD::System_Create(&m_pSystem);
-	if (FMODFAILED(res)) {
-		return;
-	}
-	return;
+FMODError CFmod::SystemCreate() {
+	FMOD::System_Create(&m_pSystem);
+
+	return FMODError::ERR_OKAY;
 }
 
-void CFmod::Create() {
-	FMOD_RESULT res = m_pSystem->init(m_iMaxSounds, FMOD_INIT_NORMAL, NULL);
-	m_iMaxSounds = m_iMaxSounds;
-	if (FMODFAILED(res)) {
-		return;
-	}
-	return;
+FMODError CFmod::SystemSetMaxChannels(uint MaxChannels) {
+	m_iMaxChannels = MaxChannels;
+
+	return FMODError::ERR_OKAY;
 }
 
-void CFmod::Update() {
+FMODError CFmod::SystemInitialize() {
+	m_pSystem->init(m_iMaxChannels, FMOD_INIT_NORMAL, NULL);
+	m_pSystem->getMasterChannelGroup(&m_pMasterChannel);
+
+	return FMODError::ERR_OKAY;
+}
+
+FMODError CFmod::SystemUpdate() {
 	m_pSystem->update();
-	return;
+
+	return FMODError::ERR_OKAY;
 }
 
-void CFmod::Shutdown() {
+FMODError CFmod::SystemShutdown() {
+	while (!m_pSound.empty()) {
+		m_pSound.back()->release();
+		m_pSound.pop_back();
+	}
 	m_pSystem->close();
 	m_pSystem->release();
-	return;
 }
 
-void CFmod::Set3DSettings(float dopplerscale, float distancefactor, float rolloffscale) {
-	m_fDopplerScale   = dopplerscale;
-	m_fDistanceFactor = distancefactor;
-	m_fRolloffScale   = rolloffscale;
-	m_pSystem->set3DSettings(m_fDopplerScale, m_fDistanceFactor, m_fRolloffScale);
+FMODError CFmod::SystemSetSoftwareFormat(uint SampleRate, uint SpeakerMode) {
+	m_iSampleRate = SampleRate;
+	m_pSystem->setSoftwareFormat(m_iSampleRate, (FMOD_SPEAKERMODE)SpeakerMode, FMOD_MAX_CHANNEL_WIDTH);
 }
 
-void CFmod::SetMaxSounds(uint MaxSounds) {
-	m_iMaxSounds = MaxSounds;
+uint CFmod::SystemGetSampleRate() {
+	return m_iSampleRate;
 }
 
-void CFmod::SetMaxChannels(uint MaxChannels) {
-	m_iMaxChannels = MaxChannels;
+float CFmod::SystemGetCPUUsage() {
+	float CPUUsage;
+		m_pSystem->getCPUUsage(NULL, NULL, NULL, NULL, &CPUUsage);
+	return CPUUsage;
 }
 
-void CFmod::SetMaxGroups(uint MaxGroups) {
-	m_iMaxGroups = MaxGroups;
+uint CFmod::SystemGetSounds() {
+	return m_pSound.size() - 1;
 }
 
-void CFmod::SetMaxDSPs(uint MaxDSPs) {
-	m_iMaxDSPs = MaxDSPs;
-}
-
-uint CFmod::GetMaxSounds() {
-	return m_iMaxSounds;
-}
-
-uint CFmod::GetMaxChannels() {
-	return m_iMaxChannels;
-}
-
-uint CFmod::GetMaxGroups() {
-	return m_iMaxGroups;
-}
-
-uint CFmod::GetMaxDSPs() {
-	return m_iMaxDSPs;
-}
-
-float CFmod::GetCPUUsage(uint usagefactor) {
-	float cpuusage;
-	switch (usagefactor) {
-		case 0:
-			m_pSystem->getCPUUsage(&cpuusage, NULL, NULL, NULL, NULL);
-			return cpuusage;
-
-		case 1:
-			m_pSystem->getCPUUsage(NULL, &cpuusage, NULL, NULL, NULL);
-			return cpuusage;
-
-		case 2:
-			m_pSystem->getCPUUsage(NULL, NULL, &cpuusage, NULL, NULL);
-			return cpuusage;
-
-		case 3:
-			m_pSystem->getCPUUsage(NULL, NULL, NULL, &cpuusage, NULL);
-			return cpuusage;
-
-		case 4:
-			m_pSystem->getCPUUsage(NULL, NULL, NULL, NULL, &cpuusage);
-			return cpuusage;
-
-		default:
-			return 0.0f;
-	}
-	return 0.0f;
+uint CFmod::SystemGetChannels() {
+	return m_pChannel.size() - 1;
 }

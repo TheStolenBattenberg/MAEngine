@@ -1,55 +1,56 @@
 #include <MAE/FMOD/CFmod.h>
 
-uint CFmod::SoundCreate(string file, uint mode) {
-	FMOD_MODE ModeSwitch[12]{
-		FMOD_LOOP_OFF,
-		FMOD_LOOP_NORMAL,
-		FMOD_LOOP_BIDI,
-		FMOD_3D_HEADRELATIVE,
-		FMOD_3D_WORLDRELATIVE,
-		FMOD_2D,
-		FMOD_3D,
-		FMOD_3D_INVERSEROLLOFF,
-		FMOD_3D_LINEARROLLOFF,
-		FMOD_3D_LINEARSQUAREROLLOFF,
-		FMOD_3D_CUSTOMROLLOFF,
-		FMOD_3D_IGNOREGEOMETRY };
-
-	Sound* snd;
-	FMOD_RESULT res = m_pSystem->createSound(file, ModeSwitch[mode], 0, &snd->m_pVoice);
-	if (FMODFAILED(res)) {
-		return 0;
+sint CFmod::SoundLoad(string Filename, bool isStream) {
+	FMOD::Sound* snd;
+	if (!isStream) {
+		m_pSystem->createSound(Filename, FMOD_DEFAULT, NULL, &snd);
+		m_pSound.push_back(snd);
+		return m_pSound.size() - 1;
 	}
-	m_vSound.push_back(snd);
-	return m_vSound.size() - 1;
+	else {
+		m_pSystem->createStream(Filename, FMOD_DEFAULT, NULL, &snd);
+		m_pSound.push_back(snd);
+		return m_pSound.size() - 1;
+	}
+	return -1;
 }
 
-void CFmod::SoundDestroy(uint sndIndex) {
-	m_vSound[sndIndex]->m_pVoice->release();
-	m_vSound[sndIndex] = NULL;
-	return;
+FMODError CFmod::SoundFree(uint index) {
+	m_pSound[index]->release();
+	m_pSound[index] = NULL;
+	return FMODError::ERR_OKAY;
 }
 
-uint CFmod::SoundPlay(uint sndIndex) {
-	FMOD_RESULT res = m_pSystem->playSound(m_vSound[sndIndex]->m_pVoice, NULL, false, &m_vSound[sndIndex]->m_pSound);
-	if (FMODFAILED(res)) {
-		return 0;
-	}
-	return 0;//m_vChannel.size() - 1;
+FMODError CFmod::SoundPlay(uint index, uint channel) {
+	m_pSystem->playSound(m_pSound[index], NULL, false, &m_pChannel[channel]);
+	return FMODError::ERR_OKAY;
 }
 
-void CFmod::Sound3DMinMaxDistance(uint sndIndex, float min, float max) {
-	FMOD_RESULT res = m_vSound[sndIndex]->m_pVoice->set3DMinMaxDistance(min * m_fDistanceFactor, max * m_fDistanceFactor);
-	if (FMODFAILED(res)) {
-		return;
+FMODError CFmod::SoundSetLoopMode(uint index, uint mode) {
+	switch (mode) {
+	case 0:
+		m_pSound[index]->setMode(FMOD_LOOP_OFF);
+		return FMODError::ERR_OKAY;
+		break;
+	case 1:
+		m_pSound[index]->setMode(FMOD_LOOP_NORMAL);
+		return FMODError::ERR_OKAY;
+		break;
+	case 2:
+		m_pSound[index]->setMode(FMOD_LOOP_BIDI);
+		return FMODError::ERR_OKAY;
+		break;
 	}
-	return;
+	return FMODError::ERR_FAIL;
 }
 
-void CFmod::Sound3DConeSettings(uint sndIndex, float insideangle, float outsideangle, float outsidevolume) {
-	FMOD_RESULT res = m_vSound[sndIndex]->m_pVoice->set3DConeSettings(insideangle, outsideangle, outsidevolume);
-	if (FMODFAILED(res)) {
-		return;
-	}
-	return;
+FMODError CFmod::SoundSetLoopPoints(uint index, uint start, uint end) {
+	m_pSound[index]->setLoopPoints(start, FMOD_TIMEUNIT_PCM, end, FMOD_TIMEUNIT_PCM);
+	return FMODError::ERR_OKAY;
+}
+
+string CFmod::SoundGetType(uint index) {
+	FMOD_SOUND_TYPE type;
+	m_pSound[index]->getFormat(&type, NULL, NULL, NULL);
+	return m_lSoundType[(int)type];
 }

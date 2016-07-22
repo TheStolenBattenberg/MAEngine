@@ -218,9 +218,6 @@
     <ClInclude Include="..\src\MAE\Core\Utils.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\MAE\FMOD\CFmodHelper.h">
-      <Filter>Header Files\FMOD</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Renderer.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>

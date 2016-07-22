@@ -5,65 +5,70 @@
 
 #include <MAE/Core/Types.h>
 
-#include <MAE/FMOD/CFmodHelper.h>
+enum FMODError {
+	ERR_OKAY     =  0x00,
+	ERR_FAIL     = -0x01,
+	ERR_INIT     = -0x02,
+	ERR_CREATE   = -0x03,
+	ERR_UPDATE   = -0x04,
+	ERR_SHUTDOWN = -0x05
+};
+
+/**
+ * Notes (TSB): I've yet to make this not use vectors for storing the sounds etc, but that's next on the list.
+ */
+
 
 class CFmod {
 public:
-	//General
-	bool FMODFAILED(FMOD_RESULT res) { if (res != FMOD_OK) { return false; } return true; }
+	//System
+	FMODError SystemCreate();
+	FMODError SystemInitialize();
+	FMODError SystemUpdate();
+	FMODError SystemShutdown();
+	FMODError SystemSetSoftwareFormat(uint SampleRate, uint SpeakerMode);
+	FMODError SystemSetMaxChannels(uint MaxChannels);
+	uint      SystemGetSampleRate();
+	float     SystemGetCPUUsage();
+	uint      SystemGetSounds();
+	uint      SystemGetChannels();
 
-	//CFmod.cpp
-	void Init();
-	void Create();
-	void Update();
-	void Shutdown();
+	//Sound
+	sint      SoundLoad(string Filename, bool isStream);
+	FMODError SoundFree(uint index);
+	FMODError SoundPlay(uint index, uint channel);
+	FMODError SoundSetLoopMode(uint index, uint mode);
+	FMODError SoundSetLoopPoints(uint index, uint start, uint end);
+	string    SoundGetType(uint index);
 
-	void Set3DSettings(float dopplerscale, float distancefactor, float rolloffscale);
+	//Unsure about implementing this.
+	uint      SoundGetTagNumber(uint index); 
+	string    SoundGetTagName(uint index, uint tagIndex);
+	string    SoundGetTagType(uint index, uint tagIndex);
+	string    SoundGetTagDataType(uint index, uint tagIndex);
+	double    SoundGetTagReal(uint index, string tagName);
+	string    SoundGetTagString(uint index, string tagName);
 
-	void SetMaxSounds(uint MaxSounds);
-	uint GetMaxSounds();
-	void SetMaxChannels(uint MaxChannels);
-	uint GetMaxChannels();
-	void SetMaxGroups(uint MaxGroups);
-	uint GetMaxGroups();
-	void SetMaxDSPs(uint MaxDSPs);
-	uint GetMaxDSPs();
-
-	float GetCPUUsage(uint usagefactor);
-
-	//CFmodSound.cpp
-	uint SoundCreate(string file, uint mode);
-	void SoundDestroy(uint sndIndex);
-	uint SoundPlay(uint sndIndex);
-	void Sound3DMinMaxDistance(uint sndIndex, float min, float max);
-	void Sound3DConeSettings(uint sndIndex, float insideangle, float outsideangle, float outsidevolume);
-	void SoundSetGroup(uint sndIndex, uint grpIndex);
-
-	//CFmodDSP.cpp
-	uint DSPCreate(uint type);
-	void DSPDestroy(uint DSPIndex);
-	void DSPActivate(uint DSPIndex, bool state);
-	
-	//CFmodChannel.cpp
-	uint ChannelAddDSP(uint sndIndex, uint dspIndex);
-	uint ChannelSetDSPPosition(uint sndIndex, uint position);
-	void Channel3DAttributes(uint sndIndex, float posx, float posy, float posz, float velx, float vely, float velz);
+	//Channel
+	sint      ChannelCreate();
+	FMODError ChannelDelete(uint index);
+	FMODError ChannelPause(uint index, bool paused);
+	FMODError ChannelStop(uint index);
+	FMODError ChannelSetPosition(uint index, uint position);
+	FMODError ChannelSetVolume(uint index, float volume);
+	FMODError ChannelSetFrequency(uint index, float frequency);
+	FMODError ChannelSetPitch(uint index, float pitch);
 
 private:
-	FMOD::System* m_pSystem;
+	FMOD::System*                m_pSystem;
+	std::vector <FMOD::Sound*>   m_pSound;
+	std::vector <FMOD::Channel*> m_pChannel;
+	FMOD::ChannelGroup*          m_pMasterChannel;
 
-	float m_fDopplerScale   = 1.0f;
-	float m_fDistanceFactor = 1.0f;
-	float m_fRolloffScale   = 1.0f;
-
-	uint m_iMaxSounds;
 	uint m_iMaxChannels;
-	uint m_iMaxGroups;
-	uint m_iMaxDSPs;
+	uint m_iSampleRate;
 
-	std::vector<Sound*> m_vSound;
-	std::vector<FMOD::ChannelGroup*> m_vGroup;
-	std::vector<FMOD::DSP*> m_vDSP;
+	string m_lSoundType[25] = { "Unknown", "AIFF", "ASF", "DLS", "FLAC", "FM Sample Bank", "IT", "MIDI", "MOD", "MP2/MP3", "OGG", "Playlist", "RAW PCM", "S3M", "User", "WAV", "XM", "XMA", "IPhone", "ATRAC 9", "Vorbis", "Windows", "Android", "FMOD PCM", "Max" };
 };
 
 extern CFmod* mafmod;
