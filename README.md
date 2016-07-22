@@ -5,7 +5,7 @@
 MA-Engine, or 'MAE' for short, is a 3D Engine developed for use in Game Maker: Studio by users of the Game Maker Community. In the future, it will be expanded to other languages too, such as C++ and Java.
 
 ## Current Features
-- Vector, Martix & Quatrion math
+- Vector, Martix & Quaternion math
 - Physics & Collision
 - Path Finding & Navigation
 - MD2 Model Support
