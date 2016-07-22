@@ -4,7 +4,6 @@
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 #include <MAE/Rendering/Resources/TextureImpl.h>
 #include <MAE/Rendering/Buffer/VertexBufferImpl.h>
-#include <MAE/Rendering/VertexDataBuilderImpl.h>
 #include <MAE/Rendering/VertexDataImpl.h>
 
 RendererImpl::~RendererImpl() { }
@@ -45,39 +44,12 @@ VertexBuffer* RendererImpl::createVertexBuffer(uint length) {
 	return new VertexBufferImpl(length, device);
 }
 
-VertexData* RendererImpl::createVertexData(VertexDataBuilder* vdb) {
-	return new VertexDataImpl(device, (VertexDataBuilderImpl*) vdb);
+VertexData* RendererImpl::createVertexData() {
+	return new VertexDataImpl(device);
 }
 
-VertexData* RendererImpl::createVertexDataFromArray(const uint* data, VertexBuffer** vbArr, IndexBuffer* ib) {
-	assert(("Invalid data", data != nullptr));
-	assert(("Invalid vbArr", vbArr != nullptr));
-
-	auto builder = new VertexDataBuilderImpl();
-
-	for (; *data != DataEnd; ++data) {
-		switch (*data) {
-		case DataVB:
-			builder->setVertexBuffer(vbArr[data[1]], data[2], data[3]);
-			data += 3;
-			break;
-		case DataElem:
-			builder->addElement(data[1], data[2], data[3]);
-			data += 3;
-			break;
-		}
-	}
-
-	if (ib != nullptr)
-		builder->setIndexBuffer(ib);
-
-	auto vd = new VertexDataImpl(device, builder);
-	delete builder;
-	return vd;
-}
-
-VertexDataBuilder* RendererImpl::createVertexDataBuilder() {
-	return new VertexDataBuilderImpl();
+VertexData* RendererImpl::copyVertexData(VertexData* vd) {
+	return new VertexDataImpl(*(VertexDataImpl*) vd);
 }
 
 void RendererImpl::draw(VertexData* vd, uint type, uint index, uint count) {
@@ -93,7 +65,7 @@ void RendererImpl::draw(VertexData* vd, uint type, uint index, uint count) {
 	assert(("Invalid type", type < sizeof(table)));
 	assert(("Invalid VertexData", vd != nullptr));
 
-	((VertexDataImpl*) vd)->set(device);
+	((VertexDataImpl*) vd)->set();
 	device->DrawPrimitive(table[type], index, count);
 }
 
@@ -110,7 +82,7 @@ void RendererImpl::drawIndexed(VertexData* vd, uint type, uint count) {
 	assert(("Invalid type", type < sizeof(table)));
 	assert(("Invalid VertexData", vd != nullptr));
 
-	((VertexDataImpl*) vd)->set(device);
+	((VertexDataImpl*) vd)->setInd();
 	device->DrawIndexedPrimitive(table[type], 0, 0, ((VertexDataImpl*) vd)->getNumVertices(), 0, count);
 }
 

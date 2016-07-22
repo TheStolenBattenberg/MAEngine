@@ -47,9 +47,8 @@ public:
 	virtual class Texture* createTextureFromFile(const char* file, uint mipmaps) = 0;
 	virtual class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps) = 0;
 	virtual class VertexBuffer* createVertexBuffer(uint length) = 0;
-	virtual class VertexData* createVertexData(class VertexDataBuilder* vdb) = 0;
-	virtual class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr, class IndexBuffer* ib = nullptr) = 0;
-	virtual class VertexDataBuilder* createVertexDataBuilder() = 0;
+	virtual class VertexData* createVertexData() = 0;
+	virtual class VertexData* copyVertexData(class VertexData* vd) = 0;
 	virtual void draw(class VertexData* vd, uint type, uint index, uint count) = 0;
 	virtual void drawIndexed(class VertexData* vd, uint type, uint count) = 0;
 	virtual void setShader(class Shader* shd) = 0;

@@ -123,9 +123,6 @@
     <ClCompile Include="..\src\MAE\Rendering\Renderer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\VertexDataBuilder.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\VertexData.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
@@ -228,12 +225,6 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\VertexData.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilder.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\VertexDataBuilderImpl.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Buffer\Batch.h">

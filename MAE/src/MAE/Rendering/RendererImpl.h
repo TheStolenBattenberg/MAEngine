@@ -14,9 +14,8 @@ public:
 	class Texture* createTextureFromFile(const char* file, uint mipmaps);
 	class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps);
 	class VertexBuffer* createVertexBuffer(uint length);
-	class VertexData* createVertexData(class VertexDataBuilder* vdb);
-	class VertexData* createVertexDataFromArray(const uint* data, class VertexBuffer** vbArr, class IndexBuffer* ib = nullptr);
-	class VertexDataBuilder* createVertexDataBuilder();
+	class VertexData* createVertexData();
+	class VertexData* copyVertexData(class VertexData* vd);
 	void draw(class VertexData* vd, uint type, uint index, uint count);
 	void drawIndexed(class VertexData* vd, uint type, uint count);
 	void setShader(class Shader* shd);
