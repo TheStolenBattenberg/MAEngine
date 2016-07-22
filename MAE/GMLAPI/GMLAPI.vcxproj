@@ -97,8 +97,8 @@
       <AdditionalDependencies>MAE.lib;d3dcompiler.lib;d3dx9.lib;d3d9.lib;fmod_vc.lib;BulletCollision$(BulletPostfix).lib;BulletDynamics$(BulletPostfix).lib;LinearMath$(BulletPostfix).lib;RecastNavigation.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
-      <Command>XCOPY $(TargetPath) $(MAE)GML\Extension /I /Y
-XCOPY $(TargetPath) $(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles /I /Y</Command>
+      <Command>XCOPY "$(TargetPath)" "$(MAE)GML\Extension" /I /Y
+XCOPY "$(TargetPath)" "$(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles" /I /Y</Command>
       <Outputs>-</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
@@ -121,8 +121,8 @@ XCOPY $(TargetPath) $(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles /I /Y</Com
       <AdditionalDependencies>MAE.lib;d3dcompiler.lib;d3dx9.lib;d3d9.lib;fmod_vc.lib;BulletCollision$(BulletPostfix).lib;BulletDynamics$(BulletPostfix).lib;LinearMath$(BulletPostfix).lib;RecastNavigation.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
-      <Command>XCOPY $(TargetPath) $(MAE)GML\Extension /I /Y
-XCOPY $(TargetPath) $(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles /I /Y</Command>
+      <Command>XCOPY "$(TargetPath)" "$(MAE)GML\Extension" /I /Y
+XCOPY "$(TargetPath)" "$(MAE)GML\MAE.gmx\extensions\MAE\Assets\datafiles" /I /Y</Command>
       <Outputs>-</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
