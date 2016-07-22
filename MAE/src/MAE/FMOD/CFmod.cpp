@@ -1,5 +1,7 @@
 #include <MAE/FMOD/CFmod.h>
 
+CFmod* mafmod = nullptr;
+
 FMODError CFmod::SystemCreate() {
 	FMOD::System_Create(&m_pSystem);
 
@@ -32,11 +34,13 @@ FMODError CFmod::SystemShutdown() {
 	}
 	m_pSystem->close();
 	m_pSystem->release();
+	return FMODError::ERR_OKAY;
 }
 
 FMODError CFmod::SystemSetSoftwareFormat(uint SampleRate, uint SpeakerMode) {
 	m_iSampleRate = SampleRate;
 	m_pSystem->setSoftwareFormat(m_iSampleRate, (FMOD_SPEAKERMODE)SpeakerMode, FMOD_MAX_CHANNEL_WIDTH);
+	return FMODError::ERR_OKAY;
 }
 
 uint CFmod::SystemGetSampleRate() {
