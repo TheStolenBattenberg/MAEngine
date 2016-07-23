@@ -21,8 +21,8 @@ FMODError CFmod::SoundFree(uint index) {
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::SoundPlay(uint index, uint channel) {
-	m_pSystem->playSound(m_pSound[index], NULL, false, &m_pChannel[channel]);
+FMODError CFmod::SoundPlay(uint index, Channel* channel) {
+	m_pSystem->playSound(m_pSound[index], NULL, false, &channel);
 	return FMODError::ERR_OKAY;
 }
 

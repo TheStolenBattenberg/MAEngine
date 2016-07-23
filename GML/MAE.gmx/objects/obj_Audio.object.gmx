@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,14 +25,16 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Init();
-
+            <string>var fuk = external_call(global._MAE_FmodCreate);
+show_message(fuk);
+external_call(global._MAE_FmodSetMaxChannels, 32.0);
+external_call(global._MAE_FmodInitialize);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="3">
+    <event eventtype="3" enumb="2">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -49,13 +51,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_Free();
+            <string>//external_call(global._MAE_FmodUpdate);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -72,64 +74,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour(c_black);
-if(room == rm_debug)
-{
-    draw_text(0, 0, "Press key to select:
-        1 - Maxtix, Quaternion, Vector
-        2 - Particles
-        3 - Shaders
-        4 - Audio
-        5 - MD2 Model Animation
-        6 - X Model Static   
-        7 - MPM Model
-        8 - Physics
-        9 - Navigation
-        
-        Escape - Exit.
-    ");
-    
-    switch(keyboard_lastkey)
-    {
-        case ord("1"): { room_goto(rm_VecMatQuat); } break;
-        case ord("2"): { room_goto(rm_Particle); } break;
-        case ord("3"): { room_goto(rm_Shader); } break;
-        case ord("4"): { room_goto(rm_Audio); } break;
-        case ord("5"): { room_goto(rm_MD2Animation); } break;
-        case ord("6"): { room_goto(rm_XStatic); } break;
-        case ord("7"): { room_goto(rm_MPM); } break;
-        case ord("8"): { room_goto(rm_Physics); } break;
-        case ord("9"): { room_goto(rm_Navigation); } break;
-    }
-    
-    if (keyboard_check_released(vk_escape))
-        game_end();
-}else{
-    draw_text(0, 0, "Press ESCAPE to go back.
-        FPS: "+string(fps_real));
-    
-    /**
-     * Render Time
-     */
-    draw_set_colour(c_black);
-    draw_rectangle(0, room_height-24, 128, room_height, false);
-    
-    var render_time = 1000 / fps_real;  
-    if(render_time &lt; 8)
-    { draw_set_colour(c_lime); }else
-    if(render_time &gt;= 8 &amp;&amp; render_time &lt; 16)
-    { draw_set_colour(c_yellow); } else
-    if(render_time &gt;= 16)
-    { draw_set_colour(c_red); }
-    draw_text(2, room_height-20, "MS: "+string(render_time));
-      
-    
-    if(keyboard_check_released(vk_escape))
-    {
-        d3d_end();
-        room_goto(rm_debug);
-    }
-}
+            <string>//draw_text(32, 64, "CPU Usage: "+string(external_call(global._MAE_FmodGetCPUUsage)));
 </string>
           </argument>
         </arguments>

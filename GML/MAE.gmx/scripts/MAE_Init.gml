@@ -242,6 +242,13 @@ global._MAE_ShaderSetConstantVec3 = external_define(_DLL, "MAE_ShaderSetConstant
 global._MAE_ShaderSetConstantVec4 = external_define(_DLL, "MAE_ShaderSetConstantVec4", dll_cdecl, ty_real, 6, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
 global._MAE_ShaderReset = external_define(_DLL, "MAE_ShaderReset", dll_cdecl, ty_real, 0);
 
+global._MAE_FmodCreate = external_define(_DLL, "MAE_FmodCreate", dll_cdecl, ty_real, 0);
+global._MAE_FmodInitialize = external_define(_DLL, "MAE_FmodInitialize", dll_cdecl, ty_real, 0);
+global._MAE_FmodUpdate = external_define(_DLL, "MAE_FmodUpdate", dll_cdecl, ty_real, 0);
+global._MAE_FmodShutdown = external_define(_DLL, "MAE_FmodShutdown", dll_cdecl, ty_real, 0);
+global._MAE_FmodSetMaxChannels = external_define(_DLL, "MAE_FmodSetMaxChannels", dll_cdecl, ty_real, 1, ty_real);
+global._MAE_FmodGetCPUUsage = external_define(_DLL, "MAE_FmodGetCPUUsage", dll_cdecl, ty_real, 0);
+
 global._MAEDLL = _DLL;
 
 return external_call(global._MADX9_Init, window_device());

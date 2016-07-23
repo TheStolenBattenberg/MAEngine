@@ -1,43 +1,42 @@
 #include <MAE/FMOD/CFmod.h>
 
-sint CFmod::ChannelCreate() {
-	FMOD::Channel* chn;
-	m_pChannel.push_back(chn);
-	return m_pChannel.size() - 1;
+Channel* CFmod::ChannelCreate() {
+	Channel* chn = NULL;
+	return chn;
 }
 
-FMODError CFmod::ChannelDelete(uint index) {
-	m_pChannel[index]->stop();
-	m_pChannel[index] = NULL;
+FMODError CFmod::ChannelDelete(Channel* channel) {
+	channel->stop();
+	delete channel;
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::ChannelPause(uint index, bool paused) {
-	m_pChannel[index]->setPaused(paused);
+FMODError CFmod::ChannelPause(Channel* channel, bool paused) {
+	channel->setPaused(paused);
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::ChannelStop(uint index) {
-	m_pChannel[index]->stop();
+FMODError CFmod::ChannelStop(Channel* channel) {
+	channel->stop();
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::ChannelSetPosition(uint index, uint position) {
-	m_pChannel[index]->setPosition(position, FMOD_TIMEUNIT_PCM);
+FMODError CFmod::ChannelSetPosition(Channel* channel, uint position) {
+	channel->setPosition(position, FMOD_TIMEUNIT_PCM);
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::ChannelSetVolume(uint index, float volume) {
-	m_pChannel[index]->setVolume(volume);
+FMODError CFmod::ChannelSetVolume(Channel* channel, float volume) {
+	channel->setVolume(volume);
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::ChannelSetFrequency(uint index, float frequency) {
-	m_pChannel[index]->setFrequency(frequency);
+FMODError CFmod::ChannelSetFrequency(Channel* channel, float frequency) {
+	channel->setFrequency(frequency);
 	return FMODError::ERR_OKAY;
 }
 
-FMODError CFmod::ChannelSetPitch(uint index, float pitch) {
-	m_pChannel[index]->setPitch(pitch);
+FMODError CFmod::ChannelSetPitch(Channel* channel, float pitch) {
+	channel->setPitch(pitch);
 	return FMODError::ERR_OKAY;
 }

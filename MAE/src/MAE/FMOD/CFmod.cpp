@@ -3,14 +3,15 @@
 CFmod* mafmod = nullptr;
 
 FMODError CFmod::SystemCreate() {
-	FMOD::System_Create(&m_pSystem);
-
+	FMOD_RESULT res = FMOD::System_Create(&m_pSystem);
+	if (res != FMOD_OK) {
+		return FMODError::ERR_FAIL;
+	}
 	return FMODError::ERR_OKAY;
 }
 
 FMODError CFmod::SystemSetMaxChannels(uint MaxChannels) {
 	m_iMaxChannels = MaxChannels;
-
 	return FMODError::ERR_OKAY;
 }
 
@@ -55,8 +56,4 @@ float CFmod::SystemGetCPUUsage() {
 
 uint CFmod::SystemGetSounds() {
 	return m_pSound.size() - 1;
-}
-
-uint CFmod::SystemGetChannels() {
-	return m_pChannel.size() - 1;
 }

@@ -1,0 +1,10 @@
+<template>
+	<file path="template.extension.gmx" pathgen="$title$.extension.gmx" type="text">
+		<scripts format="&#xD;&#xA;    &lt;Resource&gt;Scripts\$folder$$name$&lt;/Resource&gt;" />
+		<datafiles format="&#xD;&#xA;    &lt;Resource&gt;Included Files\$folder$$name$&lt;/Resource&gt;" />
+	</file>
+	<location>
+		<scripts path="$title$\Assets\Scripts\$name$.gml" />
+		<datafiles path="$title$\Assets\datafiles\$name$" />
+	</location>
+</template>
