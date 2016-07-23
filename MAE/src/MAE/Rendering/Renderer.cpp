@@ -67,6 +67,7 @@ void RendererImpl::draw(VertexData* vd, uint type, uint index, uint count) {
 
 	((VertexDataImpl*) vd)->set();
 	device->DrawPrimitive(table[type], index, count);
+	((VertexDataImpl*) vd)->reset();
 }
 
 void RendererImpl::drawIndexed(VertexData* vd, uint type, uint count) {
@@ -84,6 +85,7 @@ void RendererImpl::drawIndexed(VertexData* vd, uint type, uint count) {
 
 	((VertexDataImpl*) vd)->setInd();
 	device->DrawIndexedPrimitive(table[type], 0, 0, ((VertexDataImpl*) vd)->getNumVertices(), 0, count);
+	((VertexDataImpl*) vd)->resetInd();
 }
 
 void RendererImpl::setShader(Shader* shd) {

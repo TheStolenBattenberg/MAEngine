@@ -18,6 +18,8 @@ public:
 	void setIndexBuffer(class IndexBuffer* ib);
 	void setVertexBuffer(uint id, uint flags, class VertexBuffer* vb, uint stride, uint offset, uint numElements, const Element* elements);
 
+	void reset();
+	void resetInd();
 	void set();
 	void setInd();
 

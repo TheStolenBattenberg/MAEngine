@@ -166,6 +166,16 @@ void VertexDataImpl::setVertexBuffer(uint id, uint flags, VertexBuffer* vb, uint
 		calcNumVerts();
 }
 
+void VertexDataImpl::reset() {
+	for (uint i = 0; i < m_entries.size(); ++i)
+		m_device->SetStreamSource(i, nullptr, 0, 0);
+}
+
+void VertexDataImpl::resetInd() {
+	m_device->SetIndices(nullptr);
+	reset();
+}
+
 void VertexDataImpl::set() {
 	assert(("VertexData must be built before using it", m_decl != nullptr));
 
