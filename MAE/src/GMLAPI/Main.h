@@ -16,5 +16,6 @@ extern Main* mamain;
 extern std::vector<float> matStack;
 extern UnorderedVector<Stream*> streams;
 extern class Renderer* renderer;
+extern class CFmod* mafmod;
 
 void error(const char* msg);

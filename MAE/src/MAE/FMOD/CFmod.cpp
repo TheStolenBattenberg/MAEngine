@@ -1,7 +1,5 @@
 #include <MAE/FMOD/CFmod.h>
 
-CFmod* mafmod = nullptr;
-
 FMODError CFmod::SystemCreate() {
 	FMOD_RESULT res = FMOD::System_Create(&m_pSystem);
 	if (res != FMOD_OK) {

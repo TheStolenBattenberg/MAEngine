@@ -90,5 +90,3 @@ private:
 	string m_lSoundType[25] = { "Unknown", "AIFF", "ASF", "DLS", "FLAC", "FM Sample Bank", "IT", "MIDI", "MOD", "MP2/MP3", "OGG", "Playlist", "RAW PCM", "S3M", "User", "WAV", "XM", "XMA", "IPhone", "ATRAC 9", "Vorbis", "Windows", "Android", "FMOD PCM", "Max" };
 	FMOD_DSP_TYPE m_lDspType[6] = { FMOD_DSP_TYPE_CHORUS, FMOD_DSP_TYPE_ECHO, FMOD_DSP_TYPE_FLANGE, FMOD_DSP_TYPE_SFXREVERB, FMOD_DSP_TYPE_COMPRESSOR, FMOD_DSP_TYPE_PARAMEQ };
 };
-
-extern CFmod* mafmod;

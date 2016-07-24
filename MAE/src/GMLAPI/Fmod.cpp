@@ -6,8 +6,11 @@
 
 #include <MAE/FMOD/CFmod.h>
 
+CFmod* mafmod = nullptr;
+
 //System
 DLLEXPORT double MAE_FmodCreate() {
+	mafmod = new CFmod();
 	return (double)mafmod->SystemCreate();
 }
 
@@ -20,6 +23,7 @@ DLLEXPORT double MAE_FmodUpdate() {
 }
 
 DLLEXPORT double MAE_FmodShutdown() {
+	delete mafmod;
 	return (double)mafmod->SystemShutdown();
 }
 
