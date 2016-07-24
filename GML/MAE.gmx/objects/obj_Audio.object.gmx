@@ -25,10 +25,22 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var fuk = external_call(global._MAE_FmodCreate);
-show_message(fuk);
-external_call(global._MAE_FmodSetMaxChannels, 32.0);
-external_call(global._MAE_FmodInitialize);
+            <string>MAE_FmodCreate();
+MAE_FmodSetMaxChannels(32); //This *MUST* be done before you initialize.
+MAE_FmodInitialize();
+
+rot = 0;
+
+//Create a channel
+channel1 = MAE_FmodChannelCreate();
+
+//Load Music
+audio1 = MAE_FmodSoundLoad(working_directory+"COMMON\MUSIC\shes_had_enough_theme1.ogg", false);
+MAE_FmodSoundSetLoopMode(audio1, FmodLoopMode.ON);
+show_debug_message("This sound is type: "+MAE_FmodSoundGetType(audio1));
+
+//Play Music
+MAE_FmodSoundPlay(audio1, channel1);
 </string>
           </argument>
         </arguments>
@@ -51,7 +63,55 @@ external_call(global._MAE_FmodInitialize);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//external_call(global._MAE_FmodUpdate);
+            <string>MAE_FmodUpdate();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>MAE_FmodSoundFree(audio1);
+MAE_FmodChannelDelete(channel1);
+MAE_FmodShutdown();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_text(32, 64, "CPU Usage: "+string(MAE_FmodGetCPUUsage()));
 </string>
           </argument>
         </arguments>
@@ -74,7 +134,15 @@ external_call(global._MAE_FmodInitialize);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_text(32, 64, "CPU Usage: "+string(external_call(global._MAE_FmodGetCPUUsage)));
+            <string>d3d_set_projection(16, 0, 4, 0, 0, 0, 0, 0, 1);
+
+draw_set_colour(c_white);
+d3d_transform_add_rotation_z(rot);
+    d3d_draw_block(0-16, 0-64, 0-64, 0+16, 0+64, 0+64, -1, 1, 1);
+d3d_transform_set_identity();
+rot++;
+
+draw_set_colour(c_black);
 </string>
           </argument>
         </arguments>
