@@ -96,7 +96,7 @@ DLLEXPORT double MA_NavMeshAddGMModel(double navmesh, char* filename) {
 	if (file) {
 		int version, lines;
 		file >> version >> lines;
-		file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		file.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
 		for (int i = 0; i < lines; i++) {
 			int n;
 			file >> n;
@@ -110,7 +110,7 @@ DLLEXPORT double MA_NavMeshAddGMModel(double navmesh, char* filename) {
 				vertices.push_back(y);
 				vertices.push_back(z);
 			}
-			file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			file.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
 		}
 		file.close();
 	}
