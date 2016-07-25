@@ -34,10 +34,7 @@ uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
 			part.pVelocity.y = interpLinear(pMinVelocity.y, pMaxVelocity.y, (float) rand() / RAND_MAX);
 			part.pVelocity.z = interpLinear(pMinVelocity.z, pMaxVelocity.z, (float) rand() / RAND_MAX);
 
-			part.pColour.x   = pColourStart.x;
-			part.pColour.y   = pColourStart.y;
-			part.pColour.z   = pColourStart.z;
-			part.pColour.w   = pColourStart.w;
+			part.pColour   = pColourStart;
 
 			part.pAge        = 0;
 

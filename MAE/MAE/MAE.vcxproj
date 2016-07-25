@@ -22,9 +22,6 @@
     <ClCompile Include="..\src\MAE\Navigation\NavMeshDebugDraw.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Buffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\Buffer\VertexBuffer.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.cpp" />
-    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\ModelMD2.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\ModelMPM.cpp" />
     <ClCompile Include="..\src\MAE\Rendering\ModelX.cpp" />
@@ -59,10 +56,6 @@
     <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBuffer.h" />
     <ClInclude Include="..\src\MAE\Rendering\Buffer\VertexBufferImpl.h" />
     <ClInclude Include="..\src\MAE\Rendering\Mesh.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.h" />
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.h" />
     <ClInclude Include="..\src\MAE\Rendering\ModelMD2.h" />
     <ClInclude Include="..\src\MAE\Rendering\ModelMPM.h" />
     <ClInclude Include="..\src\MAE\Rendering\ModelX.h" />

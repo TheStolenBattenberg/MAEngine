@@ -125,10 +125,6 @@ void ParticleSystem::render() {
 	device->SetRenderState(D3DRS_POINTSCALEENABLE, true);
 
 	float v;
-	v = psEmitter->getMinSize();
-	device->SetRenderState(D3DRS_POINTSIZE_MIN, *(DWORD*)&v);
-	v = psEmitter->getMaxSize();
-	device->SetRenderState(D3DRS_POINTSIZE_MAX, *(DWORD*)&v);
 	v = 0.0f;
 	device->SetRenderState(D3DRS_POINTSCALE_A, *(DWORD*)&v);
 	device->SetRenderState(D3DRS_POINTSCALE_B, *(DWORD*)&v);

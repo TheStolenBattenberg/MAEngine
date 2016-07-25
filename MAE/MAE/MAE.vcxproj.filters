@@ -34,14 +34,8 @@
     <Filter Include="Header Files\Rendering\Resources">
       <UniqueIdentifier>{7e362ae9-3c2f-4738-bdae-0d43980f57ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Rendering\Mesh">
-      <UniqueIdentifier>{61f47a94-208e-409f-a066-cbafba00c979}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Rendering">
       <UniqueIdentifier>{745f9c0b-59ad-44c5-8f87-c8ad534d500d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Rendering\Mesh">
-      <UniqueIdentifier>{14422170-4622-454f-850f-1d8f419110de}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Rendering\Resources">
       <UniqueIdentifier>{e2a0efd5-4920-4e93-ac67-0da43640a05d}</UniqueIdentifier>
@@ -92,15 +86,6 @@
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\ParticleSystem.cpp">
       <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModel.cpp">
-      <Filter>Source Files\Rendering\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.cpp">
-      <Filter>Source Files\Rendering\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.cpp">
-      <Filter>Source Files\Rendering\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MAE\Rendering\Resources\Shader.cpp">
       <Filter>Source Files\Rendering\Resources</Filter>
@@ -187,18 +172,6 @@
     </ClInclude>
     <ClInclude Include="..\src\MAE\Rendering\Resources\TextureImpl.h">
       <Filter>Header Files\Rendering\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CMesh.h">
-      <Filter>Header Files\Rendering\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModel.h">
-      <Filter>Header Files\Rendering\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMS3D.h">
-      <Filter>Header Files\Rendering\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MAE\Rendering\Mesh\CModelLoadMSM.h">
-      <Filter>Header Files\Rendering\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MAE\Core\Math.h">
       <Filter>Header Files\Core</Filter>
