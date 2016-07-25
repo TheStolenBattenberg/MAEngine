@@ -16,8 +16,7 @@ struct MANavigation {
 
 MANavigation manav;
 
-DLLEXPORT double MA_NavMeshCreate()
-{
+DLLEXPORT double MA_NavMeshCreate() {
 	TRYBEG();
 	auto navmesh = new NavMesh();
 
@@ -26,8 +25,7 @@ DLLEXPORT double MA_NavMeshCreate()
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshDestroy(double navmesh)
-{
+DLLEXPORT double MA_NavMeshDestroy(double navmesh) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -40,8 +38,7 @@ DLLEXPORT double MA_NavMeshDestroy(double navmesh)
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshClear(double navmesh)
-{
+DLLEXPORT double MA_NavMeshClear(double navmesh) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -52,8 +49,7 @@ DLLEXPORT double MA_NavMeshClear(double navmesh)
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshBeginBuild(double navmesh, double minx, double miny, double minz, double maxx, double maxy, double maxz)
-{
+DLLEXPORT double MA_NavMeshBeginBuild(double navmesh, double minx, double miny, double minz, double maxx, double maxy, double maxz) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -63,8 +59,7 @@ DLLEXPORT double MA_NavMeshBeginBuild(double navmesh, double minx, double miny, 
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshEndBuild(double navmesh, double async)
-{
+DLLEXPORT double MA_NavMeshEndBuild(double navmesh, double async) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -74,15 +69,13 @@ DLLEXPORT double MA_NavMeshEndBuild(double navmesh, double async)
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshWaitForBuild(double navmesh)
-{
+DLLEXPORT double MA_NavMeshWaitForBuild(double navmesh) {
 	TRYBEG();
 	return doubleToPtr<NavMesh>(navmesh)->waitForBuild();
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshGetBuildStatus(double navmesh)
-{
+DLLEXPORT double MA_NavMeshGetBuildStatus(double navmesh) {
 	TRYBEG();
 	return doubleToPtr<NavMesh>(navmesh)->getBuildStatus();
 	TRYEND(0);
@@ -91,8 +84,7 @@ DLLEXPORT double MA_NavMeshGetBuildStatus(double navmesh)
 // TODO: Remove this once we have a better way to load mesh data
 std::vector<float> vertices;
 std::vector<int> triangles;
-DLLEXPORT double MA_NavMeshAddGMModel(double navmesh, char* filename)
-{
+DLLEXPORT double MA_NavMeshAddGMModel(double navmesh, char* filename) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 	if (ptr->getBuildStatus() == 0) return -1;
@@ -134,8 +126,7 @@ DLLEXPORT double MA_NavMeshAddGMModel(double navmesh, char* filename)
 }
 
 int G_nverts = 0, G_ntris = 0;
-DLLEXPORT double MA_NavSetVertexBufferSize(double nverts, double ntris)
-{
+DLLEXPORT double MA_NavSetVertexBufferSize(double nverts, double ntris) {
 	TRYBEG();
 	G_nverts = (int)nverts;
 	G_ntris = (int)ntris;
@@ -143,8 +134,7 @@ DLLEXPORT double MA_NavSetVertexBufferSize(double nverts, double ntris)
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshAddVertexBuffer(double navmesh, float* verts, int* tris)
-{
+DLLEXPORT double MA_NavMeshAddVertexBuffer(double navmesh, float* verts, int* tris) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -154,8 +144,7 @@ DLLEXPORT double MA_NavMeshAddVertexBuffer(double navmesh, float* verts, int* tr
 	TRYEND(-1);
 }
 
-DLLEXPORT double MA_NavMeshAddLink(double navmesh, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius)
-{
+DLLEXPORT double MA_NavMeshAddLink(double navmesh, double x1, double y1, double z1, double x2, double y2, double z2, double dir, double radius) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -167,8 +156,7 @@ DLLEXPORT double MA_NavMeshAddLink(double navmesh, double x1, double y1, double 
 	TRYEND(-1);
 }
 
-DLLEXPORT double MA_NavMeshDebugDraw(double navmesh)
-{
+DLLEXPORT double MA_NavMeshDebugDraw(double navmesh) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 
@@ -179,8 +167,7 @@ DLLEXPORT double MA_NavMeshDebugDraw(double navmesh)
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshSetAgentConfig(double navmesh, double agent_height, double agent_radius, double agent_max_climb, double agent_max_slope)
-{
+DLLEXPORT double MA_NavMeshSetAgentConfig(double navmesh, double agent_height, double agent_radius, double agent_max_climb, double agent_max_slope) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 	ptr->agentHeight = (float)agent_height;
@@ -191,9 +178,7 @@ DLLEXPORT double MA_NavMeshSetAgentConfig(double navmesh, double agent_height, d
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshSetConfig(double navmesh, double cell_size, double cell_height, double region_min_size, double region_merge_size,
-	double edge_max_len, double edge_max_error, double verts_per_poly, double detail_sample_dist, double detail_sample_max_error)
-{
+DLLEXPORT double MA_NavMeshSetConfig(double navmesh, double cell_size, double cell_height, double region_min_size, double region_merge_size, double edge_max_len, double edge_max_error, double verts_per_poly, double detail_sample_dist, double detail_sample_max_error) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 	ptr->cellSize = (float)cell_size;
@@ -209,8 +194,7 @@ DLLEXPORT double MA_NavMeshSetConfig(double navmesh, double cell_size, double ce
 	TRYEND(0);
 }
 
-DLLEXPORT double MA_NavMeshFindPath(double navmesh, double xf, double yf, double zf, double xt, double yt, double zt, double checkSize)
-{
+DLLEXPORT double MA_NavMeshFindPath(double navmesh, double xf, double yf, double zf, double xt, double yt, double zt, double checkSize) {
 	TRYBEG();
 	auto ptr = doubleToPtr<NavMesh>(navmesh);
 	if (ptr->getBuildStatus() <= 0) return -1;
@@ -225,8 +209,7 @@ DLLEXPORT double MA_NavMeshFindPath(double navmesh, double xf, double yf, double
 	TRYEND(-1);
 }
 
-DLLEXPORT double MA_NavGetPathPoint(double point, double n)
-{
+DLLEXPORT double MA_NavGetPathPoint(double point, double n) {
 	TRYBEG();
 	switch ((int)n)
 	{

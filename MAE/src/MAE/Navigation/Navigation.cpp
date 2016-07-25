@@ -2,8 +2,7 @@
 #include <MAE/Core/Utils.h>
 #include <DetourDebugDraw.h>
 
-NavMesh::NavMesh()
-{
+NavMesh::NavMesh() {
 	context = new rcContext();
 	navQuery = dtAllocNavMeshQuery();
 	cellSize = 0.2f;
@@ -21,15 +20,13 @@ NavMesh::NavMesh()
 	detailSampleMaxError = 1.f;
 }
 
-NavMesh::~NavMesh()
-{
+NavMesh::~NavMesh() {
 	delete context;
 	dtFreeNavMeshQuery(navQuery);
 	cleanup();
 }
 
-void NavMesh::cleanup()
-{
+void NavMesh::cleanup() {
 	if (triAreas) delete[] triAreas;
 	dtFreeNavMesh(navMesh);
 	rcFreeHeightField(heightfield);
@@ -48,8 +45,7 @@ void NavMesh::cleanup()
 	meshes.clear();
 }
 
-int NavMesh::beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz)
-{
+int NavMesh::beginBuild(float minx, float miny, float minz, float maxx, float maxy, float maxz) {
 	cleanup();
 
 	float bmin[3] = { minx, minz, miny };
@@ -75,14 +71,12 @@ int NavMesh::beginBuild(float minx, float miny, float minz, float maxx, float ma
 	return 1;
 }
 
-int NavMesh::addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix)
-{
+int NavMesh::addMesh(float* verts, int nverts, int* tris, int ntris, float* matrix) {
 	meshes.push_back({verts, nverts, tris, ntris, D3DXMATRIX(matrix) });
 	return 1;
 }
 
-int NavMesh::endBuild(bool async)
-{
+int NavMesh::endBuild(bool async) {
 	if (async) {
 		buildStatus = 0;
 		buildThread = std::thread(&NavMesh::build, this);
@@ -92,8 +86,7 @@ int NavMesh::endBuild(bool async)
 	return buildStatus;
 }
 
-void NavMesh::build()
-{
+void NavMesh::build() {
 	rcCalcGridSize(config.bmin, config.bmax, config.cs, &config.width, &config.height);
 
 	heightfield = rcAllocHeightfield();
@@ -283,8 +276,7 @@ void NavMesh::build()
 	buildStatus = 1;
 }
 
-bool NavMesh::addLink(float* v1, float* v2, int dir, float radius)
-{
+bool NavMesh::addLink(float* v1, float* v2, int dir, float radius) {
 	connections.push_back({ -v1[0], v1[2], v1[1], -v2[0], v2[2], v2[1], radius, (ubyte)dir, 1, 1, 1 });
 	return 1;
 }

@@ -3,16 +3,14 @@
 #include <unordered_map>
 #include <btBulletDynamicsCommon.h>
 
-struct RigidBody
-{
+struct RigidBody {
 	btRigidBody* body;
 	unsigned int userIndex;
 
 	RigidBody(btRigidBody* body) : body(body) {}
 };
 
-struct HitResult
-{
+struct HitResult {
 	btVector3 position;
 	btVector3 normal;
 	btScalar fraction;
@@ -53,8 +51,6 @@ struct MABullet {
 	double addConstraint(btTypedConstraint* Constraint);
 	bool destroyWorld();
 	static btVector3 toEuler(btMatrix3x3 &tm);
-
-	~MABullet();
 };
 
 extern MABullet mabullet;
