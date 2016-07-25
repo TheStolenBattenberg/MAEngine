@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.5)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED 11)
-   
+
 # Function to set up file folders that follow directory structure
 function(assign_source_groups files relative_to)
     foreach (_source IN ITEMS ${${files}})
@@ -12,26 +12,30 @@ function(assign_source_groups files relative_to)
     endforeach ()
 endfunction(assign_source_groups)
 
+include_directories ("Libraries/recastnavigation/Recast/Include"
+                     "Libraries/recastnavigation/DebugUtils/Include"
+                     "Libraries/recastnavigation/Detour/Include"
+                     "Libraries/recastnavigation/DetourCrowd/Include"
+                     "Libraries/recastnavigation/DetourTileCache/Include"
+                     "Libraries/bullet3/src"
+                     "Libraries/FMOD/inc"
+                     "$ENV{DXSDK_DIR}/Include"
+                     "Specifications"
+                     "MAE"
+                     )
 project (Recast)
-include_directories ("Libraries/recastnavigation/Recast/Include")
-include_directories ("Libraries/recastnavigation/DebugUtils/Include")
-include_directories ("Libraries/recastnavigation/Detour/Include")
-include_directories ("Libraries/recastnavigation/DetourCrowd/Include")
-include_directories ("Libraries/recastnavigation/DetourTileCache/Include")
 file (GLOB_RECURSE RECAST_SOURCES "Libraries/recastnavigation/*.cpp" "Libraries/recastnavigation/*.h")
 assign_source_groups (RECAST_SOURCES "Libraries/recastnavigation")
 add_library (Recast STATIC ${RECAST_SOURCES})
-
-include_directories ("Libraries/bullet3/src")
-include_directories ("Libraries/FMOD/inc")
-include_directories ("$ENV{DXSDK_DIR}/Include")
-include_directories ("MAE" "Specifications")
 
 project (GMLAPI)
 file (GLOB_RECURSE GMLAPI_SOURCES "MAE/GMLAPI/*.cpp" "MAE/GMLAPI/*.h")
 assign_source_groups (GMLAPI_SOURCES "MAE/GMLAPI")
 add_library (GMLAPI SHARED ${GMLAPI_SOURCES})
 target_link_libraries (GMLAPI MAE)
+add_custom_command (TARGET GMLAPI POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:GMLAPI> "${CMAKE_SOURCE_DIR}/GML/MAE.gmx/datafiles/MAE.dll"
+    )
 
 project (MAE)
 file (GLOB_RECURSE MAE_SOURCES "MAE/MAE/*.cpp" "MAE/MAE/*.h")
