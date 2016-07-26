@@ -34,7 +34,13 @@ assign_source_groups (BULLET_SOURCES "Libraries/bullet3/src")
 add_library (Bullet STATIC ${BULLET_SOURCES})
 
 project (Recast)
-file (GLOB_RECURSE RECAST_SOURCES "Libraries/recastnavigation/*.cpp" "Libraries/recastnavigation/*.h")
+file (GLOB_RECURSE RECAST_SOURCES
+    "Libraries/recastnavigation/DebugUtils/*.cpp" "Libraries/recastnavigation/DebugUtils/*.h"
+    "Libraries/recastnavigation/Detour/*.cpp" "Libraries/recastnavigation/Detour/*.h"
+    "Libraries/recastnavigation/DetourCrowd/*.cpp" "Libraries/recastnavigation/DetourCrowd/*.h"
+    "Libraries/recastnavigation/DetourTileCache/*.cpp" "Libraries/recastnavigation/DetourTileCache/*.h"
+    "Libraries/recastnavigation/Recast/*.cpp" "Libraries/recastnavigation/Recast/*.h"
+    )
 assign_source_groups (RECAST_SOURCES "Libraries/recastnavigation")
 add_library (Recast STATIC ${RECAST_SOURCES})
 
