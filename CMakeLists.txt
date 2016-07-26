@@ -23,6 +23,16 @@ include_directories ("Libraries/recastnavigation/Recast/Include"
                      "Specifications"
                      "MAE"
                      )
+project (Bullet)
+file (GLOB_RECURSE BULLET_SOURCES
+    "Libraries/bullet3/src/btBulletCollisionCommon.h" "Libraries/bullet3/src/btBulletDynamicsCommon.h"
+    "Libraries/bullet3/src/BulletCollision/*.cpp" "Libraries/bullet3/src/BulletCollision/*.h"
+    "Libraries/bullet3/src/BulletDynamics/*.cpp" "Libraries/bullet3/src/BulletDynamics/*.h"
+    "Libraries/bullet3/src/LinearMath/*.cpp" "Libraries/bullet3/src/LinearMath/*.h"
+    )
+assign_source_groups (BULLET_SOURCES "Libraries/bullet3/src")
+add_library (Bullet STATIC ${BULLET_SOURCES})
+
 project (Recast)
 file (GLOB_RECURSE RECAST_SOURCES "Libraries/recastnavigation/*.cpp" "Libraries/recastnavigation/*.h")
 assign_source_groups (RECAST_SOURCES "Libraries/recastnavigation")
@@ -41,13 +51,7 @@ project (MAE)
 file (GLOB_RECURSE MAE_SOURCES "MAE/MAE/*.cpp" "MAE/MAE/*.h")
 assign_source_groups (MAE_SOURCES "MAE/MAE")
 add_library (MAE STATIC ${MAE_SOURCES})
-target_link_libraries (MAE Recast
-    optimized ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/bullet3/msvc/2015/lib/Release/BulletCollision.lib
-    debug ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/bullet3/msvc/2015/lib/Debug/BulletCollision_Debug.lib
-    optimized ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/bullet3/msvc/2015/lib/Release/BulletDynamics.lib
-    debug ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/bullet3/msvc/2015/lib/Debug/BulletDynamics_Debug.lib
-    optimized ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/bullet3/msvc/2015/lib/Release/LinearMath.lib
-    debug ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/bullet3/msvc/2015/lib/Debug/LinearMath_Debug.lib
+target_link_libraries (MAE Recast Bullet
     ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/FMOD/lib/fmod_vc.lib
     $ENV{DXSDK_DIR}/Lib/x86/d3dx9.lib
     $ENV{DXSDK_DIR}/Lib/x86/d3d9.lib
