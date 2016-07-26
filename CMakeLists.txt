@@ -2,6 +2,34 @@ cmake_minimum_required (VERSION 3.5)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED 11)
 
+include(ExternalProject)
+
+# Set variables
+set (LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Libraries)
+
+set (BULLET_DIR ${LIBRARY_DIR}/bullet3)
+set (BULLET_BINARY_DIR bullet3)
+set (BULLET_LIBRARY_DIR ${BULLET_BINARY_DIR}/lib/$<CONFIG>/)
+
+# Build bullet
+ExternalProject_Add (Bullet
+    SOURCE_DIR ${BULLET_DIR}
+    BINARY_DIR ${BULLET_BINARY_DIR}
+    CMAKE_ARGS
+        -DBUILD_OPENGL3_DEMOS=OFF
+        -DBUILD_BULLET3=OFF
+        -DBUILD_BULLET2_DEMOS=OFF
+        -DBUILD_CPU_DEMOS=OFF
+        -DBUILD_EXTRAS=OFF
+        -DBUILD_UNIT_TESTS=OFF
+        -DCMAKE_DEBUG_POSTFIX=
+        -DCMAKE_INSTALL_PREFIX=
+    BUILD_COMMAND
+        ${CMAKE_COMMAND}
+        --build .
+        --config $<CONFIG>
+    )
+
 # Function to set up file folders that follow directory structure
 function(assign_source_groups files relative_to)
     foreach (_source IN ITEMS ${${files}})
@@ -23,15 +51,6 @@ include_directories ("Libraries/recastnavigation/Recast/Include"
                      "Specifications"
                      "MAE"
                      )
-project (Bullet)
-file (GLOB_RECURSE BULLET_SOURCES
-    "Libraries/bullet3/src/btBulletCollisionCommon.h" "Libraries/bullet3/src/btBulletDynamicsCommon.h"
-    "Libraries/bullet3/src/BulletCollision/*.cpp" "Libraries/bullet3/src/BulletCollision/*.h"
-    "Libraries/bullet3/src/BulletDynamics/*.cpp" "Libraries/bullet3/src/BulletDynamics/*.h"
-    "Libraries/bullet3/src/LinearMath/*.cpp" "Libraries/bullet3/src/LinearMath/*.h"
-    )
-assign_source_groups (BULLET_SOURCES "Libraries/bullet3/src")
-add_library (Bullet STATIC ${BULLET_SOURCES})
 
 project (Recast)
 file (GLOB_RECURSE RECAST_SOURCES
@@ -57,10 +76,14 @@ project (MAE)
 file (GLOB_RECURSE MAE_SOURCES "MAE/MAE/*.cpp" "MAE/MAE/*.h")
 assign_source_groups (MAE_SOURCES "MAE/MAE")
 add_library (MAE STATIC ${MAE_SOURCES})
-target_link_libraries (MAE Recast Bullet
+add_dependencies (MAE Bullet)
+target_link_libraries (MAE Recast
     ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/FMOD/lib/fmod_vc.lib
     $ENV{DXSDK_DIR}/Lib/x86/d3dx9.lib
     $ENV{DXSDK_DIR}/Lib/x86/d3d9.lib
+    ${BULLET_LIBRARY_DIR}BulletCollision
+    ${BULLET_LIBRARY_DIR}BulletDynamics
+    ${BULLET_LIBRARY_DIR}LinearMath
     )
 
 # Force static linkage of MSVC runtime
