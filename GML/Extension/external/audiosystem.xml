@@ -1,0 +1,18 @@
+<external>
+	<script name="MAE_FmodCreate()" func="real MAE_FmodCreate()">
+	</script>
+	<script name="MAE_FmodInitialize()" func="real MAE_FmodInitialize()">
+	</script>
+	<script name="MAE_FmodSetMaxChannels(numChannels)" func="real MAE_FmodSetMaxChannels(real)">
+	</script>
+	<script name="MAE_FmodUpdate()" func="real MAE_FmodUpdate()">
+	</script>
+	<script name="MAE_FmodGetCPUUsage()" func="real MAE_FmodGetCPUUsage()">
+	</script>
+	<script name="MAE_FmodSetSoftwareFormat(SampleRate,SpeakerMode)" func="real MAE_FmodSetSoftwareFormat(real, real)">
+	</script>
+	<script name="MAE_FmodGetSampleRate()" func="real MAE_FmodGetSampleRate()">
+	</script>
+	<script name="MAE_FmodGetSounds()" func="real MAE_FmodGetSounds()">
+	</script>
+</external>

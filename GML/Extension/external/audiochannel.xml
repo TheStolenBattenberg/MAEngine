@@ -1,0 +1,18 @@
+<external>
+	<script name="MAE_FmodChannelCreate()" func="real MAE_FmodChannelCreate()">
+	</script>
+	<script name="MAE_FmodChannelDelete(channelPointer)" func="real MAE_FmodChannelDelete(real)">
+	</script>
+	<script name="MAE_FmodChannelPause(channelPointer,isPaused)" func="real MAE_FmodChannelPause(real, real)">
+	</script>
+	<script name="MAE_FmodChannelStop(channelPointer)" func="real MAE_FmodChannelStop(real)">
+	</script>
+	<script name="MAE_FmodChannelSetPosition(channelPointer,position)" func="real MAE_FmodChannelSetPosition(real, real)">
+	</script>
+	<script name="MAE_FmodChannelSetVolume(channelPointer,volume)" func="real MAE_FmodChannelSetVolume(real, real)">
+	</script>
+	<script name="MAE_FmodChannelSetFrequency(channelPointer,frequency)" func="real MAE_FmodChannelSetFrequency(real, real)">
+	</script>
+	<script name="MAE_FmodChannelSetPitch(channelPointer,pitch)" func="real MAE_FmodChannelSetPitch(real, real)">
+	</script>
+</external>

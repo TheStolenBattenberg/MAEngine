@@ -4,7 +4,7 @@
   <version>1.0.0</version>
   <packageID></packageID>
   <ProductID></ProductID>
-  <date>07/16/16</date>
+  <date>07/27/16</date>
   <license>Free to use, also for commercial games.</license>
   <description></description>
   <helpfile></helpfile>
@@ -17,11 +17,35 @@
   <androidsourcedir></androidsourcedir>
   <macsourcedir></macsourcedir>
   <maclinkerflags></maclinkerflags>
+  <maccompilerflags></maccompilerflags>
   <androidinject></androidinject>
+  <gradleinject></gradleinject>
   <iosSystemFrameworks/>
   <iosThirdPartyFrameworks/>
   <androidPermissions/>
   <IncludedResources>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodCreate</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodInitialize</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodSetMaxChannels</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodUpdate</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodGetCPUUsage</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodSetSoftwareFormat</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodGetSampleRate</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodGetSounds</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundLoad</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundFree</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundPlay</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundSetLoopMode</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundSetLoopPoints</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundGetType</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelCreate</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelDelete</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelPause</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelStop</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelSetPosition</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelSetVolume</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelSetFrequency</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\Channel\MAE_FmodChannelSetPitch</Resource>
     <Resource>Scripts\MAE\Navigation\MAE_NavMeshCreate</Resource>
     <Resource>Scripts\MAE\Navigation\MAE_NavMeshDestroy</Resource>
     <Resource>Scripts\MAE\Navigation\MAE_NavMeshClear</Resource>

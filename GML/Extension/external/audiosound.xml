@@ -1,0 +1,14 @@
+<external>
+	<script name="MAE_FmodSoundLoad(audioFile,isStreamed)" func="real MAE_FmodSoundLoad(string, real)">
+	</script>
+	<script name="MAE_FmodSoundFree(soundPointer)" func="real MAE_FmodSoundFree(real)">
+	</script>
+	<script name="MAE_FmodSoundPlay(soundPointer,channelPointer)" func="real MAE_FmodSoundPlay(real, real)">
+	</script>
+	<script name="MAE_FmodSoundSetLoopMode(soundPointer,loopMode)" func="real MAE_FmodSoundSetLoopMode(real, real)">
+	</script>
+	<script name="MAE_FmodSoundSetLoopPoints(soundPointer,startPoint,endPoint)" func="real MAE_FmodSoundSetLoopPoints(real, real, real)">
+	</script>
+	<script name="MAE_FmodSoundGetType(soundPointer)" func="string MAE_FmodSoundGetType(real)">
+	</script>
+</external>

@@ -83,6 +83,24 @@ enum PARAM {
     CONE_MOTOR_ENABLED,
 }
 
+enum FmodLoopMode {
+    OFF,
+    ON,
+    BIDI,
+}
+
+enum FmodSpeakerMode {
+    Default,
+    Raw,
+    Mono,
+    Stereo,
+    Quad,
+    FivePointOne,
+    SevenPointOne,
+    Max,
+    ForceInt,
+}
+
 global._MADX9_MatStackFloat8 = external_define(_DLL, "MADX9_MatStackFloat8", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
 global._MADX9_MatStackFloat9 = external_define(_DLL, "MADX9_MatStackFloat9", dll_cdecl, ty_real, 9, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
 global._MADX9_MatStackClear = external_define(_DLL, "MADX9_MatStackClear", dll_cdecl, ty_real, 0);
@@ -93,6 +111,28 @@ global._MAB_Quat = external_define(_DLL, "MAB_Quat", dll_cdecl, ty_real, 1, ty_r
 global._MAB_HitResult = external_define(_DLL, "MAB_HitResult", dll_cdecl, ty_real, 1, ty_real);
 global._MAB_OverlapResult = external_define(_DLL, "MAB_OverlapResult", dll_cdecl, ty_real, 1, ty_real);
 global._MAB_ConstraintParamTransform = external_define(_DLL, "MAB_ConstraintParamTransform", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);
+global._MAE_FmodCreate = external_define(_DLL, "MAE_FmodCreate", dll_cdecl, ty_real, 0);
+global._MAE_FmodInitialize = external_define(_DLL, "MAE_FmodInitialize", dll_cdecl, ty_real, 0);
+global._MAE_FmodSetMaxChannels = external_define(_DLL, "MAE_FmodSetMaxChannels", dll_cdecl, ty_real, 1, ty_real);
+global._MAE_FmodUpdate = external_define(_DLL, "MAE_FmodUpdate", dll_cdecl, ty_real, 0);
+global._MAE_FmodGetCPUUsage = external_define(_DLL, "MAE_FmodGetCPUUsage", dll_cdecl, ty_real, 0);
+global._MAE_FmodSetSoftwareFormat = external_define(_DLL, "MAE_FmodSetSoftwareFormat", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodGetSampleRate = external_define(_DLL, "MAE_FmodGetSampleRate", dll_cdecl, ty_real, 0);
+global._MAE_FmodGetSounds = external_define(_DLL, "MAE_FmodGetSounds", dll_cdecl, ty_real, 0);
+global._MAE_FmodSoundLoad = external_define(_DLL, "MAE_FmodSoundLoad", dll_cdecl, ty_real, 2, ty_string, ty_real);
+global._MAE_FmodSoundFree = external_define(_DLL, "MAE_FmodSoundFree", dll_cdecl, ty_real, 1, ty_real);
+global._MAE_FmodSoundPlay = external_define(_DLL, "MAE_FmodSoundPlay", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodSoundSetLoopMode = external_define(_DLL, "MAE_FmodSoundSetLoopMode", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodSoundSetLoopPoints = external_define(_DLL, "MAE_FmodSoundSetLoopPoints", dll_cdecl, ty_real, 3, ty_real, ty_real, ty_real);
+global._MAE_FmodSoundGetType = external_define(_DLL, "MAE_FmodSoundGetType", dll_cdecl, ty_string, 1, ty_real);
+global._MAE_FmodChannelCreate = external_define(_DLL, "MAE_FmodChannelCreate", dll_cdecl, ty_real, 0);
+global._MAE_FmodChannelDelete = external_define(_DLL, "MAE_FmodChannelDelete", dll_cdecl, ty_real, 1, ty_real);
+global._MAE_FmodChannelPause = external_define(_DLL, "MAE_FmodChannelPause", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodChannelStop = external_define(_DLL, "MAE_FmodChannelStop", dll_cdecl, ty_real, 1, ty_real);
+global._MAE_FmodChannelSetPosition = external_define(_DLL, "MAE_FmodChannelSetPosition", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodChannelSetVolume = external_define(_DLL, "MAE_FmodChannelSetVolume", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodChannelSetFrequency = external_define(_DLL, "MAE_FmodChannelSetFrequency", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodChannelSetPitch = external_define(_DLL, "MAE_FmodChannelSetPitch", dll_cdecl, ty_real, 2, ty_real, ty_real);
 global._MA_NavMeshCreate = external_define(_DLL, "MA_NavMeshCreate", dll_cdecl, ty_real, 0);
 global._MA_NavMeshDestroy = external_define(_DLL, "MA_NavMeshDestroy", dll_cdecl, ty_real, 1, ty_real);
 global._MA_NavMeshClear = external_define(_DLL, "MA_NavMeshClear", dll_cdecl, ty_real, 1, ty_real);

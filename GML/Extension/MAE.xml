@@ -1,5 +1,18 @@
 <extension title="MAE" defdll="MAE">
 	<folder name="MAE">
+		<folder name="Audio">
+			<folder name="FMOD">
+				<folder name="System">
+					<external path="external\audiosystem.xml" />
+				</folder>
+				<folder name="Sound">
+					<external path="external\audiosound.xml" />
+				</folder>
+				<folder name="Channel">
+					<external path="external\audiochannel.xml" />
+				</folder>
+			</folder>
+		</folder>
 		<folder name="Navigation">
 			<external path="external\navigation.xml" />
 		</folder>
@@ -143,6 +156,22 @@
 		<entry name="CONE_MOTOR_TARGET" />
 		<entry name="CONE_MOTOR_TARGET_CONSTRAINT_SPACE" />
 		<entry name="CONE_MOTOR_ENABLED" />
+	</enum>
+	<enum name="FmodLoopMode">
+		<entry name="OFF" />
+		<entry name="ON" />
+		<entry name="BIDI" />
+	</enum>
+	<enum name="FmodSpeakerMode">
+		<entry name="Default" />
+		<entry name="Raw" />
+		<entry name="Mono" />
+		<entry name="Stereo" />
+		<entry name="Quad" />
+		<entry name="FivePointOne" />
+		<entry name="SevenPointOne" />
+		<entry name="Max" />
+		<entry name="ForceInt" />
 	</enum>
 	<layout>
 		<desc>

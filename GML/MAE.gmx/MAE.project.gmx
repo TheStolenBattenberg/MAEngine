@@ -223,6 +223,38 @@
       <script>scripts\UpdateCheckbox.gml</script>
     </scripts>
     <scripts name="MAE">
+      <scripts name="Audio">
+        <scripts name="FMOD">
+          <scripts name="System">
+            <script>scripts\MAE_FmodCreate.gml</script>
+            <script>scripts\MAE_FmodInitialize.gml</script>
+            <script>scripts\MAE_FmodSetMaxChannels.gml</script>
+            <script>scripts\MAE_FmodUpdate.gml</script>
+            <script>scripts\MAE_FmodGetCPUUsage.gml</script>
+            <script>scripts\MAE_FmodSetSoftwareFormat.gml</script>
+            <script>scripts\MAE_FmodGetSampleRate.gml</script>
+            <script>scripts\MAE_FmodGetSounds.gml</script>
+          </scripts>
+          <scripts name="Sound">
+            <script>scripts\MAE_FmodSoundLoad.gml</script>
+            <script>scripts\MAE_FmodSoundFree.gml</script>
+            <script>scripts\MAE_FmodSoundPlay.gml</script>
+            <script>scripts\MAE_FmodSoundSetLoopMode.gml</script>
+            <script>scripts\MAE_FmodSoundSetLoopPoints.gml</script>
+            <script>scripts\MAE_FmodSoundGetType.gml</script>
+          </scripts>
+          <scripts name="Channel">
+            <script>scripts\MAE_FmodChannelCreate.gml</script>
+            <script>scripts\MAE_FmodChannelDelete.gml</script>
+            <script>scripts\MAE_FmodChannelPause.gml</script>
+            <script>scripts\MAE_FmodChannelStop.gml</script>
+            <script>scripts\MAE_FmodChannelSetPosition.gml</script>
+            <script>scripts\MAE_FmodChannelSetVolume.gml</script>
+            <script>scripts\MAE_FmodChannelSetFrequency.gml</script>
+            <script>scripts\MAE_FmodChannelSetPitch.gml</script>
+          </scripts>
+        </scripts>
+      </scripts>
       <scripts name="Navigation">
         <script>scripts\MAE_NavMeshCreate.gml</script>
         <script>scripts\MAE_NavMeshDestroy.gml</script>
@@ -548,39 +580,6 @@
             <script>scripts\MAE_QuaternionSet.gml</script>
           </scripts>
           <script>scripts\MAE_ViewportCreate.gml</script>
-        </scripts>
-      </scripts>
-      <scripts name="Audio">
-        <scripts name="FMOD">
-          <scripts name="System">
-            <script>scripts\MAE_FmodCreate.gml</script>
-            <script>scripts\MAE_FmodInitialize.gml</script>
-            <script>scripts\MAE_FmodSetMaxChannels.gml</script>
-            <script>scripts\MAE_FmodShutdown.gml</script>
-            <script>scripts\MAE_FmodUpdate.gml</script>
-            <script>scripts\MAE_FmodGetCPUUsage.gml</script>
-            <script>scripts\MAE_FmodSetSoftwareFormat.gml</script>
-            <script>scripts\MAE_FmodGetSampleRate.gml</script>
-            <script>scripts\MAE_FmodGetSounds.gml</script>
-          </scripts>
-          <scripts name="Sound">
-            <script>scripts\MAE_FmodSoundLoad.gml</script>
-            <script>scripts\MAE_FmodSoundFree.gml</script>
-            <script>scripts\MAE_FmodSoundPlay.gml</script>
-            <script>scripts\MAE_FmodSoundSetLoopMode.gml</script>
-            <script>scripts\MAE_FmodSoundSetLoopPoints.gml</script>
-            <script>scripts\MAE_FmodSoundGetType.gml</script>
-          </scripts>
-          <scripts name="Channel">
-            <script>scripts\MAE_FmodChannelCreate.gml</script>
-            <script>scripts\MAE_FmodChannelDelete.gml</script>
-            <script>scripts\MAE_FmodChannelPause.gml</script>
-            <script>scripts\MAE_FmodChannelStop.gml</script>
-            <script>scripts\MAE_FmodChannelSetPosition.gml</script>
-            <script>scripts\MAE_FmodChannelSetVolume.gml</script>
-            <script>scripts\MAE_FmodChannelSetFrequency.gml</script>
-            <script>scripts\MAE_FmodChannelSetPitch.gml</script>
-          </scripts>
         </scripts>
       </scripts>
     </scripts>
