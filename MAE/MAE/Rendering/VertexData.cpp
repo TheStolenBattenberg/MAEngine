@@ -58,15 +58,17 @@ uint VertexDataImpl::addVertexBuffer(VertexBuffer* vb, uint stride, uint offset,
 
 		return it->m_id;
 	}
-
+	
 	auto size = ((VertexBufferImpl*) vb)->getSize();
 	auto id = getId();
 
 	m_numVertices = std::min(m_numVertices, (size - offset) / stride);
 
+	auto elems = new Element[numElements];
+	std::copy_n(elements, numElements, elems);
+
 	m_entries.push_back({
-		id, vbPtr, stride, offset, size, numElements,
-		std::copy_n(elements, numElements, new Element[numElements])
+		id, vbPtr, stride, offset, size, numElements, elems
 	});
 
 	return id;
@@ -81,7 +83,7 @@ void VertexDataImpl::build() {
 	for (auto& entry : m_entries)
 		size += entry.m_numElements;
 
-	auto elements = new D3DVERTEXELEMENT9[size];
+	auto elements = new D3DVERTEXELEMENT9[size + 1];
 	auto curElem = elements;
 
 	for (uint i = 0; i < m_entries.size(); ++i) {
@@ -93,7 +95,7 @@ void VertexDataImpl::build() {
 
 			auto& element = m_entries[i].m_elements[j];
 
-			assert(("Invalid type", element.m_type >= sizeof(table)));
+			assert(("Invalid type", element.m_type < sizeof(table) / sizeof(BYTE)));
 
 			*(curElem++) = {
 				(WORD) i, (WORD) element.m_offset, table[element.m_type], D3DDECLMETHOD_DEFAULT,
@@ -101,6 +103,8 @@ void VertexDataImpl::build() {
 			};
 		}
 	}
+
+	elements[size] = D3DDECL_END();
 
 	if (FAILED(m_device->CreateVertexDeclaration(elements, &m_decl)))
 		throw std::exception("Failed to create VertexDeclaration");

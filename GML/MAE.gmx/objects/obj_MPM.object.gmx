@@ -34,11 +34,10 @@ screenHeight = 768;
  * Create all matrices, quaternions and vectors
  */
 
-matProj = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 128);
-matView = MAE_MatrixCreateIdentity(4);
-matNorm = MAE_MatrixCreateIdentity(3);
-
-vecPoint = MAE_VectorCreate(0, 0, 0);
+matProj  = MAE_MatrixCreatePerspective(90, screenWidth / screenHeight, 1, 128);
+matView  = MAE_MatrixCreateIdentity(4);
+matNorm  = MAE_MatrixCreateIdentity(3);
+matModel = MAE_MatrixCreateScaling(4, MAE_VectorCreate(0.02, 0.02, 0.02));
 
 quatView = MAE_QuaternionNorm(MAE_QuaternionCreateRotation(135, 0, -45, EULER_ZYX));
 
@@ -53,11 +52,28 @@ desX = 0;
 desY = 0;
 
 /**
+ * Create Pipeline
+ */
+
+fp = MAE_ForwardPipelineCreate();
+
+/**
+ * Create Texture Collection
+ */
+
+tex = MAE_TextureCreateFromFile("COMMON\TEXTURE\TankTex.png");
+var dir = MAE_TextureCollectionCreate();
+MAE_TextureCollectionAdd(dir, "tank", tex);
+
+/**
  * Load .MPM Model
  */
 
-global.m = MAE_ModelMPMLoad("COMMON/MODEL/tank.mpm");
+var draft = MAE_ModelDraftLoadMPM("COMMON/MODEL/tank.mpm");
+model = MAE_ForwardPipelineCreateModel(fp, draft, dir);
+MAE_ModelDraftDestroy(draft);
 
+MAE_TextureCollectionDestroy(dir);
 </string>
           </argument>
         </arguments>
@@ -116,6 +132,13 @@ curY += (desY - curY) * 0.2;
 matView = MAE_MatrixTranslate(MAE_MatrixCreateRotationQuaternion(4, quatView), MAE_VectorCreate(0, 0, 3));
 matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
 
+/*
+ * MVP Matrix creation
+ * mvp is the same as gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION]
+ */
+
+matMVP = MAE_MatrixMultiplyMatrix(matModel, MAE_MatrixMultiplyMatrix(matView, matProj));
+
 </string>
           </argument>
         </arguments>
@@ -138,7 +161,9 @@ matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>MAE_ModelMPMDestroy(global.m);
+            <string>MAE_ForwardPipelineDestroyModel(model);
+MAE_ForwardPipelineDestroy(fp);
+MAE_TextureDestroy(tex);
 </string>
           </argument>
         </arguments>
@@ -161,14 +186,13 @@ matNorm = MAE_MatrixCreateNormalMatrix(MAE_MatrixToMat3(matView));
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>matrix_set(matrix_projection, matProj);
+            <string>MAE_ForwardPipelineSetMVP(fp, matMVP);
+MAE_ForwardPipelineSetNormal(fp, matNorm);
+
+MAE_ForwardPipelineRenderModel(fp, model);
+
+matrix_set(matrix_projection, matProj);
 matrix_set(matrix_view, matView);
-
-
-d3d_transform_add_scaling(0.03, 0.03, 0.03);
-MAE_ModelMPMRender(global.m);
-d3d_transform_set_identity();
-
 
 /*
  * Draw X, Y and Z Axis

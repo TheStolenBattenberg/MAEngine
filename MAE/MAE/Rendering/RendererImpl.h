@@ -9,11 +9,11 @@ public:
 	~RendererImpl();
 
 	void buildVertexData(class VertexData* vd);
-	class IndexBuffer* createIndexBuffer(uint length, uint format);
+	class IndexBuffer* createIndexBuffer(uint length, uint format, const void* data = nullptr);
 	class Shader* createShader(const char* vshd, const char* pshd);
 	class Texture* createTextureFromFile(const char* file, uint mipmaps);
 	class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps);
-	class VertexBuffer* createVertexBuffer(uint length);
+	class VertexBuffer* createVertexBuffer(uint length, const void* data = nullptr);
 	class VertexData* createVertexData();
 	class VertexData* copyVertexData(class VertexData* vd);
 	void draw(class VertexData* vd, uint type, uint index, uint count);

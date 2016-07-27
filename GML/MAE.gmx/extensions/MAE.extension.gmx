@@ -200,13 +200,19 @@
     <Resource>Scripts\MAE\Render\Animation\MAE_AnimationGetFrame</Resource>
     <Resource>Scripts\MAE\Render\Animation\MAE_AnimationGetFrameNext</Resource>
     <Resource>Scripts\MAE\Render\Animation\MAE_AnimationGetTween</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineCreate</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineDestroy</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineCreateModel</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineDestroyModel</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineRenderModel</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineSetMVP</Resource>
+    <Resource>Scripts\MAE\Render\ForwardPipeline\MAE_ForwardPipelineSetNormal</Resource>
     <Resource>Scripts\MAE\Render\Model\MD2\MAE_ModelMD2Load</Resource>
     <Resource>Scripts\MAE\Render\Model\MD2\MAE_ModelMD2Frames</Resource>
     <Resource>Scripts\MAE\Render\Model\MD2\MAE_ModelMD2Render</Resource>
     <Resource>Scripts\MAE\Render\Model\MD2\MAE_ModelMD2Destroy</Resource>
-    <Resource>Scripts\MAE\Render\Model\MPM\MAE_ModelMPMLoad</Resource>
-    <Resource>Scripts\MAE\Render\Model\MPM\MAE_ModelMPMDestroy</Resource>
-    <Resource>Scripts\MAE\Render\Model\MPM\MAE_ModelMPMRender</Resource>
+    <Resource>Scripts\MAE\Render\Model\MPM\MAE_ModelDraftLoadMPM</Resource>
+    <Resource>Scripts\MAE\Render\Model\MPM\MAE_ModelDraftDestroy</Resource>
     <Resource>Scripts\MAE\Render\Model\X\MAE_ModelXLoad</Resource>
     <Resource>Scripts\MAE\Render\Model\X\MAE_ModelXRender</Resource>
     <Resource>Scripts\MAE\Render\Model\X\MAE_ModelXDestroy</Resource>
@@ -229,6 +235,9 @@
     <Resource>Scripts\MAE\Render\Texture\MAE_TextureCreateFromFileInMemory</Resource>
     <Resource>Scripts\MAE\Render\Texture\MAE_TextureDestroy</Resource>
     <Resource>Scripts\MAE\Render\Texture\MAE_TextureSet</Resource>
+    <Resource>Scripts\MAE\Render\TextureCollection\MAE_TextureCollectionCreate</Resource>
+    <Resource>Scripts\MAE\Render\TextureCollection\MAE_TextureCollectionDestroy</Resource>
+    <Resource>Scripts\MAE\Render\TextureCollection\MAE_TextureCollectionAdd</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderCreate</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderDestroy</Resource>
     <Resource>Scripts\MAE\Render\Shader\MAE_ShaderFindConstant</Resource>

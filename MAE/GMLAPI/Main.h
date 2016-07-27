@@ -10,7 +10,7 @@
 #define DLLEXPORT extern "C" __declspec (dllexport)
 
 #define TRYBEG() try { do { } while (0)
-#define TRYEND(ret) } catch (std::exception ex) { error(ex.what()); return (ret); } do { } while (0)
+#define TRYEND(ret) } catch (std::exception& ex) { error(ex.what()); return (ret); } do { } while (0)
 
 extern Main* mamain;
 extern std::vector<float> matStack;

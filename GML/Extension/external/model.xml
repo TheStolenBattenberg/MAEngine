@@ -27,11 +27,9 @@
 		</script>
 	</folder>
 	<folder name="MPM">
-		<script name="MAE_ModelMPMLoad(file)" func="real MAE_MPMLoad(string)">
+		<script name="MAE_ModelDraftLoadMPM(file)" func="real MAE_ModelDraftLoadMPM(string)">
 		</script>
-		<script name="MAE_ModelMPMDestroy(ind)" func="real MAE_MPMDestroy(real)">
-		</script>
-		<script name="MAE_ModelMPMRender(ind)" func="real MAE_MPMRender(real)">
+		<script name="MAE_ModelDraftDestroy(ind)" func="real MAE_ModelDraftDestroy(real)">
 		</script>
 	</folder>
 	<folder name="X">

@@ -42,11 +42,11 @@ public:
 		return createTextureFromFile(file.c_str(), mipmaps);
 	}
 
-	virtual class IndexBuffer* createIndexBuffer(uint length, uint format) = 0;
+	virtual class IndexBuffer* createIndexBuffer(uint length, uint format, const void* data = nullptr) = 0;
 	virtual class Shader* createShader(const char* vshd, const char* pshd) = 0;
 	virtual class Texture* createTextureFromFile(const char* file, uint mipmaps) = 0;
 	virtual class Texture* createTextureFromFileInMemory(const void* data, uint length, uint mipmaps) = 0;
-	virtual class VertexBuffer* createVertexBuffer(uint length) = 0;
+	virtual class VertexBuffer* createVertexBuffer(uint length, const void* data = nullptr) = 0;
 	virtual class VertexData* createVertexData() = 0;
 	virtual class VertexData* copyVertexData(class VertexData* vd) = 0;
 	virtual void draw(class VertexData* vd, uint type, uint index, uint count) = 0;

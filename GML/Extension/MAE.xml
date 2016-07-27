@@ -56,6 +56,9 @@
 			<folder name="Animation">
 				<external path="external\animation.xml" />
 			</folder>
+			<folder name="ForwardPipeline">
+				<external path="external\forwardpipeline.xml" />
+			</folder>
 			<folder name="Model">
 				<external path="external\model.xml" />
 			</folder>
@@ -69,6 +72,9 @@
 			</folder>
 			<folder name="Texture">
 				<external path="external\texture.xml" />
+			</folder>
+			<folder name="TextureCollection">
+				<external path="external\texturecollection.xml" />
 			</folder>
 			<folder name="Shader">
 				<external path="external\shader.xml" />

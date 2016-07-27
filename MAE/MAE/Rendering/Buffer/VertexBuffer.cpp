@@ -2,9 +2,12 @@
 
 #include <exception>
 
-VertexBufferImpl::VertexBufferImpl(uint length, LPDIRECT3DDEVICE9 device) {
+VertexBufferImpl::VertexBufferImpl(uint length, const void* data, LPDIRECT3DDEVICE9 device) {
 	if (FAILED(device->CreateVertexBuffer(size = length, 0, 0, D3DPOOL_DEFAULT, &vb, 0)))
 		throw std::exception("Failed to allocate VertexBuffer");
+
+	if (data != nullptr)
+		upload(data, 0, length);
 }
 
 VertexBufferImpl::~VertexBufferImpl() {

@@ -1,0 +1,8 @@
+<external>
+	<script name="MAE_TextureCollectionCreate()" func="real MAE_TextureCollectionCreate()">
+	</script>
+	<script name="MAE_TextureCollectionDestroy(dir)" func="real MAE_TextureCollectionDestroy(real)">
+	</script>
+	<script name="MAE_TextureCollectionAdd(dir,name,tex)" func="real MAE_TextureCollectionAdd(real, string, real)">
+	</script>
+</external>

@@ -3,9 +3,9 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="19" name="datafiles">
-    <datafiles number="19" name="COMMON">
-      <datafiles number="19" name="MODEL">
+  <datafiles number="20" name="datafiles">
+    <datafiles number="20" name="COMMON">
+      <datafiles number="20" name="MODEL">
         <datafile>
           <name>tiger.x</name>
           <exists>-1</exists>
@@ -75,7 +75,7 @@
           <filename>navtest.gmmod</filename>
         </datafile>
       </datafiles>
-      <datafiles number="19" name="TEXTURE">
+      <datafiles number="20" name="TEXTURE">
         <datafile>
           <name>hobgoblin.bmp</name>
           <exists>-1</exists>
@@ -110,8 +110,25 @@
           </ConfigOptions>
           <filename>tiger.bmp</filename>
         </datafile>
+        <datafile>
+          <name>TankTex.png</name>
+          <exists>-1</exists>
+          <size>253301</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>TankTex.png</filename>
+        </datafile>
       </datafiles>
-      <datafiles number="19" name="PARTICLE">
+      <datafiles number="20" name="PARTICLE">
         <datafile>
           <name>fire.png</name>
           <exists>-1</exists>
@@ -147,7 +164,7 @@
           <filename>smoke.png</filename>
         </datafile>
       </datafiles>
-      <datafiles number="19" name="MUSIC">
+      <datafiles number="20" name="MUSIC">
         <datafile>
           <name>shes_had_enough_theme1.ogg</name>
           <exists>-1</exists>
@@ -426,6 +443,15 @@
           <script>scripts\MAE_AnimationGetFrameNext.gml</script>
           <script>scripts\MAE_AnimationGetTween.gml</script>
         </scripts>
+        <scripts name="ForwardPipeline">
+          <script>scripts\MAE_ForwardPipelineCreate.gml</script>
+          <script>scripts\MAE_ForwardPipelineDestroy.gml</script>
+          <script>scripts\MAE_ForwardPipelineCreateModel.gml</script>
+          <script>scripts\MAE_ForwardPipelineDestroyModel.gml</script>
+          <script>scripts\MAE_ForwardPipelineRenderModel.gml</script>
+          <script>scripts\MAE_ForwardPipelineSetMVP.gml</script>
+          <script>scripts\MAE_ForwardPipelineSetNormal.gml</script>
+        </scripts>
         <scripts name="Model">
           <scripts name="MD2">
             <script>scripts\MAE_ModelMD2Load.gml</script>
@@ -434,9 +460,8 @@
             <script>scripts\MAE_ModelMD2Destroy.gml</script>
           </scripts>
           <scripts name="MPM">
-            <script>scripts\MAE_ModelMPMLoad.gml</script>
-            <script>scripts\MAE_ModelMPMDestroy.gml</script>
-            <script>scripts\MAE_ModelMPMRender.gml</script>
+            <script>scripts\MAE_ModelDraftLoadMPM.gml</script>
+            <script>scripts\MAE_ModelDraftDestroy.gml</script>
           </scripts>
           <scripts name="X">
             <script>scripts\MAE_ModelXLoad.gml</script>
@@ -470,6 +495,11 @@
           <script>scripts\MAE_TextureCreateFromFileInMemory.gml</script>
           <script>scripts\MAE_TextureDestroy.gml</script>
           <script>scripts\MAE_TextureSet.gml</script>
+        </scripts>
+        <scripts name="TextureCollection">
+          <script>scripts\MAE_TextureCollectionCreate.gml</script>
+          <script>scripts\MAE_TextureCollectionDestroy.gml</script>
+          <script>scripts\MAE_TextureCollectionAdd.gml</script>
         </scripts>
         <scripts name="Shader">
           <script>scripts\MAE_ShaderCreate.gml</script>

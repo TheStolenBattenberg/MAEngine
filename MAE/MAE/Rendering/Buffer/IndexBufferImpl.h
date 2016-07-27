@@ -6,7 +6,7 @@
 
 class IndexBufferImpl: public IndexBuffer {
 public:
-	IndexBufferImpl(uint length, uint fmt, LPDIRECT3DDEVICE9 device);
+	IndexBufferImpl(uint length, uint fmt, const void* data, LPDIRECT3DDEVICE9 device);
 	~IndexBufferImpl();
 
 	void* map(uint offset, uint size, uint flags);

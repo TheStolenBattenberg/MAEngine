@@ -8,8 +8,8 @@
 
 RendererImpl::~RendererImpl() { }
 
-IndexBuffer* RendererImpl::createIndexBuffer(uint length, uint format) {
-	return new IndexBufferImpl(length, format, device);
+IndexBuffer* RendererImpl::createIndexBuffer(uint length, uint format, const void* data) {
+	return new IndexBufferImpl(length, format, data, device);
 }
 
 Shader* RendererImpl::createShader(const char* vshd, const char* pshd) {
@@ -40,8 +40,8 @@ Texture* RendererImpl::createTextureFromFileInMemory(const void* data, uint leng
 	return new TextureImpl(tex);
 }
 
-VertexBuffer* RendererImpl::createVertexBuffer(uint length) {
-	return new VertexBufferImpl(length, device);
+VertexBuffer* RendererImpl::createVertexBuffer(uint length, const void* data) {
+	return new VertexBufferImpl(length, data, device);
 }
 
 VertexData* RendererImpl::createVertexData() {

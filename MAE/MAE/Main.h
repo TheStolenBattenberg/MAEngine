@@ -14,7 +14,6 @@ public:
 
 	UnorderedVector<class MD2Model*> MD2Models;
 	UnorderedVector<class XModel*>   XModels;
-	UnorderedVector<class MPMModel*> MPMModels;
 
 	UnorderedVector<class ParticleSystem*> ParticleSys;
 };

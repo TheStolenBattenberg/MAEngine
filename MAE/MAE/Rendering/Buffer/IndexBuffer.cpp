@@ -3,13 +3,16 @@
 #include <exception>
 #include <cassert>
 
-IndexBufferImpl::IndexBufferImpl(uint length, uint fmt, LPDIRECT3DDEVICE9 device) {
+IndexBufferImpl::IndexBufferImpl(uint length, uint fmt, const void* data, LPDIRECT3DDEVICE9 device) {
 	D3DFORMAT table[] = {D3DFMT_INDEX16, D3DFMT_INDEX32};
 
 	assert(("Unknown format", fmt <= 1));
 
 	if (FAILED(device->CreateIndexBuffer(length, 0, table[fmt], D3DPOOL_DEFAULT, &ib, 0)))
 		throw std::exception("Failed to allocate VertexBuffer");
+
+	if (data != nullptr)
+		upload(data, 0, length);
 }
 
 IndexBufferImpl::~IndexBufferImpl() {

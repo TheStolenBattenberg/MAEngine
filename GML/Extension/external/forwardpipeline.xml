@@ -1,0 +1,39 @@
+<external>
+	<script name="MAE_ForwardPipelineCreate()" func="real MAE_ForwardPipelineCreate()">
+	</script>
+	<script name="MAE_ForwardPipelineDestroy(fp)" func="real MAE_ForwardPipelineDestroy(real)">
+	</script>
+	<script name="MAE_ForwardPipelineCreateModel(fp,draft,dict)" func="real MAE_ForwardPipelineCreateModel(real, real, real)">
+	</script>
+	<script name="MAE_ForwardPipelineDestroyModel(model)" func="real MAE_ForwardPipelineDestroyModel(real)">
+	</script>
+	<script name="MAE_ForwardPipelineRenderModel(fp,model)" func="real MAE_ForwardPipelineRenderModel(real, real)">
+	</script>
+	<script name="MAE_ForwardPipelineSetMVP(fp,mat)" func="real MAE_ForwardPipelineSetMVP(real)">
+		<source>
+			var mat = $mat$;
+			
+			external_call($MADX9_MatStackFloat8$, mat[0], mat[4], mat[8], mat[12], mat[1], mat[5], mat[9], mat[13]);
+			external_call($MADX9_MatStackFloat8$, mat[2], mat[6], mat[10], mat[14], mat[3], mat[7], mat[11], mat[15]);
+			
+			var r = external_call($MAE_ForwardPipelineSetMVP$, $fp$);
+			
+			external_call($MADX9_MatStackClear$);
+			
+			return r;
+		</source>
+	</script>
+	<script name="MAE_ForwardPipelineSetNormal(fp,mat)" func="real MAE_ForwardPipelineSetNormal(real)">
+		<source>
+			var mat = $mat$;
+			
+			external_call($MADX9_MatStackFloat9$, mat[0], mat[3], mat[6], mat[1], mat[4], mat[7], mat[2], mat[5], mat[8]);
+			
+			var r = external_call($MAE_ForwardPipelineSetNormal$, $fp$);
+			
+			external_call($MADX9_MatStackClear$);
+			
+			return r;
+		</source>
+	</script>
+</external>

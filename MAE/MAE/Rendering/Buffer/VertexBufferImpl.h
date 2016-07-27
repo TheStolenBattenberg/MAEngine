@@ -6,7 +6,7 @@
 
 class VertexBufferImpl: public VertexBuffer {
 public:
-	VertexBufferImpl(uint length, LPDIRECT3DDEVICE9 device);
+	VertexBufferImpl(uint length, const void* data, LPDIRECT3DDEVICE9 device);
 	~VertexBufferImpl();
 
 	void* map(uint offset, uint size, uint flags);

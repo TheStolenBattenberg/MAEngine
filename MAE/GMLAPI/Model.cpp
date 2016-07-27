@@ -7,7 +7,7 @@
 #include <GMLAPI/Main.h>
 #include <GMLAPI/Utils.h>
 
-#include <MAE/Rendering/ModelMPM.h>
+#include <MAE/Rendering/Model/ModelMPM.h>
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Rendering/ModelX.h>
 
@@ -96,34 +96,15 @@ DLLEXPORT double MADX9_XDestroy(double x) {
 	TRYEND(0);
 }
 
-DLLEXPORT double MAE_MPMLoad(const char* file) {
+DLLEXPORT double MAE_ModelDraftLoadMPM(const char* file) {
 	TRYBEG();
-	auto m = new MPMModel(renderer);
-
-	m->load(file);
-
-	mamain->MPMModels.add(m);
-	return ptrToDouble(m);
+	return ptrToDouble(MPMModel::load(file));
 	TRYEND(0);
 }
 
-DLLEXPORT double MAE_MPMDestroy(double m) {
+DLLEXPORT double MAE_ModelDraftDestroy(double m) {
 	TRYBEG();
-	auto ptr = doubleToPtr<MPMModel>(m);
-
-	mamain->MPMModels.remove(ptr);
-	delete ptr;
-
-	return 1;
-	TRYEND(0);
-}
-
-DLLEXPORT double MAE_MPMRender(double m) {
-	TRYBEG();
-	auto ptr = doubleToPtr<MPMModel>(m);
-
-	ptr->render();
-
+	delete doubleToPtr<ModelDraft>(m);
 	return 1;
 	TRYEND(0);
 }
