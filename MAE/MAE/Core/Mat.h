@@ -16,11 +16,11 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 
 	matst()
 	{
-		for (auto& i : data)
+		for (auto& i : this->data)
 			i = T(0);
 
 		for (std::size_t i = 0; i < S; ++i)
-			data[i * (1 + S)] = T(1);
+			this->data[i * (1 + S)] = T(1);
 	}
 
 	template<typename... Args> matst(typename std::conditional<sizeof...(Args) + 1 == S * S, T, _matst_dummy>::type head, Args... args)
@@ -28,7 +28,7 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 		T arr[] = {head, T(args)...};
 
 		for (std::size_t i = 0; i < S * S; ++i)
-			data[i] = arr[i];
+			this->data[i] = arr[i];
 	}
 
 	template<std::size_t S2> matst(const matst<S2, T>& mat)
@@ -67,12 +67,12 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 	matst(const T* values)
 	{
 		for (std::size_t i = 0; i < S * S; ++i)
-			data[i] = values[i];
+			this->data[i] = values[i];
 	}
 
 	vecct<S, T> getRow(std::size_t ind)
 	{
-		return vecct<S, T>(&data[ind * S]);
+		return vecct<S, T>(&this->data[ind * S]);
 	}
 
 	vecct<S, T> getColumn(std::size_t ind)
@@ -87,30 +87,30 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 
 	T& operator[](std::size_t index)
 	{
-		return data[index];
+		return this->data[index];
 	}
 
 	const T& operator[](std::size_t index) const
 	{
-		return data[index];
+		return this->data[index];
 	}
 
 	T& operator()(std::size_t column, std::size_t row)
 	{
-		return data[column + row * size];
+		return this->data[column + row * size];
 	}
 
 	const T& operator()(std::size_t column, std::size_t row) const
 	{
-		return data[column + row * size];
+		return this->data[column + row * size];
 	}
 
 	matst<S, T> operator*(const matst<S, T>& mat)
 	{
 		matst<S, T> ret;
 
-		for (std::size i = 0; i < S; ++i)
-			for (std::size j = 0; j < S; ++j)
+		for (std::size_t i = 0; i < S; ++i)
+			for (std::size_t j = 0; j < S; ++j)
 				ret(i, j) = getRow(i) * mat.getColumn(j);
 
 		return ret;
@@ -118,12 +118,12 @@ template<std::size_t S, typename T> struct matst: _matst<S, T>
 
 	vecct<S, T> operator*(const vecct<S, T>& vec)
 	{
-		vecct<S, T> vec;
+		vecct<S, T> ret;
 
 		for (std::size_t i = 0; i < S; ++i)
-			vec[i] = getRow(i) * vec;
+			ret[i] = getRow(i) * vec;
 
-		return vec;
+		return ret;
 	}
 
 	matst<S, T>& operator*=(const matst<S, T>& mat)

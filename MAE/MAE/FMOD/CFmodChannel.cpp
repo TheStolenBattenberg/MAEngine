@@ -1,7 +1,7 @@
 #include <MAE/FMOD/CFmod.h>
 
 Channel* CFmod::ChannelCreate() {
-	Channel* chn = NULL;
+	Channel* chn = nullptr;
 	return chn;
 }
 

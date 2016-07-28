@@ -31,7 +31,7 @@ private:
 	class Renderer* renderer;
 
 	std::vector<ParticleModifier*> psMods;
-	ParticleEmitter*   psEmitter = NULL;
+	ParticleEmitter*   psEmitter = nullptr;
 
 	std::vector<Particle> psBuffer;
 

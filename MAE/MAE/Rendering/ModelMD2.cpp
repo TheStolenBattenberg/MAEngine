@@ -431,12 +431,12 @@ void MD2Model::render(uint frame1, uint frame2, float tween) {
 	device->SetVertexDeclaration(decl);
 
 	device->SetIndices(indBuf);
-	device->SetStreamSource(0, vertBufs[clamp(frame1, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
-	device->SetStreamSource(1, vertBufs[clamp(frame2, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
+	device->SetStreamSource(0, vertBufs[clamp<uint>(frame1, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
+	device->SetStreamSource(1, vertBufs[clamp<uint>(frame2, 0u, vertBufs.size())], 0, normals ? sizeof(VertNorm) : sizeof(Vertex));
 	device->SetStreamSource(2, texBuf, 0, sizeof(TexCoord));
 
 	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertCount, 0, triCount);
 
-	device->SetVertexDeclaration(NULL);
+	device->SetVertexDeclaration(nullptr);
 	device->SetRenderState(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);
 }

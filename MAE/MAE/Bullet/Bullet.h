@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <btBulletDynamicsCommon.h>
+#include <vector>
 
 struct RigidBody {
 	btRigidBody* body;

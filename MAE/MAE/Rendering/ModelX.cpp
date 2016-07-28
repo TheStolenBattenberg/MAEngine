@@ -5,17 +5,17 @@
 XModel::~XModel()
 {
 	for (uint i = 0; i < materialCount; ++i) {
-		if (textures[i] != NULL) {
+		if (textures[i] != nullptr) {
 			textures[i]->Release();
 		}
 	}
 	delete[] textures;
 	
-	if (materials != NULL) {
+	if (materials != nullptr) {
 		delete[] materials;
 	}
 
-	if (mesh != NULL) {
+	if (mesh != nullptr) {
 		mesh->Release();
 		mesh = 0;
 	}
@@ -27,7 +27,7 @@ bool XModel::load(std::string filename, std::string texturedir) {
 	LPD3DXBUFFER materialBuffer;
 
 	HRESULT res;
-	res = D3DXLoadMeshFromX(filename.c_str(), D3DXMESH_SYSTEMMEM, device, NULL, &materialBuffer, NULL, &materialCount, &mesh);
+	res = D3DXLoadMeshFromX(filename.c_str(), D3DXMESH_SYSTEMMEM, device, nullptr, &materialBuffer, nullptr, &materialCount, &mesh);
 
 	if (FAILED(res)) {
 		// TODO: Add proper error checking
@@ -46,8 +46,8 @@ bool XModel::load(std::string filename, std::string texturedir) {
 		materials[i] = xMaterials[i].MatD3D;
 		materials[i].Ambient = D3DXCOLOR(0.0, 0.0, 0.0, 0.0);
 
-		textures[i] = NULL;
-		if (xMaterials[i].pTextureFilename != NULL && lstrlen(xMaterials[i].pTextureFilename) > 0) {
+		textures[i] = nullptr;
+		if (xMaterials[i].pTextureFilename != nullptr && lstrlen(xMaterials[i].pTextureFilename) > 0) {
 			std::string file = texturedir + '/' + xMaterials[i].pTextureFilename;
 
 			res = D3DXCreateTextureFromFile(device, file.c_str(), &textures[i]);
@@ -68,8 +68,8 @@ LPD3DXMESH  XModel::getMesh() {
 	return mesh;
 }
 
-D3DMATERIAL9  XModel::getMaterial(uint index) {
-	return materials[index];
+D3DMATERIAL9*  XModel::getMaterial(uint index) {
+	return &materials[index];
 }
 
 LPDIRECT3DTEXTURE9  XModel::getTexture(uint index) {

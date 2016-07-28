@@ -14,7 +14,7 @@ FMODError CFmod::SystemSetMaxChannels(uint MaxChannels) {
 }
 
 FMODError CFmod::SystemInitialize() {
-	m_pSystem->init(m_iMaxChannels, FMOD_INIT_NORMAL, NULL);
+	m_pSystem->init(m_iMaxChannels, FMOD_INIT_NORMAL, nullptr);
 	m_pSystem->getMasterChannelGroup(&m_pMasterChannel);
 
 	return FMODError::ERR_OKAY;
@@ -48,7 +48,7 @@ uint CFmod::SystemGetSampleRate() {
 
 float CFmod::SystemGetCPUUsage() {
 	float CPUUsage;
-		m_pSystem->getCPUUsage(NULL, NULL, NULL, NULL, &CPUUsage);
+		m_pSystem->getCPUUsage(nullptr, nullptr, nullptr, nullptr, &CPUUsage);
 	return CPUUsage;
 }
 

@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.5)
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_CXX_STANDARD_REQUIRED 11)
+set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(ExternalProject)
 
@@ -8,7 +8,7 @@ include(ExternalProject)
 set (LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Libraries)
 
 set (BULLET_DIR ${LIBRARY_DIR}/bullet3)
-set (BULLET_BINARY_DIR bullet3)
+set (BULLET_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/bullet3)
 set (BULLET_LIBRARY_DIR ${BULLET_BINARY_DIR}/lib/$<CONFIG>/)
 
 # Build bullet
@@ -64,28 +64,39 @@ assign_source_groups (RECAST_SOURCES "Libraries/recastnavigation")
 add_library (Recast STATIC ${RECAST_SOURCES})
 
 project (GMLAPI)
-add_definitions(-D_SCL_SECURE_NO_WARNINGS)
+add_definitions(-D_SCL_SECURE_NO_WARNINGS -DNOMINMAX)
 file (GLOB_RECURSE GMLAPI_SOURCES "MAE/GMLAPI/*.cpp" "MAE/GMLAPI/*.h")
 assign_source_groups (GMLAPI_SOURCES "MAE/GMLAPI")
 add_library (GMLAPI SHARED ${GMLAPI_SOURCES})
 target_link_libraries (GMLAPI MAE)
+
+# Copy DLL to Game Maker Project
+
 add_custom_command (TARGET GMLAPI POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:GMLAPI> "${CMAKE_SOURCE_DIR}/GML/MAE.gmx/datafiles/MAE.dll"
     )
 
+add_custom_command (TARGET GMLAPI POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:GMLAPI> "${CMAKE_SOURCE_DIR}/GML/Extension/MAE.dll"
+    )
+
+add_custom_command (TARGET GMLAPI POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:GMLAPI> "${CMAKE_SOURCE_DIR}/GML/MAE.gmx/extensions/MAE/Assets/datafiles/MAE.dll"
+    )
+
 project (MAE)
-add_definitions(-D_SCL_SECURE_NO_WARNINGS)
+add_definitions(-D_SCL_SECURE_NO_WARNINGS -DNOMINMAX)
 file (GLOB_RECURSE MAE_SOURCES "MAE/MAE/*.cpp" "MAE/MAE/*.h")
 assign_source_groups (MAE_SOURCES "MAE/MAE")
 add_library (MAE STATIC ${MAE_SOURCES})
 add_dependencies (MAE Bullet)
 target_link_libraries (MAE Recast
     ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/FMOD/lib/fmod_vc.lib
-    $ENV{DXSDK_DIR}/Lib/x86/d3dx9.lib
-    $ENV{DXSDK_DIR}/Lib/x86/d3d9.lib
-    ${BULLET_LIBRARY_DIR}BulletCollision
-    ${BULLET_LIBRARY_DIR}BulletDynamics
-    ${BULLET_LIBRARY_DIR}LinearMath
+    $ENV{DXSDK_DIR}Lib/x86/d3dx9.lib
+    $ENV{DXSDK_DIR}Lib/x86/d3d9.lib
+    ${BULLET_LIBRARY_DIR}BulletCollision.lib
+    ${BULLET_LIBRARY_DIR}BulletDynamics.lib
+    ${BULLET_LIBRARY_DIR}LinearMath.lib
     )
 
 # Force static linkage of MSVC runtime

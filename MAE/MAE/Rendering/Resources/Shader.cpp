@@ -4,6 +4,7 @@
 #include <MAE/Core/Exception.h>
 
 #include <cassert>
+#include <algorithm>
 
 ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char* pixelshd) {
 	LPD3DXBUFFER code;
@@ -13,7 +14,7 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 
 	HRESULT result;
 
-	if (FAILED(D3DXCompileShader(vertexshd, strlen(vertexshd), NULL, NULL, "main", D3DXGetVertexShaderProfile(renderer->getDevice()), 0, &code, &err, &vtable))) {
+	if (FAILED(D3DXCompileShader(vertexshd, strlen(vertexshd), nullptr, nullptr, "main", D3DXGetVertexShaderProfile(renderer->getDevice()), 0, &code, &err, &vtable))) {
 		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
@@ -26,7 +27,7 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 	if (FAILED(result))
 		throw Exception("Failed to create Vertex Shader");
 
-	if (FAILED(D3DXCompileShader(pixelshd, strlen(pixelshd), NULL, NULL, "main", D3DXGetPixelShaderProfile(renderer->getDevice()), 0, &code, &err, &ptable))) {
+	if (FAILED(D3DXCompileShader(pixelshd, strlen(pixelshd), nullptr, nullptr, "main", D3DXGetPixelShaderProfile(renderer->getDevice()), 0, &code, &err, &ptable))) {
 		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 

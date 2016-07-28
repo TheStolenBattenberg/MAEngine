@@ -15,7 +15,7 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 
 	vecct(T x)
 	{
-		for (auto& i : data)
+		for (auto& i : this->data)
 			i = x;
 	}
 
@@ -24,21 +24,21 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 		T arr[] = {head, T(args)...};
 
 		for (std::size_t i = 0; i < C; ++i)
-			data[i] = arr[i];
+			this->data[i] = arr[i];
 	}
 
 	template<std::size_t C2> vecct(const vecct<C2, T>& vec)
 	{
 		if (C2 > C)
 			for (std::size_t i = 0; i < C; ++i)
-				data[i] = vec[i];
+				this->data[i] = vec[i];
 		else
 		{
 			for (std::size_t i = 0; i < C2; ++i)
-				data[i] = vec[i];
+				this->data[i] = vec[i];
 
 			for (std::size_t i = C2; i < C; ++i)
-				data[i] = T(0);
+				this->data[i] = T(0);
 		}
 	}
 
@@ -46,7 +46,7 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 	{
 		T sum = 0;
 
-		for (auto i : data)
+		for (auto i : this->data)
 			sum += i * i;
 
 		return sum;
@@ -81,12 +81,12 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 
 	T& operator[](std::size_t index)
 	{
-		return data[index];
+		return this->data[index];
 	}
 
 	const T& operator[](std::size_t index) const
 	{
-		return data[index];
+		return this->data[index];
 	}
 
 	T operator*(const vecct<C, T>& vec) const
@@ -94,7 +94,7 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 		T sum = T(0);
 
 		for (std::size_t i = 0; i < C; ++i)
-			sum += data[i] * vec.data[i];
+			sum += this->data[i] * vec.data[i];
 
 		return sum;
 	}
@@ -104,7 +104,7 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 		vecct<C, T> ret;
 
 		for (std::size_t i = 0; i < C; ++i)
-			ret.data[i] = data[i] * value;
+			ret.data[i] = this->data[i] * value;
 
 		return ret;
 	}
@@ -114,14 +114,14 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 		vecct<C, T> ret;
 
 		for (std::size_t i = 0; i < C; ++i)
-			ret.data[i] = data[i] / value;
+			ret.data[i] = this->data[i] / value;
 
 		return ret;
 	}
 
 	vecct<C, T>& operator*=(T value)
 	{
-		for (auto& i : data)
+		for (auto& i : this->data)
 			i *= value;
 
 		return *this;
@@ -129,7 +129,7 @@ template<std::size_t C, typename T> struct vecct: _vecct<C, T>
 
 	vecct<C, T>& operator/=(T value)
 	{
-		for (auto& i : data)
+		for (auto& i : this->data)
 			i /= value;
 
 		return *this;

@@ -3,12 +3,12 @@
 sint CFmod::SoundLoad(string Filename, bool isStream) {
 	FMOD::Sound* snd;
 	if (!isStream) {
-		m_pSystem->createSound(Filename, FMOD_DEFAULT, NULL, &snd);
+		m_pSystem->createSound(Filename, FMOD_DEFAULT, nullptr, &snd);
 		m_pSound.push_back(snd);
 		return m_pSound.size() - 1;
 	}
 	else {
-		m_pSystem->createStream(Filename, FMOD_DEFAULT, NULL, &snd);
+		m_pSystem->createStream(Filename, FMOD_DEFAULT, nullptr, &snd);
 		m_pSound.push_back(snd);
 		return m_pSound.size() - 1;
 	}
@@ -17,12 +17,12 @@ sint CFmod::SoundLoad(string Filename, bool isStream) {
 
 FMODError CFmod::SoundFree(uint index) {
 	m_pSound[index]->release();
-	m_pSound[index] = NULL;
+	m_pSound[index] = nullptr;
 	return FMODError::ERR_OKAY;
 }
 
 FMODError CFmod::SoundPlay(uint index, Channel* channel) {
-	m_pSystem->playSound(m_pSound[index], NULL, false, &channel);
+	m_pSystem->playSound(m_pSound[index], nullptr, false, &channel);
 	return FMODError::ERR_OKAY;
 }
 
@@ -51,6 +51,6 @@ FMODError CFmod::SoundSetLoopPoints(uint index, uint start, uint end) {
 
 string CFmod::SoundGetType(uint index) {
 	FMOD_SOUND_TYPE type;
-	m_pSound[index]->getFormat(&type, NULL, NULL, NULL);
+	m_pSound[index]->getFormat(&type, nullptr, nullptr, nullptr);
 	return m_lSoundType[(int)type];
 }

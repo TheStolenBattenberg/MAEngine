@@ -80,7 +80,7 @@ public:
 	string    DSPParamGetLabel(DSPParam* param);
 	string    DSPParamGetDescription(DSPParam* param);
 private:
-	FMOD::System*                m_pSystem = NULL;
+	FMOD::System*                m_pSystem = nullptr;
 	std::vector <FMOD::Sound*>   m_pSound;
 	FMOD::ChannelGroup*          m_pMasterChannel;
 

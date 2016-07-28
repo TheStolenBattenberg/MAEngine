@@ -76,7 +76,7 @@ DLLEXPORT double MADX9_XRender(double x) {
 	auto device = ((RendererImpl*) renderer)->getDevice();
 
 	for (uint i = 0; i < ptr->getMaterialCount(); ++i) {
-		device->SetMaterial(&ptr->getMaterial(i));
+		device->SetMaterial(ptr->getMaterial(i));
 		device->SetTexture(0, ptr->getTexture(i));
 		ptr->getMesh()->DrawSubset(i);
 	}

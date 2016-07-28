@@ -24,7 +24,7 @@ ParticleSystem::ParticleSystem(Renderer* renderer): renderer(renderer) {
 }
 
 ParticleSystem::~ParticleSystem() {
-	if (psEmitter != NULL) {
+	if (psEmitter != nullptr) {
 		delete psEmitter;
 	}
 
@@ -50,7 +50,7 @@ ParticleEmitter* ParticleSystem::getEmitter() {
 }
 
 void ParticleSystem::update(uint time) {
-	if (psEmitter != NULL) {
+	if (psEmitter != nullptr) {
 		if (psBuffer.size() < (psMaxParticleCount - psEmitter->getMinEmitt())) {
 			uint pC = psEmitter->getSpawnThisTick();
 
@@ -137,7 +137,7 @@ void ParticleSystem::render() {
 	device->SetVertexDeclaration(decl);
 	device->SetStreamSource(0, psVertexBuffer, 0, sizeof(ParticlePoint));
 	device->DrawPrimitive(D3DPT_POINTLIST, 0, psBuffer.size());
-	device->SetVertexDeclaration(NULL);
+	device->SetVertexDeclaration(nullptr);
 
 	device->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
 	device->SetRenderState(D3DRS_POINTSCALEENABLE, false);
