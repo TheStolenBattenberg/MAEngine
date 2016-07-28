@@ -44,7 +44,7 @@ public:
 		mat4 m_transform;
 	};
 
-	ModelDraft(DynamicArray<Mesh>& meshes, DynamicArray<Inst>& inst, DynamicArray<Material>& mat):
+	ModelDraft(DynamicArray<Mesh>&& meshes, DynamicArray<Inst>&& inst, DynamicArray<Material>&& mat):
 		m_meshes(std::move(meshes)), m_instances(std::move(inst)), m_materials(std::move(mat)) { }
 
 	inline const auto& getMeshes() const {

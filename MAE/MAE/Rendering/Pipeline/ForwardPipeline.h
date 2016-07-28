@@ -59,7 +59,7 @@ private:
 			mat4 m_trans;
 		};
 
-		Model(DynamicArray<Mesh>& meshes, DynamicArray<Instance>& inst, DynamicArray<Material>& mat):
+		Model(DynamicArray<Mesh>&& meshes, DynamicArray<Instance>&& inst, DynamicArray<Material>&& mat):
 			m_meshes(std::move(meshes)), m_instances(std::move(inst)), m_materials(std::move(mat)) { }
 
 		~Model() {
@@ -130,7 +130,7 @@ public:
 		for (uint i = 0; i < draftInstances.size(); ++i)
 			instances[i] = { &meshes[draftInstances[i].m_meshInd], draftInstances[i].m_transform };
 
-		return new Model(meshes, instances, materials);
+		return new Model(std::move(meshes), std::move(instances), std::move(materials));
 	}
 
 	void renderModel(ModelBase* model) {

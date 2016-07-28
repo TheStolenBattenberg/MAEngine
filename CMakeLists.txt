@@ -64,6 +64,7 @@ assign_source_groups (RECAST_SOURCES "Libraries/recastnavigation")
 add_library (Recast STATIC ${RECAST_SOURCES})
 
 project (GMLAPI)
+add_definitions(-D_SCL_SECURE_NO_WARNINGS)
 file (GLOB_RECURSE GMLAPI_SOURCES "MAE/GMLAPI/*.cpp" "MAE/GMLAPI/*.h")
 assign_source_groups (GMLAPI_SOURCES "MAE/GMLAPI")
 add_library (GMLAPI SHARED ${GMLAPI_SOURCES})
@@ -73,6 +74,7 @@ add_custom_command (TARGET GMLAPI POST_BUILD
     )
 
 project (MAE)
+add_definitions(-D_SCL_SECURE_NO_WARNINGS)
 file (GLOB_RECURSE MAE_SOURCES "MAE/MAE/*.cpp" "MAE/MAE/*.h")
 assign_source_groups (MAE_SOURCES "MAE/MAE")
 add_library (MAE STATIC ${MAE_SOURCES})
