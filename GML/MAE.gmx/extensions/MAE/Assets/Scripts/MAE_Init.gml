@@ -117,6 +117,7 @@ global._MAE_FmodSetMaxChannels = external_define(_DLL, "MAE_FmodSetMaxChannels",
 global._MAE_FmodUpdate = external_define(_DLL, "MAE_FmodUpdate", dll_cdecl, ty_real, 0);
 global._MAE_FmodGetCPUUsage = external_define(_DLL, "MAE_FmodGetCPUUsage", dll_cdecl, ty_real, 0);
 global._MAE_FmodSetSoftwareFormat = external_define(_DLL, "MAE_FmodSetSoftwareFormat", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global._MAE_FmodShutdown = external_define(_DLL, "MAE_FmodShutdown", dll_cdecl, ty_real, 0);
 global._MAE_FmodGetSampleRate = external_define(_DLL, "MAE_FmodGetSampleRate", dll_cdecl, ty_real, 0);
 global._MAE_FmodGetSounds = external_define(_DLL, "MAE_FmodGetSounds", dll_cdecl, ty_real, 0);
 global._MAE_FmodSoundLoad = external_define(_DLL, "MAE_FmodSoundLoad", dll_cdecl, ty_real, 2, ty_string, ty_real);

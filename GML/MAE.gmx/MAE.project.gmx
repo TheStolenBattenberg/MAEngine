@@ -249,6 +249,7 @@
             <script>scripts\MAE_FmodUpdate.gml</script>
             <script>scripts\MAE_FmodGetCPUUsage.gml</script>
             <script>scripts\MAE_FmodSetSoftwareFormat.gml</script>
+            <script>scripts\MAE_FmodShutdown.gml</script>
             <script>scripts\MAE_FmodGetSampleRate.gml</script>
             <script>scripts\MAE_FmodGetSounds.gml</script>
           </scripts>

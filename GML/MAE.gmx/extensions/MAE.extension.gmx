@@ -4,7 +4,7 @@
   <version>1.0.0</version>
   <packageID></packageID>
   <ProductID></ProductID>
-  <date>07/27/16</date>
+  <date>07/28/16</date>
   <license>Free to use, also for commercial games.</license>
   <description></description>
   <helpfile></helpfile>
@@ -30,6 +30,7 @@
     <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodUpdate</Resource>
     <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodGetCPUUsage</Resource>
     <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodSetSoftwareFormat</Resource>
+    <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodShutdown</Resource>
     <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodGetSampleRate</Resource>
     <Resource>Scripts\MAE\Audio\FMOD\System\MAE_FmodGetSounds</Resource>
     <Resource>Scripts\MAE\Audio\FMOD\Sound\MAE_FmodSoundLoad</Resource>

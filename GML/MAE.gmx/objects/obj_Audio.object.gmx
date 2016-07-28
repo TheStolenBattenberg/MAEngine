@@ -88,7 +88,7 @@ MAE_FmodSoundPlay(audio1, channel1);
             <kind>1</kind>
             <string>MAE_FmodSoundFree(audio1);
 MAE_FmodChannelDelete(channel1);
-// MAE_FmodShutdown();
+MAE_FmodShutdown();
 </string>
           </argument>
         </arguments>

@@ -11,6 +11,8 @@
 	</script>
 	<script name="MAE_FmodSetSoftwareFormat(SampleRate,SpeakerMode)" func="real MAE_FmodSetSoftwareFormat(real, real)">
 	</script>
+	<script name="MAE_FmodShutdown()" func="real MAE_FmodShutdown()">
+	</script>
 	<script name="MAE_FmodGetSampleRate()" func="real MAE_FmodGetSampleRate()">
 	</script>
 	<script name="MAE_FmodGetSounds()" func="real MAE_FmodGetSounds()">
