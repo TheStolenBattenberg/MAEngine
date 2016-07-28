@@ -1,10 +1,10 @@
 #include <MAE/Rendering/Buffer/VertexBufferImpl.h>
 
-#include <exception>
+#include <MAE/Core/Exception.h>
 
 VertexBufferImpl::VertexBufferImpl(uint length, const void* data, LPDIRECT3DDEVICE9 device) {
 	if (FAILED(device->CreateVertexBuffer(size = length, 0, 0, D3DPOOL_DEFAULT, &vb, 0)))
-		throw std::exception("Failed to allocate VertexBuffer");
+		throw Exception("Failed to allocate VertexBuffer");
 
 	if (data != nullptr)
 		upload(data, 0, length);
@@ -18,7 +18,7 @@ void* VertexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 
 	if (FAILED(vb->Lock(offset, size, &ptr, 0)))
-		throw std::exception("Failed to map VertexBuffer");
+		throw Exception("Failed to map VertexBuffer");
 
 	return ptr;
 }

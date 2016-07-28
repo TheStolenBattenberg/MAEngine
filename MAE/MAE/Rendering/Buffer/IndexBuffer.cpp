@@ -1,6 +1,7 @@
 #include <MAE/Rendering/Buffer/IndexBufferImpl.h>
 
-#include <exception>
+#include <MAE/Core/Exception.h>
+
 #include <cassert>
 
 IndexBufferImpl::IndexBufferImpl(uint length, uint fmt, const void* data, LPDIRECT3DDEVICE9 device) {
@@ -9,7 +10,7 @@ IndexBufferImpl::IndexBufferImpl(uint length, uint fmt, const void* data, LPDIRE
 	assert(("Unknown format", fmt <= 1));
 
 	if (FAILED(device->CreateIndexBuffer(length, 0, table[fmt], D3DPOOL_DEFAULT, &ib, 0)))
-		throw std::exception("Failed to allocate VertexBuffer");
+		throw Exception("Failed to allocate VertexBuffer");
 
 	if (data != nullptr)
 		upload(data, 0, length);
@@ -23,7 +24,7 @@ void* IndexBufferImpl::map(uint offset, uint size, uint flags) {
 	void* ptr;
 
 	if (FAILED(ib->Lock(offset, size, &ptr, 0)))
-		throw std::exception("Failed to map VertexBuffer");
+		throw Exception("Failed to map VertexBuffer");
 
 	return ptr;
 }

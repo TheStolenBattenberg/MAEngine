@@ -2,6 +2,7 @@
 
 #include <MAE/Rendering/Buffer/IndexBufferImpl.h>
 #include <MAE/Rendering/Buffer/VertexBufferImpl.h>
+#include <MAE/Core/Exception.h>
 
 #include <algorithm>
 #include <cassert>
@@ -107,7 +108,7 @@ void VertexDataImpl::build() {
 	elements[size] = D3DDECL_END();
 
 	if (FAILED(m_device->CreateVertexDeclaration(elements, &m_decl)))
-		throw std::exception("Failed to create VertexDeclaration");
+		throw Exception("Failed to create VertexDeclaration");
 
 	delete[] elements;
 }

@@ -1,6 +1,7 @@
 #include <MAE/Rendering/Resources/Shader.h>
 #include <MAE/Rendering/Resources/ShaderImpl.h>
 #include <MAE/Rendering/RendererImpl.h>
+#include <MAE/Core/Exception.h>
 
 #include <cassert>
 
@@ -16,14 +17,14 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 		std::string error = (char*) err->GetBufferPointer();
 		err->Release();
 
-		throw std::exception(error.c_str());
+		throw Exception(error.c_str());
 	}
 
 	result = renderer->getDevice()->CreateVertexShader((DWORD*) code->GetBufferPointer(), &vshd);
 	code->Release();
 
 	if (FAILED(result))
-		throw std::exception("Failed to create Vertex Shader");
+		throw Exception("Failed to create Vertex Shader");
 
 	if (FAILED(D3DXCompileShader(pixelshd, strlen(pixelshd), NULL, NULL, "main", D3DXGetPixelShaderProfile(renderer->getDevice()), 0, &code, &err, &ptable))) {
 		std::string error = (char*) err->GetBufferPointer();
@@ -32,7 +33,7 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 		vshd->Release();
 		vshd = 0;
 
-		throw std::exception(error.c_str());
+		throw Exception(error.c_str());
 	}
 
 	result = renderer->getDevice()->CreatePixelShader((DWORD*) code->GetBufferPointer(), &pshd);
@@ -42,7 +43,7 @@ ShaderImpl::ShaderImpl(RendererImpl* renderer, const char* vertexshd, const char
 		vshd->Release();
 		vshd = 0;
 
-		throw std::exception("Failed to create Pixel Shader");
+		throw Exception("Failed to create Pixel Shader");
 	}
 }
 

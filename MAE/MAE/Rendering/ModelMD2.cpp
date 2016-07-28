@@ -3,6 +3,7 @@
 #include <MAE/Rendering/ModelMD2.h>
 #include <MAE/Core/Math.h>
 #include <MAE/Rendering/RendererImpl.h>
+#include <MAE/Core/Exception.h>
 
 #include <fstream>
 
@@ -247,7 +248,7 @@ void MD2Model::load(std::string model, bool normals) {
 	std::ifstream f(model, std::ios::in | std::ios::binary);
 
 	if (!f)
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 	
 	/**
 	* Load and validate MD2 Header
@@ -258,7 +259,7 @@ void MD2Model::load(std::string model, bool normals) {
 	f.read((char*)&h, sizeof(h));
 
 	if (h.magicNumber != MD2Type::MagicNumber || h.version != MD2Type::Version || h.frameSize == 0)
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	triCount  = h.numTris;
 	vertCount = h.numVert;
@@ -285,7 +286,7 @@ void MD2Model::load(std::string model, bool normals) {
 
 		if (FAILED(result)) {
 			delete[] FrameBuffer;
-			throw std::exception("Failed to create VertexBuffer");
+			throw Exception("Failed to create VertexBuffer");
 		}
 
 		if (normals) {
@@ -333,7 +334,7 @@ void MD2Model::load(std::string model, bool normals) {
 
 	if (FAILED(result)) {
 		delete[] TriangleBuffer;
-		throw std::exception("Failed to create IndexBuffer");
+		throw Exception("Failed to create IndexBuffer");
 	}
 
 	MD2Type::IndexBuffer* IndexBuffer;
@@ -362,7 +363,7 @@ void MD2Model::load(std::string model, bool normals) {
 		delete[] CoordBuffer;
 		delete[] TriangleBuffer;
 		
-		throw std::exception("Failed to create VertexBuffer");
+		throw Exception("Failed to create VertexBuffer");
 	}
 
 	TexCoord* VertexTextureBuffer;
@@ -395,7 +396,7 @@ void MD2Model::load(std::string model, bool normals) {
 		HRESULT res = device->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-			throw std::exception("Failed to create VertexDeclaration");
+			throw Exception("Failed to create VertexDeclaration");
 	}
 	else {
 		D3DVERTEXELEMENT9 elem[] = {
@@ -408,7 +409,7 @@ void MD2Model::load(std::string model, bool normals) {
 		HRESULT res = device->CreateVertexDeclaration(elem, &decl);
 
 		if (FAILED(res))
-			throw std::exception("Failed to create VertexDeclaration");
+			throw Exception("Failed to create VertexDeclaration");
 	}
 }
 

@@ -4,6 +4,7 @@
 #include <MAE/Rendering/Model/ModelDraft.h>
 #include <MAE/Rendering/VertexData.h>
 #include <MAE/Rendering/Renderer.h>
+#include <MAE/Core/Exception.h>
 
 ModelDraft* MPMModel::load(const char* model) {
 	std::ifstream f(model, std::ios::in | std::ios::binary);
@@ -11,18 +12,18 @@ ModelDraft* MPMModel::load(const char* model) {
 	MPM::Header h;
 	
 	if (!readFromStream(f, h))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	if (h.magicNumber != MPM::MagicNumber)
-		throw std::exception("Invalid header");
+		throw Exception("Invalid header");
 
 	if (h.compVersion > MPM::Version)
-		throw std::exception("Invalid header");
+		throw Exception("Invalid header");
 
 	MPM::PacketHeader ph;
 
 	if (!readFromStream(f, ph))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	DynamicArray<ModelDraft::Mesh> meshes(h.numMeshes);
 	DynamicArray<ModelDraft::Inst> instances;
@@ -55,7 +56,7 @@ ModelDraft* MPMModel::load(const char* model) {
 		}
 
 		if (f.tellg() - offs != ph.length || !readFromStream(f, ph))
-			throw std::exception("Failed to read from file");
+			throw Exception("Failed to read from file");
 	}
 
 	return new ModelDraft(std::move(meshes), std::move(instances), std::move(materials));
@@ -65,7 +66,7 @@ void MPMModel::readInstances(DynamicArray<ModelDraft::Inst>& inst, std::ifstream
 	MPM::InstHeader ih;
 
 	if (!readFromStream(f, ih))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	inst.size(ih.num);
 
@@ -73,7 +74,7 @@ void MPMModel::readInstances(DynamicArray<ModelDraft::Inst>& inst, std::ifstream
 		MPM::Inst in;
 
 		if (!readFromStream(f, in))
-			throw std::exception("Failed to read from file");
+			throw Exception("Failed to read from file");
 
 		instance = { in.meshInd, mat4::compose(in.scal, in.rot, in.trans) };
 	}
@@ -83,7 +84,7 @@ void MPMModel::readMaterials(DynamicArray<ModelDraft::Material>& materials, std:
 	MPM::MaterialHeader mh;
 
 	if (!readFromStream(f, mh))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	materials.size(mh.num);
 
@@ -91,7 +92,7 @@ void MPMModel::readMaterials(DynamicArray<ModelDraft::Material>& materials, std:
 		MPM::Material mat;
 
 		if (!readFromStream(f, mat))
-			throw std::exception("Failed to read from file");
+			throw Exception("Failed to read from file");
 
 		m.m_tex = mat.tex;
 	}
@@ -101,7 +102,7 @@ void MPMModel::readMesh(DynamicArray<ModelDraft::Mesh>& meshes, std::ifstream& f
 	MPM::Mesh mesh;
 
 	if (!readFromStream(f, mesh))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	meshes[mesh.meshId].m_matInd = mesh.matInd;
 	meshes[mesh.meshId].m_numPrim = (mesh.numIndices == 0 ? mesh.numVertices : mesh.numIndices) / 3;
@@ -111,7 +112,7 @@ void MPMModel::readVertexDesc(DynamicArray<ModelDraft::Mesh>& meshes, std::ifstr
 	MPM::PacketVertexDescHeader vh;
 
 	if (!readFromStream(f, vh))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	auto& mesh = meshes[vh.meshInd];
 
@@ -138,10 +139,10 @@ void MPMModel::readVertexDesc(DynamicArray<ModelDraft::Mesh>& meshes, std::ifstr
 		MPM::PacketVertexDesc desc;
 
 		if (!readFromStream(f, desc))
-			throw std::exception("Failed to read from file");
+			throw Exception("Failed to read from file");
 
 		if (desc.usage < 1 || desc.usage >= sizeof(tableUsage) || desc.type < 1 || desc.type >= sizeof(tableType))
-			throw std::exception("Failed to read from file");
+			throw Exception("Failed to read from file");
 
 		element = { tableUsage[desc.usage], desc.offset, tableType[desc.type] };
 	}
@@ -151,7 +152,7 @@ void MPMModel::readVertexData(DynamicArray<ModelDraft::Mesh>& meshes, std::ifstr
 	MPM::PacketVertexDataHeader vdh;
 
 	if (!readFromStream(f, vdh))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	meshes[vdh.meshInd].m_vb.size(vdh.length);
 	f.read((char*) meshes[vdh.meshInd].m_vb.data(), vdh.length);
@@ -167,10 +168,10 @@ void MPMModel::readIndexData(DynamicArray<ModelDraft::Mesh>& meshes, std::ifstre
 	MPM::PacketVertexIndexHeader vih;
 
 	if (!readFromStream(f, vih))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	if (vih.type < 1 || vih.type >= sizeof(tableType))
-		throw std::exception("Failed to read from file");
+		throw Exception("Failed to read from file");
 
 	auto length = vih.num * (vih.type == vih.TypeU32 ? sizeof(uint) : sizeof(ushort));
 
