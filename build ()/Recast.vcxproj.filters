@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Source\DebugDraw.cpp">
+      <Filter>Source\DebugUtils\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Source\DetourDebugDraw.cpp">
+      <Filter>Source\DebugUtils\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Source\RecastDebugDraw.cpp">
+      <Filter>Source\DebugUtils\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Source\RecastDump.cpp">
+      <Filter>Source\DebugUtils\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourAlloc.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourAssert.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourCommon.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourNavMesh.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourNavMeshBuilder.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourNavMeshQuery.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Source\DetourNode.cpp">
+      <Filter>Source\Detour\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Source\DetourCrowd.cpp">
+      <Filter>Source\DetourCrowd\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Source\DetourLocalBoundary.cpp">
+      <Filter>Source\DetourCrowd\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Source\DetourObstacleAvoidance.cpp">
+      <Filter>Source\DetourCrowd\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Source\DetourPathCorridor.cpp">
+      <Filter>Source\DetourCrowd\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Source\DetourPathQueue.cpp">
+      <Filter>Source\DetourCrowd\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Source\DetourProximityGrid.cpp">
+      <Filter>Source\DetourCrowd\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Source\DetourTileCache.cpp">
+      <Filter>Source\DetourTileCache\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Source\DetourTileCacheBuilder.cpp">
+      <Filter>Source\DetourTileCache\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\Recast.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastAlloc.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastArea.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastAssert.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastContour.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastFilter.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastLayers.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastMesh.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastMeshDetail.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastRasterization.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Source\RecastRegion.cpp">
+      <Filter>Source\Recast\Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include\DebugDraw.h">
+      <Filter>Source\DebugUtils\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include\DetourDebugDraw.h">
+      <Filter>Source\DebugUtils\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include\RecastDebugDraw.h">
+      <Filter>Source\DebugUtils\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include\RecastDump.h">
+      <Filter>Source\DebugUtils\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourAlloc.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourAssert.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourCommon.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourMath.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourNavMesh.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourNavMeshBuilder.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourNavMeshQuery.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourNode.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include\DetourStatus.h">
+      <Filter>Source\Detour\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include\DetourCrowd.h">
+      <Filter>Source\DetourCrowd\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include\DetourLocalBoundary.h">
+      <Filter>Source\DetourCrowd\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include\DetourObstacleAvoidance.h">
+      <Filter>Source\DetourCrowd\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include\DetourPathCorridor.h">
+      <Filter>Source\DetourCrowd\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include\DetourPathQueue.h">
+      <Filter>Source\DetourCrowd\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include\DetourProximityGrid.h">
+      <Filter>Source\DetourCrowd\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include\DetourTileCache.h">
+      <Filter>Source\DetourTileCache\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include\DetourTileCacheBuilder.h">
+      <Filter>Source\DetourTileCache\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include\Recast.h">
+      <Filter>Source\Recast\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include\RecastAlloc.h">
+      <Filter>Source\Recast\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include\RecastAssert.h">
+      <Filter>Source\Recast\Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\Detour\Source">
+      <UniqueIdentifier>{75385C4F-F5D0-3C12-AB3C-34A4E38305DA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Detour\Include">
+      <UniqueIdentifier>{FF6B68E4-EA1A-3394-B495-04E20911FF84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DebugUtils\Source">
+      <UniqueIdentifier>{268577AA-63B1-3CF2-BF27-217FAE97A81F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DebugUtils\Include">
+      <UniqueIdentifier>{01A1C09B-1C08-3FDE-AE2D-5B4C9B3A4BD3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DetourCrowd\Source">
+      <UniqueIdentifier>{60C48C7E-2B3F-38A6-A7B3-C3D99B715E77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DetourCrowd\Include">
+      <UniqueIdentifier>{DB8C772F-AADB-386F-B41A-912DF7A932A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Recast\Source">
+      <UniqueIdentifier>{36C53BFC-F409-3606-97D0-CCB92354B1AC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Recast\Include">
+      <UniqueIdentifier>{B5B083FD-A60A-3E52-B01F-03DBBFF06E46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DetourTileCache\Source">
+      <UniqueIdentifier>{84C27032-7260-3590-B9ED-CD1730E7C0D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DetourTileCache\Include">
+      <UniqueIdentifier>{F72A0165-7757-34D2-8598-3757BD223A40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DebugUtils">
+      <UniqueIdentifier>{1686439C-B959-31BF-B408-580F09E2DDBE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Detour">
+      <UniqueIdentifier>{FF005FE7-A58A-30F1-A0DB-C8D87FC8FF53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DetourCrowd">
+      <UniqueIdentifier>{B554D239-8D93-3B1B-990D-9C47CB9E9296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DetourTileCache">
+      <UniqueIdentifier>{01F83C75-8F14-37C5-8CC3-AC8EC276A016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Recast">
+      <UniqueIdentifier>{8AEEABA2-6067-381F-A30A-E45F3144A4B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{B30E8E35-FAFF-3978-AE47-4A10D0F005B4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

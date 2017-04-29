@@ -3,50 +3,60 @@
 /**
 * Includes
 */
-#include <MAE/Core/Types.h>
-#include <MAE/Main.h>
 #include <MAE/Rendering/Particle.h>
+#include <MAE/Core/Math.h>
 
-enum EMITTER_TYPE {
-	PE_BOX,
-	PE_SPHERE,
-	PE_CYLINDER
+enum PETYPE {
+	PECUBE,
+	PESPHERE,
 };
 
 class ParticleEmitter {
 public:
-	ParticleEmitter(EMITTER_TYPE type);
+	//
+	// Functions
+	//
+	uint Emitt(uint time, uint count, Particle* particles);
+	uint EmitterBox(uint time, uint count, Particle* particles);
 
-	uint emitt(uint time, uint count, Particle *parts);
-	
-	void setPosition(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
-	void setVelocity(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
-	void setColour(float rMin, float gMin, float bMin, float aMin, float rMax, float gMax, float bMax, float aMax); //stub
-	void setLife(uint lifeMin, uint lifeMax);
-	void setSize(float sizeMin, float sizeMax);
+	//
+	// Setters
+	//
+	void SetMinPosition(float x, float y, float z);
+	void SetMaxPosition(float x, float y, float z);
+	void SetMinVelocity(float x, float y, float z);
+	void SetMaxVelocity(float x, float y, float z);
+	void SetColour(float r, float g, float b, float a);
+	void SetMinLife(uint life);
+	void SetMaxLife(uint life);
+	void SetMinSize(float size);
+	void SetMaxSize(float size);
+	void SetAcceleration(float x, float y, float z);
+	void SetMinEmitt(uint emitt);
+	void SetMaxEmitt(uint emitt);
+	void SetTimer(uint time);
 
-	void setAcceleration(float x, float y, float z);
-	void setSpawn(uint spawnMin, uint spawnMax);
-
-	vec4 getColour(float interp);
-
-	uint getSpawnThisTick();
-	uint getMinEmitt();
-	float getMinSize();
-	float getMaxSize();
-	vec3 getAcceleration();
+	//
+	// Getters.
+	//
+	vec3   GetAcceleration();
+	uint   GetMinLife();
+	uint   GetMaxLife();
+	float  GetMinSize();
+	float  GetMaxSize();
+	uint   GetMinEmitt();
+	uint   GetMaxEmitt();
+	uint   GetTimer();
 
 private:
-	vec3 pMinPosition, pMaxPosition;
-	vec3 pMinVelocity, pMaxVelocity;
-	vec4 pColourStart, pColourEnd;
-	uint pMinLife, pMaxLife;
-	float pMinSize, pMaxSize;
+	vec3 vMinPosition, vMaxPosition;
+	vec3 vMinVelocity, vMaxVelocity;
+	vec4 vColour;
+	uint iMinLife, iMaxLife;
+	float fMinSize, fMaxSize;
 
-
-	//Just for the emitter.
-	vec3 pAcceleration;
-	uint pMinPerEmitt, pMaxPerEmitt;
-	uint peTimer = 0;
-	bool interpColours = false;
+	PETYPE eType = PETYPE::PECUBE;
+	vec3 vAcceleration;
+	uint iMinEmitt, iMaxEmitt;
+	uint iTimer;
 };

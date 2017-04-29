@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletConstraint.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletMisc.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletShape.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletWorld.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Fmod.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\ForwardPipeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\IndexBuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Model.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Navigation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Particle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Shader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Stream.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Texture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\TextureDirectory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\VertexBuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Main.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Stream.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Utils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{B30E8E35-FAFF-3978-AE47-4A10D0F005B4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

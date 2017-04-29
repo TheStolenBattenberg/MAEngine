@@ -23,3 +23,19 @@ template<typename T> inline T clamp(T value, T min, T max)
 {
 	return std::min(std::max(value, min), max);
 }
+
+inline uint irandom_range(uint min, uint max) {
+	return (uint)(rand() % (max - min));
+}
+
+inline float random_range(float min, float max) {
+	return (float)(rand() % (uint)(max - min));
+}
+
+inline uint irandom(uint max) {
+	return (uint)((rand() / RAND_MAX) * max);
+}
+
+inline float random(float max) {
+	return (float)((rand() / RAND_MAX) * max);
+}

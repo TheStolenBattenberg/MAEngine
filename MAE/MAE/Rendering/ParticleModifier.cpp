@@ -1,38 +1,43 @@
 #include <MAE/Main.h>
 #include <MAE/Rendering/ParticleModifier.h>
 
-void ParticleModifier::update(Particle *part) {
-	if (life = 0 && undying == false) {
-		//Destroy.
-	}
-	
-	switch (pm_Type) {
-		case PMEffect::PE_GRAVITY:
-			part->pPosition.x -= 0; //obviously this isn't going to do anything.
-			part->pPosition.y -= 0;
-			part->pPosition.z -= 0;
+ParticleModifier::ParticleModifier(PMTYPE type) {
+	pmType = type;
+}
+
+Particle ParticleModifier::Apply(Particle part) {
+	switch (pmType) {
+	case PMTYPE::PMGRAVITY:
+		part.vPosition.x = part.vPosition.x + (fForce * vDir.x);
+		part.vPosition.y = part.vPosition.y + (fForce * vDir.y);
+		part.vPosition.z = part.vPosition.z + (fForce * vDir.z);
+		break;
+
+	case PMTYPE::PMWIGGLE:
+		part.vPosition.x = part.vPosition.x + (float)((cos(fTime)*cos(fTime)) * (fForce * vDir.x));
+		part.vPosition.y = part.vPosition.y + (float)((sin(fTime)*cos(fTime)) * (fForce * vDir.y));
+		part.vPosition.z = part.vPosition.z + (float)(cos(fTime) * (fForce * vDir.z));
+		break;
+
+	case PMTYPE::PMSPREAD:
+		part.vPosition.x = part.vPosition.x * fForce;
+		part.vPosition.y = part.vPosition.y * fForce;
+		part.vPosition.z = part.vPosition.z * fForce;
 		break;
 	}
-	//Do things.
-	
-	life--;
+	return part;
 }
 
-void ParticleModifier::setType(PMEffect type) {
-	pm_Type = type;
+void ParticleModifier::setDir(float x, float y, float z) {
+	vDir.x = x;
+	vDir.y = y;
+	vDir.z = z;
 }
 
-void ParticleModifier::setLife(uint lf) {
-	if (life == 0) {
-		undying = true;
-	}
-	life = lf;
+void ParticleModifier::setForce(float force) {
+	fForce = force;
 }
 
-void ParticleModifier::setParamFloat(PMEffectParam PEP, float val) {
-	//to do
-}
-
-void ParticleModifier::setPosition(float x, float y, float z) {
-	//to do
+void ParticleModifier::setTime(double time) {
+	fTime = time;
 }

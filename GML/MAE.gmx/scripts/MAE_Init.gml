@@ -96,9 +96,7 @@ enum FmodSpeakerMode {
     Stereo,
     Quad,
     FivePointOne,
-    SevenPointOne,
-    Max,
-    ForceInt,
+    SevenPointOne
 }
 
 global._MADX9_MatStackFloat8 = external_define(_DLL, "MADX9_MatStackFloat8", dll_cdecl, ty_real, 8, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real, ty_real);

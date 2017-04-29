@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{627143C8-C481-3246-BA88-8671AC493512}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>GMLAPI</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GMLAPI.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GMLAPI</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GMLAPI.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GMLAPI</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">GMLAPI.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">GMLAPI</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">GMLAPI.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">GMLAPI</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR="Debug";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR=\"Debug\";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Debug/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Debug/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/Extension/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Debug/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/extensions/MAE/Assets/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions>%(AdditionalOptions)  /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;Debug\MAE.lib;Debug\Recast.lib;..\Libraries\FMOD\lib\fmod_vc.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3dx9.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3d9.lib;bullet3\lib\Debug\BulletCollision.lib;bullet3\lib\Debug\BulletDynamics.lib;bullet3\lib\Debug\LinearMath.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Debug/GMLAPI.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Debug/GMLAPI.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR="Release";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR=\"Release\";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Release/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Release/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/Extension/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Release/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/extensions/MAE/Assets/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions>%(AdditionalOptions)  /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;Release\MAE.lib;Release\Recast.lib;..\Libraries\FMOD\lib\fmod_vc.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3dx9.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3d9.lib;bullet3\lib\Release\BulletCollision.lib;bullet3\lib\Release\BulletDynamics.lib;bullet3\lib\Release\LinearMath.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Release/GMLAPI.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/Release/GMLAPI.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR="MinSizeRel";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR=\"MinSizeRel\";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/MinSizeRel/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/MinSizeRel/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/Extension/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/MinSizeRel/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/extensions/MAE/Assets/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions>%(AdditionalOptions)  /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;MinSizeRel\MAE.lib;MinSizeRel\Recast.lib;..\Libraries\FMOD\lib\fmod_vc.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3dx9.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3d9.lib;bullet3\lib\MinSizeRel\BulletCollision.lib;bullet3\lib\MinSizeRel\BulletDynamics.lib;bullet3\lib\MinSizeRel\LinearMath.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/MinSizeRel/GMLAPI.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/MinSizeRel/GMLAPI.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR="RelWithDebInfo";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR=\"RelWithDebInfo\";GMLAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/RelWithDebInfo/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/RelWithDebInfo/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/Extension/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" -E copy_if_different "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/RelWithDebInfo/GMLAPI.dll" "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/GML/MAE.gmx/extensions/MAE/Assets/datafiles/MAE.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions>%(AdditionalOptions)  /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;RelWithDebInfo\MAE.lib;RelWithDebInfo\Recast.lib;..\Libraries\FMOD\lib\fmod_vc.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3dx9.lib;E:\SDKs\C++\DirectX 9 SDK\\Lib\x86\d3d9.lib;bullet3\lib\RelWithDebInfo\BulletCollision.lib;bullet3\lib\RelWithDebInfo\BulletDynamics.lib;bullet3\lib\RelWithDebInfo\LinearMath.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/RelWithDebInfo/GMLAPI.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/RelWithDebInfo/GMLAPI.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" "-HD:/Mentis Animae/GIT/MAE-Engine/MAEngine" "-BD:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()" --check-stamp-file "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\ExternalProject.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Bullet-prefix\tmp\Bullet-cfgcmd.txt.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystem.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInitialize.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-Determine-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeGenericSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\WindowsPaths.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-C.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompilerABI.c;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompilerABI.cpp;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Internal\FeatureTesting.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\feature_tests.cxx;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" "-HD:/Mentis Animae/GIT/MAE-Engine/MAEngine" "-BD:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()" --check-stamp-file "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\ExternalProject.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Bullet-prefix\tmp\Bullet-cfgcmd.txt.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystem.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInitialize.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-Determine-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeGenericSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\WindowsPaths.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-C.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompilerABI.c;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompilerABI.cpp;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Internal\FeatureTesting.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\feature_tests.cxx;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" "-HD:/Mentis Animae/GIT/MAE-Engine/MAEngine" "-BD:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()" --check-stamp-file "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\ExternalProject.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Bullet-prefix\tmp\Bullet-cfgcmd.txt.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystem.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInitialize.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-Determine-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeGenericSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\WindowsPaths.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-C.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompilerABI.c;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompilerABI.cpp;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Internal\FeatureTesting.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\feature_tests.cxx;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"E:\Programs (32-Bit)\CMake\bin\cmake.exe" "-HD:/Mentis Animae/GIT/MAE-Engine/MAEngine" "-BD:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()" --check-stamp-file "D:/Mentis Animae/GIT/MAE-Engine/MAEngine/build ()/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Mentis Animae/GIT/MAE-Engine/MAEngine/CMakeLists.txt;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\ExternalProject.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Bullet-prefix\tmp\Bullet-cfgcmd.txt.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystem.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInitialize.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-C-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-Determine-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerId.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCompilerIdDetection.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ADSP-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\ARMCC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\AppleClang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Borland-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Cray-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GHS-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IAR-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Intel-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PGI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\PathScale-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SCO-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\TI-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\Watcom-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CompilerId\VS-10.vcxproj.in;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeFindBinUtils.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeSystemSpecificInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeGenericSystem.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\WindowsPaths.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-C.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeRCInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestRCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompilerABI.c;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeLanguageInformation.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC-CXX.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Platform\Windows-MSVC.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCommonLanguageInclude.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCXXCompiler.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeTestCompilerCommon.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompilerABI.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeParseImplicitLinkInfo.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompilerABI.cpp;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeDetermineCompileFeatures.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Internal\FeatureTesting.cmake;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\feature_tests.cxx;E:\Programs (32-Bit)\CMake\share\cmake-3.8\Modules\CMakeCXXCompiler.cmake.in;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\3.8.0\CMakeCXXCompiler.cmake;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Main.h" />
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Stream.h" />
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Utils.h" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletBody.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletConstraint.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletMisc.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletShape.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\BulletWorld.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Fmod.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\ForwardPipeline.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\IndexBuffer.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Main.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Model.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Navigation.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Particle.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Shader.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Stream.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\Texture.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\TextureDirectory.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\GMLAPI\VertexBuffer.cpp"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\ZERO_CHECK.vcxproj">
+      <Project>47E4689D-01E3-39AE-9757-E6C1EEAC5C2C</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\MAE.vcxproj">
+      <Project>6483A454-B614-3849-9DE3-D64E5EFFDA96</Project>
+      <Name>MAE</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Recast.vcxproj">
+      <Project>2C4A7861-7CB4-35E9-A9FA-61C3F1C311CC</Project>
+      <Name>Recast</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

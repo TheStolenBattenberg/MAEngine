@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\Bullet.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\BulletDebugDraw.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmod.cpp">
+      <Filter>Source\FMOD</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodChannel.cpp">
+      <Filter>Source\FMOD</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodDSP.cpp">
+      <Filter>Source\FMOD</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodSound.cpp">
+      <Filter>Source\FMOD</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\NavMeshDebugDraw.cpp">
+      <Filter>Source\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\Navigation.cpp">
+      <Filter>Source\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\IndexBuffer.cpp">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\VertexBuffer.cpp">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Model\ModelMPM.cpp">
+      <Filter>Source\Rendering\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelMD2.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelX.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleEmitter.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleModifier.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleSystem.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Pipeline\ForwardPipelineImpl.cpp">
+      <Filter>Source\Rendering\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Renderer.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Shader.cpp">
+      <Filter>Source\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Texture.cpp">
+      <Filter>Source\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexData.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\Bullet.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\BulletDebugDraw.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Color.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Deletable.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\DynamicArray.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Exception.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Mat.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Math.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Quat.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Types.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\UnorderedVector.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Utils.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Vec.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmod.h">
+      <Filter>Source\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodHelper.h">
+      <Filter>Source\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Main.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\MainImpl.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\NavMeshDebugDraw.h">
+      <Filter>Source\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\Navigation.h">
+      <Filter>Source\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\Batch.h">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\IndexBuffer.h">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\IndexBufferImpl.h">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\VertexBuffer.h">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\VertexBufferImpl.h">
+      <Filter>Source\Rendering\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Mesh.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Model\ModelBase.h">
+      <Filter>Source\Rendering\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Model\ModelDraft.h">
+      <Filter>Source\Rendering\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Model\ModelMPM.h">
+      <Filter>Source\Rendering\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelMD2.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelX.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Particle.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleEmitter.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleModifier.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleSystem.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Pipeline\ForwardPipeline.h">
+      <Filter>Source\Rendering\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Renderer.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\RendererImpl.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Shader.h">
+      <Filter>Source\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\ShaderImpl.h">
+      <Filter>Source\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Texture.h">
+      <Filter>Source\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\TextureImpl.h">
+      <Filter>Source\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\TextureCollection.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexData.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexDataImpl.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\Bullet">
+      <UniqueIdentifier>{4247A0B9-3D54-38B2-9E9A-659755C042A2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FMOD">
+      <UniqueIdentifier>{4098CDEB-BEFC-3780-BCEC-24D8028B1C48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Navigation">
+      <UniqueIdentifier>{9936112D-02BC-3DA4-9429-95D43D0AB3B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{A027648D-F28A-31A4-A5E1-4723E87B47C1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{42500374-E35C-3A5F-9AF8-6D451CCF4E06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{B30E8E35-FAFF-3978-AE47-4A10D0F005B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Buffer">
+      <UniqueIdentifier>{27FC7EE8-0599-37DF-A51A-C16437DBF228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Model">
+      <UniqueIdentifier>{1AEAC2DD-9D35-39B6-AD39-773CF8AE3211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Pipeline">
+      <UniqueIdentifier>{43D7C7B5-0A51-300B-801C-2AF2D93C2569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Resources">
+      <UniqueIdentifier>{DD1D1778-13D2-3D4E-939D-702DC98A5B96}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

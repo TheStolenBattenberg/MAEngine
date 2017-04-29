@@ -5,6 +5,7 @@
 */
 #include <MAE/Core/Types.h>
 #include <MAE/Core/Math.h>
+
 #include <MAE/Rendering/Particle.h>
 #include <MAE/Rendering/ParticleEmitter.h>
 #include <MAE/Rendering/ParticleModifier.h>
@@ -15,32 +16,28 @@ public:
 	ParticleSystem(class Renderer* renderer);
 	~ParticleSystem();
 
-	void createEmitter();
+	void EmitterSet(ParticleEmitter* PE);
+	ParticleEmitter* EmitterGet();
+	void ModifierAdd(ParticleModifier* PM);
+	ParticleModifier* ModifierGet(uint ind);
 
-	ParticleEmitter* getEmitter();
+	void Update(uint time);
+	void Render();
+	void SetTexture(Texture* tex);
+	void SetMaxParticles(uint max);
+	uint GetMaxParticles();
+	uint GetParticleCount();
 
-	void update(uint time);
-	void render();
-
-	void setTexture(Texture* tex);
-
-	uint getParticleCount();
-
-	void setMaxParticleCount(uint max);
 private:
-	class Renderer* renderer;
+	std::vector<Particle> vParticles;
+	std::vector<ParticleModifier*> vParticleModifiers;
 
-	std::vector<ParticleModifier*> psMods;
-	ParticleEmitter*   psEmitter = nullptr;
+	ParticleEmitter* pEmitter = nullptr;
+	uint iMaxParticles;
 
-	std::vector<Particle> psBuffer;
+	class Renderer* pRenderer;
+	Texture* pTexture = nullptr;
 
-	uint psMaxParticleCount;
-
-	Texture* texture = 0;
-
-	//D3D...
-	LPDIRECT3DVERTEXBUFFER9 psVertexBuffer = 0;
-
-	LPDIRECT3DVERTEXDECLARATION9 decl;
+	LPDIRECT3DVERTEXBUFFER9 d3dVertexBuffer;
+	LPDIRECT3DVERTEXDECLARATION9 d3dDecl;
 };

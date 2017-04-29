@@ -1,143 +1,122 @@
 #include <MAE/Main.h>
 #include <MAE/Rendering/ParticleEmitter.h>
-#include <MAE/Core/Math.h>
 
-ParticleEmitter::ParticleEmitter(EMITTER_TYPE type) {
-	switch (type) {
-		case PE_BOX: {
+uint ParticleEmitter::EmitterBox(uint time, uint count, Particle* particles) {
+	if (iTimer == time) {
+		Particle Part;
 
+		for (uint i = 0; i < count; ++i) {
+			Part.vPosition.x = interpLinear(vMinPosition.x, vMaxPosition.x, (float)rand() / RAND_MAX);
+			Part.vPosition.y = interpLinear(vMinPosition.y, vMaxPosition.y, (float)rand() / RAND_MAX);
+			Part.vPosition.z = interpLinear(vMinPosition.z, vMaxPosition.z, (float)rand() / RAND_MAX);
+
+			Part.vVelocity.x = interpLinear(vMinVelocity.x, vMaxVelocity.x, (float)rand() / RAND_MAX);
+			Part.vVelocity.y = interpLinear(vMinVelocity.y, vMaxVelocity.y, (float)rand() / RAND_MAX);
+			Part.vVelocity.z = interpLinear(vMinVelocity.z, vMaxVelocity.z, (float)rand() / RAND_MAX);
+			Part.vColour = vColour;
+			Part.iAge = 0;
+			Part.iLife = interpLinear(iMinLife, iMaxLife, (float)rand() / RAND_MAX);
+			Part.fSize = interpLinear(fMinSize, fMaxSize, (float)rand() / RAND_MAX);
+
+			particles[i] = Part;
 		}
-		break;
-
-		case PE_SPHERE: {
-
-		}
-		break;
-
-		case PE_CYLINDER: {
-
-		}
-		break;
-	}
-}
-
-uint ParticleEmitter::emitt(uint time, uint count, Particle *parts) {
-	if (peTimer == time) {
-		Particle part;
-
-		for (uint i = 0; i < count; i++) {
-			part.pPosition.x = interpLinear(pMinPosition.x, pMaxPosition.x, (float) rand() / RAND_MAX); //Set Position.
-			part.pPosition.y = interpLinear(pMinPosition.y, pMaxPosition.y, (float) rand() / RAND_MAX);
-			part.pPosition.z = interpLinear(pMinPosition.z, pMaxPosition.z, (float) rand() / RAND_MAX);
-
-			part.pVelocity.x = interpLinear(pMinVelocity.x, pMaxVelocity.x, (float) rand() / RAND_MAX); //Set Velocity.
-			part.pVelocity.y = interpLinear(pMinVelocity.y, pMaxVelocity.y, (float) rand() / RAND_MAX);
-			part.pVelocity.z = interpLinear(pMinVelocity.z, pMaxVelocity.z, (float) rand() / RAND_MAX);
-
-			part.pColour   = pColourStart;
-
-			part.pAge        = 0;
-
-			part.pLife       = interpLinear(pMinLife, pMaxLife, (float) rand() / RAND_MAX);
-
-			part.pSize       = interpLinear(pMinSize, pMaxSize, (float) rand() / RAND_MAX);
-
-			parts[i] = part;
-		}
-		peTimer = 0;
+		iTimer = 0;
 		return count;
 	}
-	peTimer++;
+	++iTimer;
+
 	return 0;
 }
 
-void ParticleEmitter::setSpawn(uint spawnMin, uint spawnMax) {
-	pMinPerEmitt = spawnMin;
-	pMaxPerEmitt = spawnMax;
-}
-
-void ParticleEmitter::setSize(float sizeMin, float sizeMax) {
-	pMinSize = sizeMin; 
-	pMaxSize = sizeMax;
-}
-
-void ParticleEmitter::setLife(uint lifeMin, uint lifeMax) {
-	pMinLife = lifeMin;
-	pMaxLife = lifeMax;
-}
-
-void ParticleEmitter::setPosition(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-	pMinPosition.x = minX;
-	pMinPosition.y = minY;
-	pMinPosition.z = minZ;
-	pMaxPosition.x = maxX;
-	pMaxPosition.y = maxY;
-	pMaxPosition.z = maxZ;
-}
-
-void ParticleEmitter::setVelocity(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-	pMinVelocity.x = minX;
-	pMinVelocity.y = minY;
-	pMinVelocity.z = minZ;
-	pMaxVelocity.x = maxX;
-	pMaxVelocity.y = maxY;
-	pMaxVelocity.z = maxZ;
-}
-
-void ParticleEmitter::setColour(float rMin, float gMin, float bMin, float aMin, float rMax, float gMax, float bMax, float aMax) {
-	pColourStart.x = rMin;
-	pColourStart.y = gMin;
-	pColourStart.z = bMin;
-	pColourStart.w = aMin;
-	pColourEnd.x   = rMax;
-	pColourEnd.y   = gMax;
-	pColourEnd.z   = bMax;
-	pColourEnd.w   = aMax;
-
-	if (rMin != rMax || gMin != gMax || bMin != bMax || aMin != aMax){
-		interpColours = true;
+//
+// Emitter Types.
+//
+uint ParticleEmitter::Emitt(uint time, uint count, Particle* parts) {
+	switch (eType) {
+	case PETYPE::PECUBE:
+		return EmitterBox(time, count, parts);
+		break;
 	}
-	else {
-		interpColours = false;
-	}
+	return 0;
 }
 
-void ParticleEmitter::setAcceleration(float x, float y, float z) {
-	pAcceleration.x = x;
-	pAcceleration.y = y;
-	pAcceleration.z = z;
+//
+// Setters.
+//
+void ParticleEmitter::SetMinPosition(float x, float y, float z) {
+	vMinPosition.x = x;
+	vMinPosition.y = y;
+	vMinPosition.z = z;
+}
+void ParticleEmitter::SetMaxPosition(float x, float y, float z) {
+	vMaxPosition.x = x;
+	vMaxPosition.y = y;
+	vMaxPosition.z = z;
 }
 
-uint ParticleEmitter::getSpawnThisTick() {
-	return interpLinear(pMinPerEmitt, pMaxPerEmitt, (float) rand() / RAND_MAX);
+void ParticleEmitter::SetMinVelocity(float x, float y, float z) {
+	vMinVelocity.x = x;
+	vMinVelocity.y = y;
+	vMinVelocity.z = z;
+}
+void ParticleEmitter::SetMaxVelocity(float x, float y, float z) {
+	vMaxVelocity.x = x;
+	vMaxVelocity.y = y;
+	vMaxVelocity.z = z;
 }
 
-vec4 ParticleEmitter::getColour(float interp) {	
-	if (interpColours) {
-		vec4 col = pColourStart;
-		float m = (1.0f / interp);
-		col.x = interpCosine(pColourStart.x, pColourEnd.x, 1.0f - m);
-		col.y = interpCosine(pColourStart.y, pColourEnd.y, 1.0f - m);
-		col.z = interpCosine(pColourStart.z, pColourEnd.z, 1.0f - m);
-		col.w = interpCosine(pColourStart.w, pColourEnd.w, 1.0f - m);
-		return col;
-	}else {
-		return pColourStart;
-	}
+void ParticleEmitter::SetColour(float r, float g, float b, float a) {
+	vColour.x = r;
+	vColour.y = g;
+	vColour.z = b;
+	vColour.w = a;
 }
 
-uint ParticleEmitter::getMinEmitt() {
-	return pMinPerEmitt;
+void ParticleEmitter::SetMinLife(uint life) {
+	iMinLife = life;
+}
+void ParticleEmitter::SetMaxLife(uint life) {
+	iMaxLife = life;
 }
 
-float ParticleEmitter::getMinSize() {
-	return pMinSize;
+void ParticleEmitter::SetMinSize(float size) {
+	fMinSize = size;
+}
+void ParticleEmitter::SetMaxSize(float size) {
+	fMaxSize = size;
 }
 
-float ParticleEmitter::getMaxSize() {
-	return pMaxSize;
+void ParticleEmitter::SetAcceleration(float x, float y, float z) {
+	vAcceleration.x = x;
+	vAcceleration.y = y;
+	vAcceleration.z = z;
 }
 
-vec3 ParticleEmitter::getAcceleration() {
-	return pAcceleration;
+void ParticleEmitter::SetMinEmitt(uint emitt) {
+	iMinEmitt = emitt;
+}
+void ParticleEmitter::SetMaxEmitt(uint emitt) {
+	iMaxEmitt = emitt;
+}
+
+void ParticleEmitter::SetTimer(uint time) {
+	iTimer = time;
+}
+
+vec3 ParticleEmitter::GetAcceleration() {
+	return vAcceleration;
+}
+
+uint ParticleEmitter::GetMinLife() {
+	return iMinLife;
+}
+uint ParticleEmitter::GetMaxLife() {
+	return iMaxLife;
+}
+
+float ParticleEmitter::GetMinSize() {
+	return fMinSize;
+}
+float ParticleEmitter::GetMaxSize() {
+	return fMaxSize;
 }
