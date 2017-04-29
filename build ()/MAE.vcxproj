@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -57,25 +57,25 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MAE.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MAE</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MAE.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MAE</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\MinSizeRel\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MAE.dir\MinSizeRel\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MAE</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\RelWithDebInfo\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MAE.dir\RelWithDebInfo\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MAE</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.lib</TargetExt>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MAE.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MAE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MAE.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MAE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MAE.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MAE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MAE.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MAE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.lib</TargetExt>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Recast\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DebugUtils\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\Detour\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourCrowd\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\recastnavigation\DetourTileCache\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\bullet3\src;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Libraries\FMOD\inc;E:\SDKs\C++\DirectX 9 SDK\\Include;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\Specifications;D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -123,7 +123,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -155,7 +156,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SCL_SECURE_NO_WARNINGS;NOMINMAX;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -262,6 +264,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audition.h" />
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\Bullet.h" />
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\BulletDebugDraw.h" />
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Core\Color.h" />
@@ -306,28 +309,29 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\TextureCollection.h" />
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexData.h" />
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexDataImpl.h" />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\Bullet.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\BulletDebugDraw.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmod.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodChannel.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodDSP.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodSound.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Main.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\NavMeshDebugDraw.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\Navigation.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\IndexBuffer.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\VertexBuffer.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Model\ModelMPM.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelMD2.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelX.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleEmitter.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleModifier.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleSystem.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Pipeline\ForwardPipelineImpl.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Renderer.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Shader.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Texture.cpp"  />
-    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexData.cpp"  />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\Bullet.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\BulletDebugDraw.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmod.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodChannel.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodDSP.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\FMOD\CFmodSound.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Main.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\NavMeshDebugDraw.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Navigation\Navigation.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Model\ModelMPM.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelMD2.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ModelX.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleEmitter.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleModifier.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\ParticleSystem.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Pipeline\ForwardPipelineImpl.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Renderer.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Shader.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\Resources\Texture.cpp" />
+    <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexData.cpp" />
+    <ClInclude Include="RIFF.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\build ()\ZERO_CHECK.vcxproj">

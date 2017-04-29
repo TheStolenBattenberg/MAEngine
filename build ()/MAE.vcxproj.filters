@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Bullet\Bullet.cpp">
@@ -201,6 +201,12 @@
     <ClInclude Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\MAE\MAE\Rendering\VertexDataImpl.h">
       <Filter>Source\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Audition.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="RIFF.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\Mentis Animae\GIT\MAE-Engine\MAEngine\CMakeLists.txt" />
@@ -235,6 +241,9 @@
     </Filter>
     <Filter Include="Source\Rendering\Resources">
       <UniqueIdentifier>{DD1D1778-13D2-3D4E-939D-702DC98A5B96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{52f47a30-ae6b-4f65-8c2f-a17d311a48cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
