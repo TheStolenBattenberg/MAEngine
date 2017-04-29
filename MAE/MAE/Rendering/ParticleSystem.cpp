@@ -43,15 +43,7 @@ void ParticleSystem::Update(uint time) {
 	if (pEmitter != nullptr) {
 		if (vParticles.size() < (iMaxParticles - pEmitter->GetMinEmitt())) {
 			uint particleCount = irandom_range(pEmitter->GetMinEmitt(), pEmitter->GetMaxEmitt());
-
-			Particle* parts = new Particle[particleCount];
-			particleCount = pEmitter->Emitt(time, particleCount, parts);
-			if (particleCount > 0) {
-				for (uint i = 0; i < particleCount; ++i) {
-					vParticles.push_back(parts[i]);
-				}
-			}
-			delete[] parts;
+			particleCount = pEmitter->Emitt(time, particleCount, vParticles);
 		}
 	}
 

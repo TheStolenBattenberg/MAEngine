@@ -1,7 +1,7 @@
 #include <MAE/Main.h>
 #include <MAE/Rendering/ParticleEmitter.h>
 
-uint ParticleEmitter::EmitterBox(uint time, uint count, Particle* particles) {
+uint ParticleEmitter::EmitterBox(uint time, uint count,  std::vector<Particle> Parts) {
 	if (iTimer == time) {
 		Particle Part;
 
@@ -18,7 +18,7 @@ uint ParticleEmitter::EmitterBox(uint time, uint count, Particle* particles) {
 			Part.iLife = interpLinear(iMinLife, iMaxLife, (float)rand() / RAND_MAX);
 			Part.fSize = interpLinear(fMinSize, fMaxSize, (float)rand() / RAND_MAX);
 
-			particles[i] = Part;
+			Parts.push_back(Part);
 		}
 		iTimer = 0;
 		return count;
@@ -31,10 +31,10 @@ uint ParticleEmitter::EmitterBox(uint time, uint count, Particle* particles) {
 //
 // Emitter Types.
 //
-uint ParticleEmitter::Emitt(uint time, uint count, Particle* parts) {
+uint ParticleEmitter::Emitt(uint time, uint count, std::vector<Particle> &Parts) {
 	switch (eType) {
 	case PETYPE::PECUBE:
-		return EmitterBox(time, count, parts);
+		return EmitterBox(time, count, Parts);
 		break;
 	}
 	return 0;

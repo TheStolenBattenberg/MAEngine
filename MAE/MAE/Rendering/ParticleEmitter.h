@@ -16,8 +16,8 @@ public:
 	//
 	// Functions
 	//
-	uint Emitt(uint time, uint count, Particle* particles);
-	uint EmitterBox(uint time, uint count, Particle* particles);
+	uint Emitt(uint time, uint count, std::vector<Particle> &Parts);
+	uint EmitterBox(uint time, uint count, std::vector<Particle> Parts);
 
 	//
 	// Setters
